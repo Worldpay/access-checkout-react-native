@@ -8,3 +8,5 @@ access-checkout-react-native-sdk/android/gradle/wrapper/.gradle/
 access-checkout-react-native-sdk/android/build/
 
 # Files in the access-checkout-react-native-sdk/ios folder
+access-checkout-react-native-sdk/ios/Pods/
+access-checkout-react-native-sdk/ios/**/*.xcuserstate
