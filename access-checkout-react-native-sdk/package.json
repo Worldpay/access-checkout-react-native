@@ -1,0 +1,15 @@
+{
+  "name": "access-checkout-react-native-sdk",
+  "version": "0.0.1",
+  "description": "Worldpay Access Checkout SDK for ReactNative",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.worldpay.com/access-for-ecomm/access-checkout-react-native"
+  },
+  "author": "Worldpay",
+  "license": "ISC",
+  "devDependencies": {
+    "react-native": "^0.63.4"
+  }
+}
