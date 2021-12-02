@@ -21,7 +21,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "AccessCheckoutReactNativeExample";
+    return "AccessCheckoutReactNativeDemo";
   }
 
   public static class MainApplication extends Application implements ReactApplication {
@@ -37,7 +37,7 @@ public class MainActivity extends ReactActivity {
           protected List<ReactPackage> getPackages() {
             @SuppressWarnings("UnnecessaryLocalVariable")
             List<ReactPackage> packages = new PackageList(this).getPackages();
-            // Packages that cannot be autolinked yet can be added manually here, for AccessCheckoutReactNativeExample:
+            // Packages that cannot be autolinked yet can be added manually here, for AccessCheckoutReactNativeDemo:
             // packages.add(new MyReactNativePackage());
             packages.add(new AccessCheckoutReactNativePackage());
             return packages;
