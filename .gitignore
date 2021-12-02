@@ -1,14 +1,13 @@
+**/node_modules/
+**/build/
+
+# iOS
+**/Pods/
+**/*.xcuserstate
+
+# Gradle
+**/local.properties
+**/.gradle/
+
 # Files in the root flder
 .idea/
-node_modules/
-
-# Files in the access-checkout-react-native-sdk/ folder
-
-# Files in the access-checkout-react-native-sdk/android folder
-access-checkout-react-native-sdk/android/.gradle/
-access-checkout-react-native-sdk/android/gradle/wrapper/.gradle/
-access-checkout-react-native-sdk/android/build/
-
-# Files in the access-checkout-react-native-sdk/ios folder
-access-checkout-react-native-sdk/ios/Pods/
-access-checkout-react-native-sdk/ios/**/*.xcuserstate

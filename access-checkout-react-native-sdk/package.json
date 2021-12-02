@@ -9,8 +9,12 @@
   "author": "Worldpay",
   "license": "ISC",
   "scripts": {
-    "prepare": "bob build"
+    "prepare": "bob build",
+    "typescript": "tsc"
   },
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
   "files": [
@@ -18,16 +22,14 @@
     "lib",
     "android",
     "ios",
-    "cpp",
     "ios/AccessCheckoutReactNative/AccessCheckoutSDK-React.podspec",
-    "!lib/typescript/example",
     "!android/build",
     "!ios/build"
   ],
   "devDependencies": {
     "@types/react": "^16.14.21",
     "@types/react-native": "^0.66.6",
-    "react": "^17.0.2",
+    "react": "^16.14.0",
     "react-native": "^0.63.4",
     "react-native-builder-bob": "^0.18.2",
     "typescript": "^4.5.2"
