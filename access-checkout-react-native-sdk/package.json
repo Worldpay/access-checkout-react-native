@@ -21,8 +21,9 @@
     "src",
     "lib",
     "android",
-    "ios",
-    "ios/AccessCheckoutReactNative/AccessCheckoutSDK-React.podspec",
+    "ios/AccessCheckoutReactNative",
+    "ios/AccessCheckoutSDK-React.podspec",
+    "!ios/AccessCheckoutReactNativeUnitTests",
     "!android/build",
     "!ios/build"
   ],

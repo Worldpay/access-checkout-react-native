@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "android": "react-native run-android",
+    "ios": "react-native run-ios --simulator=\"iphone8-14\"",
     "start": "react-native start",
     "typescript": "tsc"
   },

@@ -1,9 +1,12 @@
 **/node_modules/
 **/build/
+.DS_Store
 
 # iOS
 **/Pods/
-**/*.xcuserstate
+**/xcuserdata/
+**/*.xcuserstate/
+**/*.xcworkspace/
 
 # Gradle
 **/local.properties
