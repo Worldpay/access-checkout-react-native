@@ -2,14 +2,47 @@
   "name": "access-checkout-react-native-sdk",
   "version": "0.0.1",
   "description": "Worldpay Access Checkout SDK for ReactNative",
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.worldpay.com/access-for-ecomm/access-checkout-react-native"
   },
   "author": "Worldpay",
   "license": "ISC",
+  "scripts": {
+    "prepare": "bob build"
+  },
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "ios/AccessCheckoutReactNative/AccessCheckoutSDK-React.podspec",
+    "!lib/typescript/example",
+    "!android/build",
+    "!ios/build"
+  ],
   "devDependencies": {
-    "react-native": "^0.63.4"
+    "@types/react": "^16.14.21",
+    "@types/react-native": "^0.66.6",
+    "react": "^17.0.2",
+    "react-native": "^0.63.4",
+    "react-native-builder-bob": "^0.18.2",
+    "typescript": "^4.5.2"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   }
 }

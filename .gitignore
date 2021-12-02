@@ -2,6 +2,8 @@
 .idea/
 node_modules/
 
+# Files in the access-checkout-react-native-sdk/ folder
+
 # Files in the access-checkout-react-native-sdk/android folder
 access-checkout-react-native-sdk/android/.gradle/
 access-checkout-react-native-sdk/android/gradle/wrapper/.gradle/
