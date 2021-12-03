@@ -10,7 +10,9 @@
   "license": "ISC",
   "scripts": {
     "prepare": "bob build",
-    "typescript": "tsc"
+    "typescript": "tsc",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "format-code": "prettier 'src/**/*.tsx' --write"
   },
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -30,6 +32,12 @@
   "devDependencies": {
     "@types/react": "^16.14.21",
     "@types/react-native": "^0.66.6",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.0",
     "react": "^16.14.0",
     "react-native": "^0.63.4",
     "react-native-builder-bob": "^0.18.2",

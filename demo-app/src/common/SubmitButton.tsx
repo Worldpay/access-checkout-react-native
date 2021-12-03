@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-native';
 
 interface SubmitButtonProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onPress: any;
   enabled: boolean;
 }

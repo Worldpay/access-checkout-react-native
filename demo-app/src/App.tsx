@@ -1,9 +1,6 @@
-import React from "react";
-import CardFlow from "./card-flow/CardFlow";
-// @ts-ignore
+import React from 'react';
+import CardFlow from './card-flow/CardFlow';
 
 export default function App() {
-  return (
-    <CardFlow/>
-  );
+  return <CardFlow />;
 }

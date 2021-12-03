@@ -1,22 +1,23 @@
-import AccessCheckoutReactNative from "access-checkout-react-native-sdk";
-import React, { useEffect, useState } from "react";
-import { Alert, NativeEventEmitter, NativeModules, View } from "react-native";
-import CardBrandImage from "../common/CardBrandImage";
-import CvcField from "../common/CvcField";
-import ExpiryDateField from "../common/ExpiryDateField";
-import PanField from "../common/PanField";
-import Spinner from "../common/Spinner";
-import SubmitButton from "../common/SubmitButton";
+import AccessCheckoutReactNative from 'access-checkout-react-native-sdk';
+import React, { useEffect, useState } from 'react';
+import { Alert, NativeEventEmitter, NativeModules, View } from 'react-native';
+import CardBrandImage from '../common/CardBrandImage';
+import CvcField from '../common/CvcField';
+import ExpiryDateField from '../common/ExpiryDateField';
+import PanField from '../common/PanField';
+import Spinner from '../common/Spinner';
+import SubmitButton from '../common/SubmitButton';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import styles from "./style.js";
+import styles from './style.js';
 
 export default function CardFlow() {
   const unknownBrandLogo =
-    "https://preprod.access.worldpay.com/access-checkout/assets/unknown.png";
+    'https://preprod.access.worldpay.com/access-checkout/assets/unknown.png';
 
-  const [panValue, setPan] = useState<string>("");
-  const [expiryValue, setExpiry] = useState<string>("");
-  const [cvcValue, setCvc] = useState<string>("");
+  const [panValue, setPan] = useState<string>('');
+  const [expiryValue, setExpiry] = useState<string>('');
+  const [cvcValue, setCvc] = useState<string>('');
 
   const [brandLogo, setBrandLogo] = useState<string>(unknownBrandLogo);
   const [panIsValid, setPanIsValid] = useState<boolean>(false);
@@ -33,15 +34,16 @@ export default function CardFlow() {
     url: string;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleValidationResult(result: any) {
-    if (result.type === "brand") {
+    if (result.type === 'brand') {
       if (result.value === null) {
         setBrandLogo(unknownBrandLogo);
       } else {
-        let images: BrandImage[] = result.value.images;
+        const images: BrandImage[] = result.value.images;
 
-        for (let img of images) {
-          if (img.type === "image/png") {
+        for (const img of images) {
+          if (img.type === 'image/png') {
             setBrandLogo(img.url);
           }
         }
@@ -49,24 +51,24 @@ export default function CardFlow() {
       return;
     }
 
-    if (result.type === "pan") {
+    if (result.type === 'pan') {
       setPanIsValid(result.isValid);
       if (!result.isValid) setSubmitBtnEnabled(false);
     }
 
-    if (result.type === "cvc") {
+    if (result.type === 'cvc') {
       setCvcIsValid(result.isValid);
       if (!result.isValid) setSubmitBtnEnabled(false);
       return;
     }
 
-    if (result.type === "expiry") {
+    if (result.type === 'expiry') {
       setExpiryIsValid(result.isValid);
       if (!result.isValid) setSubmitBtnEnabled(false);
       return;
     }
 
-    if (result.type === "all") {
+    if (result.type === 'all') {
       setSubmitBtnEnabled(true);
       return;
     }
@@ -74,37 +76,37 @@ export default function CardFlow() {
 
   useEffect(() => {
     const eventEmitter = new NativeEventEmitter(
-      NativeModules.AccessCheckoutReactNative,
+      NativeModules.AccessCheckoutReactNative
     );
 
     eventEmitter.addListener(
-      "AccessCheckoutValidationEvent",
-      handleValidationResult,
+      'AccessCheckoutValidationEvent',
+      handleValidationResult
     );
 
     return () => {
       eventEmitter.removeListener(
-        "AccessCheckoutValidationEvent",
-        handleValidationResult,
+        'AccessCheckoutValidationEvent',
+        handleValidationResult
       );
     };
   }, []);
 
   function initValidation() {
-    console.log("Initiating validation");
+    console.log('Initiating validation');
     AccessCheckoutReactNative.initialiseValidation({
-      baseUrl: "https://preprod.access.worldpay.com",
-      panId: "panInput",
-      expiryId: "expiryInput",
-      cvcId: "cvcInput",
+      baseUrl: 'https://preprod.access.worldpay.com',
+      panId: 'panInput',
+      expiryId: 'expiryInput',
+      cvcId: 'cvcInput',
       enablePanFormatting: true,
       acceptedCardBrands: [],
     })
       .then(() => {
-        console.log("Validation initialised");
+        console.log('Validation initialised');
       })
       .catch((reason) => {
-        Alert.alert("Error", `${reason}`, [{ text: "OK" }]);
+        Alert.alert('Error', `${reason}`, [{ text: 'OK' }]);
       });
   }
 
@@ -113,19 +115,19 @@ export default function CardFlow() {
     setIsEditable(false);
     setSubmitBtnEnabled(false);
     AccessCheckoutReactNative.generateSessions({
-      baseUrl: "https://preprod.access.worldpay.com",
-      merchantId: "identity",
+      baseUrl: 'https://preprod.access.worldpay.com',
+      merchantId: 'identity',
       panValue: panValue,
       expiryValue: expiryValue,
       cvcValue: cvcValue,
-      sessionTypes: ["CARD", "CVC"],
+      sessionTypes: ['CARD', 'CVC'],
     })
       .then((session) => {
         console.log(session);
-        Alert.alert("Session", `${JSON.stringify(session)}`, [{ text: "OK" }]);
+        Alert.alert('Session', `${JSON.stringify(session)}`, [{ text: 'OK' }]);
       })
       .catch((reason) => {
-        Alert.alert("Error", `${reason}`, [{ text: "OK" }]);
+        Alert.alert('Error', `${reason}`, [{ text: 'OK' }]);
       })
       .finally(() => {
         setShowSpinner(false);
@@ -136,14 +138,14 @@ export default function CardFlow() {
 
   return (
     <View style={styles.container} onLayout={initValidation}>
-      <Spinner show={showSpinner}/>
+      <Spinner show={showSpinner} />
       <View style={styles.row}>
         <PanField
           isValid={panIsValid}
           onChange={setPan}
           isEditable={isEditable}
         />
-        <CardBrandImage logo={brandLogo}/>
+        <CardBrandImage logo={brandLogo} />
       </View>
 
       <View style={styles.row}>
@@ -160,7 +162,7 @@ export default function CardFlow() {
       </View>
 
       <View style={[styles.submitView]}>
-        <SubmitButton onPress={generateSession} enabled={submitBtnEnabled}/>
+        <SubmitButton onPress={generateSession} enabled={submitBtnEnabled} />
       </View>
     </View>
   );
