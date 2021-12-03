@@ -16,5 +16,6 @@
 .idea/
 
 # Files in the demo-app flder
+demo-app/reports/
 demo-app/src/**/*.js
 !demo-app/src/**/*style*.js

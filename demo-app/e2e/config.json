@@ -1,0 +1,11 @@
+{
+    "maxWorkers": 1,
+    "testEnvironment": "./environment",
+    "testRunner": "jest-circus/runner",
+    "testTimeout": 600000,
+    "testRegex": "\\.e2e\\.js$",
+    "reporters": ["detox/runners/jest/streamlineReporter",
+        ["jest-html-reporter", {}]
+    ],
+    "verbose": true
+}
