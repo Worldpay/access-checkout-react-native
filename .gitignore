@@ -14,3 +14,7 @@
 
 # Files in the root flder
 .idea/
+
+# Files in the demo-app flder
+demo-app/src/**/*.js
+!demo-app/src/**/*style*.js
