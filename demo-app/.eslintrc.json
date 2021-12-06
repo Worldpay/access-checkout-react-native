@@ -1,0 +1,25 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "ignorePatterns": [
+    "node_modules/",
+    "android/",
+    "ios/",
+    "metro.config.js",
+    "src/**/*.js",
+    "!src/**/*style*.js"
+  ],
+  "rules": {
+    "prettier/prettier": 2 // Means error
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "access-checkout-react-native-sdk",
+  "version": "0.0.1",
+  "description": "Worldpay Access Checkout SDK for ReactNative",
+  "repository": {
+    "type": "git",
+    "url": "https://github.worldpay.com/access-for-ecomm/access-checkout-react-native"
+  },
+  "author": "Worldpay",
+  "license": "ISC",
+  "scripts": {
+    "prepare": "bob build",
+    "typescript": "tsc",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "format-code": "prettier 'src/**/*.tsx' --write"
+  },
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios/AccessCheckoutReactNative",
+    "ios/AccessCheckoutSDK-React.podspec",
+    "!ios/AccessCheckoutReactNativeUnitTests",
+    "!android/build",
+    "!ios/build"
+  ],
+  "devDependencies": {
+    "@types/react": "^16.14.21",
+    "@types/react-native": "^0.66.6",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.0",
+    "react": "^16.14.0",
+    "react-native": "^0.63.4",
+    "react-native-builder-bob": "^0.18.2",
+    "typescript": "^4.5.2"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  }
+}

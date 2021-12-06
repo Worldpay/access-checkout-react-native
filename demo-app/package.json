@@ -1,0 +1,46 @@
+{
+  "name": "access-checkout-react-native-demo-app",
+  "version": "0.0.1",
+  "description": "App to demo the access-checkout-react-native-sdk",
+  "keywords": [
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios --simulator=\"iphone8-14\"",
+    "start": "react-native start",
+    "typescript": "tsc",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "format-code": "prettier 'src/**/*.{ts,tsx,js}' --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.worldpay.com/access-for-ecomm/access-checkout-react-native"
+  },
+  "author": "Worldpay",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-native": "^0.63.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/runtime": "^7.16.3",
+    "@react-native-community/eslint-config": "^3.0.1",
+    "@types/react-native": "^0.63.57",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "detox": "^19.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.4.3",
+    "jest-html-reporter": "^3.4.2",
+    "metro-react-native-babel-preset": "^0.66.2",
+    "prettier": "^2.5.0",
+    "typescript": "^4.5.2"
+  }
+}

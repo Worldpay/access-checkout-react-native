@@ -1,0 +1,42 @@
+{
+  "testRunner": "jest",
+  "runnerConfig": "e2e/config.json",
+  "skipLegacyWorkersInjection": true,
+  "apps": {
+    "ios": {
+      "type": "ios.app",
+      "binaryPath": "ios/Build/Build/Products/Debug-iphonesimulator/AccessCheckoutReactNativeDemo.app",
+      "build": "xcodebuild -workspace ios/AccessCheckoutReactNativeDemo.xcworkspace -configuration Debug -scheme AccessCheckoutReactNativeDemo -sdk iphonesimulator -destination id=2DCB5B03-5B2B-4744-AABB-35581A3FE0B3 -derivedDataPath ios/build"
+    },
+    "android": {
+      "type": "android.apk",
+      "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
+      "testBinaryPath": "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "build": "cd android && ./gradlew clean assembleDebug assembleAndroidTest -DtestBuildType=debug && cd .."
+    }
+  },
+  "devices": {
+    "simulator": {
+      "type": "ios.simulator",
+      "device": {
+        "name": "iphone8-14"
+      }
+    },
+    "emulator": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Pixel_2_API_30"
+      }
+    }
+  },
+  "configurations": {
+    "ios": {
+      "device": "simulator",
+      "app": "ios"
+    },
+    "android": {
+      "device": "emulator",
+      "app": "android"
+    }
+  }
+}
