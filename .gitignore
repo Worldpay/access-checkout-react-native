@@ -1,6 +1,8 @@
 **/node_modules/
 **/build/
+**/coverage/
 .DS_Store
+.idea/
 
 # iOS
 **/Pods/
@@ -12,8 +14,8 @@
 **/local.properties
 **/.gradle/
 
-# Files in the root flder
-.idea/
+# Files in the access-checkout-react-native-sdk flder
+access-checkout-react-native-sdk/src/*.js
 
 # Files in the demo-app flder
 demo-app/reports/
