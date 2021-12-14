@@ -4,9 +4,6 @@ env:
   secrets-manager:
     hydra_aco_blackduck_token: hydra_aco_blackduck:hydra_aco_blackduck_token
 phases:
-  pre_build:
-    commands:
-      - ./scripts/blackduck/setup_sdk.sh
   build:
     commands:
       - ./scripts/blackduck/run_scan.sh
