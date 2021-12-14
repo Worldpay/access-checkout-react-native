@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd access-checkout-react-native-sdk
 SDK_VERSION=$(sed -e 's/^"//' -e 's/"$//' <<< $(jq '.version' package.json))
 REPORT_SDK_VERSION=$(sed -e 's/^"//' -e 's/"$//' -e 's/\./_/g' <<< $(jq '.version' package.json))
 if [ $CODEBUILD_BUILD_SUCCEEDING -eq 1 ]; then
