@@ -15,6 +15,6 @@ phases:
       - ./scripts/blackduck/post_scan.sh
 artifacts:
   files:
-    - "*.pdf"
+    - "access-checkout-react-native-sdk/*.pdf"
   name: $CODEBUILD_BUILD_NUMBER
   discard-paths: yes
