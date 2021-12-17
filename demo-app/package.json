@@ -8,10 +8,10 @@
     "android"
   ],
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator=\"iphone8-14\"",
+    "android": "npm run build:typescript && react-native run-android",
+    "ios": "npm run build:typescript && react-native run-ios --simulator=\"iphone8-14\"",
     "start": "react-native start",
-    "typescript": "tsc",
+    "build:typescript": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "format-code": "prettier 'src/**/*.{ts,tsx,js}' --write"
   },

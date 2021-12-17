@@ -10,10 +10,10 @@
   "license": "ISC",
   "scripts": {
     "prepare": "bob build",
-    "typescript": "tsc",
+    "typescript": "tsc --noEmit true",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "format-code": "prettier 'src/**/*.tsx' --write",
-    "test": "jest --coverage --verbose"
+    "test": "jest --clearCache && jest --coverage --verbose"
   },
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -45,6 +45,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.5",
+    "jest-html-reporter": "^3.4.2",
+    "jest-junit": "^13.0.0",
     "prettier": "^2.5.0",
     "react": "^16.14.0",
     "react-native": "^0.63.4",
@@ -63,6 +65,10 @@
       "commonjs",
       "module",
       "typescript"
+    ],
+    "files": [
+      "lib/",
+      "src/"
     ]
   }
 }

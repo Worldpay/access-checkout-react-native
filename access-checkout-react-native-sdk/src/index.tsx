@@ -5,11 +5,17 @@ export type Session = {
   cvc: string;
 };
 
-// type AccessCheckoutReactNativeType = {
-//   generateSessions(config: any): Promise<Session>;
-//   initialiseValidation(config: any): Promise<boolean>;
-// };
+type AccessCheckoutReactNativeType = {
+  generateSessions(config: any): Promise<Session>;
+  initialiseValidation(config: any): Promise<boolean>;
+};
 
 export const { AccessCheckoutReactNative } = NativeModules;
 
-// export default AccessCheckoutReactNative as AccessCheckoutReactNativeType;
+export default AccessCheckoutReactNative as AccessCheckoutReactNativeType;
+
+export { default as AccessCheckout } from './AccessCheckout';
+
+export { default as CardDetails } from './session/CardDetails';
+
+export { default as SessionType } from './session/SessionType';
