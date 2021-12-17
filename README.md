@@ -94,3 +94,10 @@ well as the demo-app module
 
 ### ReactNative
 * To work on the ReactNative part of the demo application, open the root directory in Intellij and you can work in `demo-app/src`
+
+### Running the SDK tests
+
+```
+cd access-checkout-react-native-sdk
+npm run test
+```

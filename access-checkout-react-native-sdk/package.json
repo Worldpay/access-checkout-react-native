@@ -13,7 +13,7 @@
     "typescript": "tsc --noEmit true",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "format-code": "prettier 'src/**/*.tsx' --write",
-    "test": "jest --clearCache && jest --coverage --verbose"
+    "test": "npm run typescript && jest --clearCache && jest --coverage --verbose"
   },
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
