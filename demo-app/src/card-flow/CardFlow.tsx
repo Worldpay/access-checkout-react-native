@@ -1,12 +1,11 @@
-import {
+import AccessCheckoutReactNative, {
   AccessCheckout,
   CardDetails,
   SessionType,
+  CardValidationConfig
 } from 'access-checkout-react-native-sdk';
 import React, { useEffect, useState } from 'react';
-import { Alert, NativeEventEmitter, NativeModules, View } from 'react-native';
-import CardValidationConfig
-  from "../../../access-checkout-react-native-sdk/src/validation/CardValidationConfig";
+import { Alert, NativeEventEmitter, View } from 'react-native';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ExpiryDateField from '../common/ExpiryDateField';
@@ -36,8 +35,8 @@ export default function CardFlow() {
   const [isEditable, setIsEditable] = useState<boolean>(true);
 
   const accessCheckout = new AccessCheckout({
-    accessBaseUrl: "https://preprod.access.worldpay.com",
-    merchantId: "identity",
+    accessBaseUrl: 'https://preprod.access.worldpay.com',
+    merchantId: 'identity',
   });
 
   interface BrandImage {
@@ -86,38 +85,29 @@ export default function CardFlow() {
   }
 
   useEffect(() => {
-    const eventEmitter = new NativeEventEmitter(
-      NativeModules.AccessCheckoutReactNative
-    );
-
-    eventEmitter.addListener(
-      'AccessCheckoutValidationEvent',
-      handleValidationResult
-    );
+    const eventSubscription = new NativeEventEmitter(AccessCheckoutReactNative)
+      .addListener(AccessCheckout.ValidationEventType, handleValidationResult);
 
     return () => {
-      eventEmitter.removeListener(
-        'AccessCheckoutValidationEvent',
-        handleValidationResult
-      );
+      eventSubscription.remove();
     };
   }, []);
 
-  function initValidation() {
-    console.log('Initiating validation');
+  function initialiseValidation() {
+    console.log('Initialising validation');
 
     const validationConfig = new CardValidationConfig({
-      panId: "panInput",
-      expiryDateId: "expiryInput",
-      cvcId: "cvcInput",
+      panId: 'panInput',
+      expiryDateId: 'expiryInput',
+      cvcId: 'cvcInput',
       enablePanFormatting: false,
     });
-    accessCheckout.initialiseValidation(validationConfig)
+    return accessCheckout.initialiseValidation(validationConfig)
       .then(() => {
-        console.log('Validation initialised');
+        console.log('Validation successfully initialised');
       })
-      .catch((reason) => {
-        Alert.alert('Error', `${reason}`, [{ text: 'OK' }]);
+      .catch((error) => {
+        Alert.alert('Error', `${error}`, [{ text: 'OK' }]);
       });
   }
 
@@ -126,7 +116,7 @@ export default function CardFlow() {
     setIsEditable(false);
     setSubmitBtnEnabled(false);
 
-    const cardDetails:CardDetails = {
+    const cardDetails: CardDetails = {
       pan: panValue,
       expiryDate: expiryValue,
       cvc: cvcValue,
@@ -134,11 +124,9 @@ export default function CardFlow() {
 
     accessCheckout.generateSessions(cardDetails, [SessionType.CARD, SessionType.CVC])
       .then((session) => {
-        console.log(session);
-
-        const sessions:any = {
-          card: session.get("card"),
-          cvc: session.get("cvc")
+        const sessions: any = {
+          card: session.get('card'),
+          cvc: session.get('cvc'),
         };
 
         Alert.alert('Session', `${JSON.stringify(sessions)}`, [{ text: 'OK' }]);
@@ -154,8 +142,8 @@ export default function CardFlow() {
   }
 
   return (
-    <View style={styles.container} onLayout={initValidation}>
-      <Spinner show={showSpinner} />
+    <View style={styles.container} onLayout={initialiseValidation}>
+      <Spinner show={showSpinner}/>
       <View style={styles.row}>
         <PanField
           isValid={panIsValid}
