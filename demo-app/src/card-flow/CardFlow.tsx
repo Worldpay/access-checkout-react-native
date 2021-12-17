@@ -2,7 +2,7 @@ import AccessCheckoutReactNative, {
   AccessCheckout,
   CardDetails,
   SessionType,
-  CardValidationConfig
+  CardValidationConfig,
 } from 'access-checkout-react-native-sdk';
 import React, { useEffect, useState } from 'react';
 import { Alert, NativeEventEmitter, View } from 'react-native';
@@ -85,8 +85,9 @@ export default function CardFlow() {
   }
 
   useEffect(() => {
-    const eventSubscription = new NativeEventEmitter(AccessCheckoutReactNative)
-      .addListener(AccessCheckout.ValidationEventType, handleValidationResult);
+    const eventSubscription = new NativeEventEmitter(
+      AccessCheckoutReactNative
+    ).addListener(AccessCheckout.ValidationEventType, handleValidationResult);
 
     return () => {
       eventSubscription.remove();
@@ -102,7 +103,8 @@ export default function CardFlow() {
       cvcId: 'cvcInput',
       enablePanFormatting: false,
     });
-    return accessCheckout.initialiseValidation(validationConfig)
+    return accessCheckout
+      .initialiseValidation(validationConfig)
       .then(() => {
         console.log('Validation successfully initialised');
       })
@@ -122,7 +124,8 @@ export default function CardFlow() {
       cvc: cvcValue,
     };
 
-    accessCheckout.generateSessions(cardDetails, [SessionType.CARD, SessionType.CVC])
+    accessCheckout
+      .generateSessions(cardDetails, [SessionType.CARD, SessionType.CVC])
       .then((session) => {
         const sessions: any = {
           card: session.get('card'),
@@ -143,7 +146,7 @@ export default function CardFlow() {
 
   return (
     <View style={styles.container} onLayout={initialiseValidation}>
-      <Spinner show={showSpinner}/>
+      <Spinner show={showSpinner} />
       <View style={styles.row}>
         <PanField
           isValid={panIsValid}
