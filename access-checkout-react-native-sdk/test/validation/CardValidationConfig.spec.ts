@@ -1,12 +1,12 @@
-import CardValidationConfig from "../../src/validation/CardValidationConfig";
+import CardValidationConfig from '../../src/validation/CardValidationConfig';
 
-const panId = "4444";
-const expiryDateId = "12/21";
-const cvcId = "123";
+const panId = '4444';
+const expiryDateId = '12/21';
+const cvcId = '123';
 
-describe("CardValidationConfig", () => {
-  describe("can be constructed", () => {
-    it("with only a panId, an expiryDateId and a cvcId", () => {
+describe('CardValidationConfig', () => {
+  describe('can be constructed', () => {
+    it('with only a panId, an expiryDateId and a cvcId', () => {
       const config: CardValidationConfig = new CardValidationConfig({
         panId,
         expiryDateId,
@@ -18,7 +18,7 @@ describe("CardValidationConfig", () => {
       expect(config.cvcId).toEqual(cvcId);
     });
 
-    it("with an optional flag to enable card number formatting", () => {
+    it('with an optional flag to enable card number formatting', () => {
       const config: CardValidationConfig = new CardValidationConfig({
         panId,
         expiryDateId,
@@ -32,23 +32,23 @@ describe("CardValidationConfig", () => {
       expect(config.enablePanFormatting).toEqual(true);
     });
 
-    it("with an optional list of card brands to restrict validation to", () => {
+    it('with an optional list of card brands to restrict validation to', () => {
       const config: CardValidationConfig = new CardValidationConfig({
         panId,
         expiryDateId,
         cvcId,
-        acceptedCardBrands: ["visa", "mastercard"],
+        acceptedCardBrands: ['visa', 'mastercard'],
       });
 
       expect(config.panId).toEqual(panId);
       expect(config.expiryDateId).toEqual(expiryDateId);
       expect(config.cvcId).toEqual(cvcId);
-      expect(config.acceptedCardBrands).toEqual(["visa", "mastercard"]);
+      expect(config.acceptedCardBrands).toEqual(['visa', 'mastercard']);
     });
   });
 
-  describe("by default", () => {
-    it("has card number formatting disabled", () => {
+  describe('by default', () => {
+    it('has card number formatting disabled', () => {
       const config: CardValidationConfig = new CardValidationConfig({
         panId,
         expiryDateId,
@@ -58,7 +58,7 @@ describe("CardValidationConfig", () => {
       expect(config.enablePanFormatting).toEqual(false);
     });
 
-    it("accepts all card brands", () => {
+    it('accepts all card brands', () => {
       const config: CardValidationConfig = new CardValidationConfig({
         panId,
         expiryDateId,

@@ -1,21 +1,30 @@
-import { AccessCheckoutReactNative } from "./index";
+import { AccessCheckoutReactNative } from './index';
 // @ts-ignore
-import { CardDetails } from "./session/CardDetails";
+import { CardDetails } from './session/CardDetails';
 // @ts-ignore
-import CardValidationConfig from "./validation/CardValidationConfig";
+import CardValidationConfig from './validation/CardValidationConfig';
 
 export default class AccessCheckout {
-  static ValidationEventType = "AccessCheckoutValidationEvent";
+  static ValidationEventType = 'AccessCheckoutValidationEvent';
 
   accessBaseUrl: string;
   merchantId?: string;
 
-  constructor({ accessBaseUrl, merchantId }: { accessBaseUrl: string, merchantId?: string }) {
+  constructor({
+    accessBaseUrl,
+    merchantId,
+  }: {
+    accessBaseUrl: string;
+    merchantId?: string;
+  }) {
     this.accessBaseUrl = accessBaseUrl;
     this.merchantId = merchantId;
   }
 
-  generateSessions(cardDetails: CardDetails, sessionTypes: string[]): Promise<Map<string, string>> {
+  generateSessions(
+    cardDetails: CardDetails,
+    sessionTypes: string[]
+  ): Promise<Map<string, string>> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.generateSessions({
         baseUrl: this.accessBaseUrl,
@@ -26,10 +35,10 @@ export default class AccessCheckout {
         sessionTypes,
       })
         // @ts-ignore
-        .then(session => {
+        .then((session) => {
           const map = new Map<string, string>();
-          map.set("card", session.card);
-          map.set("cvc", session.cvc);
+          map.set('card', session.card);
+          map.set('cvc', session.cvc);
 
           resolve(map);
         })
@@ -39,7 +48,9 @@ export default class AccessCheckout {
     });
   }
 
-  initialiseValidation(validationConfig: CardValidationConfig): Promise<boolean> {
+  initialiseValidation(
+    validationConfig: CardValidationConfig
+  ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseValidation({
         baseUrl: this.accessBaseUrl,

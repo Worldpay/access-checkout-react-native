@@ -12,7 +12,7 @@
     "prepare": "bob build",
     "typescript": "tsc --noEmit true",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "format-code": "prettier 'src/**/*.tsx' --write",
+    "format-code": "prettier '{src,test}/**/*.{ts,tsx}' --write",
     "test": "npm run typescript && jest --clearCache && jest --coverage --verbose"
   },
   "main": "lib/commonjs/index",
