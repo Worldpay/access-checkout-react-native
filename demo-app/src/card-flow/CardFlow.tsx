@@ -1,6 +1,11 @@
-import AccessCheckoutReactNative from 'access-checkout-react-native-sdk';
+import AccessCheckoutReactNative, {
+  AccessCheckout,
+  CardDetails,
+  SessionType,
+  CardValidationConfig,
+} from 'access-checkout-react-native-sdk';
 import React, { useEffect, useState } from 'react';
-import { Alert, NativeEventEmitter, NativeModules, View } from 'react-native';
+import { Alert, NativeEventEmitter, View } from 'react-native';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ExpiryDateField from '../common/ExpiryDateField';
@@ -28,6 +33,11 @@ export default function CardFlow() {
   const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
   const [isEditable, setIsEditable] = useState<boolean>(true);
+
+  const accessCheckout = new AccessCheckout({
+    accessBaseUrl: 'https://preprod.access.worldpay.com',
+    merchantId: 'identity',
+  });
 
   interface BrandImage {
     type: string;
@@ -75,38 +85,31 @@ export default function CardFlow() {
   }
 
   useEffect(() => {
-    const eventEmitter = new NativeEventEmitter(
-      NativeModules.AccessCheckoutReactNative
-    );
-
-    eventEmitter.addListener(
-      'AccessCheckoutValidationEvent',
-      handleValidationResult
-    );
+    const eventSubscription = new NativeEventEmitter(
+      AccessCheckoutReactNative
+    ).addListener(AccessCheckout.ValidationEventType, handleValidationResult);
 
     return () => {
-      eventEmitter.removeListener(
-        'AccessCheckoutValidationEvent',
-        handleValidationResult
-      );
+      eventSubscription.remove();
     };
   }, []);
 
-  function initValidation() {
-    console.log('Initiating validation');
-    AccessCheckoutReactNative.initialiseValidation({
-      baseUrl: 'https://preprod.access.worldpay.com',
+  function initialiseValidation() {
+    console.log('Initialising validation');
+
+    const validationConfig = new CardValidationConfig({
       panId: 'panInput',
-      expiryId: 'expiryInput',
+      expiryDateId: 'expiryInput',
       cvcId: 'cvcInput',
-      enablePanFormatting: true,
-      acceptedCardBrands: [],
-    })
+      enablePanFormatting: false,
+    });
+    return accessCheckout
+      .initialiseValidation(validationConfig)
       .then(() => {
-        console.log('Validation initialised');
+        console.log('Validation successfully initialised');
       })
-      .catch((reason) => {
-        Alert.alert('Error', `${reason}`, [{ text: 'OK' }]);
+      .catch((error) => {
+        Alert.alert('Error', `${error}`, [{ text: 'OK' }]);
       });
   }
 
@@ -114,17 +117,22 @@ export default function CardFlow() {
     setShowSpinner(true);
     setIsEditable(false);
     setSubmitBtnEnabled(false);
-    AccessCheckoutReactNative.generateSessions({
-      baseUrl: 'https://preprod.access.worldpay.com',
-      merchantId: 'identity',
-      panValue: panValue,
-      expiryValue: expiryValue,
-      cvcValue: cvcValue,
-      sessionTypes: ['CARD', 'CVC'],
-    })
+
+    const cardDetails: CardDetails = {
+      pan: panValue,
+      expiryDate: expiryValue,
+      cvc: cvcValue,
+    };
+
+    accessCheckout
+      .generateSessions(cardDetails, [SessionType.CARD, SessionType.CVC])
       .then((session) => {
-        console.log(session);
-        Alert.alert('Session', `${JSON.stringify(session)}`, [{ text: 'OK' }]);
+        const sessions: any = {
+          card: session.get('card'),
+          cvc: session.get('cvc'),
+        };
+
+        Alert.alert('Session', `${JSON.stringify(sessions)}`, [{ text: 'OK' }]);
       })
       .catch((reason) => {
         Alert.alert('Error', `${reason}`, [{ text: 'OK' }]);
@@ -137,7 +145,7 @@ export default function CardFlow() {
   }
 
   return (
-    <View style={styles.container} onLayout={initValidation}>
+    <View style={styles.container} onLayout={initialiseValidation}>
       <Spinner show={showSpinner} />
       <View style={styles.row}>
         <PanField
