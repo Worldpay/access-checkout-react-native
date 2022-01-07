@@ -1,9 +1,9 @@
 **/node_modules/
 **/build/
 **/coverage/
+**/reports/
 .DS_Store
 .idea/
-**/reports
 
 # iOS
 **/Pods/
@@ -19,6 +19,5 @@
 access-checkout-react-native-sdk/src/*.js
 
 # Files in the demo-app flder
-demo-app/reports/
 demo-app/src/**/*.js
 !demo-app/src/**/*style*.js
