@@ -28,6 +28,7 @@ const CvcField = (props: CvcFieldProps) => {
   return (
     <TextInput
       nativeID="cvcInput"
+      testID="cvcInput"
       style={[
         styles.cvc,
         props.isValid ? commonStyles.valid : commonStyles.invalid,

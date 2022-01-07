@@ -10,6 +10,7 @@ interface SubmitButtonProps {
 const SubmitButton = (props: SubmitButtonProps) => {
   return (
     <Button
+      testID="submitButton"
       title="Submit"
       color="red"
       accessibilityLabel="Submit Card Details"

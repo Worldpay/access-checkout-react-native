@@ -27,7 +27,8 @@ const ExpiryDateField = (props: ExpiryDateFieldProps) => {
 
   return (
     <TextInput
-      nativeID="expiryInput"
+      nativeID="expiryDateInput"
+      testID="expiryDateInput"
       style={[
         styles.expiry,
         !props.isEditable

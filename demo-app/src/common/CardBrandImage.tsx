@@ -18,6 +18,7 @@ interface CardBrandImageProps {
 const CardBrandImage = (props: CardBrandImageProps) => {
   return (
     <Image
+      testID="cardBrandImage"
       style={styles.logo}
       source={{
         uri: props.logo,
