@@ -21,18 +21,18 @@ export ACCESS_CHECKOUT_IOS_PATH=/Users/e5610203/DEV/access-checkout-ios
 
 ### Compiling the Access Checkout React Native SDK
 
-1. Install the CocoaPods dependencies in the `access-checkout-react-native-sdk` project's iOS bridge
-
-```
-cd access-checkout-react-native-sdk/ios
-pod install
-```
-
-2. Install the npm dependencies in the `access-checkout-react-native-sdk` project
+1. Install the npm dependencies in the `access-checkout-react-native-sdk` project
 
 ```
 cd access-checkout-react-native-sdk
 npm install
+```
+
+2. Install the CocoaPods dependencies in the `access-checkout-react-native-sdk` project's iOS bridge
+
+```
+cd access-checkout-react-native-sdk/ios
+pod install
 ```
 
 3. Re-run the script used to export the SDK's types
@@ -44,14 +44,21 @@ npm run prepare
 
 ### Compiling the demo application
 
-1. Install the CocoaPods dependencies in the demo-app's ios folder
+1. Install the npm dependencies in the demo-app  folder
+
+```
+cd demo-app/
+npm install
+```
+
+2. Install the CocoaPods dependencies in the demo-app's ios folder
 
 ```
 cd demo-app/ios
 pod install
 ```
 
-2. Compile the application
+3. Compile the application
 
 ```
 cd demo-app/
