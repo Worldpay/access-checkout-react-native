@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { View, ViewProps, ViewStyle } from "react-native";
+import React, { Component } from 'react';
+import { View, ViewProps, ViewStyle } from 'react-native';
 
 export default class HView extends Component<ViewProps> {
   constructor(props: ViewProps) {
@@ -10,8 +10,8 @@ export default class HView extends Component<ViewProps> {
     let { children, ...rest } = this.props;
     let style = [this.props.style];
 
-    let customStyle:ViewStyle = {};
-    customStyle.flexDirection = "row";
+    let customStyle: ViewStyle = {};
+    customStyle.flexDirection = 'row';
 
     style.push(customStyle);
 
@@ -21,4 +21,4 @@ export default class HView extends Component<ViewProps> {
       </View>
     );
   }
-};
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, ActivityIndicator, View } from 'react-native';
 // @ts-ignore
-import UIComponentProps from "./UIComponentProps";
+import UIComponentProps from './UIComponentProps';
 
 const styles = StyleSheet.create({
   container: {

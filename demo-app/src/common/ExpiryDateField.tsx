@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { StyleSheet, TextInput } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet, TextInput } from 'react-native';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import commonStyles from "./common-styles.js";
+import commonStyles from './common-styles.js';
 // @ts-ignore
-import UIComponentProps from "./UIComponentProps";
+import UIComponentProps from './UIComponentProps';
 
 const styles = StyleSheet.create({
   expiry: {
@@ -25,7 +25,7 @@ interface ExpiryDateFieldProps extends UIComponentProps {
 }
 
 const ExpiryDateField = (props: ExpiryDateFieldProps) => {
-  const [expiryValue, setExpiry] = useState<string>("");
+  const [expiryValue, setExpiry] = useState<string>('');
 
   return (
     <TextInput

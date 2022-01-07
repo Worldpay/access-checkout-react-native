@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button } from 'react-native';
 // @ts-ignore
-import UIComponentProps from "./UIComponentProps";
+import UIComponentProps from './UIComponentProps';
 
 interface SubmitButtonProps extends UIComponentProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onPress: (e:Event) => void;
+  onPress: (e: Event) => void;
   enabled: boolean;
 }
 

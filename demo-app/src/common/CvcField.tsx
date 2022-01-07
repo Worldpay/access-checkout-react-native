@@ -5,7 +5,7 @@ import { StyleSheet, TextInput } from 'react-native';
 // @ts-ignore
 import commonStyles from './common-styles.js';
 // @ts-ignore
-import UIComponentProps from "./UIComponentProps";
+import UIComponentProps from './UIComponentProps';
 
 const styles = StyleSheet.create({
   cvc: {
