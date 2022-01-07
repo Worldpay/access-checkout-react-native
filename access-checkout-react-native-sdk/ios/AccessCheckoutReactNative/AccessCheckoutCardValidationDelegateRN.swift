@@ -11,14 +11,14 @@ class AccessCheckoutCardValidationDelegateRN: AccessCheckoutCardValidationDelega
     }
 
     public func cardBrandChanged(cardBrand: CardBrand?) {
-        if cardBrand == nil {
+        guard let cardBrand = cardBrand else {
             eventEmitter.sendEvent(withName: eventName, body: ["type": "brand", "value": nil])
             return
         }
 
-        let name = cardBrand!.name
+        let name = cardBrand.name
         var images = [[String: String]]()
-        for image in cardBrand!.images {
+        for image in cardBrand.images {
             images.append(["type": image.type, "url": image.url])
         }
 

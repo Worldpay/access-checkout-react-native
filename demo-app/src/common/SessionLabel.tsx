@@ -1,8 +1,9 @@
 import React from "react";
 import { Text, View } from "react-native";
+// @ts-ignore
+import UIComponentProps from "./UIComponentProps";
 
-interface SessionLabelProps {
-  testID: string;
+interface SessionLabelProps extends UIComponentProps {
   label: string;
   session: string;
 }

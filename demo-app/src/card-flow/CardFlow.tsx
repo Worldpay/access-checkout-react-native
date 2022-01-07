@@ -4,16 +4,18 @@ import AccessCheckoutReactNative, {
   CardValidationConfig,
 } from "access-checkout-react-native-sdk";
 import React, { useEffect, useState } from "react";
-import { Alert, NativeEventEmitter, Text, View } from "react-native";
+import { Alert, NativeEventEmitter, Text } from "react-native";
 import SessionType from "../../../access-checkout-react-native-sdk/src/session/SessionType";
 import CardBrandImage from "../common/CardBrandImage";
 import CvcField from "../common/CvcField";
 import ExpiryDateField from "../common/ExpiryDateField";
+import HView from "../common/HView";
 import PanField from "../common/PanField";
 import SessionLabel from "../common/SessionLabel";
 import Spinner from "../common/Spinner";
 import SubmitButton from "../common/SubmitButton";
 import Toggle from "../common/Toggle";
+import VView from "../common/VView";
 import CardFlowE2eStates from "./CardFlow.e2e.states";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -178,43 +180,42 @@ export default function CardFlow() {
   }
 
   return (
-    <View style={styles.container} onLayout={initialiseValidation}>
-      <Spinner show={showSpinner}/>
-      <View style={styles.row}>
+    <VView style={styles.cardFlow} onLayout={initialiseValidation}>
+      <Spinner testID="spinner" show={showSpinner}/>
+      <HView>
         <PanField
+          testID="panInput"
           isValid={panIsValid}
           onChange={setPan}
           isEditable={isEditable}
         />
-        <CardBrandImage logo={brandLogo}/>
-      </View>
-      <View style={{ flexDirection: "column" }}>
-        <Text style={{ fontWeight: "bold" }}>Sessions</Text>
-        {cardSessionComponent}
-        {cvcSessionComponent}
-      </View>
-
-      <View style={styles.row}>
+        <CardBrandImage testID="cardBrandImage"
+                        logo={brandLogo}/>
+      </HView>
+      <HView>
         <ExpiryDateField
+          testID="expiryDateInput"
           isValid={expiryIsValid}
           onChange={setExpiry}
           isEditable={isEditable}
         />
         <CvcField
+          testID="cvcInput"
           isValid={cvcIsValid}
           onChange={setCvc}
           isEditable={isEditable}
         />
-      </View>
-      <View style={styles.row}>
-        <Toggle
-          onChange={setGenerateCardAndCvcSessions}
-          testID="cardAndCvcSessionsToggle"
-        />
-      </View>
-      <View style={[styles.submitView]}>
-        <SubmitButton onPress={generateSession} enabled={submitBtnEnabled}/>
-      </View>
+      </HView>
+      <Toggle
+        testID="cardAndCvcSessionsToggle"
+        onChange={setGenerateCardAndCvcSessions}
+      />
+      <SubmitButton testID="submitButton" onPress={generateSession} enabled={submitBtnEnabled}/>
+      <VView>
+        <Text style={{ fontWeight: "bold" }}>Sessions</Text>
+        {cardSessionComponent}
+        {cvcSessionComponent}
+      </VView>
       <CardFlowE2eStates testID="cardFlowE2eStates"
                          panIsValid={panIsValid}
                          expiryDateIsValid={expiryIsValid}
@@ -222,6 +223,6 @@ export default function CardFlow() {
                          submitButtonEnabled={submitBtnEnabled}
                          cardBrand={brand}
       />
-    </View>
+    </VView>
   );
 }

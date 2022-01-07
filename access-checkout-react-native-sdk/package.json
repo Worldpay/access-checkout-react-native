@@ -22,7 +22,6 @@
   "source": "src/index",
   "files": [
     "src/",
-    "blah/",
     "lib/",
     "android",
     "ios/AccessCheckoutReactNative",

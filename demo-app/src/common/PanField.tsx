@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
-
+import React, { useState } from "react";
+import { StyleSheet, TextInput } from "react-native";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import commonStyles from './common-styles.js';
+import commonStyles from "./common-styles.js";
+// @ts-ignore
+import UIComponentProps from "./UIComponentProps";
 
 const styles = StyleSheet.create({
   pan: {
@@ -17,19 +18,19 @@ const styles = StyleSheet.create({
   },
 });
 
-interface PanFieldProps {
+interface PanFieldProps extends UIComponentProps {
   isEditable: boolean;
   isValid: boolean;
   onChange(text: string): void;
 }
 
 const PanField = (props: PanFieldProps) => {
-  const [panValue, setPan] = useState<string>('');
+  const [panValue, setPan] = useState<string>("");
 
   return (
     <TextInput
       nativeID="panInput"
-      testID="panInput"
+      testID={props.testID}
       style={[
         styles.pan,
         !props.isEditable

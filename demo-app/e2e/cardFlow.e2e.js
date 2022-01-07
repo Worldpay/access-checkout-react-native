@@ -83,16 +83,23 @@ describe("Card flow", () => {
   });
 
   describe("when user enters a valid pan", () => {
-    beforeEach(async () => {
-      await pan.type("4444333322221111");
-    });
+    it("should format correctly a visa pan", async () => {
+        await pan.type("4444333322221111");
 
-    it("should format pan", async () => {
         jestExpect(await pan.text()).toBe("4444 3333 2222 1111");
       },
     );
 
+    it("should format correctly a amex pan", async () => {
+        await pan.type("343434343434343");
+
+        jestExpect(await pan.text()).toBe("3434 343434 34343");
+      },
+    );
+
     it("should mark the pan as valid", async () => {
+      await pan.type("4444333322221111");
+
       jestExpect(await states.panIsValid()).toBe(true);
     });
   });

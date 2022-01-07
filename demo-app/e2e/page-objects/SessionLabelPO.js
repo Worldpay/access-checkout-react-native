@@ -13,7 +13,6 @@ class SessionLabelPO extends UIComponentPO {
     const attributes = await this.getAttributes();
     return attributes.text;
   }
-
 }
 
 module.exports = { SessionLabelPO };

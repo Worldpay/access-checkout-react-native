@@ -21,3 +21,4 @@ access-checkout-react-native-sdk/src/*.js
 # Files in the demo-app flder
 demo-app/src/**/*.js
 !demo-app/src/**/*style*.js
+demo-app/test-report.html

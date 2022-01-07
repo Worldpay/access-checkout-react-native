@@ -1,20 +1,13 @@
 import { Platform, StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
+  cardFlow: {
+    margin:12,
     flex: 1,
     ...Platform.select({
       ios: {
         marginTop: 50,
       },
     }),
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  submitView: {
-    margin: 12,
-    height: 40,
-    justifyContent: 'center',
   },
 });
