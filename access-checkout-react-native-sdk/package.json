@@ -22,7 +22,6 @@
   "source": "src/index",
   "files": [
     "src/",
-    "blah/",
     "lib/",
     "android",
     "ios/AccessCheckoutReactNative",
@@ -64,7 +63,7 @@
     "targets": [
       "commonjs",
       "module",
-      "typescript"
+      ["typescript", { "project": "tsconfig.build.json" }]
     ],
     "files": [
       "lib/",

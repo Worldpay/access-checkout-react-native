@@ -1,0 +1,1 @@
+{"version":3,"sources":["SessionType.ts"],"names":["SessionType"],"mappings":";;;;;;;;;AAAe,MAAMA,WAAN,CAAkB;;;;gBAAZA,W,UACG,M;;gBADHA,W,SAEE,K","sourcesContent":["export default class SessionType {\n  static CARD: string = 'CARD';\n  static CVC: string = 'CVC';\n}\n"]}

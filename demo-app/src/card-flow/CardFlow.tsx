@@ -1,17 +1,22 @@
 import AccessCheckoutReactNative, {
   AccessCheckout,
   CardDetails,
-  SessionType,
   CardValidationConfig,
 } from 'access-checkout-react-native-sdk';
 import React, { useEffect, useState } from 'react';
-import { Alert, NativeEventEmitter, View } from 'react-native';
+import { Alert, NativeEventEmitter, Text } from 'react-native';
+import SessionType from '../../../access-checkout-react-native-sdk/src/session/SessionType';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ExpiryDateField from '../common/ExpiryDateField';
+import HView from '../common/HView';
 import PanField from '../common/PanField';
+import SessionLabel from '../common/SessionLabel';
 import Spinner from '../common/Spinner';
 import SubmitButton from '../common/SubmitButton';
+import Toggle from '../common/Toggle';
+import VView from '../common/VView';
+import CardFlowE2eStates from './CardFlow.e2e.states';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import styles from './style.js';
@@ -24,6 +29,7 @@ export default function CardFlow() {
   const [expiryValue, setExpiry] = useState<string>('');
   const [cvcValue, setCvc] = useState<string>('');
 
+  const [brand, setBrand] = useState<string>('');
   const [brandLogo, setBrandLogo] = useState<string>(unknownBrandLogo);
   const [panIsValid, setPanIsValid] = useState<boolean>(false);
   const [expiryIsValid, setExpiryIsValid] = useState<boolean>(false);
@@ -33,6 +39,12 @@ export default function CardFlow() {
   const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
   const [isEditable, setIsEditable] = useState<boolean>(true);
+
+  const [generateCardAndCvcSessions, setGenerateCardAndCvcSessions] =
+    useState(false);
+
+  const [cardSession, setCardSession] = useState('');
+  const [cvcSession, setCvcSession] = useState('');
 
   const accessCheckout = new AccessCheckout({
     accessBaseUrl: 'https://preprod.access.worldpay.com',
@@ -48,8 +60,11 @@ export default function CardFlow() {
   function handleValidationResult(result: any) {
     if (result.type === 'brand') {
       if (result.value === null) {
+        setBrand('');
         setBrandLogo(unknownBrandLogo);
       } else {
+        setBrand(result.value.name);
+
         const images: BrandImage[] = result.value.images;
 
         for (const img of images) {
@@ -99,9 +114,9 @@ export default function CardFlow() {
 
     const validationConfig = new CardValidationConfig({
       panId: 'panInput',
-      expiryDateId: 'expiryInput',
+      expiryDateId: 'expiryDateInput',
       cvcId: 'cvcInput',
-      enablePanFormatting: false,
+      enablePanFormatting: true,
     });
     return accessCheckout
       .initialiseValidation(validationConfig)
@@ -114,6 +129,10 @@ export default function CardFlow() {
   }
 
   function generateSession() {
+    let sessionTypes = generateCardAndCvcSessions
+      ? [SessionType.CARD, SessionType.CVC]
+      : [SessionType.CARD];
+
     setShowSpinner(true);
     setIsEditable(false);
     setSubmitBtnEnabled(false);
@@ -125,14 +144,20 @@ export default function CardFlow() {
     };
 
     accessCheckout
-      .generateSessions(cardDetails, [SessionType.CARD, SessionType.CVC])
+      .generateSessions(cardDetails, sessionTypes)
       .then((session) => {
         const sessions: any = {
           card: session.get('card'),
           cvc: session.get('cvc'),
         };
 
-        Alert.alert('Session', `${JSON.stringify(sessions)}`, [{ text: 'OK' }]);
+        console.log(sessions);
+        if (sessions.card) {
+          setCardSession(sessions.card);
+        }
+        if (sessions.cvc) {
+          setCvcSession(sessions.cvc);
+        }
       })
       .catch((reason) => {
         Alert.alert('Error', `${reason}`, [{ text: 'OK' }]);
@@ -144,34 +169,77 @@ export default function CardFlow() {
       });
   }
 
+  let cardSessionComponent;
+  let cvcSessionComponent;
+
+  if (cardSession) {
+    cardSessionComponent = (
+      <SessionLabel
+        testID="cardSession"
+        label="Card session:"
+        session={cardSession}
+      />
+    );
+  }
+
+  if (cvcSession) {
+    cvcSessionComponent = (
+      <SessionLabel
+        testID="cvcSession"
+        label="Cvc session:"
+        session={cvcSession}
+      />
+    );
+  }
+
   return (
-    <View style={styles.container} onLayout={initialiseValidation}>
-      <Spinner show={showSpinner} />
-      <View style={styles.row}>
+    <VView style={styles.cardFlow} onLayout={initialiseValidation}>
+      <Spinner testID="spinner" show={showSpinner} />
+      <HView>
         <PanField
+          testID="panInput"
           isValid={panIsValid}
           onChange={setPan}
           isEditable={isEditable}
         />
-        <CardBrandImage logo={brandLogo} />
-      </View>
-
-      <View style={styles.row}>
+        <CardBrandImage testID="cardBrandImage" logo={brandLogo} />
+      </HView>
+      <HView>
         <ExpiryDateField
+          testID="expiryDateInput"
           isValid={expiryIsValid}
           onChange={setExpiry}
           isEditable={isEditable}
         />
         <CvcField
+          testID="cvcInput"
           isValid={cvcIsValid}
           onChange={setCvc}
           isEditable={isEditable}
         />
-      </View>
-
-      <View style={[styles.submitView]}>
-        <SubmitButton onPress={generateSession} enabled={submitBtnEnabled} />
-      </View>
-    </View>
+      </HView>
+      <Toggle
+        testID="cardAndCvcSessionsToggle"
+        onChange={setGenerateCardAndCvcSessions}
+      />
+      <SubmitButton
+        testID="submitButton"
+        onPress={generateSession}
+        enabled={submitBtnEnabled}
+      />
+      <VView>
+        <Text style={{ fontWeight: 'bold' }}>Sessions</Text>
+        {cardSessionComponent}
+        {cvcSessionComponent}
+      </VView>
+      <CardFlowE2eStates
+        testID="cardFlowE2eStates"
+        panIsValid={panIsValid}
+        expiryDateIsValid={expiryIsValid}
+        cvcIsValid={cvcIsValid}
+        submitButtonEnabled={submitBtnEnabled}
+        cardBrand={brand}
+      />
+    </VView>
   );
 }

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
-
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import commonStyles from './common-styles.js';
+// @ts-ignore
+import UIComponentProps from './UIComponentProps';
 
 const styles = StyleSheet.create({
   expiry: {
@@ -16,9 +17,10 @@ const styles = StyleSheet.create({
   },
 });
 
-interface ExpiryDateFieldProps {
+interface ExpiryDateFieldProps extends UIComponentProps {
   isEditable: boolean;
   isValid: boolean;
+
   onChange(text: string): void;
 }
 
@@ -27,7 +29,8 @@ const ExpiryDateField = (props: ExpiryDateFieldProps) => {
 
   return (
     <TextInput
-      nativeID="expiryInput"
+      nativeID="expiryDateInput"
+      testID={props.testID}
       style={[
         styles.expiry,
         !props.isEditable

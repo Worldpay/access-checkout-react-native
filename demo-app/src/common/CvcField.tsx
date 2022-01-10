@@ -4,6 +4,8 @@ import { StyleSheet, TextInput } from 'react-native';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import commonStyles from './common-styles.js';
+// @ts-ignore
+import UIComponentProps from './UIComponentProps';
 
 const styles = StyleSheet.create({
   cvc: {
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface CvcFieldProps {
+interface CvcFieldProps extends UIComponentProps {
   isEditable: boolean;
   isValid: boolean;
   onChange(text: string): void;
@@ -28,6 +30,7 @@ const CvcField = (props: CvcFieldProps) => {
   return (
     <TextInput
       nativeID="cvcInput"
+      testID={props.testID}
       style={[
         styles.cvc,
         props.isValid ? commonStyles.valid : commonStyles.invalid,
