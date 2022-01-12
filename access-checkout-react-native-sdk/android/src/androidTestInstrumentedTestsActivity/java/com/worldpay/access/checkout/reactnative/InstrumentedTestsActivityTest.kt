@@ -1,21 +1,29 @@
 package com.worldpay.access.checkout.reactnative
 
+import android.content.Context
 import androidx.test.core.app.ActivityScenario
-import com.github.tomakehurst.wiremock.junit.WireMockRule
+import androidx.test.platform.app.InstrumentationRegistry
+import com.worldpay.access.checkout.reactnative.MockServer.startWiremock
+import com.worldpay.access.checkout.reactnative.MockServer.stopWiremock
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Rule
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
+
 
 class InstrumentedTestsActivityTest {
+    private val applicationContext: Context =
+        InstrumentationRegistry.getInstrumentation().context.applicationContext
 
-//    @get:Rule
-//    var mActivityTestRule: ActivityScenarioRule<InstrumentedTestsActivity> =
-//        ActivityScenarioRule(InstrumentedTestsActivity::class.java)
+    @Before
+    fun setup() {
+        startWiremock(applicationContext, 8443)
+    }
 
-    @get:Rule
-    val wireMockRule = WireMockRule()
+    @After
+    fun tearDown() {
+        stopWiremock()
+    }
 
     @Test
     fun testShouldBeAbleToGenerateACardSession() {
@@ -24,6 +32,8 @@ class InstrumentedTestsActivityTest {
         stub.stubVerifiedTokensRootSuccess()
         stub.stubSessionsRootSuccess()
         stub.stubVerifiedTokensSessionsSuccess("my-session")
+
+        // wireMockServer!!.start()
 
         val scenario = ActivityScenario.launch(InstrumentedTestsActivity::class.java)
 

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.worldpay.access.checkout.reactnative" >
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application>
         <activity
             android:name="com.worldpay.access.checkout.reactnative.InstrumentedTestsActivity"

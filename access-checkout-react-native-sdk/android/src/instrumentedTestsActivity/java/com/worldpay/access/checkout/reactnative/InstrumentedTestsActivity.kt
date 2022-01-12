@@ -4,21 +4,20 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.lifecycle.LifecycleOwner
-import com.facebook.react.bridge.*
-import com.worldpay.access.checkout.client.session.model.SessionType
-import kotlin.coroutines.Continuation
-import kotlin.coroutines.suspendCoroutine
 import androidx.test.core.app.ApplicationProvider
+import com.facebook.react.bridge.*
 import com.facebook.soloader.SoLoader
+import com.worldpay.access.checkout.client.session.model.SessionType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.suspendCoroutine
 
 class InstrumentedTestsActivity : ComponentActivity(), CoroutineScope by MainScope() {
-    var session:String? = "test"
+    var session: String? = "test"
 
-    private var module:AccessCheckoutReactNativeModule? = null
+    private var module: AccessCheckoutReactNativeModule? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,22 +32,23 @@ class InstrumentedTestsActivity : ComponentActivity(), CoroutineScope by MainSco
         }
     }
 
-    suspend fun generateSessions(module:AccessCheckoutReactNativeModule): Map<SessionType, String> = suspendCoroutine { continuation ->
-        val map = JavaOnlyMap()
-        map.putString("baseUrl", "http://127.0.0.1:8080/")
-        map.putString("merchantId", "some-id")
-        map.putString("panValue", "4444333322221111")
-        map.putString("expiryValue", "12/34")
-        map.putString("cvcValue", "123")
-        map.putArray("sessionTypes", JavaOnlyArray.from(listOf("card", "cvc")))
+    suspend fun generateSessions(module: AccessCheckoutReactNativeModule): Map<SessionType, String> =
+        suspendCoroutine { continuation ->
+            val map = JavaOnlyMap()
+            map.putString("baseUrl", "https://localhost:8443/")
+            map.putString("merchantId", "some-id")
+            map.putString("panValue", "4444333322221111")
+            map.putString("expiryValue", "12/34")
+            map.putString("cvcValue", "123")
+            map.putArray("sessionTypes", JavaOnlyArray.from(listOf("card", "cvc")))
 
-        val promise = PromiseImpl(
-            SuccessCallback(continuation),
-            FailureCallback(continuation)
-        )
+            val promise = PromiseImpl(
+                SuccessCallback(continuation),
+                FailureCallback(continuation)
+            )
 
-        module.generateSessions(map, promise)
-    }
+            module.generateSessions(map, promise)
+        }
 
     private fun reactApplicationContext(): ReactApplicationContext {
         val applicationContext: Context = ApplicationProvider.getApplicationContext()
@@ -58,7 +58,7 @@ class InstrumentedTestsActivity : ComponentActivity(), CoroutineScope by MainSco
 
     class MockReactApplicationContext(context: Context, activity: Activity) :
         ReactApplicationContext(context) {
-        var activity:Activity? = activity
+        var activity: Activity? = activity
 
         override fun getCurrentActivity(): Activity? {
             return if (activity == null) {
@@ -83,7 +83,9 @@ class InstrumentedTestsActivity : ComponentActivity(), CoroutineScope by MainSco
     ) : Callback {
 
         override fun invoke(vararg args: Any?) {
-            continuation.resumeWith(Result.failure(RuntimeException("Failed somehow")))
+            val map = args[0] as ReadableNativeMap
+            val message = map.getString("message")
+            continuation.resumeWith(Result.failure(RuntimeException(message)))
         }
 
     }

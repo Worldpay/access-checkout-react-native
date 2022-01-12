@@ -2,7 +2,8 @@ package com.worldpay.access.checkout.reactnative
 
 import com.github.tomakehurst.wiremock.client.WireMock
 
-class WiremockStub {
+class WiremockStub constructor() {
+
     fun stubRootSuccess() {
         WireMock.stubFor(
             WireMock.get("/")
@@ -14,17 +15,17 @@ class WiremockStub {
                                 {
                                     "_links": {
                                         "service:payments": {
-                                        "href": "http://localhost:8080/payments"
+                                        "href": "https://localhost:8443/payments"
                                         },
                                         "service:sessions": {
-                                        "href": "http://localhost:8080/sessions"
+                                        "href": "https://localhost:8443/sessions"
                                         },
                                         "service:verifiedTokens": {
-                                        "href": "http://localhost:8080/verifiedTokens"
+                                        "href": "https://localhost:8443/verifiedTokens"
                                         },
                                         "curies": [
                                             {
-                                            "href": "http://localhost:8080/rels/payments/{rel}",
+                                            "href": "https://localhost:8443/rels/payments/{rel}",
                                             "name": "payments",
                                             "templated": true
                                             }
@@ -48,17 +49,17 @@ class WiremockStub {
                                 {
                                     "_links": {
                                         "resourceTree": {
-                                            "href": "http://localhost:8080/rels/verifiedTokens/resourceTree.json"
+                                            "href": "https://localhost:8443/rels/verifiedTokens/resourceTree.json"
                                         },
                                             "verifiedTokens:sessions": {
-                                            "href": "http://localhost:8080/verifiedTokens/sessions"
+                                            "href": "https://localhost:8443/verifiedTokens/sessions"
                                         },
                                             "verifiedTokens:cardOnFile": {
-                                            "href": "http://localhost:8080/verifiedTokens/cardOnFile"
+                                            "href": "https://localhost:8443/verifiedTokens/cardOnFile"
                                         },
                                         "curies": [
                                             {
-                                                "href": "http://localhost:8080/rels/verifiedTokens/{rel}.json",
+                                                "href": "https://localhost:8443/rels/verifiedTokens/{rel}.json",
                                                 "name": "verifiedTokens",
                                                 "templated": true
                                             }
@@ -71,7 +72,7 @@ class WiremockStub {
         )
     }
 
-    fun stubVerifiedTokensSessionsSuccess(session:String) {
+    fun stubVerifiedTokensSessionsSuccess(session: String) {
         WireMock.stubFor(
             WireMock.post("/verifiedTokens/sessions")
                 .willReturn(
@@ -85,11 +86,11 @@ class WiremockStub {
                                     {
                                       "templated": true,
                                       "name": "verifiedTokens",
-                                      "href": "http://localhost:8080/rels/verifiedTokens/{rel}.json"
+                                      "href": "https://localhost:8443/rels/verifiedTokens/{rel}.json"
                                     }
                                   ],
                                   "verifiedTokens:session": {
-                                    "href": "http://localhost:8080/verifiedTokens/sessions/${session}"
+                                    "href": "https://localhost:8443/verifiedTokens/sessions/${session}"
                                   }
                                 }x
                             """
@@ -109,14 +110,14 @@ class WiremockStub {
                                 {
                                     "_links": {
                                         "sessions:paymentsCvc": {
-                                            "href": "http://localhost:8080/sessions/payments/cvc"
+                                            "href": "https://localhost:8443/sessions/payments/cvc"
                                         },
                                         "resourceTree": {
-                                            "href": "http://localhost:8080/rels/sessions/resourceTree.json"
+                                            "href": "https://localhost:8443/rels/sessions/resourceTree.json"
                                         },
                                         "curies": [
                                             {
-                                                "href": "http://localhost:8080/rels/sessions/{rel}.json",
+                                                "href": "https://localhost:8443/rels/sessions/{rel}.json",
                                                 "name": "sessions",
                                                 "templated": true
                                             }
