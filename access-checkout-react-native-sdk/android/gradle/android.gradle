@@ -31,4 +31,18 @@ android {
             includeAndroidResources = true
         }
     }
+
+//    buildTypes {
+//        instrumentedTestsActivity {
+//            signingConfig signingConfigs.debug
+//            debuggable true
+//        }
+//    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        instrumentedTestsActivity {
+            dimension = "environment"
+        }
+    }
 }

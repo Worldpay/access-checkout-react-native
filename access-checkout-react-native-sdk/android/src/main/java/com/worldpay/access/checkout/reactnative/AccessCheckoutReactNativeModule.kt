@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.bridge.*
 import com.facebook.react.uimanager.util.ReactFindViewUtil
 import com.worldpay.access.checkout.client.session.AccessCheckoutClient
@@ -68,6 +69,7 @@ class AccessCheckoutReactNativeModule(private val reactContext: ReactApplication
               .build()
 
       accessCheckoutClient!!.generateSessions(cardDetails, config.sessionTypes)
+
     }
   }
 
@@ -115,5 +117,5 @@ class AccessCheckoutReactNativeModule(private val reactContext: ReactApplication
     }
   }
 
-  private fun getLifecycleOwner() = (reactContext.currentActivity as AppCompatActivity)
+  private fun getLifecycleOwner() = (reactContext.currentActivity as LifecycleOwner)
 }

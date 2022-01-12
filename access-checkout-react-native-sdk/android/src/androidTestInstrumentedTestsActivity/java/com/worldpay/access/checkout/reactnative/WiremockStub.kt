@@ -2,7 +2,7 @@ package com.worldpay.access.checkout.reactnative
 
 import com.github.tomakehurst.wiremock.client.WireMock
 
-class WiremockStubUnitTest {
+class WiremockStub {
     fun stubRootSuccess() {
         WireMock.stubFor(
             WireMock.get("/")
