@@ -45,7 +45,7 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.4'
     testImplementation("com.github.tomakehurst:wiremock-standalone:2.27.2") {
         //Allows us to use the Android version of Apache httpclient instead
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+
     }
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
 
@@ -60,7 +60,8 @@ dependencies {
     androidTestImplementation 'org.assertj:assertj-core:3.21.0'
     androidTestImplementation("com.github.tomakehurst:wiremock-standalone:2.27.2") {
         //Allows us to use the Android version of Apache httpclient instead
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+
     }
+    androidTestImplementation 'org.awaitility:awaitility-kotlin:3.1.6'
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
 }

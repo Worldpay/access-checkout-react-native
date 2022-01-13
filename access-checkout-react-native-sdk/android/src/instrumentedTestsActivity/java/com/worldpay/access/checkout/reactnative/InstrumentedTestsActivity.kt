@@ -7,7 +7,6 @@ import androidx.activity.ComponentActivity
 import androidx.test.core.app.ApplicationProvider
 import com.facebook.react.bridge.*
 import com.facebook.soloader.SoLoader
-import com.worldpay.access.checkout.client.session.model.SessionType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -28,11 +27,11 @@ class InstrumentedTestsActivity : ComponentActivity(), CoroutineScope by MainSco
 
         launch {
             val result = generateSessions(module!!)
-            session = result[SessionType.CARD]
+            session = result.getString("card")
         }
     }
 
-    suspend fun generateSessions(module: AccessCheckoutReactNativeModule): Map<SessionType, String> =
+    suspend fun generateSessions(module: AccessCheckoutReactNativeModule): ReadableMap =
         suspendCoroutine { continuation ->
             val map = JavaOnlyMap()
             map.putString("baseUrl", "https://localhost:8443/")
@@ -40,7 +39,7 @@ class InstrumentedTestsActivity : ComponentActivity(), CoroutineScope by MainSco
             map.putString("panValue", "4444333322221111")
             map.putString("expiryValue", "12/34")
             map.putString("cvcValue", "123")
-            map.putArray("sessionTypes", JavaOnlyArray.from(listOf("card", "cvc")))
+            map.putArray("sessionTypes", JavaOnlyArray.from(listOf("card")))
 
             val promise = PromiseImpl(
                 SuccessCallback(continuation),
@@ -52,7 +51,6 @@ class InstrumentedTestsActivity : ComponentActivity(), CoroutineScope by MainSco
 
     private fun reactApplicationContext(): ReactApplicationContext {
         val applicationContext: Context = ApplicationProvider.getApplicationContext()
-        // return ReactApplicationContext(applicationContext)
         return MockReactApplicationContext(applicationContext, this)
     }
 
@@ -73,9 +71,8 @@ class InstrumentedTestsActivity : ComponentActivity(), CoroutineScope by MainSco
     ) : Callback {
 
         override fun invoke(vararg args: Any?) {
-            continuation.resumeWith(Result.success(args as T))
+            continuation.resumeWith(Result.success(args[0] as T))
         }
-
     }
 
     class FailureCallback<T> constructor(

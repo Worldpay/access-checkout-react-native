@@ -5,10 +5,14 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.worldpay.access.checkout.reactnative.MockServer.startWiremock
 import com.worldpay.access.checkout.reactnative.MockServer.stopWiremock
-import org.assertj.core.api.Assertions.assertThat
+import com.worldpay.access.checkout.reactnative.stubs.AccessServicesRootStub
+import com.worldpay.access.checkout.reactnative.stubs.SessionsStub
+import com.worldpay.access.checkout.reactnative.stubs.VerifiedTokensStub
+import org.awaitility.Awaitility.await
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import java.util.concurrent.TimeUnit
 
 
 class InstrumentedTestsActivityTest {
@@ -27,25 +31,41 @@ class InstrumentedTestsActivityTest {
 
     @Test
     fun testShouldBeAbleToGenerateACardSession() {
-        val stub = WiremockStub()
-        stub.stubRootSuccess()
-        stub.stubVerifiedTokensRootSuccess()
-        stub.stubSessionsRootSuccess()
-        stub.stubVerifiedTokensSessionsSuccess("my-session")
-
-        // wireMockServer!!.start()
+        AccessServicesRootStub.stubRootSuccess()
+        VerifiedTokensStub.stubRootSuccess()
+        VerifiedTokensStub.stubSessionsSuccess("my-session")
 
         val scenario = ActivityScenario.launch(InstrumentedTestsActivity::class.java)
 
+        await().atMost(5, TimeUnit.SECONDS).until {
+            var session: String? = ""
 
-//        val sessions: MutableMap<SessionType, String> = LinkedHashMap()
-//        sessions[SessionType.CARD] = ""
+            scenario.onActivity { activity ->
+                session = activity.session
+            }
 
-        // You can inspect internal state of your activity by
-        scenario.onActivity { activity ->
-            assertThat(activity.session).isEqualTo("test")
+            session == "my-session"
         }
+    }
 
-        // assertThat(sessions[SessionType.CARD]).isEqualTo("my-session")
+    @Test
+    fun testShouldBeAbleToGenerateACardAndACvcSession() {
+        AccessServicesRootStub.stubRootSuccess()
+        VerifiedTokensStub.stubRootSuccess()
+        VerifiedTokensStub.stubSessionsSuccess("my-session")
+        SessionsStub.stubRootSuccess()
+        SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
+
+        val scenario = ActivityScenario.launch(InstrumentedTestsActivity::class.java)
+
+        await().atMost(5, TimeUnit.SECONDS).until {
+            var session: String? = ""
+
+            scenario.onActivity { activity ->
+                session = activity.session
+            }
+
+            session == "my-session"
+        }
     }
 }
