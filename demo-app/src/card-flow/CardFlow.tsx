@@ -218,16 +218,23 @@ export default function CardFlow() {
           isEditable={isEditable}
         />
       </HView>
-      <Toggle
-        testID="cardAndCvcSessionsToggle"
-        onChange={setGenerateCardAndCvcSessions}
-      />
-      <SubmitButton
-        testID="submitButton"
-        onPress={generateSession}
-        enabled={submitBtnEnabled}
-      />
-      <VView>
+      <HView>
+        <HView style={{ marginTop: '2%', marginRight: '2%', marginLeft: '3%' }}>
+          <Text>Generate VT session + CVC session</Text>
+        </HView>
+        <Toggle
+          testID="cardAndCvcSessionsToggle"
+          onChange={setGenerateCardAndCvcSessions}
+        />
+      </HView>
+      <VView style={{ marginTop: '8%' }}>
+        <SubmitButton
+          testID="submitButton"
+          onPress={generateSession}
+          enabled={submitBtnEnabled}
+        />
+      </VView>
+      <VView style={{ marginTop: '8%', marginLeft: '4%' }}>
         <Text style={{ fontWeight: 'bold' }}>Sessions</Text>
         {cardSessionComponent}
         {cvcSessionComponent}
