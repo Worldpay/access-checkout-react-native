@@ -10,9 +10,12 @@ interface SessionLabelProps extends UIComponentProps {
 
 const SessionLabel = (props: SessionLabelProps) => {
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={{ flexDirection: 'row', marginTop: '2%' }}>
       <Text style={{ fontSize: 11 }}>{props.label}</Text>
-      <Text testID={props.testID} style={{ fontSize: 11 }}>
+      <Text
+        testID={props.testID}
+        style={{ fontSize: 11, flex: 1, flexWrap: 'wrap' }}
+      >
         {props.session}
       </Text>
     </View>
