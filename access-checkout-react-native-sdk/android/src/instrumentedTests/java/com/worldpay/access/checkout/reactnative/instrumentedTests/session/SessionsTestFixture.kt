@@ -1,4 +1,4 @@
-package com.worldpay.access.checkout.reactnative.instrumentedTests.sessions
+package com.worldpay.access.checkout.reactnative.instrumentedTests.session
 
 class SessionsTestFixture {
     companion object {

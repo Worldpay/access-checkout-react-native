@@ -1,4 +1,4 @@
-package com.worldpay.access.checkout.reactnative.instrumentedTests
+package com.worldpay.access.checkout.reactnative.instrumentedTests.react
 
 import com.facebook.react.bridge.Callback
 import kotlin.Result.Companion.success

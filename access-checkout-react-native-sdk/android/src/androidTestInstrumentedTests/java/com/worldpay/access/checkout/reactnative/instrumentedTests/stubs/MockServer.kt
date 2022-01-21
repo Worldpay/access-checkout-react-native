@@ -1,4 +1,4 @@
-package com.worldpay.access.checkout.reactnative
+package com.worldpay.access.checkout.reactnative.instrumentedTests.stubs
 
 import android.content.Context
 import android.util.Log

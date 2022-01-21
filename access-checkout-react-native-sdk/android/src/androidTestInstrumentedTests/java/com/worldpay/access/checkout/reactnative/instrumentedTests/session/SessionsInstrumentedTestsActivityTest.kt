@@ -1,17 +1,16 @@
-package com.worldpay.access.checkout.reactnative
+package com.worldpay.access.checkout.reactnative.instrumentedTests.session
 
 import android.content.Context
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
-import com.worldpay.access.checkout.reactnative.MockServer.startWiremock
-import com.worldpay.access.checkout.reactnative.MockServer.stopWiremock
-import com.worldpay.access.checkout.reactnative.instrumentedTests.sessions.SessionsInstrumentedTestsActivity
-import com.worldpay.access.checkout.reactnative.instrumentedTests.sessions.SessionsTestFixture.Companion.CARD
-import com.worldpay.access.checkout.reactnative.instrumentedTests.sessions.SessionsTestFixture.Companion.CVC
-import com.worldpay.access.checkout.reactnative.instrumentedTests.sessions.SessionsTestFixture.Companion.sessionsTextFixture
-import com.worldpay.access.checkout.reactnative.stubs.AccessServicesRootStub
-import com.worldpay.access.checkout.reactnative.stubs.SessionsStub
-import com.worldpay.access.checkout.reactnative.stubs.VerifiedTokensStub
+import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.MockServer.startWiremock
+import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.MockServer.stopWiremock
+import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsTestFixture.Companion.CARD
+import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsTestFixture.Companion.CVC
+import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsTestFixture.Companion.sessionsTextFixture
+import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.AccessServicesRootStub
+import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.SessionsStub
+import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.VerifiedTokensStub
 import org.awaitility.Awaitility.await
 import org.junit.After
 import org.junit.Before

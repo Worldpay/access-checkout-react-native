@@ -1,4 +1,4 @@
-package com.worldpay.access.checkout.reactnative.instrumentedTests.sessions
+package com.worldpay.access.checkout.reactnative.instrumentedTests.session
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,15 +8,15 @@ import com.facebook.react.bridge.PromiseImpl
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.soloader.SoLoader
 import com.worldpay.access.checkout.reactnative.AccessCheckoutReactNativeModule
-import com.worldpay.access.checkout.reactnative.instrumentedTests.FailureCallback
-import com.worldpay.access.checkout.reactnative.instrumentedTests.MockReactApplicationContext.Companion.mockReactApplicationContext
-import com.worldpay.access.checkout.reactnative.instrumentedTests.SuccessCallback
-import com.worldpay.access.checkout.reactnative.instrumentedTests.sessions.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.BASE_URL_FIELD
-import com.worldpay.access.checkout.reactnative.instrumentedTests.sessions.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.CVC_FIELD
-import com.worldpay.access.checkout.reactnative.instrumentedTests.sessions.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.EXPIRY_DATE_FIELD
-import com.worldpay.access.checkout.reactnative.instrumentedTests.sessions.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.MERCHANT_ID_FIELD
-import com.worldpay.access.checkout.reactnative.instrumentedTests.sessions.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.PAN_FIELD
-import com.worldpay.access.checkout.reactnative.instrumentedTests.sessions.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.SESSION_TYPES_FIELD
+import com.worldpay.access.checkout.reactnative.instrumentedTests.react.FailureCallback
+import com.worldpay.access.checkout.reactnative.instrumentedTests.react.MockReactApplicationContext.Companion.mockReactApplicationContext
+import com.worldpay.access.checkout.reactnative.instrumentedTests.react.SuccessCallback
+import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.BASE_URL_FIELD
+import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.CVC_ID_FIELD
+import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.EXPIRY_DATE_ID_FIELD
+import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.MERCHANT_ID_FIELD
+import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.PAN_ID_FIELD
+import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.SESSION_TYPES_FIELD
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -33,9 +33,9 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
         val arguments = JavaOnlyMap()
         arguments.putString(BASE_URL_FIELD, SessionsTestFixture.baseUrl())
         arguments.putString(MERCHANT_ID_FIELD, SessionsTestFixture.merchantId())
-        arguments.putString(PAN_FIELD, SessionsTestFixture.pan())
-        arguments.putString(EXPIRY_DATE_FIELD, SessionsTestFixture.expiryDate())
-        arguments.putString(CVC_FIELD, SessionsTestFixture.cvc())
+        arguments.putString(PAN_ID_FIELD, SessionsTestFixture.pan())
+        arguments.putString(EXPIRY_DATE_ID_FIELD, SessionsTestFixture.expiryDate())
+        arguments.putString(CVC_ID_FIELD, SessionsTestFixture.cvc())
         arguments.putArray(
             SESSION_TYPES_FIELD,
             JavaOnlyArray.from(SessionsTestFixture.sessionsTypes())
@@ -72,9 +72,9 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
         companion object {
             const val BASE_URL_FIELD = "baseUrl"
             const val MERCHANT_ID_FIELD = "merchantId"
-            const val PAN_FIELD = "panValue"
-            const val EXPIRY_DATE_FIELD = "expiryValue"
-            const val CVC_FIELD = "cvcValue"
+            const val PAN_ID_FIELD = "panValue"
+            const val EXPIRY_DATE_ID_FIELD = "expiryValue"
+            const val CVC_ID_FIELD = "cvcValue"
             const val SESSION_TYPES_FIELD = "sessionTypes"
         }
     }
