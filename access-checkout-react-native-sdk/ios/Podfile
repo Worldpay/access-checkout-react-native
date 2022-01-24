@@ -9,7 +9,7 @@ target 'AccessCheckoutReactNative' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  pod 'AccessCheckoutSDK', :path => ENV['ACCESS_CHECKOUT_IOS_PATH']
+  pod 'AccessCheckoutSDK', '~> 2.3.0'
 end
 
 target 'AccessCheckoutReactNativeUnitTests' do
