@@ -1,0 +1,32 @@
+---
+format_version: '11'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: android
+workflows:
+  ACO-Android-RN-from-repo:
+    steps:
+    - install-missing-android-tools@3:
+        inputs:
+        - gradlew_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/gradlew"
+    - android-unit-test@1:
+        inputs:
+        - arguments: ''
+        - report_path_pattern: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testDebugUnitTest"
+        - result_path_pattern: "*build/test-results/testDebugUnitTest"
+        - is_debug: 'true'
+        - project_location: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android"
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - is_compress: 'true'
+        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testDebugUnitTest/index.html"
+app:
+  envs:
+  - opts:
+      is_expand: false
+    PROJECT_LOCATION: access-checkout-react-native-sdk/android
+  - opts:
+      is_expand: false
+    MODULE: src
+  - opts:
+      is_expand: false
+    VARIANT: ''
