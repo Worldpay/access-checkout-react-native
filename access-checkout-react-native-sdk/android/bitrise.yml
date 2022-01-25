@@ -5,6 +5,10 @@ project_type: android
 workflows:
   ACO-Android-RN-from-repo:
     steps:
+    - npm@1:
+        inputs:
+        - command: install
+        - workdir: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk"
     - install-missing-android-tools@3:
         inputs:
         - gradlew_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/gradlew"
