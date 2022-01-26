@@ -16,14 +16,14 @@ import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
 object MockServer {
-
+    const val PORT = 8443
     private lateinit var context: Context
     private lateinit var wireMockServer: WireMockServer
     private lateinit var baseUrl: String
 
     private var hasStarted = false
 
-    fun startWiremock(context: Context, port: Int = 8443) {
+    fun startWiremock(context: Context, port: Int = PORT) {
         ProviderInstaller.installIfNeeded(context)
 
         Log.d("MockServer", "Starting WireMock server!")

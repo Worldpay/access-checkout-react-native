@@ -3,191 +3,262 @@ package com.worldpay.access.checkout.reactnative.instrumentedTests.validation
 import android.content.Context
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import com.github.tomakehurst.wiremock.client.VerificationException
+import com.github.tomakehurst.wiremock.client.WireMock
 import com.worldpay.access.checkout.reactnative.instrumentedTests.react.EventMock
 import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.CardBrandsStub.Companion.stubCardBrandsRules
+import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.MockServer
 import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.MockServer.startWiremock
 import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.MockServer.stopWiremock
-import com.worldpay.access.checkout.reactnative.instrumentedTests.validation.ValidationTestFixture.Companion.validationTestFixture
+import com.worldpay.access.checkout.reactnative.instrumentedTests.validation.TestConfig.Companion.testConfig
 import org.awaitility.Awaitility.await
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.*
 import java.util.concurrent.CopyOnWriteArrayList
-import java.util.concurrent.TimeUnit
-import kotlin.random.Random
+import java.util.concurrent.TimeUnit.MILLISECONDS
 
 class ValidationInstrumentedTests {
-    val TIMEOUT_IN_SECONDS = 5000L
+    private val timeOutInMs = 5000L
 
-    var scenario: ActivityScenario<ValidationInstrumentedTestsActivity>? = null
+    companion object {
+        @BeforeClass
+        @JvmStatic
+        fun setUpOnce() {
+            val applicationContext: Context = InstrumentationRegistry.getInstrumentation()
+                .context.applicationContext
+            startWiremock(applicationContext, MockServer.PORT)
+        }
+
+        @AfterClass
+        @JvmStatic
+        fun tearDownOnce() {
+            stopWiremock()
+        }
+    }
+
 
     @Before
     fun setUp() {
-        validationTestFixture()
+        testConfig()
             .clear()
-            .panId("pan" + Random.nextInt())
-            .expiryDateId("expiryDate" + Random.nextInt())
-            .cvcId("cvc" + Random.nextInt())
+            .panId(ValidationInstrumentedTestsActivity.panId)
+            .expiryDateId(ValidationInstrumentedTestsActivity.expiryDateId)
+            .cvcId(ValidationInstrumentedTestsActivity.cvcId)
+
+        ValidationInstrumentedTestsActivity.clearActions()
     }
 
     @After
     fun tearDown() {
-        scenario!!.close()
+        WireMock.reset()
     }
-
 
     @Test
     fun shouldRaiseEventWhenPanBecomesValid() {
-        validationTestFixture().steps { activity ->
-            activity.setPan("4444333322221111")
-        }
+        startActivity().use { scenario ->
+            ValidationInstrumentedTestsActivity.run { activity ->
+                activity.setPan("4444333322221111")
+            }
 
-        scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
-
-        assertEventsReceived(scenario) { events ->
-            events.last().name == "AccessCheckoutValidationEvent"
-                    && events.last().stringOf("type") == "pan"
-                    && events.last().booleanOf("isValid")
+            assertEventsReceived(scenario) { events ->
+                events.size == 1
+                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().stringOf("type") == "pan"
+                        && events.first().booleanOf("isValid")
+            }
         }
     }
 
     @Test
     fun shouldRaiseEventWhenPanBecomesInvalid() {
-        validationTestFixture().steps { activity ->
-            activity.setPan("4444333322221111")
-            activity.setPan("4")
-        }
+        startActivity().use { scenario ->
+            ValidationInstrumentedTestsActivity.run { activity ->
+                activity.setPan("4444333322221111")
+                activity.setPan("4")
+            }
 
-        scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
+            assertEventsReceived(scenario) { events ->
+                events.size == 2
+                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().stringOf("type") == "pan"
+                        && events.first().booleanOf("isValid")
 
-        // Todo - we should assert that the Expiry Date was first invalid
-        assertEventsReceived(scenario) { events ->
-            events.size == 2
-                    && events.last().name == "AccessCheckoutValidationEvent"
-                    && events.last().stringOf("type") == "pan"
-                    && !events.last().booleanOf("isValid")
+                        && events.last().name == "AccessCheckoutValidationEvent"
+                        && events.last().stringOf("type") == "pan"
+                        && !events.last().booleanOf("isValid")
+            }
         }
     }
 
     @Test
     fun shouldRaiseEventWhenExpiryDateBecomesValid() {
-        validationTestFixture().steps { activity ->
-            activity.setExpiryDate("12/30")
-        }
+        startActivity().use { scenario ->
+            ValidationInstrumentedTestsActivity.run { activity ->
+                activity.setExpiryDate("12/30")
+            }
 
-        scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
-
-        assertEventsReceived(scenario) { events ->
-            events.size == 1
-                    && events.last().name == "AccessCheckoutValidationEvent"
-                    && events.last().stringOf("type") == "expiry"
-                    && events.last().booleanOf("isValid")
+            assertEventsReceived(scenario) { events ->
+                events.size == 1
+                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().stringOf("type") == "expiry"
+                        && events.first().booleanOf("isValid")
+            }
         }
     }
 
     @Test
     fun shouldRaiseEventWhenExpiryDateBecomesInvalid() {
-        validationTestFixture().steps { activity ->
-            activity.setExpiryDate("12/30")
-            activity.setExpiryDate("12/3")
-        }
+        startActivity().use { scenario ->
+            ValidationInstrumentedTestsActivity.run { activity ->
+                activity.setExpiryDate("12/30")
+                activity.setExpiryDate("12/3")
+            }
 
-        scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
+            assertEventsReceived(scenario) { events ->
+                events.size == 2
+                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().stringOf("type") == "expiry"
+                        && events.first().booleanOf("isValid")
 
-        // Todo - we should assert that the Expiry Date was first invalid
-        assertEventsReceived(scenario) { events ->
-            events.size == 2
-                    && events.last().name == "AccessCheckoutValidationEvent"
-                    && events.last().stringOf("type") == "expiry"
-                    && !events.last().booleanOf("isValid")
+                        && events.last().name == "AccessCheckoutValidationEvent"
+                        && events.last().stringOf("type") == "expiry"
+                        && !events.last().booleanOf("isValid")
+            }
         }
     }
 
     @Test
     fun shouldRaiseEventWhenCvcBecomesValid() {
-        validationTestFixture().steps { activity ->
-            activity.setCvc("123")
-        }
+        startActivity().use { scenario ->
+            ValidationInstrumentedTestsActivity.run { activity ->
+                activity.setCvc("123")
+            }
 
-        scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
-
-        assertEventsReceived(scenario) { events ->
-            events.size == 1
-                    && events.last().name == "AccessCheckoutValidationEvent"
-                    && events.last().stringOf("type") == "cvc"
-                    && events.last().booleanOf("isValid")
+            assertEventsReceived(scenario) { events ->
+                events.size == 1
+                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().stringOf("type") == "cvc"
+                        && events.first().booleanOf("isValid")
+            }
         }
     }
 
     @Test
     fun shouldRaiseEventWhenCvcBecomesInvalid() {
-        validationTestFixture().steps { activity ->
-            activity.setCvc("123")
-            activity.setCvc("12")
-        }
+        startActivity().use { scenario ->
+            ValidationInstrumentedTestsActivity.run { activity ->
+                activity.setCvc("123")
+                activity.setCvc("12")
+            }
 
-        scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
+            assertEventsReceived(scenario) { events ->
+                events.size == 2
+                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().stringOf("type") == "cvc"
+                        && events.first().booleanOf("isValid")
 
-        // Todo - we should assert that the CVC was first invalid
-        assertEventsReceived(scenario) { events ->
-            events.size == 2
-                    && events.last().name == "AccessCheckoutValidationEvent"
-                    && events.last().stringOf("type") == "cvc"
-                    && !events.last().booleanOf("isValid")
+                        && events.last().name == "AccessCheckoutValidationEvent"
+                        && events.last().stringOf("type") == "cvc"
+                        && !events.last().booleanOf("isValid")
+            }
         }
     }
 
     @Test
     fun shouldRaiseEventWhenAllFieldsBecomeValid() {
-        validationTestFixture().steps { activity ->
-            activity.setPan("4444333322221111")
-            activity.setExpiryDate("12/30")
-            activity.setCvc("123")
-        }
+        startActivity().use { scenario ->
+            ValidationInstrumentedTestsActivity.run { activity ->
+                activity.setPan("4444333322221111")
+                activity.setExpiryDate("12/30")
+                activity.setCvc("123")
+            }
 
-        scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
-
-        assertEventsReceived(scenario) { events ->
-            events.size == 4
-                    && events.last().name == "AccessCheckoutValidationEvent"
-                    && events.last().stringOf("type") == "all"
-                    && events.last().booleanOf("isValid")
+            assertEventsReceived(scenario) { events ->
+                events.size == 4
+                        && events.last().name == "AccessCheckoutValidationEvent"
+                        && events.last().stringOf("type") == "all"
+                        && events.last().booleanOf("isValid")
+            }
         }
     }
 
     @Test
     fun shouldRaiseEventWhenRecognisingCardBrand() {
-        val applicationContext: Context = InstrumentationRegistry.getInstrumentation()
-            .context.applicationContext
-        startWiremock(applicationContext, 8443)
+        startActivityWithCardBrandRules().use { scenario ->
+            ValidationInstrumentedTestsActivity.run { activity ->
+                activity.setPan("4")
+            }
+
+            assertEventsReceived(scenario) { events ->
+                val cardBrandEvent = CardBrandEvent(events.first().mapOf("value"))
+
+                events.size == 1
+                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().stringOf("type") == "brand"
+                        && cardBrandEvent.name == "visa"
+                        && cardBrandEvent.images[0].url == "https://localhost:8443/access-checkout/assets/visa.png"
+                        && cardBrandEvent.images[0].type == "image/png"
+                        && cardBrandEvent.images[1].url == "https://localhost:8443/access-checkout/assets/visa.svg"
+                        && cardBrandEvent.images[1].type == "image/svg+xml"
+            }
+        }
+    }
+
+    @Test
+    fun shouldRaiseAnInvalidPanEventWhenCardBrandIsNotAcceptedByMerchant() {
+        testConfig().acceptedCardBrands(listOf("jcb"))
+
+        startActivityWithCardBrandRules().use { scenario ->
+            ValidationInstrumentedTestsActivity.run { activity ->
+                activity.setPan("4")
+            }
+
+            assertEventsReceived(scenario) { events ->
+                events.size == 2
+                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().stringOf("type") == "brand"
+                        && events.last().name == "AccessCheckoutValidationEvent"
+                        && events.last().stringOf("type") == "pan"
+                        && !events.last().booleanOf("isValid")
+            }
+        }
+    }
+
+    private fun startActivity(): ActivityScenario<ValidationInstrumentedTestsActivity> {
+        val scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
+
+        scenario.onActivity { activity ->
+            activity.clearEventsReceived()
+        }
+
+        assertEventsReceived(scenario) { events ->
+            events.isEmpty()
+        }
+
+        return scenario
+    }
+
+    private fun startActivityWithCardBrandRules(): ActivityScenario<ValidationInstrumentedTestsActivity> {
         stubCardBrandsRules()
 
-        validationTestFixture().steps { activity ->
-            activity.setPan("4")
+        val scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
+        waitUntilCardConfigurationHasBeenLoaded(timeOutInMs)
+
+        scenario.onActivity { activity ->
+            activity.clearEventsReceived()
         }
 
-        scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
-
-        assertEventsContain(scenario) { event ->
-            val cardBrand = CardBrandEvent(event.mapOf("value"))
-
-            event.name == "AccessCheckoutValidationEvent"
-                    && event.stringOf("type") == "brand"
-                    && cardBrand.name == "visa"
-                    && cardBrand.images[0].url == "https://localhost:8443/access-checkout/assets/visa.png"
-                    && cardBrand.images[0].type == "image/png"
-                    && cardBrand.images[1].url == "https://localhost:8443/access-checkout/assets/visa.svg"
-                    && cardBrand.images[1].type == "image/svg+xml"
+        assertEventsReceived(scenario) { events ->
+            events.isEmpty()
         }
 
-        stopWiremock()
+        return scenario
     }
 
     private fun assertEventsReceived(
         scenario: ActivityScenario<ValidationInstrumentedTestsActivity>?,
         assertion: (List<EventMock>) -> Boolean
     ) {
-        await().atMost(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS).until {
+        await().atMost(timeOutInMs, MILLISECONDS).until {
             val eventsReceived: MutableList<EventMock> = CopyOnWriteArrayList()
             scenario!!.onActivity { activity ->
                 eventsReceived.addAll(activity.eventsReceived())
@@ -197,24 +268,14 @@ class ValidationInstrumentedTests {
         }
     }
 
-    private fun assertEventsContain(
-        scenario: ActivityScenario<ValidationInstrumentedTestsActivity>?,
-        assertion: (EventMock) -> Boolean
-    ) {
-        await().atMost(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS).until {
-            var eventsReceived: List<EventMock> = emptyList()
-            scenario!!.onActivity { activity ->
-                eventsReceived = activity.eventsReceived()
+    private fun waitUntilCardConfigurationHasBeenLoaded(timeoutInMilliseconds: Long) {
+        await().atMost(timeoutInMilliseconds, MILLISECONDS).until {
+            try {
+                WireMock.verify(WireMock.getRequestedFor(WireMock.urlEqualTo("/access-checkout/cardTypes.json")))
+                true
+            } catch (e: VerificationException) {
+                false
             }
-
-            var result = false
-            eventsReceived.forEach { event ->
-                if (assertion.invoke(event)) {
-                    result = true
-                }
-            }
-
-            result
         }
     }
 }

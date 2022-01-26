@@ -9,6 +9,7 @@ import com.worldpay.access.checkout.reactnative.instrumentedTests.session.Sessio
 import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsTestFixture.Companion.CVC
 import com.worldpay.access.checkout.reactnative.instrumentedTests.session.SessionsTestFixture.Companion.sessionsTextFixture
 import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.AccessServicesRootStub
+import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.MockServer
 import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.SessionsStub
 import com.worldpay.access.checkout.reactnative.instrumentedTests.stubs.VerifiedTokensStub
 import org.awaitility.Awaitility.await
@@ -26,7 +27,7 @@ class SessionsInstrumentedTestsActivityTest {
 
     @Before
     fun setup() {
-        startWiremock(applicationContext, 8443)
+        startWiremock(applicationContext, MockServer.PORT)
 
         AccessServicesRootStub.stubRootSuccess()
         VerifiedTokensStub.stubRootSuccess()

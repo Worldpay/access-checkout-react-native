@@ -1,10 +1,10 @@
 package com.worldpay.access.checkout.reactnative.instrumentedTests.validation
 
-import java.util.concurrent.LinkedBlockingQueue
+import kotlin.collections.ArrayList
 
-class ValidationTestFixture {
+class TestConfig {
     companion object {
-        private val INSTANCE = ValidationTestFixture()
+        private val INSTANCE = TestConfig()
 
         private const val BASE_URL = "https://localhost:8443/"
 
@@ -12,7 +12,7 @@ class ValidationTestFixture {
             return BASE_URL
         }
 
-        fun validationTestFixture(): ValidationTestFixture {
+        fun testConfig(): TestConfig {
             return INSTANCE
         }
 
@@ -31,40 +31,44 @@ class ValidationTestFixture {
         fun enablePanFormatting(): Boolean {
             return INSTANCE.enablePanFormatting
         }
+
+        fun acceptedCardBrands(): List<String> {
+            return INSTANCE.acceptedCardBrands
+        }
     }
 
-    var panId: String = ""
-    var expiryDateId: String = ""
-    var cvcId: String = ""
-    var enablePanFormatting = false
+    private var panId: String = ""
+    private var expiryDateId: String = ""
+    private var cvcId: String = ""
+    private var enablePanFormatting = false
+    private var acceptedCardBrands: MutableList<String> = ArrayList()
 
-    var steps: ((ValidationInstrumentedTestsActivity) -> Unit)? = null
-
-    fun panId(panId: String): ValidationTestFixture {
+    fun panId(panId: String): TestConfig {
         this.panId = panId
         return this
     }
 
-    fun expiryDateId(expiryDateId: String): ValidationTestFixture {
+    fun expiryDateId(expiryDateId: String): TestConfig {
         this.expiryDateId = expiryDateId
         return this
     }
 
-    fun cvcId(cvcId: String): ValidationTestFixture {
+    fun cvcId(cvcId: String): TestConfig {
         this.cvcId = cvcId
         return this
     }
 
-    fun steps(steps: (ValidationInstrumentedTestsActivity) -> Unit) {
-        this.steps = steps
+    fun acceptedCardBrands(cardBrands: List<String>): TestConfig {
+        acceptedCardBrands.addAll(cardBrands)
+        return this
     }
 
-    fun clear(): ValidationTestFixture {
+    fun clear(): TestConfig {
         INSTANCE.panId = ""
         INSTANCE.expiryDateId = ""
         INSTANCE.cvcId = ""
         INSTANCE.enablePanFormatting = false
-        INSTANCE.steps = null
+        INSTANCE.acceptedCardBrands.clear()
         return this
     }
 }

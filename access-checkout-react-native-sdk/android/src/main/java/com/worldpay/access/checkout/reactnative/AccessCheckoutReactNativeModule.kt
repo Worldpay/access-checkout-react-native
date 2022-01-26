@@ -104,14 +104,14 @@ class AccessCheckoutReactNativeModule(private val reactContext: ReactApplication
         cardValidationConfigBuilder.enablePanFormatting()
       }
 
-      Handler(Looper.getMainLooper()).post {
+      // Handler(Looper.getMainLooper()).post {
         try {
           AccessCheckoutValidationInitialiser.initialise(cardValidationConfigBuilder.build())
           promise.resolve(true)
         } catch (ex: Exception) {
           promise.reject(ex)
         }
-      }
+      // }
     } catch (ex : Exception) {
       promise.reject(ex)
     }
