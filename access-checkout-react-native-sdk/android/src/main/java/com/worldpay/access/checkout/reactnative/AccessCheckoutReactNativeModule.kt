@@ -11,8 +11,10 @@ import com.worldpay.access.checkout.client.session.AccessCheckoutClientBuilder
 import com.worldpay.access.checkout.client.session.model.CardDetails
 import com.worldpay.access.checkout.client.validation.AccessCheckoutValidationInitialiser
 import com.worldpay.access.checkout.client.validation.config.CardValidationConfig
-import com.worldpay.access.checkout.reactnative.config.GenerateSessionConfigConverter
-import com.worldpay.access.checkout.reactnative.config.ValidationConfigConverter
+import com.worldpay.access.checkout.reactnative.session.GenerateSessionConfigConverter
+import com.worldpay.access.checkout.reactnative.session.SessionResponseListenerImpl
+import com.worldpay.access.checkout.reactnative.validation.ValidationConfigConverter
+import com.worldpay.access.checkout.reactnative.validation.CardValidationListener
 
 /**
  * Module class that implements all the functionality that is required by Javascript for the end user

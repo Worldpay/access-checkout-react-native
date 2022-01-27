@@ -3,6 +3,7 @@ package com.worldpay.access.checkout.reactnative.config
 import com.facebook.react.bridge.JavaOnlyArray
 import com.facebook.react.bridge.JavaOnlyMap
 import com.worldpay.access.checkout.client.session.model.SessionType
+import com.worldpay.access.checkout.reactnative.session.GenerateSessionConfigConverter
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test

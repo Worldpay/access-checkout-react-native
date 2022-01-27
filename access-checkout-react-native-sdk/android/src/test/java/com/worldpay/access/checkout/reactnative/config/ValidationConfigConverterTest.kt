@@ -2,6 +2,7 @@ package com.worldpay.access.checkout.reactnative.config
 
 import com.facebook.react.bridge.JavaOnlyArray
 import com.facebook.react.bridge.JavaOnlyMap
+import com.worldpay.access.checkout.reactnative.validation.ValidationConfigConverter
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test
