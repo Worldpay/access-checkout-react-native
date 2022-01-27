@@ -10,7 +10,11 @@ class ValidationConfigConverter {
         val panId = readableMap.getString("panId")
         val expiryId = readableMap.getString("expiryId")
         val cvcId = readableMap.getString("cvcId")
-        val enablePanFormatting = readableMap.getBoolean("enablePanFormatting")
+        val enablePanFormatting = try {
+            readableMap.getBoolean("enablePanFormatting")
+        } catch (e: RuntimeException) {
+            false
+        }
         val acceptedCardBrandsReadableArray = readableMap.getArray("acceptedCardBrands")
 
         validateNotNull(baseUrl, "base url")
@@ -39,7 +43,7 @@ class ValidationConfigConverter {
             if (element is String) {
                 list.add(element)
             } else {
-                throw IllegalArgumentException("Expected string value in array to be provided but was not")
+                throw IllegalArgumentException("Expected accepted card brand to be a string but was not")
             }
         }
 
