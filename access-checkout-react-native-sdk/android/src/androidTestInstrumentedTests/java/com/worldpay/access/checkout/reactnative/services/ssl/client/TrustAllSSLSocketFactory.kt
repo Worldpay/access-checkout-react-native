@@ -1,4 +1,4 @@
-package com.worldpay.access.checkout.api.ssl.client
+package com.worldpay.access.checkout.reactnative.services.ssl.client
 
 import android.annotation.SuppressLint
 import java.io.IOException
@@ -40,7 +40,12 @@ class TrustAllSSLSocketFactory : SSLSocketFactory() {
     }
 
     @Throws(IOException::class, UnknownHostException::class)
-    override fun createSocket(socket: Socket?, host: String?, port: Int, autoClose: Boolean): Socket? {
+    override fun createSocket(
+        socket: Socket?,
+        host: String?,
+        port: Int,
+        autoClose: Boolean
+    ): Socket? {
         return sslContext.socketFactory.createSocket(socket, host, port, autoClose)
     }
 
@@ -53,7 +58,12 @@ class TrustAllSSLSocketFactory : SSLSocketFactory() {
         return sslContext.socketFactory.createSocket(host, port)
     }
 
-    override fun createSocket(host: String?, port: Int, localHost: InetAddress?, localPort: Int): Socket {
+    override fun createSocket(
+        host: String?,
+        port: Int,
+        localHost: InetAddress?,
+        localPort: Int
+    ): Socket {
         return sslContext.socketFactory.createSocket(host, port, localHost, localPort)
     }
 

@@ -15,13 +15,6 @@ import com.worldpay.access.checkout.reactnative.react.EventMock
 import com.worldpay.access.checkout.reactnative.react.FailureCallback
 import com.worldpay.access.checkout.reactnative.react.MockReactApplicationContext.Companion.mockReactApplicationContext
 import com.worldpay.access.checkout.reactnative.react.SuccessCallback
-import com.worldpay.access.checkout.reactnative.validation.ValidationInstrumentedTestsActivity.BridgeValidationFieldNames.Companion.ACCEPTED_CARD_BRANDS_FIELD
-import com.worldpay.access.checkout.reactnative.validation.ValidationInstrumentedTestsActivity.BridgeValidationFieldNames.Companion.BASE_URL_FIELD
-import com.worldpay.access.checkout.reactnative.validation.ValidationInstrumentedTestsActivity.BridgeValidationFieldNames.Companion.CVC_ID_FIELD
-import com.worldpay.access.checkout.reactnative.validation.ValidationInstrumentedTestsActivity.BridgeValidationFieldNames.Companion.ENABLE_PAN_FORMATTING_FIELD
-import com.worldpay.access.checkout.reactnative.validation.ValidationInstrumentedTestsActivity.BridgeValidationFieldNames.Companion.EXPIRY_DATE_ID_FIELD
-import com.worldpay.access.checkout.reactnative.validation.ValidationInstrumentedTestsActivity.BridgeValidationFieldNames.Companion.PAN_ID_FIELD
-import com.worldpay.access.checkout.reactnative.validation.TestConfig.Companion.testConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -39,6 +32,13 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
         const val expiryDateId = "expiryDateId"
         const val cvcId = "cvcId"
 
+        const val bridgeFieldBaseUrl = "baseUrl"
+        const val bridgeFieldPanId = "panId"
+        const val bridgeFieldExpiryDateId = "expiryId"
+        const val bridgeFieldCvcId = "cvcId"
+        const val bridgeFieldEnablePanFormatting = "enablePanFormatting"
+        const val bridgeFieldAcceptedCardBrands = "acceptedCardBrands"
+
         private val actions = LinkedBlockingQueue<((ValidationInstrumentedTestsActivity) -> Unit)>()
 
         fun run(action: (ValidationInstrumentedTestsActivity) -> Unit) {
@@ -50,10 +50,7 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
         }
     }
 
-    private val configurationTimeoutInMs = 5000L
-
     private val scheduledExecutorService = Executors.newScheduledThreadPool(4)
-
     private val reactApplicationContext = mockReactApplicationContext(this)
 
     var panEditText: EditText? = null
@@ -95,7 +92,7 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
         layout.addView(cvcEditText)
         setContentView(layout)
 
-        val validationArguments = toReadableMap(testConfig())
+        val validationArguments = testFixtureToReadableMap()
         val module = AccessCheckoutReactNativeModule(reactApplicationContext)
 
         launch {
@@ -126,18 +123,20 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
         scheduledExecutorService.shutdownNow()
     }
 
-    private fun toReadableMap(testConfig: TestConfig): JavaOnlyMap {
+    private fun testFixtureToReadableMap(): JavaOnlyMap {
         val arguments = JavaOnlyMap()
-        arguments.putString(BASE_URL_FIELD, TestConfig.baseUrl())
-        arguments.putString(PAN_ID_FIELD, TestConfig.panId())
-        arguments.putString(EXPIRY_DATE_ID_FIELD, TestConfig.expiryDateId())
-        arguments.putString(CVC_ID_FIELD, TestConfig.cvcId())
-        arguments.putBoolean(ENABLE_PAN_FORMATTING_FIELD, TestConfig.enablePanFormatting())
+        arguments.putString(bridgeFieldBaseUrl, ValidationTestFixture.baseUrl())
+        arguments.putString(bridgeFieldPanId, ValidationTestFixture.panId())
+        arguments.putString(bridgeFieldExpiryDateId, ValidationTestFixture.expiryDateId())
+        arguments.putString(bridgeFieldCvcId, ValidationTestFixture.cvcId())
+        arguments.putBoolean(
+            bridgeFieldEnablePanFormatting, ValidationTestFixture.enablePanFormatting()
+        )
 
         val acceptedCardBrands = JavaOnlyArray()
-        TestConfig.acceptedCardBrands()
+        ValidationTestFixture.acceptedCardBrands()
             .forEach { brand -> acceptedCardBrands.pushString(brand) }
-        arguments.putArray(ACCEPTED_CARD_BRANDS_FIELD, acceptedCardBrands)
+        arguments.putArray(bridgeFieldAcceptedCardBrands, acceptedCardBrands)
         return arguments
     }
 
@@ -158,16 +157,4 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
         editText.setTag(R.id.view_tag_native_id, id)
         return editText
     }
-
-    class BridgeValidationFieldNames {
-        companion object {
-            const val BASE_URL_FIELD = "baseUrl"
-            const val PAN_ID_FIELD = "panId"
-            const val EXPIRY_DATE_ID_FIELD = "expiryId"
-            const val CVC_ID_FIELD = "cvcId"
-            const val ENABLE_PAN_FORMATTING_FIELD = "enablePanFormatting"
-            const val ACCEPTED_CARD_BRANDS_FIELD = "acceptedCardBrands"
-        }
-    }
-
 }

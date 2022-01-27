@@ -4,7 +4,7 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.worldpay.access.checkout.client.session.model.SessionType
 
-class GenerateSessionConfigConverter {
+class GenerateSessionsConfigConverter {
 
     fun fromReadableMap(readableMap: ReadableMap): GenerateSessionsConfig {
         val baseUrl = readableMap.getString("baseUrl")

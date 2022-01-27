@@ -1,5 +1,6 @@
 package com.worldpay.access.checkout.reactnative.session
 
+import android.content.Context
 import androidx.test.platform.app.InstrumentationRegistry
 import com.facebook.react.bridge.WritableNativeMap
 import com.facebook.soloader.SoLoader
@@ -16,9 +17,10 @@ class SessionResponseListenerImplTest {
 
     @Before
     fun setUp() {
-        listener.promise = promise
+        val context: Context = InstrumentationRegistry.getInstrumentation().context
+        SoLoader.init(context, false)
 
-        SoLoader.init(InstrumentationRegistry.getInstrumentation().context, false)
+        listener.promise = promise
     }
 
     @Test

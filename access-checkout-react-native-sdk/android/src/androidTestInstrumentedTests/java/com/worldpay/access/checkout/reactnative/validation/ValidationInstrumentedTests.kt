@@ -6,11 +6,11 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.github.tomakehurst.wiremock.client.VerificationException
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.worldpay.access.checkout.reactnative.react.EventMock
-import com.worldpay.access.checkout.reactnative.stub.CardBrandsStub.Companion.stubCardBrandsRules
-import com.worldpay.access.checkout.reactnative.stub.MockServer
-import com.worldpay.access.checkout.reactnative.stub.MockServer.startWiremock
-import com.worldpay.access.checkout.reactnative.stub.MockServer.stopWiremock
-import com.worldpay.access.checkout.reactnative.validation.TestConfig.Companion.testConfig
+import com.worldpay.access.checkout.reactnative.services.CardBrandsStub.Companion.stubCardBrandsRules
+import com.worldpay.access.checkout.reactnative.services.MockServer
+import com.worldpay.access.checkout.reactnative.services.MockServer.startStubServices
+import com.worldpay.access.checkout.reactnative.services.MockServer.stopStubServices
+import com.worldpay.access.checkout.reactnative.validation.ValidationTestFixture.Companion.validationTestFixture
 import org.awaitility.Awaitility.await
 import org.junit.*
 import java.util.concurrent.CopyOnWriteArrayList
@@ -25,20 +25,20 @@ class ValidationInstrumentedTests {
         fun setUpOnce() {
             val applicationContext: Context = InstrumentationRegistry.getInstrumentation()
                 .context.applicationContext
-            startWiremock(applicationContext, MockServer.PORT)
+            startStubServices(applicationContext, MockServer.PORT)
         }
 
         @AfterClass
         @JvmStatic
         fun tearDownOnce() {
-            stopWiremock()
+            stopStubServices()
         }
     }
 
 
     @Before
     fun setUp() {
-        testConfig()
+        validationTestFixture()
             .clear()
             .panId(ValidationInstrumentedTestsActivity.panId)
             .expiryDateId(ValidationInstrumentedTestsActivity.expiryDateId)
@@ -189,23 +189,29 @@ class ValidationInstrumentedTests {
             }
 
             assertEventsReceived(scenario) { events ->
-                val cardBrandEvent = CardBrandEvent(events.first().mapOf("value"))
-
-                events.size == 1
-                        && events.first().name == "AccessCheckoutValidationEvent"
-                        && events.first().stringOf("type") == "brand"
-                        && cardBrandEvent.name == "visa"
-                        && cardBrandEvent.images[0].url == "https://localhost:8443/access-checkout/assets/visa.png"
-                        && cardBrandEvent.images[0].type == "image/png"
-                        && cardBrandEvent.images[1].url == "https://localhost:8443/access-checkout/assets/visa.svg"
-                        && cardBrandEvent.images[1].type == "image/svg+xml"
+                events.size == 1 &&
+                        events.first().name == "AccessCheckoutValidationEvent" &&
+                        events.first().stringOf("type") == "brand" &&
+                        events.first().mapOf("value")?.getString("name") == "visa" &&
+                        events.first().mapOf("value")?.getArray("images")
+                            ?.getMap(0)
+                            ?.getString("type") == "image/png" &&
+                        events.first().mapOf("value")?.getArray("images")
+                            ?.getMap(0)
+                            ?.getString("url") == "https://localhost:8443/access-checkout/assets/visa.png" &&
+                        events.first().mapOf("value")?.getArray("images")
+                            ?.getMap(1)
+                            ?.getString("type") == "image/svg+xml" &&
+                        events.first().mapOf("value")?.getArray("images")
+                            ?.getMap(1)
+                            ?.getString("url") == "https://localhost:8443/access-checkout/assets/visa.svg"
             }
         }
     }
 
     @Test
     fun shouldRaiseAnInvalidPanEventWhenCardBrandIsNotAcceptedByMerchant() {
-        testConfig().acceptedCardBrands(listOf("jcb"))
+        validationTestFixture().acceptedCardBrands(listOf("jcb"))
 
         startActivityWithCardBrandRules().use { scenario ->
             ValidationInstrumentedTestsActivity.run { activity ->

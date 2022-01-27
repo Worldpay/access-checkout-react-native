@@ -3,31 +3,29 @@ package com.worldpay.access.checkout.reactnative.session
 import android.content.Context
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
-import com.worldpay.access.checkout.reactnative.stub.MockServer.startWiremock
-import com.worldpay.access.checkout.reactnative.stub.MockServer.stopWiremock
+import com.worldpay.access.checkout.reactnative.services.AccessServicesRootStub
+import com.worldpay.access.checkout.reactnative.services.MockServer
+import com.worldpay.access.checkout.reactnative.services.MockServer.startStubServices
+import com.worldpay.access.checkout.reactnative.services.MockServer.stopStubServices
+import com.worldpay.access.checkout.reactnative.services.SessionsStub
+import com.worldpay.access.checkout.reactnative.services.VerifiedTokensStub
 import com.worldpay.access.checkout.reactnative.session.SessionsTestFixture.Companion.CARD
 import com.worldpay.access.checkout.reactnative.session.SessionsTestFixture.Companion.CVC
 import com.worldpay.access.checkout.reactnative.session.SessionsTestFixture.Companion.sessionsTextFixture
-import com.worldpay.access.checkout.reactnative.stub.AccessServicesRootStub
-import com.worldpay.access.checkout.reactnative.stub.MockServer
-import com.worldpay.access.checkout.reactnative.stub.SessionsStub
-import com.worldpay.access.checkout.reactnative.stub.VerifiedTokensStub
 import org.awaitility.Awaitility.await
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import java.util.concurrent.TimeUnit.SECONDS
+import java.util.concurrent.TimeUnit.MILLISECONDS
 
 
 class SessionsInstrumentedTestsActivityTest {
-    val TIMEOUT_IN_SECONDS = 5L
-
-    private val applicationContext: Context =
-        InstrumentationRegistry.getInstrumentation().context.applicationContext
+    private val timeOutInMs = 5000L
 
     @Before
     fun setup() {
-        startWiremock(applicationContext, MockServer.PORT)
+        val context: Context = InstrumentationRegistry.getInstrumentation().context
+        startStubServices(context, MockServer.PORT)
 
         AccessServicesRootStub.stubRootSuccess()
         VerifiedTokensStub.stubRootSuccess()
@@ -36,7 +34,7 @@ class SessionsInstrumentedTestsActivityTest {
 
     @After
     fun tearDown() {
-        stopWiremock()
+        stopStubServices()
     }
 
     @Test
@@ -76,7 +74,7 @@ class SessionsInstrumentedTestsActivityTest {
         scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
         expectedMap: Map<String, String>
     ) {
-        await().atMost(TIMEOUT_IN_SECONDS, SECONDS).until {
+        await().atMost(timeOutInMs, MILLISECONDS).until {
             var sessions: Map<String, String> = HashMap()
             scenario.onActivity { activity ->
                 sessions = activity.sessions

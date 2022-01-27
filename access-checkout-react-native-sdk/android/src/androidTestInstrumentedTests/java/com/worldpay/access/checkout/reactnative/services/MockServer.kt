@@ -1,4 +1,4 @@
-package com.worldpay.access.checkout.reactnative.stub
+package com.worldpay.access.checkout.reactnative.services
 
 import android.content.Context
 import android.util.Log
@@ -7,12 +7,10 @@ import com.github.tomakehurst.wiremock.common.ConsoleNotifier
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer
 import com.google.android.gms.security.ProviderInstaller
-// import com.worldpay.access.checkout.api.ApiDiscoveryStubs.stubServiceDiscoveryResponses
-import com.worldpay.access.checkout.api.ssl.client.TrustAllSSLSocketFactory
-import com.worldpay.access.checkout.api.ssl.server.CustomHttpServerFactory
+import com.worldpay.access.checkout.reactnative.services.ssl.client.TrustAllSSLSocketFactory
+import com.worldpay.access.checkout.reactnative.services.ssl.server.CustomHttpServerFactory
 import java.io.File
 import java.io.FileOutputStream
-import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
 object MockServer {
@@ -23,7 +21,7 @@ object MockServer {
 
     private var hasStarted = false
 
-    fun startWiremock(context: Context, port: Int = PORT) {
+    fun startStubServices(context: Context, port: Int = PORT) {
         ProviderInstaller.installIfNeeded(context)
 
         Log.d("MockServer", "Starting WireMock server!")
@@ -48,23 +46,16 @@ object MockServer {
                 .extensions(ResponseTemplateTransformer(false))
         )
 
-        Thread(
-            Runnable {
-                wireMockServer.start()
-                // stubServiceDiscoveryResponses()
-                hasStarted = true
-            }
-        ).start()
+        Thread {
+            wireMockServer.start()
+            hasStarted = true
+        }.start()
 
         waitForWiremock()
     }
 
-    fun stopWiremock() {
+    fun stopStubServices() {
         wireMockServer.stop()
-    }
-
-    fun getBaseUrl(): URL {
-        return URL(baseUrl)
     }
 
     private fun waitForWiremock() {

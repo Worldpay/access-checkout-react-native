@@ -9,7 +9,7 @@ class SuccessCallback<T> constructor(
 ) : Callback {
 
     override fun invoke(vararg args: Any?) {
-        val valueToReturn:T = args[0] as T
+        val valueToReturn: T = args[0] as T
 
         continuation.resumeWith(success(valueToReturn))
     }

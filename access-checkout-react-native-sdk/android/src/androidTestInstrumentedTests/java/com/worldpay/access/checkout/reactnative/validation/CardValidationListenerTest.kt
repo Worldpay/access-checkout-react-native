@@ -11,13 +11,14 @@ import org.junit.Before
 import org.junit.Test
 
 class CardValidationListenerTest {
-    private val reactContext =
-        MockReactApplicationContext(InstrumentationRegistry.getInstrumentation().context)
-    private val listener = CardValidationListener(reactContext)
+    private val reactApplicationContext = MockReactApplicationContext(
+        InstrumentationRegistry.getInstrumentation().context
+    )
+    private val listener = CardValidationListener(reactApplicationContext)
 
     @Before
     fun setUp() {
-        SoLoader.init(InstrumentationRegistry.getInstrumentation().context, false)
+        SoLoader.init(reactApplicationContext, false)
     }
 
     @Test
@@ -43,15 +44,16 @@ class CardValidationListenerTest {
         listener.onBrandChange(cardBrand)
 
         assertThat(eventsReceived().size).isEqualTo(1)
-        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutValidationEvent")
-        assertThat(eventsReceived().first().stringOf("type")).isEqualTo("brand")
+        val event = eventsReceived().first()
+        assertThat(event.name).isEqualTo("AccessCheckoutValidationEvent")
+        assertThat(event.stringOf("type")).isEqualTo("brand")
 
-        val eventDetails = CardBrandEvent(eventsReceived().first().mapOf("value"))
-        assertThat(eventDetails.name).isEqualTo("visa")
-        assertThat(eventDetails.images[0].type).isEqualTo("type-1")
-        assertThat(eventDetails.images[0].url).isEqualTo("url-1")
-        assertThat(eventDetails.images[1].type).isEqualTo("type-2")
-        assertThat(eventDetails.images[1].url).isEqualTo("url-2")
+        val value = event.mapOf("value")
+        assertThat(value?.getString("name")).isEqualTo("visa")
+        assertThat(value?.getArray("images")?.getMap(0)?.getString("type")).isEqualTo("type-1")
+        assertThat(value?.getArray("images")?.getMap(0)?.getString("url")).isEqualTo("url-1")
+        assertThat(value?.getArray("images")?.getMap(1)?.getString("type")).isEqualTo("type-2")
+        assertThat(value?.getArray("images")?.getMap(1)?.getString("url")).isEqualTo("url-2")
     }
 
     @Test
@@ -125,6 +127,6 @@ class CardValidationListenerTest {
     }
 
     private fun eventsReceived(): List<EventMock> {
-        return reactContext.rtcDeviceEventEmitter.eventsEmitted
+        return reactApplicationContext.rtcDeviceEventEmitter.eventsEmitted
     }
 }

@@ -11,7 +11,7 @@ import com.worldpay.access.checkout.client.session.AccessCheckoutClientBuilder
 import com.worldpay.access.checkout.client.session.model.CardDetails
 import com.worldpay.access.checkout.client.validation.AccessCheckoutValidationInitialiser
 import com.worldpay.access.checkout.client.validation.config.CardValidationConfig
-import com.worldpay.access.checkout.reactnative.session.GenerateSessionConfigConverter
+import com.worldpay.access.checkout.reactnative.session.GenerateSessionsConfigConverter
 import com.worldpay.access.checkout.reactnative.session.SessionResponseListenerImpl
 import com.worldpay.access.checkout.reactnative.validation.ValidationConfigConverter
 import com.worldpay.access.checkout.reactnative.validation.CardValidationListener
@@ -49,7 +49,7 @@ class AccessCheckoutReactNativeModule(private val reactContext: ReactApplication
     @ReactMethod
     fun generateSessions(readableMap: ReadableMap, promise: Promise) {
         Handler(Looper.getMainLooper()).post {
-            val config = GenerateSessionConfigConverter().fromReadableMap(readableMap)
+            val config = GenerateSessionsConfigConverter().fromReadableMap(readableMap)
 
             if (accessCheckoutClient == null) {
                 accessCheckoutClient = AccessCheckoutClientBuilder()

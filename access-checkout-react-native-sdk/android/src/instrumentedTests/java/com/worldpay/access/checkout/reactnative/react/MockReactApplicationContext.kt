@@ -19,6 +19,10 @@ class MockReactApplicationContext(context: Context, private val activity: Activi
 
     val rtcDeviceEventEmitter = RCTDeviceEventEmitterMock()
 
+    override fun getCurrentActivity(): Activity? {
+        return activity
+    }
+
     override fun <T : JavaScriptModule?> getJSModule(jsInterface: Class<T>?): T {
         return rtcDeviceEventEmitter as T
     }

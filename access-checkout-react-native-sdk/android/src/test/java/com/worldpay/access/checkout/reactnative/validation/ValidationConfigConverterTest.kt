@@ -1,4 +1,4 @@
-package com.worldpay.access.checkout.reactnative.config
+package com.worldpay.access.checkout.reactnative.validation
 
 import com.facebook.react.bridge.JavaOnlyArray
 import com.facebook.react.bridge.JavaOnlyMap

@@ -1,10 +1,8 @@
 package com.worldpay.access.checkout.reactnative.validation
 
-import kotlin.collections.ArrayList
-
-class TestConfig {
+class ValidationTestFixture {
     companion object {
-        private val INSTANCE = TestConfig()
+        private val INSTANCE = ValidationTestFixture()
 
         private const val BASE_URL = "https://localhost:8443/"
 
@@ -12,7 +10,7 @@ class TestConfig {
             return BASE_URL
         }
 
-        fun testConfig(): TestConfig {
+        fun validationTestFixture(): ValidationTestFixture {
             return INSTANCE
         }
 
@@ -43,27 +41,27 @@ class TestConfig {
     private var enablePanFormatting = false
     private var acceptedCardBrands: MutableList<String> = ArrayList()
 
-    fun panId(panId: String): TestConfig {
+    fun panId(panId: String): ValidationTestFixture {
         this.panId = panId
         return this
     }
 
-    fun expiryDateId(expiryDateId: String): TestConfig {
+    fun expiryDateId(expiryDateId: String): ValidationTestFixture {
         this.expiryDateId = expiryDateId
         return this
     }
 
-    fun cvcId(cvcId: String): TestConfig {
+    fun cvcId(cvcId: String): ValidationTestFixture {
         this.cvcId = cvcId
         return this
     }
 
-    fun acceptedCardBrands(cardBrands: List<String>): TestConfig {
+    fun acceptedCardBrands(cardBrands: List<String>): ValidationTestFixture {
         acceptedCardBrands.addAll(cardBrands)
         return this
     }
 
-    fun clear(): TestConfig {
+    fun clear(): ValidationTestFixture {
         INSTANCE.panId = ""
         INSTANCE.expiryDateId = ""
         INSTANCE.cvcId = ""

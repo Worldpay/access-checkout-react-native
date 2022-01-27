@@ -11,18 +11,21 @@ import com.worldpay.access.checkout.reactnative.AccessCheckoutReactNativeModule
 import com.worldpay.access.checkout.reactnative.react.FailureCallback
 import com.worldpay.access.checkout.reactnative.react.MockReactApplicationContext.Companion.mockReactApplicationContext
 import com.worldpay.access.checkout.reactnative.react.SuccessCallback
-import com.worldpay.access.checkout.reactnative.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.BASE_URL_FIELD
-import com.worldpay.access.checkout.reactnative.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.CVC_ID_FIELD
-import com.worldpay.access.checkout.reactnative.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.EXPIRY_DATE_ID_FIELD
-import com.worldpay.access.checkout.reactnative.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.MERCHANT_ID_FIELD
-import com.worldpay.access.checkout.reactnative.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.PAN_ID_FIELD
-import com.worldpay.access.checkout.reactnative.session.SessionsInstrumentedTestsActivity.BridgeSessionFieldNames.Companion.SESSION_TYPES_FIELD
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlin.coroutines.suspendCoroutine
 
 open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineScope by MainScope() {
+    companion object {
+        const val bridgeFieldBaseUrl = "baseUrl"
+        const val bridgeFieldMerchantId = "merchantId"
+        const val bridgeFieldPanId = "panValue"
+        const val bridgeFieldExpiryDateId = "expiryValue"
+        const val bridgeFieldCvcId = "cvcValue"
+        const val bridgeFieldSessionTypes = "sessionTypes"
+    }
+
     var sessions: MutableMap<String, String> = HashMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,13 +34,13 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
         SoLoader.init(this, false)
 
         val arguments = JavaOnlyMap()
-        arguments.putString(BASE_URL_FIELD, SessionsTestFixture.baseUrl())
-        arguments.putString(MERCHANT_ID_FIELD, SessionsTestFixture.merchantId())
-        arguments.putString(PAN_ID_FIELD, SessionsTestFixture.pan())
-        arguments.putString(EXPIRY_DATE_ID_FIELD, SessionsTestFixture.expiryDate())
-        arguments.putString(CVC_ID_FIELD, SessionsTestFixture.cvc())
+        arguments.putString(bridgeFieldBaseUrl, SessionsTestFixture.baseUrl())
+        arguments.putString(bridgeFieldMerchantId, SessionsTestFixture.merchantId())
+        arguments.putString(bridgeFieldPanId, SessionsTestFixture.pan())
+        arguments.putString(bridgeFieldExpiryDateId, SessionsTestFixture.expiryDate())
+        arguments.putString(bridgeFieldCvcId, SessionsTestFixture.cvc())
         arguments.putArray(
-            SESSION_TYPES_FIELD,
+            bridgeFieldSessionTypes,
             JavaOnlyArray.from(SessionsTestFixture.sessionsTypes())
         )
 
@@ -67,15 +70,4 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
 
             module.generateSessions(arguments, promise)
         }
-
-    class BridgeSessionFieldNames {
-        companion object {
-            const val BASE_URL_FIELD = "baseUrl"
-            const val MERCHANT_ID_FIELD = "merchantId"
-            const val PAN_ID_FIELD = "panValue"
-            const val EXPIRY_DATE_ID_FIELD = "expiryValue"
-            const val CVC_ID_FIELD = "cvcValue"
-            const val SESSION_TYPES_FIELD = "sessionTypes"
-        }
-    }
 }

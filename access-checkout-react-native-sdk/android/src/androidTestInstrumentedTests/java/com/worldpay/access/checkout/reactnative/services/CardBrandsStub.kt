@@ -1,4 +1,4 @@
-package com.worldpay.access.checkout.reactnative.stub
+package com.worldpay.access.checkout.reactnative.services
 
 import com.github.tomakehurst.wiremock.client.WireMock
 

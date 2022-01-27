@@ -1,15 +1,15 @@
-package com.worldpay.access.checkout.reactnative.config
+package com.worldpay.access.checkout.reactnative.session
 
 import com.facebook.react.bridge.JavaOnlyArray
 import com.facebook.react.bridge.JavaOnlyMap
 import com.worldpay.access.checkout.client.session.model.SessionType
-import com.worldpay.access.checkout.reactnative.session.GenerateSessionConfigConverter
+import com.worldpay.access.checkout.reactnative.session.GenerateSessionsConfigConverter
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test
 
-class GenerateSessionConfigConverterTest {
-    private val converter = GenerateSessionConfigConverter()
+class GenerateSessionsConfigConverterTest {
+    private val converter = GenerateSessionsConfigConverter()
 
     @Test
     fun shouldConvertMapIntoValidationConfig() {

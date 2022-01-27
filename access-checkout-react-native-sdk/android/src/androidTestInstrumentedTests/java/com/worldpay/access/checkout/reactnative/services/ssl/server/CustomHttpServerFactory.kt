@@ -1,4 +1,4 @@
-package com.worldpay.access.checkout.api.ssl.server
+package com.worldpay.access.checkout.reactnative.services.ssl.server
 
 import com.github.tomakehurst.wiremock.core.Options
 import com.github.tomakehurst.wiremock.http.AdminRequestHandler
