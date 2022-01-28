@@ -1,20 +1,10 @@
-package com.worldpay.access.checkout.reactnative.config
+package com.worldpay.access.checkout.reactnative.session
 
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.worldpay.access.checkout.client.session.model.SessionType
-import java.util.*
 
-class GenerateSessionsConfig(
-        val baseUrl: String,
-        val merchantId: String,
-        val panValue: String,
-        val expiryValue: String,
-        val cvcValue: String,
-        val sessionTypes: List<SessionType>
-)
-
-class GenerateSessionConfigConverter {
+class GenerateSessionsConfigConverter {
 
     fun fromReadableMap(readableMap: ReadableMap): GenerateSessionsConfig {
         val baseUrl = readableMap.getString("baseUrl")
@@ -31,22 +21,22 @@ class GenerateSessionConfigConverter {
         validateNotNull(cvcValue, "cvc value")
 
         return GenerateSessionsConfig(
-                baseUrl = baseUrl as String,
-                merchantId = merchantId as String,
-                panValue = panValue as String,
-                expiryValue = expiryValue as String,
-                cvcValue = cvcValue as String,
-                sessionTypes = toSessionTypesList(sessionTypes)
+            baseUrl = baseUrl as String,
+            merchantId = merchantId as String,
+            panValue = panValue as String,
+            expiryValue = expiryValue as String,
+            cvcValue = cvcValue as String,
+            sessionTypes = toSessionTypesList(sessionTypes)
         )
     }
 
-    private fun toSessionTypesList(sessionTypes: ReadableArray?) : List<SessionType> {
+    private fun toSessionTypesList(sessionTypes: ReadableArray?): List<SessionType> {
         if (sessionTypes == null || sessionTypes.size() == 0) {
             throw IllegalArgumentException("Expected session types to be provided but was not")
         }
 
         if (sessionTypes.size() > 2) {
-            throw IllegalArgumentException("Expected maximum of 2 session types to be provided but was found ${sessionTypes.size()}")
+            throw IllegalArgumentException("Expected maximum of 2 session types to be provided but found ${sessionTypes.size()}")
         }
 
         val sessionTypeList = mutableListOf<SessionType>()

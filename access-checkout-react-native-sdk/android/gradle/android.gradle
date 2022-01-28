@@ -31,4 +31,11 @@ android {
             includeAndroidResources = true
         }
     }
+
+    flavorDimensions 'testTypes'
+    productFlavors {
+        instrumentedTests {
+            dimension = 'testTypes'
+        }
+    }
 }

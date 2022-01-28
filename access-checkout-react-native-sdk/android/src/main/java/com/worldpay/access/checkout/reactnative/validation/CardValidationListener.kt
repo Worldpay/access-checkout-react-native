@@ -1,4 +1,4 @@
-package com.worldpay.access.checkout.reactnative
+package com.worldpay.access.checkout.reactnative.validation
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContext

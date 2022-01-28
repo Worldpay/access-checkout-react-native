@@ -1,25 +1,20 @@
-package com.worldpay.access.checkout.reactnative.config
+package com.worldpay.access.checkout.reactnative.validation
 
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 
-class ValidationConfig(
-        val baseUrl: String,
-        val panId: String,
-        val expiryId: String,
-        val cvcId: String,
-        val enablePanFormatting: Boolean,
-        val acceptedCardBrands: Array<String>
-)
-
 class ValidationConfigConverter {
 
-    fun fromReadableMap(readableMap: ReadableMap) : ValidationConfig {
+    fun fromReadableMap(readableMap: ReadableMap): ValidationConfig {
         val baseUrl = readableMap.getString("baseUrl")
         val panId = readableMap.getString("panId")
         val expiryId = readableMap.getString("expiryId")
         val cvcId = readableMap.getString("cvcId")
-        val enablePanFormatting = readableMap.getBoolean("enablePanFormatting")
+        val enablePanFormatting = try {
+            readableMap.getBoolean("enablePanFormatting")
+        } catch (e: RuntimeException) {
+            false
+        }
         val acceptedCardBrandsReadableArray = readableMap.getArray("acceptedCardBrands")
 
         validateNotNull(baseUrl, "base url")
@@ -33,25 +28,26 @@ class ValidationConfigConverter {
         }
 
         return ValidationConfig(
-                baseUrl = baseUrl as String,
-                panId = panId as String,
-                expiryId = expiryId as String,
-                cvcId = cvcId as String,
-                enablePanFormatting = enablePanFormatting,
-                acceptedCardBrands = acceptedCardBrands
+            baseUrl = baseUrl as String,
+            panId = panId as String,
+            expiryId = expiryId as String,
+            cvcId = cvcId as String,
+            enablePanFormatting = enablePanFormatting,
+            acceptedCardBrands = acceptedCardBrands
         )
     }
 
     private fun asArrayList(readableArray: ReadableArray): Array<String> {
-        val array = emptyArray<String>()
+        val list = ArrayList<String>()
         readableArray.toArrayList().forEachIndexed { index, element ->
             if (element is String) {
-                array[index] = element
+                list.add(element)
             } else {
-                throw IllegalArgumentException("Expected string value in array to be provided but was not")
+                throw IllegalArgumentException("Expected accepted card brand to be a string but was not")
             }
         }
-        return array
+
+        return list.toTypedArray()
     }
 
     private fun validateNotNull(property: Any?, propertyKey: String) {
