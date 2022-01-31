@@ -19,5 +19,5 @@ target 'AccessCheckoutReactNativeUnitTests' do
  
   use_react_native!(:path => config["reactNativePath"])
  
-  pod 'Mockingjay', '~> 3.0.0-alpha.1'
+  pod 'Mockingjay', :git => 'https://github.com/kylef/Mockingjay.git', :commit => '9e5bd2f'
 end

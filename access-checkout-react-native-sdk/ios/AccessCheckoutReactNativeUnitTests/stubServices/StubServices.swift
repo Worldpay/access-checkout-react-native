@@ -13,6 +13,7 @@ final class StubServices :XCTest {
     private let verifiedTokensServiceSessionsPath = "/verifiedTokens/sessions"
     private let sessionsServicePath = "/sessions"
     private let sessionsServicePaymentsCvcSessionPath = "/sessions/paymentsCvc"
+    private let cardConfigurationPath = "/cardConfiguration"
     
     func stubServicesRootDiscovery() -> StubServices {
         stub(http(.get, uri: baseUrl), successfulDiscoveryResponse())
@@ -27,6 +28,21 @@ final class StubServices :XCTest {
     
     func stubVerifiedTokensSessionSuccess(session: String)-> StubServices {
         stub(http(.post, uri: "\(baseUrl)\(verifiedTokensServiceSessionsPath)"), successfulVerifiedTokensSessionResponse(session: session))
+        return self
+    }
+    
+    func stubSessionsDiscovery() -> StubServices {
+        stub(http(.get, uri: "\(baseUrl)\(sessionsServicePath)"), successfulDiscoveryResponse())
+        return self
+    }
+    
+    func stubSessionsSessionSuccess(session: String) -> StubServices {
+        stub(http(.post, uri: "\(baseUrl)\(sessionsServicePaymentsCvcSessionPath)"), successfulSessionsSession(session:session))
+        return self
+    }
+    
+    func stubCardConfiguration() -> StubServices {
+        stub(http(.get, uri: "\(baseUrl)\(cardConfigurationPath)"), successfulDiscoveryResponse())
         return self
     }
     
@@ -63,7 +79,22 @@ final class StubServices :XCTest {
         """), status: 201)
     }
     
+    private func successfulSessionsSession(session: String) -> (URLRequest) -> Response {
+            return jsonData(toData("""
+            {
+                "_links": {
+                    "sessions:session": {
+                        "href": "\(session)"
+                    }
+                }
+            }
+            """), status: 201)
+        }
+    
+    
+    
     private func toData(_ stringData: String) -> Data {
         return stringData.data(using: .utf8)!
     }
+    
 }
