@@ -13,25 +13,13 @@ final class StubServices :XCTest {
     private let verifiedTokensServiceSessionsPath = "/verifiedTokens/sessions"
     private let sessionsServicePath = "/sessions"
     private let sessionsServicePaymentsCvcSessionPath = "/sessions/paymentsCvc"
-    private let cardConfigurationPath = "/cardConfiguration"
-    private let cardTypesPath = "/access-checkout/cardTypes.json"
-    
-    //response
+    private let cardConfigurationPath = "/access-checkout/cardTypes.json"
     
     func stubServicesRootDiscovery() -> StubServices {
         stub(http(.get, uri: baseUrl), successfulDiscoveryResponse())
         return self
     }
     
-    //Mock a stub with endpoint - "\(baseUrl)\(cardTypePath)") /access-checkout/cardTypes.json
-    //https://try.access.worldpay.com/access-checkout/cardTypes.json
-    // http://localhost/access-checkout/cardTypes.json
-    
-    func stubCardTypes() -> StubServices {
-        stub(http(.get, uri: "\(baseUrl)\(cardTypesPath)"), cardTypesResponse())
-        return self
-    }
-        
     func stubVerifiedTokensDiscovery() -> StubServices {
         stub(http(.get, uri: "\(baseUrl)\(verifiedTokensServicePath)"), successfulDiscoveryResponse())
         return self
@@ -53,7 +41,7 @@ final class StubServices :XCTest {
     }
     
     func stubCardConfiguration() -> StubServices {
-        stub(http(.get, uri: "\(baseUrl)\(cardConfigurationPath)"), successfulDiscoveryResponse())
+        stub(http(.get, uri: "\(baseUrl)\(cardConfigurationPath)"), cardConfigurationResponse())
         return self
     }
     
@@ -79,32 +67,16 @@ final class StubServices :XCTest {
     }
     
 
-    private func cardTypesResponse() -> (URLRequest) -> Response {
+    private func cardConfigurationResponse() -> (URLRequest) -> Response {
         return jsonData(toData("""
-    [
-    {
-      "name": "visa",
-      "pattern": "^(?!^493698\\d*$)4\\d*$",
-      "panLengths": [
-        13,
-        16,
-        18,
-        19
-      ],
-      "cvvLength": 3,
-      "images": [
-        {
-          "type": "image/png",
-          "url": "https://try.access.worldpay.com/access-checkout/assets/visa.png"
-        },
-        {
-          "type": "image/svg+xml",
-          "url": "https://try.access.worldpay.com/access-checkout/assets/visa.svg"
-        }
-      ]
-    }
-    ]
-    """), status: 200)
+        [{
+            "name": "visa",
+            "pattern": "^(?!^493698\\\\d*$)4\\\\d*$",
+            "panLengths": [13,16,18,19],
+            "cvvLength": 3,
+            "images": []
+        }]
+        """), status: 200)
     }
     
     private func successfulVerifiedTokensSessionResponse(session: String) -> (URLRequest) -> Response {

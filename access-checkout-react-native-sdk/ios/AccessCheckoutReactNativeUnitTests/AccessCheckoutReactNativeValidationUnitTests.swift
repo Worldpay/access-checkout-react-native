@@ -202,7 +202,9 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         _=stubServices.stubCardConfiguration()
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
-            _ = XCTWaiter.wait(for: [self.expectation(description: "Wait for n seconds")], timeout: 2.0)
+            
+            _ = XCTWaiter.wait(for: [self.expectation(description: "Waiting for 1 second")], timeout: 1.0)
+            
             self.panUITextField!.insertText("4")
                 
             XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
@@ -221,12 +223,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             }
 
             wait(for: [expectationToFulfill!], timeout: 1)
-        }
-    
-//    func testShouldRaiseEventWhenCardBrandBecomesInvalid(){
-//        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
-//            XCTAssertEqual(true, (success as! Bool))
-//    }
+    }
     
     
     class RCTEventEmitterMock : RCTEventEmitter {
