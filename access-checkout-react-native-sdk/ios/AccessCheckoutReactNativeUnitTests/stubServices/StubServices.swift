@@ -71,10 +71,19 @@ final class StubServices :XCTest {
         return jsonData(toData("""
         [{
             "name": "visa",
-            "pattern": "^(?!^493698\\\\d*$)4\\\\d*$",
+            "pattern": "^4\\\\d*$",
             "panLengths": [13,16,18,19],
             "cvvLength": 3,
-            "images": []
+            "images": [
+                {
+                    "type": "image/png",
+                    "url": "http://localhost/visa.png"
+                },
+                {
+                    "type": "image/svg+xml",
+                    "url": "http://localhost/visa.svg"
+                }
+            ]
         }]
         """), status: 200)
     }

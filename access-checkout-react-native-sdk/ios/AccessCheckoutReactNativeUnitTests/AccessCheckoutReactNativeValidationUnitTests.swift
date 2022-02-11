@@ -1,261 +1,436 @@
-@testable import AccessCheckoutReactNative
-@testable import AccessCheckoutReactNativeUnitTestsApp
-import XCTest
 import Mockingjay
 import React
+import XCTest
+
+@testable import AccessCheckoutReactNative
+@testable import AccessCheckoutReactNativeUnitTestsApp
 
 class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     private let stubServices = StubServices(baseUrl: "http://localhost")
-    private let backspace = String(XCUIKeyboardKey.delete.rawValue)
-    let config:NSDictionary = ["baseUrl": "http://localhost",
-                      "panId": "pan",
-                      "expiryId": "expiry",
-                      "cvcId": "cvc"
+    let config: NSDictionary = [
+        "baseUrl": "http://localhost",
+        "panId": "pan",
+        "expiryId": "expiry",
+        "cvcId": "cvc",
     ]
-    let storyboard = UIStoryboard(name: "CardValidationTest", bundle: nil)
-    let rctEventEmitterMock = RCTEventEmitterMock ()
-    var expectationToFulfill:XCTestExpectation?
-    var reactNativeViewLocatorMock:ReactNativeViewLocatorMock?
-    var controller:CardValidationTestUIViewController? = nil
-    var accessCheckoutReactNative:AccessCheckoutReactNative?
-    var panUITextField:UITextField? = nil
-    var expiryDateUITextField:UITextField? = nil
-    var cvcUITextField:UITextField? = nil
-    
-    
 
+    let storyboard = UIStoryboard(name: "CardValidationTest", bundle: nil)
+    let rctEventEmitterMock = RCTEventEmitterMock()
+    var expectationToFulfill: XCTestExpectation?
+    var reactNativeViewLocatorMock: ReactNativeViewLocatorMock?
+    var controller: CardValidationTestUIViewController? = nil
+    var accessCheckoutReactNative: AccessCheckoutReactNative?
+    var panUITextField: UITextField? = nil
+    var expiryDateUITextField: UITextField? = nil
+    var cvcUITextField: UITextField? = nil
 
     override func setUp() {
-        controller = (storyboard.instantiateViewController(identifier: "CardValidationTestUIViewController") as! CardValidationTestUIViewController)
+        controller =
+            (storyboard.instantiateViewController(identifier: "CardValidationTestUIViewController")
+                as! CardValidationTestUIViewController)
         controller!.loadViewIfNeeded()
         panUITextField = controller!.panTextField
         expiryDateUITextField = controller!.expiryDateTextField
         cvcUITextField = controller!.cvcTextField
-        reactNativeViewLocatorMock = ReactNativeViewLocatorMock(panUITextField: panUITextField!,
-                                                                expiryDateUITextField: expiryDateUITextField!,
-                                                                cvcUITextField: cvcUITextField!)
-        accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!, rctEventEmitterMock)
+        reactNativeViewLocatorMock = ReactNativeViewLocatorMock(
+            panUITextField: panUITextField!,
+            expiryDateUITextField: expiryDateUITextField!,
+            cvcUITextField: cvcUITextField!)
+        accessCheckoutReactNative = AccessCheckoutReactNative(
+            reactNativeViewLocatorMock!, rctEventEmitterMock)
         expectationToFulfill = expectation(description: "Validation successfully wired")
     }
-    
-    
+
     func testShouldRaiseEventWhenPanBecomesValid() {
-
-
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
             self.panUITextField!.insertText("4444333322221111")
-            
+
             XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent[0].name, "AccessCheckoutValidationEvent")
-            
-            let type:String = (self.rctEventEmitterMock.eventsSent[0].body as! NSDictionary)["type"] as! String
-            XCTAssertEqual(type, "pan")
-            
-            let isValid:Bool = (self.rctEventEmitterMock.eventsSent[0].body as! NSDictionary)["isValid"] as! Bool
-            XCTAssertTrue(isValid)
+
+            let event = self.rctEventEmitterMock.eventsSent[0]
+            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.body.type, "pan")
+            XCTAssertTrue(event.body.isValid!)
 
             self.expectationToFulfill!.fulfill()
         } reject: { (a, b, c) in
-            XCTFail("got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))")
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
             self.expectationToFulfill!.fulfill()
         }
 
         wait(for: [expectationToFulfill!], timeout: 2)
     }
-    
-    func testShouldRaiseEventWhenPanBecomesInvalid() {
 
+    func testShouldRaiseEventWhenPanBecomesInvalid() {
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.panUITextField!.insertText("4444333322221111")
             self.panUITextField!.deleteBackward()
-            
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
             XCTAssertEqual(self.panUITextField!.text, "444433332222111")
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent[1].name, "AccessCheckoutValidationEvent")
-            
-            let type:String = (self.rctEventEmitterMock.eventsSent[1].body as! NSDictionary)["type"] as! String
-            XCTAssertEqual(type, "pan")
-            
-            let isValid:Bool = (self.rctEventEmitterMock.eventsSent[1].body as! NSDictionary)["isValid"] as! Bool
-            XCTAssertFalse(isValid)
+
+            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
+
+            let event = self.rctEventEmitterMock.eventsSent[1]
+            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.body.type, "pan")
+            XCTAssertFalse(event.body.isValid!)
 
             self.expectationToFulfill!.fulfill()
         } reject: { (a, b, c) in
-            XCTFail("got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))")
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
             self.expectationToFulfill!.fulfill()
         }
 
         wait(for: [expectationToFulfill!], timeout: 1)
     }
-    
-    
+
     func testShouldRaiseEventWhenCvcBecomesValid() {
-        
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
             self.cvcUITextField!.insertText("123")
-            
+
             XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent[0].name, "AccessCheckoutValidationEvent")
-            
-            let type:String = (self.rctEventEmitterMock.eventsSent[0].body as! NSDictionary)["type"] as! String
-            XCTAssertEqual(type, "cvc")
-            
-            let isValid:Bool = (self.rctEventEmitterMock.eventsSent[0].body as! NSDictionary)["isValid"] as! Bool
-            XCTAssertTrue(isValid)
+
+            let event = self.rctEventEmitterMock.eventsSent[0]
+            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.body.type, "cvc")
+            XCTAssertTrue(event.body.isValid!)
 
             self.expectationToFulfill!.fulfill()
         } reject: { (a, b, c) in
-            XCTFail("got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))")
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
             self.expectationToFulfill!.fulfill()
         }
 
         wait(for: [expectationToFulfill!], timeout: 1)
     }
-    
-    func testShouldRaiseEventWhenCvcBecomesInvalid() {
 
+    func testShouldRaiseEventWhenCvcBecomesInvalid() {
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.cvcUITextField!.insertText("123")
             self.cvcUITextField!.deleteBackward()
-            
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
             XCTAssertEqual(self.cvcUITextField!.text, "12")
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent[1].name, "AccessCheckoutValidationEvent")
-            
-            let type:String = (self.rctEventEmitterMock.eventsSent[1].body as! NSDictionary)["type"] as! String
-            XCTAssertEqual(type, "cvc")
-            
-            let isValid:Bool = (self.rctEventEmitterMock.eventsSent[1].body as! NSDictionary)["isValid"] as! Bool
-            XCTAssertFalse(isValid)
+
+            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
+
+            let event = self.rctEventEmitterMock.eventsSent[1]
+            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.body.type, "cvc")
+            XCTAssertFalse(event.body.isValid!)
 
             self.expectationToFulfill!.fulfill()
         } reject: { (a, b, c) in
-            XCTFail("got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))")
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
             self.expectationToFulfill!.fulfill()
         }
 
         wait(for: [expectationToFulfill!], timeout: 1)
     }
-    
-    func testShouldRaiseEventWhenExpiryBecomesValid() {
 
+    func testShouldRaiseEventWhenExpiryBecomesValid() {
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
             self.expiryDateUITextField!.insertText("10/34")
-            
+
             XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent[0].name, "AccessCheckoutValidationEvent")
-            
-            let type:String = (self.rctEventEmitterMock.eventsSent[0].body as! NSDictionary)["type"] as! String
-            XCTAssertEqual(type, "expiry")
-            
-            let isValid:Bool = (self.rctEventEmitterMock.eventsSent[0].body as! NSDictionary)["isValid"] as! Bool
-            XCTAssertTrue(isValid)
+
+            let event = self.rctEventEmitterMock.eventsSent[0]
+            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.body.type, "expiry")
+            XCTAssertTrue(event.body.isValid!)
 
             self.expectationToFulfill!.fulfill()
         } reject: { (a, b, c) in
-            XCTFail("got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))")
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
             self.expectationToFulfill!.fulfill()
         }
 
         wait(for: [expectationToFulfill!], timeout: 1)
     }
-    
-    func testShouldRaiseEventWhenExpiryBecomesInvalid() {
 
+    func testShouldRaiseEventWhenExpiryBecomesInvalid() {
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.expiryDateUITextField!.insertText("10/34")
             self.expiryDateUITextField!.deleteBackward()
-            
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
             XCTAssertEqual(self.expiryDateUITextField!.text, "10/3")
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent[1].name, "AccessCheckoutValidationEvent")
-            
-            let type:String = (self.rctEventEmitterMock.eventsSent[1].body as! NSDictionary)["type"] as! String
-            XCTAssertEqual(type, "expiry")
-            
-            let isValid:Bool = (self.rctEventEmitterMock.eventsSent[1].body as! NSDictionary)["isValid"] as! Bool
-            XCTAssertFalse(isValid)
+
+            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
+
+            let event = self.rctEventEmitterMock.eventsSent[1]
+            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.body.type, "expiry")
+            XCTAssertFalse(event.body.isValid!)
 
             self.expectationToFulfill!.fulfill()
         } reject: { (a, b, c) in
-            XCTFail("got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))")
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
+            self.expectationToFulfill!.fulfill()
+        }
+
+        wait(for: [expectationToFulfill!], timeout: 1)
+    }
+
+    func testShouldRaiseEventWhenCardBrandIsDetected() {
+        _ = stubServices.stubCardConfiguration()
+        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+            XCTAssertTrue(success as! Bool)
+
+            // Waiting for configuration to have successfully loaded
+            self.wait(0.5)
+
+            self.panUITextField!.insertText("4")
+
+            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
+
+            let event = self.rctEventEmitterMock.eventsSent[0]
+            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.body.type, "brand")
+            XCTAssertEqual(event.body.brand?.name, "visa")
+            XCTAssertEqual(event.body.brand?.images?.count, 2)
+            XCTAssertEqual(event.body.brand?.images?[0].type, "image/png")
+            XCTAssertEqual(event.body.brand?.images?[0].url, "http://localhost/visa.png")
+            XCTAssertEqual(event.body.brand?.images?[1].type, "image/svg+xml")
+            XCTAssertEqual(event.body.brand?.images?[1].url, "http://localhost/visa.svg")
+
+            self.expectationToFulfill!.fulfill()
+        } reject: { (a, b, c) in
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
+            self.expectationToFulfill!.fulfill()
+        }
+
+        wait(for: [expectationToFulfill!], timeout: 1)
+    }
+
+    func testShouldRaiseEventWhenCardBrandGoesFromDetectedToUndetected() {
+        _ = stubServices.stubCardConfiguration()
+        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+            XCTAssertTrue(success as! Bool)
+
+            // Waiting for configuration to have successfully loaded
+            self.wait(0.5)
+
+            self.panUITextField!.insertText("4")
+            self.panUITextField!.deleteBackward()
+
+            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
+
+            let event = self.rctEventEmitterMock.eventsSent[1]
+            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.body.type, "brand")
+            XCTAssertNil(event.body.brand)
+
+            self.expectationToFulfill!.fulfill()
+        } reject: { (a, b, c) in
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
+            self.expectationToFulfill!.fulfill()
+        }
+
+        wait(for: [expectationToFulfill!], timeout: 1)
+    }
+
+    func testShouldRaiseEventWhenAllFieldsBecomeValid() {
+        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+            XCTAssertTrue(success as! Bool)
+
+            self.panUITextField!.insertText("4444333322221111")
+            self.expiryDateUITextField!.insertText("12/34")
+            self.cvcUITextField!.insertText("123")
+
+            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 4)
+
+            let event = self.rctEventEmitterMock.eventsSent[3]
+            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.body.type, "all")
+            XCTAssertTrue(event.body.isValid!)
+
+            self.expectationToFulfill!.fulfill()
+        } reject: { (a, b, c) in
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
             self.expectationToFulfill!.fulfill()
         }
 
         wait(for: [expectationToFulfill!], timeout: 1)
     }
     
+    func testShouldNotRaiseEventWhenPanIsValidButBrandIsNotAnAcceptedCardBrand() {
+        _ = stubServices.stubCardConfiguration()
         
-    func testShouldRaiseEventWhenCardBrandBecomesValid(){
-        _=stubServices.stubCardConfiguration()
+        let config: NSDictionary = [
+            "baseUrl": "http://localhost",
+            "panId": "pan",
+            "expiryId": "expiry",
+            "cvcId": "cvc",
+            "acceptedCardBrands": ["mastercard"],
+        ]
+
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
+
+            // Waiting for configuration to have successfully loaded
+            self.wait(0.5)
             
-            _ = XCTWaiter.wait(for: [self.expectation(description: "Waiting for 1 second")], timeout: 1.0)
+            self.panUITextField!.insertText("4444333322221111")
             
-            self.panUITextField!.insertText("4")
-                
             XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent[0].name, "AccessCheckoutValidationEvent")
-                
-            let type:String = (self.rctEventEmitterMock.eventsSent[0].body as! NSDictionary)["type"] as! String
-            XCTAssertEqual(type, "brand")
-                
-            let brand:NSDictionary = (self.rctEventEmitterMock.eventsSent[0].body as! NSDictionary)["value"] as! NSDictionary
-            XCTAssertEqual(brand["name"]as! String, "visa")
+
+            let event = self.rctEventEmitterMock.eventsSent[0]
+            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.body.type, "brand")
 
             self.expectationToFulfill!.fulfill()
-            } reject: { (a, b, c) in
-                XCTFail("got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))")
-                self.expectationToFulfill!.fulfill()
-            }
+        } reject: { (a, b, c) in
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
+            self.expectationToFulfill!.fulfill()
+        }
 
-            wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill!], timeout: 1)
     }
-    
-    
-    class RCTEventEmitterMock : RCTEventEmitter {
-        private(set) var eventsSent:[ReactNativeEventMock] = []
-        
+
+    func testShouldFormatPanWhenPanFormattingEnabled() {
+        let config: NSDictionary = [
+            "baseUrl": "http://localhost",
+            "panId": "pan",
+            "expiryId": "expiry",
+            "cvcId": "cvc",
+            "enablePanFormatting": true,
+        ]
+
+        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+            XCTAssertTrue(success as! Bool)
+
+            self.panUITextField!.insertText("44443333")
+            self.triggerTextFieldDelegate(self.panUITextField!)
+
+            XCTAssertEqual(self.panUITextField!.text!, "4444 3333")
+
+            self.expectationToFulfill!.fulfill()
+        } reject: { (a, b, c) in
+            XCTFail(
+                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+            )
+            self.expectationToFulfill!.fulfill()
+        }
+
+        wait(for: [expectationToFulfill!], timeout: 1)
+    }
+
+    private func triggerTextFieldDelegate(_ textField: UITextField) {
+        _ = textField.delegate?.textField?(
+            textField,
+            shouldChangeCharactersIn: NSRange(location: 0, length: 0),
+            replacementString: "")
+    }
+
+    class RCTEventEmitterMock: RCTEventEmitter {
+        private(set) var eventsSent: [ReactNativeEventMock] = []
+
         override func sendEvent(withName name: String!, body: Any!) {
-            let eventMock = ReactNativeEventMock(name: name, body: body!)
+            let eventMock = ReactNativeEventMock(name, bodyDictionary: body as! NSDictionary)
             eventsSent.append(eventMock)
         }
-        
+
         override func supportedEvents() -> [String]! {
             return ["AccessCheckoutValidationEvent"]
         }
     }
     
     struct ReactNativeEventMock {
-        let name:String
-        let body:Any
+        let name: String
+        let body: Body
+
+        init(_ name: String, bodyDictionary: NSDictionary) {
+            self.name = name
+            self.body = Body(bodyDictionary)
+        }
+
+        struct Body {
+            var type: String?
+            var isValid: Bool?
+            var brand: Brand?
+
+            init(_ dictionary: NSDictionary) {
+                self.type = dictionary["type"] as? String
+                self.isValid = dictionary["isValid"] as? Bool
+
+                if let valueDictionary = dictionary["value"] as? NSDictionary {
+                    self.brand = Brand(valueDictionary)
+                }
+            }
+        }
+
+        struct Brand {
+            var name: String?
+            var images: [Image]?
+
+            init(_ dictionary: NSDictionary) {
+                name = dictionary["name"] as? String
+
+                if let imagesDictionary = dictionary["images"] as? [NSDictionary] {
+                    images = []
+                    for imageDictionary in imagesDictionary {
+                        images!.append(Image(imageDictionary))
+                    }
+                }
+            }
+
+            struct Image {
+                var type: String?
+                var url: String?
+
+                init(_ dictionary: NSDictionary?) {
+                    if let dictionary = dictionary {
+                        self.type = dictionary["type"] as? String
+                        self.url = dictionary["url"] as? String
+                    }
+                }
+            }
+        }
     }
-    
-    class ReactNativeViewLocatorMock : ReactNativeViewLocator {
-        let panUITextField:UITextField
-        let expiryDateUITextField:UITextField
-        let cvcUITextField:UITextField
-        
-        init(panUITextField:UITextField, expiryDateUITextField:UITextField,cvcUITextField:UITextField) {
+
+    class ReactNativeViewLocatorMock: ReactNativeViewLocator {
+        let panUITextField: UITextField
+        let expiryDateUITextField: UITextField
+        let cvcUITextField: UITextField
+
+        init(
+            panUITextField: UITextField, expiryDateUITextField: UITextField,
+            cvcUITextField: UITextField
+        ) {
             self.panUITextField = panUITextField
             self.expiryDateUITextField = expiryDateUITextField
             self.cvcUITextField = cvcUITextField
         }
-        
-        override internal func locateUITextField(id:String) -> UITextField? {
+
+        override internal func locateUITextField(id: String) -> UITextField? {
             if id.contains("pan") {
                 return panUITextField
             } else if id.contains("expiry") {
@@ -263,11 +438,11 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             } else if id.contains("cvc") {
                 return cvcUITextField
             }
-            
+
             return nil
         }
     }
-    
+
     private func wait(_ timeoutInSeconds: TimeInterval) {
         let exp = XCTestCase().expectation(description: "Waiting for \(timeoutInSeconds)")
         _ = XCTWaiter.wait(for: [exp], timeout: timeoutInSeconds)

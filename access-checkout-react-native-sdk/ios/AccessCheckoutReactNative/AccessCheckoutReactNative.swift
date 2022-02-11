@@ -76,11 +76,12 @@ class AccessCheckoutReactNative: NSObject {
                         .cvc(cvcInput!)
                         .accessBaseUrl(cfg.baseUrl)
                         .validationDelegate(AccessCheckoutCardValidationDelegateRN(eventEmitter: self.rctEventEmitter, eventName: "AccessCheckoutValidationEvent") as AccessCheckoutCardValidationDelegate)
+                        .acceptedCardBrands(cfg.acceptedCardBrands)
 
                     if cfg.enablePanFormatting {
                         builder = builder.enablePanFormatting()
                     }
-
+                
                     let validationConfig = try! builder.build()
 
                     AccessCheckoutValidationInitialiser().initialise(validationConfig)
