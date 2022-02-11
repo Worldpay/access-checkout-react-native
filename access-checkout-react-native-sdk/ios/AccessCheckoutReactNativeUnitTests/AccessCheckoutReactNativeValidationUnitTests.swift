@@ -278,10 +278,10 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
         wait(for: [expectationToFulfill!], timeout: 1)
     }
-    
+
     func testShouldNotRaiseEventWhenPanIsValidButBrandIsNotAnAcceptedCardBrand() {
         _ = stubServices.stubCardConfiguration()
-        
+
         let config: NSDictionary = [
             "baseUrl": "http://localhost",
             "panId": "pan",
@@ -295,9 +295,9 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
             // Waiting for configuration to have successfully loaded
             self.wait(0.5)
-            
+
             self.panUITextField!.insertText("4444333322221111")
-            
+
             XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
 
             let event = self.rctEventEmitterMock.eventsSent[0]
@@ -348,99 +348,6 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             textField,
             shouldChangeCharactersIn: NSRange(location: 0, length: 0),
             replacementString: "")
-    }
-
-    class RCTEventEmitterMock: RCTEventEmitter {
-        private(set) var eventsSent: [ReactNativeEventMock] = []
-
-        override func sendEvent(withName name: String!, body: Any!) {
-            let eventMock = ReactNativeEventMock(name, bodyDictionary: body as! NSDictionary)
-            eventsSent.append(eventMock)
-        }
-
-        override func supportedEvents() -> [String]! {
-            return ["AccessCheckoutValidationEvent"]
-        }
-    }
-    
-    struct ReactNativeEventMock {
-        let name: String
-        let body: Body
-
-        init(_ name: String, bodyDictionary: NSDictionary) {
-            self.name = name
-            self.body = Body(bodyDictionary)
-        }
-
-        struct Body {
-            var type: String?
-            var isValid: Bool?
-            var brand: Brand?
-
-            init(_ dictionary: NSDictionary) {
-                self.type = dictionary["type"] as? String
-                self.isValid = dictionary["isValid"] as? Bool
-
-                if let valueDictionary = dictionary["value"] as? NSDictionary {
-                    self.brand = Brand(valueDictionary)
-                }
-            }
-        }
-
-        struct Brand {
-            var name: String?
-            var images: [Image]?
-
-            init(_ dictionary: NSDictionary) {
-                name = dictionary["name"] as? String
-
-                if let imagesDictionary = dictionary["images"] as? [NSDictionary] {
-                    images = []
-                    for imageDictionary in imagesDictionary {
-                        images!.append(Image(imageDictionary))
-                    }
-                }
-            }
-
-            struct Image {
-                var type: String?
-                var url: String?
-
-                init(_ dictionary: NSDictionary?) {
-                    if let dictionary = dictionary {
-                        self.type = dictionary["type"] as? String
-                        self.url = dictionary["url"] as? String
-                    }
-                }
-            }
-        }
-    }
-
-    class ReactNativeViewLocatorMock: ReactNativeViewLocator {
-        let panUITextField: UITextField
-        let expiryDateUITextField: UITextField
-        let cvcUITextField: UITextField
-
-        init(
-            panUITextField: UITextField, expiryDateUITextField: UITextField,
-            cvcUITextField: UITextField
-        ) {
-            self.panUITextField = panUITextField
-            self.expiryDateUITextField = expiryDateUITextField
-            self.cvcUITextField = cvcUITextField
-        }
-
-        override internal func locateUITextField(id: String) -> UITextField? {
-            if id.contains("pan") {
-                return panUITextField
-            } else if id.contains("expiry") {
-                return expiryDateUITextField
-            } else if id.contains("cvc") {
-                return cvcUITextField
-            }
-
-            return nil
-        }
     }
 
     private func wait(_ timeoutInSeconds: TimeInterval) {

@@ -9,6 +9,8 @@ public struct ValidationConfig {
     var acceptedCardBrands: [String] = []
     
     init(dictionary: NSDictionary) throws {
+        // let s = String(dictionary["enablePanFormatting"])
+        
         self.baseUrl = dictionary["baseUrl"] as? String ?? ""
         self.panId = dictionary["panId"] as? String ?? ""
         self.expiryId = dictionary["expiryId"] as? String ?? ""
