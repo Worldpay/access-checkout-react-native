@@ -2,8 +2,8 @@ import Foundation
 import React
 import AccessCheckoutSDK
 
- internal class ReactNativeViewLocator {
-    internal func locateUITextField(id:String) -> UITextField? {
+class ReactNativeViewLocator {
+    func locateUITextField(id:String) -> UITextField? {
         let controller = RCTPresentedViewController()
         
         return self.searchForView(subViews: controller?.view!.subviews, nativeId: id)

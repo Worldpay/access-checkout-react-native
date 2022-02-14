@@ -1,6 +1,6 @@
 import AccessCheckoutSDK
 
-public struct ValidationConfig {
+struct ValidationConfig {
     let baseUrl: String
     let panId: String
     let expiryId: String
@@ -9,8 +9,6 @@ public struct ValidationConfig {
     var acceptedCardBrands: [String] = []
     
     init(dictionary: NSDictionary) throws {
-        // let s = String(dictionary["enablePanFormatting"])
-        
         self.baseUrl = dictionary["baseUrl"] as? String ?? ""
         self.panId = dictionary["panId"] as? String ?? ""
         self.expiryId = dictionary["expiryId"] as? String ?? ""
@@ -20,17 +18,11 @@ public struct ValidationConfig {
         
         if self.baseUrl == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
-        }
-        
-        if self.panId == "" {
+        } else if self.panId == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingPanId()
-        }
-        
-        if self.expiryId == "" {
+        } else if self.expiryId == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingExpiryId()
-        }
-        
-        if self.cvcId == "" {
+        } else if self.cvcId == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingCvcId()
         }
     }

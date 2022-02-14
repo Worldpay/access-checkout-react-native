@@ -1,6 +1,6 @@
 import AccessCheckoutSDK
 
-public struct GenerateSessionConfig {
+struct GenerateSessionConfig {
     let baseUrl: String
     let merchantId: String
     let panValue: String

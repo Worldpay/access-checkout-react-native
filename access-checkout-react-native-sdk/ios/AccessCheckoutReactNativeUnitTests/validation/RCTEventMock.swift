@@ -1,6 +1,6 @@
 import Foundation
 
-struct ReactNativeEventMock {
+struct RCTEventMock {
     let name: String
     let body: Body
 

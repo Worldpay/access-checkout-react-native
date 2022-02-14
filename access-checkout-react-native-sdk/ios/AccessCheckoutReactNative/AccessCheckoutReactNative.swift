@@ -61,13 +61,9 @@ class AccessCheckoutReactNative: NSObject {
         DispatchQueue.main.async {
             do {
                 let cfg = try ValidationConfig(dictionary: config)
-//                let controller = RCTPresentedViewController()
                 let panInput = self.reactNativeViewLocator.locateUITextField(id: cfg.panId)
-//                self.searchForView(subViews: controller?.view!.subviews, nativeId: cfg.panId)
                 let expiryInput = self.reactNativeViewLocator.locateUITextField(id: cfg.expiryId)
-//                self.searchForView(subViews: controller?.view!.subviews, nativeId: cfg.expiryId)
                 let cvcInput = self.reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
-//                self.searchForView(subViews: controller?.view!.subviews, nativeId: cfg.cvcId)
 
                 if panInput != nil, expiryInput != nil, cvcInput != nil {
                     var builder = CardValidationConfig.builder()
@@ -92,28 +88,4 @@ class AccessCheckoutReactNative: NSObject {
             }
         }
     }
-
-//    func searchForView(subViews: [UIView]?, nativeId: String) -> UITextField? {
-//        if subViews == nil {
-//            return nil
-//        }
-//
-//        for subView in subViews! {
-//            if subView.nativeID == nil {
-//                let v = searchForView(subViews: subView.subviews, nativeId: nativeId)
-//                if v != nil {
-//                    return v
-//                }
-//            } else if subView.nativeID! == nativeId {
-//                let inputView = (subView as? RCTSinglelineTextInputView)?.backedTextInputView
-//                return inputView as! UITextField
-//            }
-//        }
-//
-//        return nil
-//    }
-
-//    override func supportedEvents() -> [String]! {
-//        return ["AccessCheckoutValidationEvent"]
-//    }
 }

@@ -2,10 +2,10 @@ import Foundation
 import React
 
 class RCTEventEmitterMock: RCTEventEmitter {
-    private(set) var eventsSent: [ReactNativeEventMock] = []
+    private(set) var eventsSent: [RCTEventMock] = []
 
     override func sendEvent(withName name: String!, body: Any!) {
-        let eventMock = ReactNativeEventMock(name, bodyDictionary: body as! NSDictionary)
+        let eventMock = RCTEventMock(name, bodyDictionary: body as! NSDictionary)
         eventsSent.append(eventMock)
     }
 

@@ -24,9 +24,11 @@
 		51C8CFBA27B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFB927B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift */; };
 		51C8CFC827B6D55700F30FD5 /* ValidationConfigUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFC727B6D55700F30FD5 /* ValidationConfigUnitTests.swift */; };
 		51C8CFCD27B6E71300F30FD5 /* RCTEventEmitterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFCC27B6E71300F30FD5 /* RCTEventEmitterMock.swift */; };
-		51C8CFD227B6E72900F30FD5 /* ReactNativeEventMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFD127B6E72900F30FD5 /* ReactNativeEventMock.swift */; };
+		51C8CFD227B6E72900F30FD5 /* RCTEventMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFD127B6E72900F30FD5 /* RCTEventMock.swift */; };
 		51C8CFD727B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFD627B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift */; };
 		51C8CFDF27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFDE27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift */; };
+		51C8D02C27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8D02B27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift */; };
+		51C8D03727BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8D03627BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift */; };
 		51D03E5227A85D01009781EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D03E5127A85D01009781EB /* AppDelegate.swift */; };
 		51D03E7027A85FBA009781EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D03E6E27A85FBA009781EB /* Main.storyboard */; };
 		51D03E7227A85FC4009781EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51D03E7127A85FC4009781EB /* Assets.xcassets */; };
@@ -75,9 +77,11 @@
 		51C8CFB927B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSessionConfigUnitTests.swift; sourceTree = "<group>"; };
 		51C8CFC727B6D55700F30FD5 /* ValidationConfigUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationConfigUnitTests.swift; sourceTree = "<group>"; };
 		51C8CFCC27B6E71300F30FD5 /* RCTEventEmitterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTEventEmitterMock.swift; sourceTree = "<group>"; };
-		51C8CFD127B6E72900F30FD5 /* ReactNativeEventMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeEventMock.swift; sourceTree = "<group>"; };
+		51C8CFD127B6E72900F30FD5 /* RCTEventMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTEventMock.swift; sourceTree = "<group>"; };
 		51C8CFD627B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeViewLocatorMock.swift; sourceTree = "<group>"; };
 		51C8CFDE27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutCardValidationDelegateRNUnitTests.swift; sourceTree = "<group>"; };
+		51C8D02B27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutRnIllegalArgumentErrorUnitTests.swift; sourceTree = "<group>"; };
+		51C8D03627BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeViewLocatorUnitTests.swift; sourceTree = "<group>"; };
 		51D03E5127A85D01009781EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51D03E6627A85FBA009781EB /* AccessCheckoutReactNativeUnitTestsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccessCheckoutReactNativeUnitTestsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51D03E6F27A85FBA009781EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -161,12 +165,10 @@
 			children = (
 				51D03D3927A829D8009781EB /* session */,
 				517D9E5027A4141F002B1611 /* validation */,
-				516A9FA72757D6EB00E9B00E /* AccessCheckoutCardValidationDelegateRN.swift */,
 				516A9FA12757D6EB00E9B00E /* AccessCheckoutReactNative.m */,
 				516A9FA82757D6EB00E9B00E /* AccessCheckoutReactNative.swift */,
 				516A9FA62757D6EB00E9B00E /* AccessCheckoutReactNativeModule-Bridging-Header.h */,
 				516A9FA32757D6EB00E9B00E /* AccessCheckoutRnIllegalArgumentError.swift */,
-				5167BB3827A7FFB100F8569D /* ReactNativeViewLocator.swift */,
 				516A9F5B2757D3B800E9B00E /* Info.plist */,
 				51D03E5127A85D01009781EB /* AppDelegate.swift */,
 			);
@@ -182,6 +184,7 @@
 				516A9F672757D3B800E9B00E /* Info.plist */,
 				516A9F652757D3B800E9B00E /* AccessCheckoutReactNativeSessionUnitTests.swift */,
 				5167BB3427A7FE7000F8569D /* AccessCheckoutReactNativeValidationUnitTests.swift */,
+				51C8D02B27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift */,
 				51D03EBB27A8658B009781EB /* CardValidationTestUIViewController.swift */,
 			);
 			path = AccessCheckoutReactNativeUnitTests;
@@ -199,8 +202,9 @@
 			isa = PBXGroup;
 			children = (
 				51C8CFDE27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift */,
-				51C8CFD127B6E72900F30FD5 /* ReactNativeEventMock.swift */,
 				51C8CFD627B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift */,
+				51C8D03627BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift */,
+				51C8CFD127B6E72900F30FD5 /* RCTEventMock.swift */,
 				51C8CFCC27B6E71300F30FD5 /* RCTEventEmitterMock.swift */,
 				51C8CFC727B6D55700F30FD5 /* ValidationConfigUnitTests.swift */,
 			);
@@ -210,6 +214,8 @@
 		517D9E5027A4141F002B1611 /* validation */ = {
 			isa = PBXGroup;
 			children = (
+				516A9FA72757D6EB00E9B00E /* AccessCheckoutCardValidationDelegateRN.swift */,
+				5167BB3827A7FFB100F8569D /* ReactNativeViewLocator.swift */,
 				516A9FA02757D6EB00E9B00E /* ValidationConfig.swift */,
 			);
 			path = validation;
@@ -484,12 +490,14 @@
 				51C8CFD727B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift in Sources */,
 				51C8CFBA27B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift in Sources */,
 				5167BB2727A459BF00F8569D /* StubServices.swift in Sources */,
+				51C8D02C27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift in Sources */,
 				51D03EBC27A8658B009781EB /* CardValidationTestUIViewController.swift in Sources */,
 				51C8CFDF27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift in Sources */,
 				51C8CFCD27B6E71300F30FD5 /* RCTEventEmitterMock.swift in Sources */,
+				51C8D03727BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift in Sources */,
 				516A9F662757D3B800E9B00E /* AccessCheckoutReactNativeSessionUnitTests.swift in Sources */,
 				5167BB3527A7FE7000F8569D /* AccessCheckoutReactNativeValidationUnitTests.swift in Sources */,
-				51C8CFD227B6E72900F30FD5 /* ReactNativeEventMock.swift in Sources */,
+				51C8CFD227B6E72900F30FD5 /* RCTEventMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
