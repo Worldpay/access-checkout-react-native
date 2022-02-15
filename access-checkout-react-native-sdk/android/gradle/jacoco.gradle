@@ -24,11 +24,11 @@ def classDirs = files([
                 fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: codeCoverageExclusions)
 ])
 
-def execData = files("$buildDir/jacoco/testDebugUnitTest.exec")
+def execData = files("$buildDir/jacoco/testInstrumentedTestsDebugUnitTest.exec")
 
 def sourceDirs = files(["${project.projectDir}/src/main/java"])
 
-task testCoverage(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+task testCoverage(type: JacocoReport, dependsOn: ['testInstrumentedTestsDebugUnitTest']) {
     executionData.setFrom(execData)
     classDirectories.setFrom(classDirs)
     sourceDirectories.setFrom(sourceDirs)
