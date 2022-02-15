@@ -14,13 +14,12 @@ class ReactNativeViewLocator {
     private func searchForView(subViews: [UIView], nativeId: String) -> UITextField? {
         for subView in subViews {
             if subView.nativeID == nil {
-                let v = searchForView(subViews: subView.subviews, nativeId: nativeId)
-                if v != nil {
-                    return v
+                if let view = searchForView(subViews: subView.subviews, nativeId: nativeId) {
+                    return view
                 }
             } else if subView.nativeID! == nativeId {
                 let inputView = (subView as? RCTSinglelineTextInputView)?.backedTextInputView
-                return inputView as! UITextField
+                return inputView as? UITextField
             }
         }
 
