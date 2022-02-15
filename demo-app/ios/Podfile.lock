@@ -1,5 +1,5 @@
 PODS:
-  - AccessCheckoutSDK (2.3.0)
+  - AccessCheckoutSDK (2.3.1)
   - AccessCheckoutSDK-React (0.0.1):
     - AccessCheckoutSDK (~> 2.3.0)
     - React-Core
@@ -252,7 +252,7 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - AccessCheckoutSDK (from `/Users/e5610203/DEV/access-checkout-ios`)
+  - AccessCheckoutSDK
   - AccessCheckoutSDK-React (from `../../access-checkout-react-native-sdk/ios/`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -285,11 +285,10 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AccessCheckoutSDK
     - boost-for-react-native
 
 EXTERNAL SOURCES:
-  AccessCheckoutSDK:
-    :path: "/Users/e5610203/DEV/access-checkout-ios"
   AccessCheckoutSDK-React:
     :path: "../../access-checkout-react-native-sdk/ios/"
   DoubleConversion:
@@ -346,7 +345,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AccessCheckoutSDK: 585eaab57ab6fbba69cc90bdd989e423ac96e221
+  AccessCheckoutSDK: 6ef1b5c61710b434f652ed7840fa67e9c8a4e690
   AccessCheckoutSDK-React: 4daeeb5986f42cc7e5f3118a1b3c6c7b0d5d9a02
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cde416483dac037923206447da6e1454df403714
