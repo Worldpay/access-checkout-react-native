@@ -30,6 +30,11 @@ final class StubServices :XCTest {
         return self
     }
     
+    func stubVerifiedTokensSessionFailure(errorName: String, errorMessage: String)-> StubServices {
+        stub(http(.post, uri: "\(baseUrl)\(verifiedTokensServiceSessionsPath)"), failedVerifiedTokensSessionResponse(errorName: errorName, errorMessage: errorMessage))
+        return self
+    }
+    
     func stubSessionsDiscovery() -> StubServices {
         stub(http(.get, uri: "\(baseUrl)\(sessionsServicePath)"), successfulDiscoveryResponse())
         return self
@@ -112,7 +117,14 @@ final class StubServices :XCTest {
             """), status: 201)
         }
     
-    
+    private func failedVerifiedTokensSessionResponse(errorName:String, errorMessage: String) -> (URLRequest) -> Response {
+        return jsonData(toData("""
+        {
+            "errorName": "\(errorName)",
+            "message": "\(errorMessage)"
+        }
+        """), status: 400)
+    }
     
     private func toData(_ stringData: String) -> Data {
         return stringData.data(using: .utf8)!
