@@ -35,6 +35,14 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
         XCTAssertEqual(result, uiTextFieldToBeFound)
     }
     
+    func testReturnsNilIfControllerIsNil() {
+        let viewLocator = ReactNativeViewLocator()
+        
+        let result = viewLocator.locateUITextField(id: "some-id")
+
+        XCTAssertNil(result)
+    }
+    
     func testReturnsNilIfControllerHasNoUIComponents() {
         let viewLocator = ReactNativeViewLocator()
         let controller = UIViewController()
