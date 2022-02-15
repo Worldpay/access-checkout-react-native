@@ -25,6 +25,7 @@ workflows:
     - xctest-html-report@1:
         inputs:
         - output_dir: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios"
+        - version: "2.0.0"
     - script-runner:
         inputs:
         - file_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/scripts/coverage.sh"
