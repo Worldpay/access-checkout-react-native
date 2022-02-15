@@ -15,14 +15,14 @@ workflows:
     - android-unit-test@1:
         inputs:
         - arguments: ''
-        - report_path_pattern: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testDebugUnitTest"
-        - result_path_pattern: "*build/test-results/testDebugUnitTest"
+        - report_path_pattern: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testInstrumentedTestsDebugUnitTest"
+        - result_path_pattern: "*build/test-results/testInstrumentedTestsDebugUnitTest"
         - is_debug: 'true'
         - project_location: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android"
     - deploy-to-bitrise-io@2:
         inputs:
         - is_compress: 'true'
-        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testDebugUnitTest/index.html"
+        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testInstrumentedTestsDebugUnitTest/index.html"
 app:
   envs:
   - opts:
