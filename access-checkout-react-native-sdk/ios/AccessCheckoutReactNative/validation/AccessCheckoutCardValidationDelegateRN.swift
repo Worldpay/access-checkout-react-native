@@ -10,7 +10,7 @@ class AccessCheckoutCardValidationDelegateRN: AccessCheckoutCardValidationDelega
         self.eventName = eventName
     }
 
-    public func cardBrandChanged(cardBrand: CardBrand?) {
+     func cardBrandChanged(cardBrand: CardBrand?) {
         guard let cardBrand = cardBrand else {
             eventEmitter.sendEvent(withName: eventName, body: ["type": "brand", "value": nil])
             return
@@ -25,19 +25,19 @@ class AccessCheckoutCardValidationDelegateRN: AccessCheckoutCardValidationDelega
         eventEmitter.sendEvent(withName: eventName, body: ["type": "brand", "value": ["name": name, "images": images]])
     }
 
-    public func panValidChanged(isValid: Bool) {
+    func panValidChanged(isValid: Bool) {
         eventEmitter.sendEvent(withName: eventName, body: ["type": "pan", "isValid": isValid])
     }
 
-    public func cvcValidChanged(isValid: Bool) {
+    func cvcValidChanged(isValid: Bool) {
         eventEmitter.sendEvent(withName: eventName, body: ["type": "cvc", "isValid": isValid])
     }
 
-    public func expiryDateValidChanged(isValid: Bool) {
+    func expiryDateValidChanged(isValid: Bool) {
         eventEmitter.sendEvent(withName: eventName, body: ["type": "expiry", "isValid": isValid])
     }
 
-    public func validationSuccess() {
+    func validationSuccess() {
         eventEmitter.sendEvent(withName: eventName, body: ["type": "all", "isValid": true])
     }
 }

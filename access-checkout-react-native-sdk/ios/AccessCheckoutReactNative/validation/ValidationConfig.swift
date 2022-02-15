@@ -1,6 +1,6 @@
 import AccessCheckoutSDK
 
-public struct ValidationConfig {
+struct ValidationConfig {
     let baseUrl: String
     let panId: String
     let expiryId: String
@@ -18,17 +18,11 @@ public struct ValidationConfig {
         
         if self.baseUrl == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
-        }
-        
-        if self.panId == "" {
+        } else if self.panId == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingPanId()
-        }
-        
-        if self.expiryId == "" {
+        } else if self.expiryId == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingExpiryId()
-        }
-        
-        if self.cvcId == "" {
+        } else if self.cvcId == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingCvcId()
         }
     }

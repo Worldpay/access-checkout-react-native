@@ -1,0 +1,69 @@
+import Mockingjay
+import XCTest
+
+@testable import AccessCheckoutReactNative
+
+class AccessCheckoutReactNativeUnitTests: XCTestCase {
+    let accessCheckoutReactNative = AccessCheckoutReactNative()
+    let stubServices = StubServices(baseUrl: "http://localhost")
+
+    func testShouldSupportGeneratingACardSession() {
+        let stubServices = StubServices(baseUrl: "http://localhost")
+            .stubServicesRootDiscovery()
+            .stubVerifiedTokensDiscovery()
+            .stubVerifiedTokensSessionSuccess(session: "my-session")
+
+        let expectationToFulfill = expectation(description: "Session retrieved")
+        let dictionary: NSDictionary = [
+            "baseUrl": stubServices.baseUrl,
+            "merchantId": "identity",
+            "panValue": "4444333322221111",
+            "expiryValue": "12/30",
+            "cvcValue": "123",
+            "sessionTypes": ["card"],
+        ]
+
+        accessCheckoutReactNative.generateSessions(config: dictionary) { (sessions) in
+            let session = (sessions as! [String: String?])["card"]
+            XCTAssertEqual("my-session", session)
+            expectationToFulfill.fulfill()
+        } reject: { (_, _, _) in
+            XCTFail("got an error back from stubs")
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+
+    func testShouldSupportGeneratingACardAndACvcSession() {
+        let stubServices = StubServices(baseUrl: "http://localhost")
+            .stubServicesRootDiscovery()
+            .stubVerifiedTokensDiscovery()
+            .stubVerifiedTokensSessionSuccess(session: "my-session")
+            .stubSessionsDiscovery()
+            .stubSessionsSessionSuccess(session: "my-cvc-session")
+
+        let expectationToFulfill = expectation(description: "Session retrieved")
+        let dictionary: NSDictionary = [
+            "baseUrl": stubServices.baseUrl,
+            "merchantId": "identity",
+            "panValue": "4444333322221111",
+            "expiryValue": "12/30",
+            "cvcValue": "123",
+            "sessionTypes": ["card", "cvc"],
+        ]
+
+        accessCheckoutReactNative.generateSessions(config: dictionary) { (sessions) in
+            let session = (sessions as! [String: String?])["card"]
+            let cvcSession = (sessions as! [String: String?])["cvc"]
+            XCTAssertEqual("my-session", session)
+            XCTAssertEqual("my-cvc-session", cvcSession)
+            expectationToFulfill.fulfill()
+        } reject: { (_, _, _) in
+            XCTFail("got an error back from stubs")
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+}
