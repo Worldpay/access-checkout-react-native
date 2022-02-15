@@ -29,7 +29,6 @@
 		51C8CFDF27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFDE27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift */; };
 		51C8D02C27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8D02B27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift */; };
 		51C8D03727BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8D03627BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift */; };
-		51D03E5227A85D01009781EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D03E5127A85D01009781EB /* AppDelegate.swift */; };
 		51D03E7027A85FBA009781EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D03E6E27A85FBA009781EB /* Main.storyboard */; };
 		51D03E7227A85FC4009781EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51D03E7127A85FC4009781EB /* Assets.xcassets */; };
 		51D03E7527A85FC4009781EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D03E7327A85FC4009781EB /* LaunchScreen.storyboard */; };
@@ -82,7 +81,6 @@
 		51C8CFDE27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutCardValidationDelegateRNUnitTests.swift; sourceTree = "<group>"; };
 		51C8D02B27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutRnIllegalArgumentErrorUnitTests.swift; sourceTree = "<group>"; };
 		51C8D03627BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeViewLocatorUnitTests.swift; sourceTree = "<group>"; };
-		51D03E5127A85D01009781EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51D03E6627A85FBA009781EB /* AccessCheckoutReactNativeUnitTestsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccessCheckoutReactNativeUnitTestsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51D03E6F27A85FBA009781EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		51D03E7127A85FC4009781EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -170,7 +168,6 @@
 				516A9FA62757D6EB00E9B00E /* AccessCheckoutReactNativeModule-Bridging-Header.h */,
 				516A9FA32757D6EB00E9B00E /* AccessCheckoutRnIllegalArgumentError.swift */,
 				516A9F5B2757D3B800E9B00E /* Info.plist */,
-				51D03E5127A85D01009781EB /* AppDelegate.swift */,
 			);
 			path = AccessCheckoutReactNative;
 			sourceTree = "<group>";
@@ -473,7 +470,6 @@
 			files = (
 				516A9FAC2757D6EB00E9B00E /* AccessCheckoutRnIllegalArgumentError.swift in Sources */,
 				516A9FAA2757D6EB00E9B00E /* AccessCheckoutReactNative.m in Sources */,
-				51D03E5227A85D01009781EB /* AppDelegate.swift in Sources */,
 				516A9FAB2757D6EB00E9B00E /* GenerateSessionConfig.swift in Sources */,
 				5167BB3927A7FFB100F8569D /* ReactNativeViewLocator.swift in Sources */,
 				516A9FA92757D6EB00E9B00E /* ValidationConfig.swift in Sources */,
