@@ -21,12 +21,21 @@ workflows:
         inputs:
         - scheme: AccessCheckoutReactNative
         - project_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/AccessCheckoutReactNative.xcworkspace"
+        - generate_code_coverage_files: "yes"
     - xctest-html-report@1:
         inputs:
         - output_dir: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios"
+        - version: "2.0.0"
+    - script-runner:
+        inputs:
+        - file_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/scripts/coverage.sh"
+        - runner: bash
     - deploy-to-bitrise-io@2:
         inputs:
         - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/index.html"
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "${BITRISE_SOURCE_DIR}/coverage.html"
     - cache-push@2: {}
     envs: []
 meta:

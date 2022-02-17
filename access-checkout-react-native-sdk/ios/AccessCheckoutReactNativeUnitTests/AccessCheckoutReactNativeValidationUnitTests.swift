@@ -16,7 +16,6 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
     let storyboard = UIStoryboard(name: "CardValidationTest", bundle: nil)
     let rctEventEmitterMock = RCTEventEmitterMock()
-    var expectationToFulfill: XCTestExpectation?
     var reactNativeViewLocatorMock: ReactNativeViewLocatorMock?
     var controller: CardValidationTestUIViewController? = nil
     var accessCheckoutReactNative: AccessCheckoutReactNative?
@@ -38,10 +37,27 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             cvcUITextField: cvcUITextField!)
         accessCheckoutReactNative = AccessCheckoutReactNative(
             reactNativeViewLocatorMock!, rctEventEmitterMock)
-        expectationToFulfill = expectation(description: "Validation successfully wired")
+    }
+    
+    func testReturnAnErrorWhenConfigurationProvidedIsInvalid() {
+        let expectationToFulfill = expectation(description: "Error should be returned")
+        let invalidConfig: NSDictionary = [:]
+
+        accessCheckoutReactNative!.initialiseValidation(config: invalidConfig) { (success) in
+            XCTFail("validation initialisation should have faild but it didn't")
+            expectationToFulfill.fulfill()
+        } reject: { (errorCode, errorDescription, error) in
+            let expectedError = AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
+            XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
     }
 
     func testShouldRaiseEventWhenPanBecomesValid() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
@@ -54,18 +70,20 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(event.body.type, "pan")
             XCTAssertTrue(event.body.isValid!)
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 2)
+        wait(for: [expectationToFulfill], timeout: 2)
     }
 
     func testShouldRaiseEventWhenPanBecomesInvalid() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
@@ -80,18 +98,20 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(event.body.type, "pan")
             XCTAssertFalse(event.body.isValid!)
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1)
     }
 
     func testShouldRaiseEventWhenCvcBecomesValid() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
@@ -104,18 +124,20 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(event.body.type, "cvc")
             XCTAssertTrue(event.body.isValid!)
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1)
     }
 
     func testShouldRaiseEventWhenCvcBecomesInvalid() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
@@ -130,18 +152,20 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(event.body.type, "cvc")
             XCTAssertFalse(event.body.isValid!)
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1)
     }
 
     func testShouldRaiseEventWhenExpiryBecomesValid() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
@@ -154,18 +178,20 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(event.body.type, "expiry")
             XCTAssertTrue(event.body.isValid!)
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1)
     }
 
     func testShouldRaiseEventWhenExpiryBecomesInvalid() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
@@ -180,19 +206,21 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(event.body.type, "expiry")
             XCTAssertFalse(event.body.isValid!)
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1)
     }
 
     func testShouldRaiseEventWhenCardBrandIsDetected() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
         _ = stubServices.stubCardConfiguration()
+        
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
@@ -213,19 +241,21 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(event.body.brand?.images?[1].type, "image/svg+xml")
             XCTAssertEqual(event.body.brand?.images?[1].url, "http://localhost/visa.svg")
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1)
     }
 
     func testShouldRaiseEventWhenCardBrandGoesFromDetectedToUndetected() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
         _ = stubServices.stubCardConfiguration()
+        
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
@@ -242,18 +272,20 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(event.body.type, "brand")
             XCTAssertNil(event.body.brand)
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1)
     }
 
     func testShouldRaiseEventWhenAllFieldsBecomeValid() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        
         accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
@@ -268,18 +300,19 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(event.body.type, "all")
             XCTAssertTrue(event.body.isValid!)
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1)
     }
 
     func testShouldNotRaiseEventWhenPanIsValidButBrandIsNotAnAcceptedCardBrand() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
         _ = stubServices.stubCardConfiguration()
 
         let config: NSDictionary = [
@@ -304,18 +337,19 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "brand")
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1)
     }
 
     func testShouldFormatPanWhenPanFormattingEnabled() {
+        let expectationToFulfill = expectation(description: "Validation successfully wired")
         let config: NSDictionary = [
             "baseUrl": "http://localhost",
             "panId": "pan",
@@ -332,15 +366,15 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
             XCTAssertEqual(self.panUITextField!.text!, "4444 3333")
 
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         } reject: { (a, b, c) in
             XCTFail(
                 "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
             )
-            self.expectationToFulfill!.fulfill()
+            expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill!], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1)
     }
 
     private func triggerTextFieldDelegate(_ textField: UITextField) {
