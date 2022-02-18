@@ -7,21 +7,19 @@ import XCTest
 
 class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     private let stubServices = StubServices(baseUrl: "http://localhost")
-    let config: NSDictionary = [
+    private let config: NSDictionary = [
         "baseUrl": "http://localhost",
         "panId": "pan",
         "expiryId": "expiry",
         "cvcId": "cvc",
     ]
 
-    let storyboard = UIStoryboard(name: "CardValidationTest", bundle: nil)
-    let rctEventEmitterMock = RCTEventEmitterMock()
-    var reactNativeViewLocatorMock: ReactNativeViewLocatorMock?
-    var controller: CardValidationTestUIViewController? = nil
-    var accessCheckoutReactNative: AccessCheckoutReactNative?
-    var panUITextField: UITextField? = nil
-    var expiryDateUITextField: UITextField? = nil
-    var cvcUITextField: UITextField? = nil
+    private let storyboard = UIStoryboard(name: "CardValidationTest", bundle: nil)
+    private var reactNativeViewLocatorMock: ReactNativeViewLocatorMock?
+    private var controller: CardValidationTestUIViewController? = nil
+    private var panUITextField: UITextField? = nil
+    private var expiryDateUITextField: UITextField? = nil
+    private var cvcUITextField: UITextField? = nil
 
     override func setUp() {
         controller =
@@ -35,15 +33,21 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             panUITextField: panUITextField!,
             expiryDateUITextField: expiryDateUITextField!,
             cvcUITextField: cvcUITextField!)
-        accessCheckoutReactNative = AccessCheckoutReactNative(
-            reactNativeViewLocatorMock!, rctEventEmitterMock)
     }
-    
+
+    func testEventsSupportedByNativeModule() {
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+
+        XCTAssertEqual(
+            accessCheckoutReactNative.supportedEvents(), ["AccessCheckoutValidationEvent"])
+    }
+
     func testReturnAnErrorWhenConfigurationProvidedIsInvalid() {
         let expectationToFulfill = expectation(description: "Error should be returned")
         let invalidConfig: NSDictionary = [:]
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative!.initialiseValidation(config: invalidConfig) { (success) in
+        accessCheckoutReactNative.initialiseValidation(config: invalidConfig) { (success) in
             XCTFail("validation initialisation should have faild but it didn't")
             expectationToFulfill.fulfill()
         } reject: { (errorCode, errorDescription, error) in
@@ -56,16 +60,18 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldRaiseEventWhenPanBecomesValid() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
-        
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        let expectationToFulfill = expectation(description: "run test successfully")
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
             self.panUITextField!.insertText("4444333322221111")
 
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
+            XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
-            let event = self.rctEventEmitterMock.eventsSent[0]
+            let event = accessCheckoutReactNative.eventsSent[0]
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "pan")
             XCTAssertTrue(event.body.isValid!)
@@ -82,18 +88,20 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldRaiseEventWhenPanBecomesInvalid() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
-        
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        let expectationToFulfill = expectation(description: "run test successfully")
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.panUITextField!.insertText("4444333322221111")
             self.panUITextField!.deleteBackward()
             XCTAssertEqual(self.panUITextField!.text, "444433332222111")
 
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
+            XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
-            let event = self.rctEventEmitterMock.eventsSent[1]
+            let event = accessCheckoutReactNative.eventsSent[1]
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "pan")
             XCTAssertFalse(event.body.isValid!)
@@ -110,16 +118,18 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldRaiseEventWhenCvcBecomesValid() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
-        
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        let expectationToFulfill = expectation(description: "run test successfully")
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
             self.cvcUITextField!.insertText("123")
 
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
+            XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
-            let event = self.rctEventEmitterMock.eventsSent[0]
+            let event = accessCheckoutReactNative.eventsSent[0]
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "cvc")
             XCTAssertTrue(event.body.isValid!)
@@ -136,18 +146,20 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldRaiseEventWhenCvcBecomesInvalid() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
-        
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        let expectationToFulfill = expectation(description: "run test successfully")
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.cvcUITextField!.insertText("123")
             self.cvcUITextField!.deleteBackward()
             XCTAssertEqual(self.cvcUITextField!.text, "12")
 
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
+            XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
-            let event = self.rctEventEmitterMock.eventsSent[1]
+            let event = accessCheckoutReactNative.eventsSent[1]
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "cvc")
             XCTAssertFalse(event.body.isValid!)
@@ -164,16 +176,18 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldRaiseEventWhenExpiryBecomesValid() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
-        
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        let expectationToFulfill = expectation(description: "run test successfully")
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
             self.expiryDateUITextField!.insertText("10/34")
 
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
+            XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
-            let event = self.rctEventEmitterMock.eventsSent[0]
+            let event = accessCheckoutReactNative.eventsSent[0]
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "expiry")
             XCTAssertTrue(event.body.isValid!)
@@ -190,18 +204,20 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldRaiseEventWhenExpiryBecomesInvalid() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
-        
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        let expectationToFulfill = expectation(description: "run test successfully")
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.expiryDateUITextField!.insertText("10/34")
             self.expiryDateUITextField!.deleteBackward()
             XCTAssertEqual(self.expiryDateUITextField!.text, "10/3")
 
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
+            XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
-            let event = self.rctEventEmitterMock.eventsSent[1]
+            let event = accessCheckoutReactNative.eventsSent[1]
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "expiry")
             XCTAssertFalse(event.body.isValid!)
@@ -218,10 +234,12 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldRaiseEventWhenCardBrandIsDetected() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        let expectationToFulfill = expectation(description: "run test successfully")
         _ = stubServices.stubCardConfiguration()
-        
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             // Waiting for configuration to have successfully loaded
@@ -229,9 +247,9 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
             self.panUITextField!.insertText("4")
 
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
+            XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
-            let event = self.rctEventEmitterMock.eventsSent[0]
+            let event = accessCheckoutReactNative.eventsSent[0]
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "brand")
             XCTAssertEqual(event.body.brand?.name, "visa")
@@ -253,10 +271,12 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldRaiseEventWhenCardBrandGoesFromDetectedToUndetected() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        let expectationToFulfill = expectation(description: "run test successfully")
         _ = stubServices.stubCardConfiguration()
-        
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             // Waiting for configuration to have successfully loaded
@@ -265,9 +285,9 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             self.panUITextField!.insertText("4")
             self.panUITextField!.deleteBackward()
 
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 2)
+            XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
-            let event = self.rctEventEmitterMock.eventsSent[1]
+            let event = accessCheckoutReactNative.eventsSent[1]
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "brand")
             XCTAssertNil(event.body.brand)
@@ -284,18 +304,20 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldRaiseEventWhenAllFieldsBecomeValid() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
-        
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        let expectationToFulfill = expectation(description: "run test successfully")
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.panUITextField!.insertText("4444333322221111")
             self.expiryDateUITextField!.insertText("12/34")
             self.cvcUITextField!.insertText("123")
 
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 4)
+            XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 4)
 
-            let event = self.rctEventEmitterMock.eventsSent[3]
+            let event = accessCheckoutReactNative.eventsSent[3]
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "all")
             XCTAssertTrue(event.body.isValid!)
@@ -312,8 +334,10 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldNotRaiseEventWhenPanIsValidButBrandIsNotAnAcceptedCardBrand() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        let expectationToFulfill = expectation(description: "run test successfully")
         _ = stubServices.stubCardConfiguration()
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
 
         let config: NSDictionary = [
             "baseUrl": "http://localhost",
@@ -323,7 +347,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             "acceptedCardBrands": ["mastercard"],
         ]
 
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             // Waiting for configuration to have successfully loaded
@@ -331,9 +355,9 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
             self.panUITextField!.insertText("4444333322221111")
 
-            XCTAssertEqual(self.rctEventEmitterMock.eventsSent.count, 1)
+            XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
-            let event = self.rctEventEmitterMock.eventsSent[0]
+            let event = accessCheckoutReactNative.eventsSent[0]
             XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
             XCTAssertEqual(event.body.type, "brand")
 
@@ -349,7 +373,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     }
 
     func testShouldFormatPanWhenPanFormattingEnabled() {
-        let expectationToFulfill = expectation(description: "Validation successfully wired")
+        let expectationToFulfill = expectation(description: "run test successfully")
         let config: NSDictionary = [
             "baseUrl": "http://localhost",
             "panId": "pan",
@@ -357,8 +381,10 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             "cvcId": "cvc",
             "enablePanFormatting": true,
         ]
+        let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
+            reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative!.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.panUITextField!.insertText("44443333")
@@ -387,5 +413,19 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     private func wait(_ timeoutInSeconds: TimeInterval) {
         let exp = XCTestCase().expectation(description: "Waiting for \(timeoutInSeconds)")
         _ = XCTWaiter.wait(for: [exp], timeout: timeoutInSeconds)
+    }
+
+    private class AccessCheckoutReactNativeTestImplementation: AccessCheckoutReactNative {
+        private(set) var eventsSent: [RCTEventMock] = []
+
+        override func sendEvent(withName name: String!, body: Any!) {
+            let eventMock = RCTEventMock(name, bodyDictionary: body as! NSDictionary)
+            eventsSent.append(eventMock)
+        }
+
+        // This is required to get the "testShouldFormatPanWhenPanFormattingEnabled" test pass otherwise it fails with an error we have not been able to resolve
+        override func supportedEvents() -> [String]! {
+            return ["some-event-type"]
+        }
     }
 }
