@@ -2,24 +2,28 @@ import AccessCheckoutSDK
 import React
 
 @objc(AccessCheckoutReactNative)
-class AccessCheckoutReactNative: NSObject {
+class AccessCheckoutReactNative: RCTEventEmitter {
+    private let validationEventName = "AccessCheckoutValidationEvent"
+
     private var accessCheckoutClient: AccessCheckoutClient?
-    private let reactNativeViewLocator:ReactNativeViewLocator
-    private let rctEventEmitter:RCTEventEmitter
-    
-    internal init(_ reactNativeViewLocator:ReactNativeViewLocator, _ rctEventEmitter:RCTEventEmitter) {
+    private let reactNativeViewLocator: ReactNativeViewLocator
+
+    override init() {
+        self.reactNativeViewLocator = ReactNativeViewLocator()
+        super.init()
+    }
+
+    init(_ reactNativeViewLocator: ReactNativeViewLocator) {
         self.reactNativeViewLocator = reactNativeViewLocator
-        self.rctEventEmitter = rctEventEmitter
+        super.init()
     }
-    
-    convenience override init() {
-        self.init(ReactNativeViewLocator(), RCTEventEmitter())
-    }
-    
+
     @objc(generateSessions:withResolver:withRejecter:)
-    func generateSessions(config: NSDictionary,
-                          resolve: @escaping RCTPromiseResolveBlock,
-                          reject: @escaping RCTPromiseRejectBlock) {
+    func generateSessions(
+        config: NSDictionary,
+        resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock
+    ) {
         do {
             let cfg = try GenerateSessionConfig(dictionary: config)
 
@@ -36,13 +40,16 @@ class AccessCheckoutReactNative: NSObject {
                 .cvc(cfg.cvcValue)
                 .build()
 
-            try accessCheckoutClient!.generateSessions(cardDetails: cardDetails, sessionTypes: cfg.sessionTypes) {
-                result in DispatchQueue.main.async {
+            try accessCheckoutClient!.generateSessions(
+                cardDetails: cardDetails, sessionTypes: cfg.sessionTypes
+            ) {
+                result in
+                DispatchQueue.main.async {
                     switch result {
                     case .success(let sessions):
                         resolve([
                             "card": sessions[SessionType.card],
-                            "cvc": sessions[SessionType.cvc]
+                            "cvc": sessions[SessionType.cvc],
                         ])
                     case .failure(let error):
                         reject("", error.message, error)
@@ -55,9 +62,11 @@ class AccessCheckoutReactNative: NSObject {
     }
 
     @objc(initialiseValidation:withResolver:withRejecter:)
-    func initialiseValidation(config: NSDictionary,
-                              resolve: @escaping RCTPromiseResolveBlock,
-                              reject: @escaping RCTPromiseRejectBlock) {
+    func initialiseValidation(
+        config: NSDictionary,
+        resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock
+    ) {
         DispatchQueue.main.async {
             do {
                 let cfg = try ValidationConfig(dictionary: config)
@@ -71,13 +80,17 @@ class AccessCheckoutReactNative: NSObject {
                         .expiryDate(expiryInput!)
                         .cvc(cvcInput!)
                         .accessBaseUrl(cfg.baseUrl)
-                        .validationDelegate(AccessCheckoutCardValidationDelegateRN(eventEmitter: self.rctEventEmitter, eventName: "AccessCheckoutValidationEvent") as AccessCheckoutCardValidationDelegate)
+                        .validationDelegate(
+                            AccessCheckoutCardValidationDelegateRN(
+                                eventEmitter: self, eventName: self.validationEventName)
+                                as AccessCheckoutCardValidationDelegate
+                        )
                         .acceptedCardBrands(cfg.acceptedCardBrands)
 
                     if cfg.enablePanFormatting {
                         builder = builder.enablePanFormatting()
                     }
-                
+
                     let validationConfig = try! builder.build()
 
                     AccessCheckoutValidationInitialiser().initialise(validationConfig)
@@ -87,5 +100,9 @@ class AccessCheckoutReactNative: NSObject {
                 reject("", "invalid validation config found", error)
             }
         }
+    }
+
+    override func supportedEvents() -> [String]! {
+        return [validationEventName]
     }
 }
