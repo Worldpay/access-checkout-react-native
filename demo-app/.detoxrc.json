@@ -6,7 +6,7 @@
     "ios": {
       "type": "ios.app",
       "binaryPath": "ios/Build/Build/Products/Debug-iphonesimulator/AccessCheckoutReactNativeDemo.app",
-      "build": "xcodebuild -workspace ios/AccessCheckoutReactNativeDemo.xcworkspace -configuration Debug -scheme AccessCheckoutReactNativeDemo -sdk iphonesimulator -destination id=2DCB5B03-5B2B-4744-AABB-35581A3FE0B3 -derivedDataPath ios/build"
+      "build": "./scripts/ios-detox-build.sh -v=14.4"
     },
     "android": {
       "type": "android.apk",
@@ -16,10 +16,17 @@
     }
   },
   "devices": {
-    "simulator": {
+    "ios": {
       "type": "ios.simulator",
       "device": {
         "name": "iphone8-14"
+      }
+    },
+    "ios-bitrise": {
+      "type": "ios.simulator",
+      "device": {
+        "os": "14.4",
+        "name": "iPhone 8"
       }
     },
     "emulator": {
@@ -31,7 +38,11 @@
   },
   "configurations": {
     "ios": {
-      "device": "simulator",
+      "device": "ios",
+      "app": "ios"
+    },
+    "ios-bitrise": {
+      "device": "ios-bitrise",
       "app": "ios"
     },
     "android": {
