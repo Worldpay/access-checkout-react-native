@@ -22,7 +22,7 @@
         "name": "iphone8-14"
       }
     },
-    "ios-bitrise": {
+    "ios-ci": {
       "type": "ios.simulator",
       "device": {
         "os": "14.5",
@@ -41,8 +41,8 @@
       "device": "ios",
       "app": "ios"
     },
-    "ios-bitrise": {
-      "device": "ios-bitrise",
+    "ios-ci": {
+      "device": "ios-ci",
       "app": "ios"
     },
     "android": {

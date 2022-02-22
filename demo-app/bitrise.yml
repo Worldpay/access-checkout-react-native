@@ -1,0 +1,50 @@
+---
+format_version: '11'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: react-native
+workflows:
+  Demo-app-e2e-tests-ios:
+    steps:
+    - cache-pull@2: {}
+    - npm@1:
+        inputs:
+        - command: install -g detox-cli
+        title: Install detox-cli
+    - npm@1:
+        title: Install SDK dependencies
+        inputs:
+        - command: install
+        - workdir: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/"
+    - npm@1:
+        title: Install demo-app dependencies
+        inputs:
+        - command: install
+        - workdir: "$BITRISE_SOURCE_DIR/demo-app/"
+    - cocoapods-install@2:
+        title: Install pods for iOS Bridge SDK
+        inputs:
+        - source_root_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/"
+    - cocoapods-install@2:
+        title: Install pods for demo-app
+        inputs:
+        - source_root_path: "$BITRISE_SOURCE_DIR/demo-app/ios/"
+    - script@1:
+        inputs:
+        - content: |-
+            #!/bin/bash
+
+            cd demo-app
+
+            echo "Building app for Detox"
+            detox build --configuration ios-ci
+
+            echo "Running e2e tests"
+            ./scripts/ci/detox-run-ios.sh
+
+            set -e
+    - deploy-to-bitrise-io@2:
+        inputs:
+          - deploy_path: "$BITRISE_SOURCE_DIR/demo-app/reports/e2e-tests/"
+        is_always_run: false
+    - cache-push@2: {}
+    envs: []
