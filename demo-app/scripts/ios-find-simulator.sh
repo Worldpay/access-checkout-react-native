@@ -29,9 +29,9 @@ xcrun xctrace list devices &> temp
 cat temp | grep -A 100 'Simulators' > $filename
 
 if [ -z "${version}"  ]; then
-  simulator=$(cat $filename | grep -A 100 'Simulators' $filename | grep -m 1 '\d\d\.\d')
+  simulator=$(cat $filename | grep -m 1 '\d\d\.\d')
 else
-  simulator=$(cat $filename | grep -A 100 'Simulators' $filename | grep -m 1 "${version}")
+  simulator=$(cat $filename | grep -m 1 "${version}")
 fi
 
 export SIMULATOR_VERSION=$(echo $simulator | grep -o '\d\d\.\d')

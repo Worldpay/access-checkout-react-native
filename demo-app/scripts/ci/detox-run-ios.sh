@@ -5,7 +5,7 @@
 set +e
 
 echo "Deleting any existing test reports"
-rm -f ./reports/e2e-tests/ios.html
+rm -f ./reports/e2e-tests/ios-e2e-tests.html
 
 ./scripts/start-react-native-background.sh
 
