@@ -8,9 +8,9 @@ workflows:
     - build-router-start@0:
         inputs:
           - workflows: |-
-                ACO-Web-RN-from-repo
-                ACO-iOS-RN-from-repo
-                ACO-Android-RN-from-repo
-                Demo-app-e2e-tests-ios
+                ACO-RN-SDK
+                ACO-RN-iOS-Bridge
+                ACO-RN-Android-Bridge
+                ACO-RN-DemoApp-e2e-tests-iOS
           - access_token: "$BITRISE_PERSONAL_ACCESS_TOKEN_PARALLEL_BUILDS"
           - wait_for_builds: 'true'

@@ -3,7 +3,7 @@ format_version: '11'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: android
 workflows:
-  ACO-Android-RN-from-repo:
+  ACO-RN-Android-Bridge:
     steps:
     - npm@1:
         inputs:
