@@ -1,0 +1,28 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    hydra_aco_web_checkmarx_username: hydra_aco_web_checkmarx_preprod:hydra_aco_web_checkmarx_username
+    hydra_aco_web_checkmarx_password: hydra_aco_web_checkmarx_preprod:hydra_aco_web_checkmarx_password
+  exported-variables:
+    - CODEBUILD_BUILD_NUMBER
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+      java: corretto8
+    commands:
+  pre_build:
+    commands:
+      - echo "Initiating Checkmarx Scan..."
+      - ./scripts/ci/checkmarx.sh
+#  post_build:
+#    commands:
+#      - ./scripts/ci/post-build.sh
+artifacts:
+  secondary-artifacts:
+    checkmarx:
+      files:
+        - "Checkmarx/Reports/*.pdf"
+      name: $CODEBUILD_BUILD_NUMBER
+      discard-paths: yes
