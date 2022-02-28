@@ -50,4 +50,5 @@ dependencies {
     androidTestInstrumentedTestsImplementation 'junit:junit:4.12'
     androidTestInstrumentedTestsImplementation 'org.assertj:assertj-core:3.21.0'
     androidTestInstrumentedTestsImplementation "com.github.tomakehurst:wiremock-standalone:2.27.2"
+    androidTestInstrumentedTestsImplementation 'org.mockito:mockito-android:4.3.1'
 }
