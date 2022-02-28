@@ -37,5 +37,7 @@ allprojects {
         jcenter()
         mavenCentral()
         mavenLocal()
+
+        maven { url("./lib/") }
     }
 }
