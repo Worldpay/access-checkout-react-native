@@ -2,6 +2,7 @@ package com.worldpay.access.checkout.reactnative
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.EditText
 import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.bridge.*
@@ -13,16 +14,19 @@ import com.worldpay.access.checkout.client.validation.AccessCheckoutValidationIn
 import com.worldpay.access.checkout.client.validation.config.CardValidationConfig
 import com.worldpay.access.checkout.reactnative.session.GenerateSessionsConfigConverter
 import com.worldpay.access.checkout.reactnative.session.SessionResponseListenerImpl
-import com.worldpay.access.checkout.reactnative.validation.ValidationConfigConverter
 import com.worldpay.access.checkout.reactnative.validation.CardValidationListener
+import com.worldpay.access.checkout.reactnative.validation.ValidationConfigConverter
+import com.worldpay.access.checkout.session.AccessCheckoutClientDisposer
 
 /**
  * Module class that implements all the functionality that is required by Javascript for the end user
  *
  * The responsibility of this class is the provide react methods that are then exposed for the JS to use.
  */
-class AccessCheckoutReactNativeModule(private val reactContext: ReactApplicationContext) :
-    ReactContextBaseJavaModule(reactContext) {
+class AccessCheckoutReactNativeModule constructor(
+    private val reactContext: ReactApplicationContext,
+    private val accessCheckoutClientDisposer: AccessCheckoutClientDisposer = AccessCheckoutClientDisposer()
+) : ReactContextBaseJavaModule(reactContext) {
 
     private var accessCheckoutClient: AccessCheckoutClient? = null
     private val sessionResponseListener = SessionResponseListenerImpl()
@@ -117,6 +121,14 @@ class AccessCheckoutReactNativeModule(private val reactContext: ReactApplication
             promise.reject(ex)
         }
     }
+
+    override fun onCatalystInstanceDestroy() {
+        if (accessCheckoutClient != null) {
+            accessCheckoutClientDisposer.dispose(accessCheckoutClient!!)
+            Log.d(javaClass.simpleName, "AccessCheckoutClient dispose successfully called")
+        }
+    }
+
 
     private fun getLifecycleOwner() = (reactContext.currentActivity as LifecycleOwner)
 }
