@@ -28,7 +28,10 @@
     "ios/AccessCheckoutSDK-React.podspec",
     "!ios/AccessCheckoutReactNativeUnitTests",
     "!android/build",
-    "!ios/build"
+    "!ios/build",
+    "access-checkout-react-native-sdk-android-bridge-0.0.1.aar",
+    "access-checkout-react-native-sdk-android-bridge-0.0.1.module",
+    "access-checkout-react-native-sdk-android-bridge-0.0.1.pom"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.5",
