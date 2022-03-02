@@ -14,6 +14,7 @@ buildscript {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 
 repositories {
     google()
@@ -28,6 +29,7 @@ repositories {
 
 apply from: './gradle/android.gradle'
 apply from: './gradle/jacoco.gradle'
+apply from: './gradle/publications.gradle'
 
 dependencies {
     api 'com.facebook.react:react-native:0.+'
