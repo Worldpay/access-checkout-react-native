@@ -1,5 +1,5 @@
 {
-  "name": "access-checkout-react-native-sdk",
+  "name": "@worldpay/access-checkout-react-native-sdk",
   "version": "0.0.1",
   "description": "Worldpay Access Checkout SDK for ReactNative",
   "repository": {
@@ -29,9 +29,7 @@
     "!ios/AccessCheckoutReactNativeUnitTests",
     "!android/build",
     "!ios/build",
-    "access-checkout-react-native-sdk-android-bridge-0.0.1.aar",
-    "access-checkout-react-native-sdk-android-bridge-0.0.1.module",
-    "access-checkout-react-native-sdk-android-bridge-0.0.1.pom"
+    "access-checkout-react-native-sdk-android-bridge-*"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.5",
