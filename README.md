@@ -11,13 +11,7 @@
 - pod (Cocoapods)
 - watchman (used as part of building Android app)
 
-2. Add to your bash profile file (i.e. .bash_profile, .zprofile, etc ..) an export command to set the `ACCESS_CHECKOUT_IOS_PATH` environment variable with the path of your local copy of the `access-checkout-ios` repository
-
-```
-export ACCESS_CHECKOUT_IOS_PATH=/Users/e5610203/DEV/access-checkout-ios
-```
-
-3. Create a custom device in Simulator for `iPhone 8` and `iOS 14` and name it `iphone8-14` 
+2. Create a custom device in Simulator for `iPhone 8` and `iOS 14` and name it `iphone8-14` 
 
 ## Getting Started
 
