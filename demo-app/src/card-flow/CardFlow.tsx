@@ -10,7 +10,7 @@ import {
   CVC,
   Sessions,
   useCardValidation,
-} from '../../../access-checkout-react-native-sdk/src/index';
+} from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ExpiryDateField from '../common/ExpiryDateField';
@@ -116,7 +116,7 @@ export default function CardFlow() {
       .then(() => {
         console.info('Card Validation successfully initialised');
       })
-      .catch((error) => {
+      .catch((error: any) => {
         Alert.alert('Error', `${error}`, [{ text: 'OK' }]);
       });
   };
@@ -146,7 +146,7 @@ export default function CardFlow() {
           setCvcSession(sessions.cvc);
         }
       })
-      .catch((reason) => {
+      .catch((reason: any) => {
         Alert.alert('Error', `${reason}`, [{ text: 'OK' }]);
       })
       .finally(() => {
