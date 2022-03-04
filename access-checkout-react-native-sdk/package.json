@@ -23,13 +23,9 @@
   "files": [
     "src/",
     "lib/",
-    "android",
+    "android/publish",
     "ios/AccessCheckoutReactNative",
-    "ios/AccessCheckoutSDK-React.podspec",
-    "!ios/AccessCheckoutReactNativeUnitTests",
-    "!android/build",
-    "!ios/build",
-    "access-checkout-react-native-sdk-android-bridge-*"
+    "ios/AccessCheckoutSDK-React.podspec"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -64,7 +60,12 @@
     "targets": [
       "commonjs",
       "module",
-      ["typescript", { "project": "tsconfig.build.json" }]
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
     ],
     "files": [
       "lib/",

@@ -8,6 +8,7 @@ fi
 
 mavenLocalPublicationOutputPath=~/.m2/repository/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/$version
 registryAddress="http://localhost:4873"
+publishFolderPath=./publish/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${version}
 
 cd android
 echo "Deleting Android Bridge Artifacts from Local .m2 directory"
@@ -24,9 +25,9 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-mkdir -p publish
+mkdir -p ${publishFolderPath}
 if [ $? -ne 0 ]; then
-  echo "Failed to create 'publish' folder"
+  echo "Failed to create '${publishFolderPath}' folder"
   exit 1
 fi
 
@@ -49,11 +50,11 @@ if ! [[ -f "${androidBridgeModulePath}" ]]; then
     exit 1
 fi
 
-echo "Move the following files from local .m2 directory into the newly created 'android/publish/' folder"
+echo "Move the following files from local .m2 directory into the newly created '${publishFolderPath}' folder"
 ls -1 $mavenLocalPublicationOutputPath
-mv $mavenLocalPublicationOutputPath/* ./publish
+mv $mavenLocalPublicationOutputPath/* ${publishFolderPath}
 if [ $? -ne 0 ]; then
-  echo "Failed to move the following files from local .m2 directory into the newly created 'android/publish/' folder"
+  echo "Failed to move the following files from local .m2 directory into the newly created '${publishFolderPath}' folder"
   exit 1
 fi
 
