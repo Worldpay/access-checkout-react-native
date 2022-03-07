@@ -44,7 +44,7 @@
     "jest-html-reporter": "^3.4.2",
     "jest-junit": "^13.0.0",
     "prettier": "^2.5.0",
-    "react": "^16.14.0",
+    "react": "^16.13.1",
     "react-native": "^0.63.4",
     "react-native-builder-bob": "^0.18.2",
     "ts-jest": "^27.1.1",
@@ -71,5 +71,8 @@
       "lib/",
       "src/"
     ]
+  },
+  "dependencies": {
+    "@worldpay/access-checkout-react-native-sdk": "^0.0.1"
   }
 }
