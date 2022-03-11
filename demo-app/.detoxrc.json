@@ -29,10 +29,16 @@
         "name": "iPhone 8"
       }
     },
-    "emulator": {
+    "android": {
       "type": "android.emulator",
       "device": {
         "avdName": "Pixel_2_API_30"
+      }
+    },
+    "android-ci": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "emulator"
       }
     }
   },
@@ -46,7 +52,11 @@
       "app": "ios"
     },
     "android": {
-      "device": "emulator",
+      "device": "android",
+      "app": "android"
+    },
+    "android-ci": {
+      "device": "android-ci",
       "app": "android"
     }
   }

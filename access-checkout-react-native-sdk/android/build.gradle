@@ -23,6 +23,7 @@ repositories {
 
     maven { url("$rootDir/../node_modules/react-native/android") }
     maven { url("$rootDir/../node_modules/jsc-android/dist") }
+    maven { url("./lib/") }
 }
 
 apply from: './gradle/android.gradle'
@@ -31,7 +32,7 @@ apply from: './gradle/jacoco.gradle'
 dependencies {
     api 'com.facebook.react:react-native:0.+'
 
-    implementation 'com.worldpay.access:access-checkout-android:2.4.0'
+    implementation 'com.worldpay.access:access-checkout-android:2.4.1'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
 
     testImplementation 'junit:junit:4.13.2'
@@ -50,4 +51,5 @@ dependencies {
     androidTestInstrumentedTestsImplementation 'junit:junit:4.12'
     androidTestInstrumentedTestsImplementation 'org.assertj:assertj-core:3.21.0'
     androidTestInstrumentedTestsImplementation "com.github.tomakehurst:wiremock-standalone:2.27.2"
+    androidTestInstrumentedTestsImplementation 'org.mockito:mockito-android:4.3.1'
 }

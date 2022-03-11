@@ -3,6 +3,74 @@ format_version: '11'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: react-native
 workflows:
+  ACO-RN-DemoApp-e2e-tests-Android:
+    steps:
+    - npm@1:
+        title: Install detox-cli
+        inputs:
+        - command: install -g detox-cli
+    - npm@1:
+        title: Install SDK dependencies
+        inputs:
+        - command: install
+        - workdir: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/"
+    - npm@1:
+        title: Install demo-app dependencies
+        inputs:
+        - command: install
+        - workdir: "$BITRISE_SOURCE_DIR/demo-app/"
+    - script@1:
+        title: Build app for Detox
+        inputs:
+        - working_dir: "$BITRISE_SOURCE_DIR/demo-app"
+        - content: |
+            #!/bin/bash
+
+            echo "Building app for Detox"
+            detox build --configuration android
+    - avd-manager@1:
+        title: Start Android emulator
+        inputs:
+        - api_level: '30'
+    - wait-for-android-emulator@1: {}
+    - script@1:
+        title: Run Detox e2e tests for Android
+        inputs:
+        - working_dir: "$BITRISE_SOURCE_DIR/demo-app/"
+        - content: |
+            #!/bin/bash
+
+            set +e
+
+            ./scripts/start-react-native-background.sh
+
+            echo "Running Detox tests"
+
+            JEST_HTML_REPORTER_OUTPUT_PATH="./reports/e2e-tests/android-e2e-tests.html" detox test --configuration android-ci --cleanup --loglevel verbose
+            status=$?
+
+            ./scripts/stop-react-native-background.sh
+
+            if [ $status -ne 0 ]; then
+              exit $status
+            fi
+    - script@1:
+        title: Stop Android emulator
+        inputs:
+        - working_dir: "$BITRISE_SOURCE_DIR/demo-app/"
+        - content: |
+            #!/bin/bash
+
+            emulatorName="emulator"
+
+            echo "Deleting emulator $emulatorName"
+            avdmanager -v delete avd -n $emulatorName
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "$BITRISE_SOURCE_DIR/demo-app/reports/e2e-tests/"
+    meta:
+      bitrise.io:
+        stack: linux-docker-android-20.04
   ACO-RN-DemoApp-e2e-tests-iOS:
     steps:
     - cache-pull@2: {}
