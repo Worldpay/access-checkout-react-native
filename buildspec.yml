@@ -16,9 +16,9 @@ phases:
     commands:
       - echo "Initiating Checkmarx Scan..."
       - ./scripts/ci/checkmarx.sh
-#  post_build:
-#    commands:
-#      - ./scripts/ci/post-build.sh
+  post_build:
+    commands:
+      - ./scripts/ci/post-build.sh
 artifacts:
     files:
       - "Checkmarx/Reports/*.pdf"
