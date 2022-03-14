@@ -20,7 +20,6 @@ phases:
 #    commands:
 #      - ./scripts/ci/post-build.sh
 artifacts:
-  checkmarx:
     files:
       - "Checkmarx/Reports/*.pdf"
     name: $CODEBUILD_BUILD_NUMBER
