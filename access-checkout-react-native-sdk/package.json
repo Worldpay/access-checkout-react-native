@@ -71,8 +71,5 @@
       "lib/",
       "src/"
     ]
-  },
-  "dependencies": {
-    "@worldpay/access-checkout-react-native-sdk": "^0.0.1"
   }
 }

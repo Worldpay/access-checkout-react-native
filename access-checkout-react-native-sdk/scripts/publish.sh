@@ -58,7 +58,6 @@ if [ $? -ne 0 ]; then
   echo "Failed to move the following files from local .m2 directory into the newly created '${publishFolderPath}' folder"
   exit 1
 fi
-echo "Login to Private NPM Repository"
 
 echo "Publish React Native SDK ${version} to ${registryAddress}"
 cd ..

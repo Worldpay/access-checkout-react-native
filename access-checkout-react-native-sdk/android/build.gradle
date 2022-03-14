@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.worldpay.access:access-checkout-android:2.4.1'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
 
+    testImplementation 'androidx.test:core:1.4.0'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:3.21.0'
     testImplementation 'org.robolectric:robolectric:4.4'
