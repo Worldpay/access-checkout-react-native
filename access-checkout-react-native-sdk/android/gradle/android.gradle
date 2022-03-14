@@ -32,10 +32,14 @@ android {
         }
     }
 
-    flavorDimensions 'testTypes'
+    flavorDimensions 'defaultFlavorDimension'
     productFlavors {
+        main {
+
+        }
+
         instrumentedTests {
-            dimension = 'testTypes'
+            dimension = 'defaultFlavorDimension'
         }
     }
 }

@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.source_files = "AccessCheckoutReactNative/**/*.{h,m,mm,swift}"
 
   s.dependency "React-Core"
-  s.dependency "AccessCheckoutSDK", "~> 2.3.0"
+  s.dependency "AccessCheckoutSDK", "~> 2.3.1"
 end

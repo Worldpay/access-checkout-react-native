@@ -1,5 +1,5 @@
 {
-  "name": "access-checkout-react-native-sdk",
+  "name": "@worldpay/access-checkout-react-native-sdk",
   "version": "0.0.1",
   "description": "Worldpay Access Checkout SDK for ReactNative",
   "repository": {
@@ -23,12 +23,9 @@
   "files": [
     "src/",
     "lib/",
-    "android",
+    "android/publish",
     "ios/AccessCheckoutReactNative",
-    "ios/AccessCheckoutSDK-React.podspec",
-    "!ios/AccessCheckoutReactNativeUnitTests",
-    "!android/build",
-    "!ios/build"
+    "ios/AccessCheckoutSDK-React.podspec"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -47,7 +44,7 @@
     "jest-html-reporter": "^3.4.2",
     "jest-junit": "^13.0.0",
     "prettier": "^2.5.0",
-    "react": "^16.14.0",
+    "react": "^16.13.1",
     "react-native": "^0.63.4",
     "react-native-builder-bob": "^0.18.2",
     "ts-jest": "^27.1.1",
@@ -63,7 +60,12 @@
     "targets": [
       "commonjs",
       "module",
-      ["typescript", { "project": "tsconfig.build.json" }]
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
     ],
     "files": [
       "lib/",
