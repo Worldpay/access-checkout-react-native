@@ -20,9 +20,8 @@ phases:
 #    commands:
 #      - ./scripts/ci/post-build.sh
 artifacts:
-  secondary-artifacts:
-    checkmarx:
-      files:
-        - "Checkmarx/Reports/*.pdf"
-      name: $CODEBUILD_BUILD_NUMBER
-      discard-paths: yes
+  checkmarx:
+    files:
+      - "Checkmarx/Reports/*.pdf"
+    name: $CODEBUILD_BUILD_NUMBER
+    discard-paths: yes
