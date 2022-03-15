@@ -1,0 +1,43 @@
+project.group = "com.worldpay.access"
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.mainRelease
+
+                version = "${project.version}"
+
+                pom {
+                    name = 'Worldpay Access Checkout React Native SDK Android Bridge'
+                    packaging = 'aar'
+
+                    description = 'Android Bridge for Worldpay Access Checkout React Native SDK'
+                    url = 'https://github.com/Worldpay/access-checkout-react-native'
+
+                    scm {
+                        connection = 'scm:git:git://github.com/Worldpay/access-checkout-react-native.git'
+                        developerConnection = 'scm:git:ssh://github.com/Worldpay/access-checkout-react-native.git'
+                        url = 'https://github.com/Worldpay/access-checkout-react-native/tree/master'
+                    }
+
+                    licenses {
+                        license {
+                            name = 'MIT License'
+                            url = 'https://raw.githubusercontent.com/Worldpay/access-checkout/master/LICENSE'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = 'worldpay'
+                            name = 'Worldpay'
+                            organization = 'Worldpay'
+                            organizationUrl = 'https://www.worldpay.com/'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

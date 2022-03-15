@@ -2,10 +2,10 @@ import AccessCheckoutReactNative, {
   AccessCheckout,
   CardDetails,
   CardValidationConfig,
-} from 'access-checkout-react-native-sdk';
+  SessionType,
+} from '../../../access-checkout-react-native-sdk/src/index';
 import React, { useEffect, useState } from 'react';
 import { Alert, NativeEventEmitter, Text } from 'react-native';
-import SessionType from '../../../access-checkout-react-native-sdk/src/session/SessionType';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ExpiryDateField from '../common/ExpiryDateField';
