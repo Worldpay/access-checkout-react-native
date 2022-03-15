@@ -1,5 +1,44 @@
 #!/bin/bash
 
+invalidArgumentsMessage="Invalid arguments \n
+Usage: \n
+publish -d|--destination=[local|staging]
+\n\n
+local will publish to http://localhost:4873\n
+staging will publish to https://hydra-014399089400.d.codeartifact.eu-west-1.amazonaws.com/npm/access-checkout-react-native/\n
+\n
+\n
+Also to publish manually to staging, prior to running this script, make sure that you have authenticated on aws-vault using 'aws-vault exec gw2dev-sso'\n
+"
+
+for i in "$@"
+do
+case $i in
+    -d=*|--destination=*)
+    destination="${i#*=}"
+    shift
+    ;;
+    *)
+    echo "Unknonwn option $i \n"
+    echo $invalidArgumentsMessage
+    exit 2
+    # unknown option
+    ;;
+esac
+done
+
+if [ "${destination}" == "local" ]; then
+  registryAddress="http://localhost:4873"
+elif [ "${destination}" == "staging" ]; then
+  registryAddress="https://hydra-014399089400.d.codeartifact.eu-west-1.amazonaws.com/npm/access-checkout-react-native/"
+fi
+
+if [ -z "${registryAddress}"  ]; then
+  echo -e "Registry address is empty, it looks like destination has not been correctly specified \n"
+  echo -e $invalidArgumentsMessage
+  exit 1
+fi
+
 version="$(jq -r '.version' ./package.json)"
 if ! [[ "${version}" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
   echo "Failed to find version in format x.y.z (instead found '${version}')"
@@ -7,28 +46,27 @@ if ! [[ "${version}" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
 fi
 
 mavenLocalPublicationOutputPath=~/.m2/repository/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/$version
-# Used for local testing
-registryAddress="http://localhost:4873"
 publishFolderPath=./publish/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${version}
 
 cd android
-echo "Deleting Android Bridge Artifacts from Local .m2 directory"
+echo "Deleting Android Bridge Artifacts from publish folder and from local .m2 directory"
 rm -Rf publish $mavenLocalPublicationOutputPath/*
 if [ $? -ne 0 ]; then
-  echo "Failed to delete Android Bridge Artifacts from Local .m2 directory"
+  echo "Failed. Stopping publish process and exiting now"
   exit 1
 fi
 
-echo "Publish Release to Maven Local"
+echo "Publishing Android Bridge Artifacts to Maven Local"
 ./gradlew publishReleasePublicationToMavenLocal
 if [ $? -ne 0 ]; then
-  echo "Failed to publish Android Bridge Artifacts to Maven Local"
+  echo "Failed. Stopping publish process and exiting now"
   exit 1
 fi
 
+echo "Creating Android Bridge Artifacts destination folder '${publishFolderPath}'"
 mkdir -p ${publishFolderPath}
 if [ $? -ne 0 ]; then
-  echo "Failed to create '${publishFolderPath}' folder"
+  echo "Failed. Stopping publish process and exiting now"
   exit 1
 fi
 
@@ -51,19 +89,31 @@ if ! [[ -f "${androidBridgeModulePath}" ]]; then
     exit 1
 fi
 
-echo "Move the following files from local .m2 directory into the newly created '${publishFolderPath}' folder"
+echo "Moving the following files from local .m2 directory into the newly created '${publishFolderPath}' folder"
 ls -1 $mavenLocalPublicationOutputPath
 mv $mavenLocalPublicationOutputPath/* ${publishFolderPath}
 if [ $? -ne 0 ]; then
-  echo "Failed to move the following files from local .m2 directory into the newly created '${publishFolderPath}' folder"
+  echo "Failed. Stopping publish process and exiting now"
   exit 1
 fi
 
-echo "Publish React Native SDK ${version} to ${registryAddress}"
+if [ "${destination}" == "staging" ]; then
+  echo "Logging in to Codeartifact registry at ${registryAddress} "
+
+  aws codeartifact login --tool npm --repository access-checkout-react-native --domain hydra --domain-owner 014399089400
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to login to codeartifact. Have you authenticated on aws-vault using 'aws-vault exec gw2dev-sso' ?"
+    echo "Stopping publish process and exiting now"
+    exit 1
+  fi
+fi
+
+echo "Publishing React Native SDK ${version} to ${registryAddress}"
 cd ..
 npm publish --registry $registryAddress
 if [ $? -ne 0 ]; then
-  echo "Failed publish React Native SDK"
+  echo "Failed. Stopping publish process and exiting now"
   exit 1
 fi
 
