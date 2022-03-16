@@ -1,11 +1,14 @@
-import AccessCheckoutReactNative, {
-  AccessCheckout,
-  CardDetails,
-  CardValidationConfig,
-  SessionType,
-} from '../../../access-checkout-react-native-sdk/src/index';
 import React, { useEffect, useState } from 'react';
 import { Alert, NativeEventEmitter, Text } from 'react-native';
+import AccessCheckoutReactNative, {
+  AccessCheckout,
+  Brand,
+  CardDetails,
+  CardValidationConfig,
+  CardValidationEventListener,
+  cardValidationNativeEventListenerOf,
+  SessionType,
+} from '../../../access-checkout-react-native-sdk/src/index';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ExpiryDateField from '../common/ExpiryDateField';
@@ -51,58 +54,53 @@ export default function CardFlow() {
     merchantId: 'identity',
   });
 
-  interface BrandImage {
-    type: string;
-    url: string;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function handleValidationResult(result: any) {
-    if (result.type === 'brand') {
-      if (result.value === null) {
+  const cardValidationEventListener: CardValidationEventListener = {
+    onCardBrandChanged(brand?: Brand): void {
+      if (!brand) {
         setBrand('');
         setBrandLogo(unknownBrandLogo);
-      } else {
-        setBrand(result.value.name);
+        return;
+      }
 
-        const images: BrandImage[] = result.value.images;
-
-        for (const img of images) {
-          if (img.type === 'image/png') {
-            setBrandLogo(img.url);
-          }
+      setBrand(brand!.name);
+      for (const image of brand!.images) {
+        if (image.type === 'image/png') {
+          setBrandLogo(image.url);
         }
       }
-      return;
-    }
+    },
 
-    if (result.type === 'pan') {
-      setPanIsValid(result.isValid);
-      if (!result.isValid) setSubmitBtnEnabled(false);
-    }
+    onPanValidChanged(isValid: boolean): void {
+      setPanIsValid(isValid);
+      if (!isValid) {
+        setSubmitBtnEnabled(false);
+      }
+    },
 
-    if (result.type === 'cvc') {
-      setCvcIsValid(result.isValid);
-      if (!result.isValid) setSubmitBtnEnabled(false);
-      return;
-    }
+    onExpiryDateValidChanged(isValid: boolean): void {
+      setExpiryIsValid(isValid);
+      if (!isValid) {
+        setSubmitBtnEnabled(false);
+      }
+    },
 
-    if (result.type === 'expiry') {
-      setExpiryIsValid(result.isValid);
-      if (!result.isValid) setSubmitBtnEnabled(false);
-      return;
-    }
+    onCvcValidChanged(isValid: boolean): void {
+      setCvcIsValid(isValid);
+      if (!isValid) {
+        setSubmitBtnEnabled(false);
+      }
+    },
 
-    if (result.type === 'all') {
+    onValidationSuccess() {
       setSubmitBtnEnabled(true);
-      return;
-    }
-  }
+    },
+  };
 
   useEffect(() => {
     const eventSubscription = new NativeEventEmitter(
-      AccessCheckoutReactNative
-    ).addListener(AccessCheckout.ValidationEventType, handleValidationResult);
+      AccessCheckoutReactNative,
+    ).addListener(AccessCheckout.ValidationEventType,
+      cardValidationNativeEventListenerOf(cardValidationEventListener));
 
     return () => {
       eventSubscription.remove();
