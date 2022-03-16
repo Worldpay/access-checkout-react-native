@@ -15,8 +15,9 @@
 **/local.properties
 **/.gradle/
 
-# Files in the access-checkout-react-native-sdk flder
+# Files in the access-checkout-react-native-sdk folder
 access-checkout-react-native-sdk/src/*.js
+access-checkout-react-native-sdk/android/publish/**/*
 
 # Files in the demo-app flder
 demo-app/src/**/*.js
