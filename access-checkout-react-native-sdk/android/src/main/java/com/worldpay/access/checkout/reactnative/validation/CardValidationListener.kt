@@ -17,7 +17,7 @@ import com.worldpay.access.checkout.client.validation.model.CardBrand
  */
 class CardValidationListener(private val reactContext: ReactApplicationContext): AccessCheckoutCardValidationListener {
 
-  private val eventName = "AccessCheckoutValidationEvent"
+  private val eventName = "AccessCheckoutCardValidationEvent"
 
   /**
    * Handles the brand change event given by ACO SDK.

@@ -5,7 +5,7 @@ import { CardDetails } from './session/CardDetails';
 import CardValidationConfig from './validation/CardValidationConfig';
 
 export default class AccessCheckout {
-  static ValidationEventType = 'AccessCheckoutValidationEvent';
+  static CardValidationEventType = 'AccessCheckoutCardValidationEvent';
 
   accessBaseUrl: string;
   merchantId?: string;

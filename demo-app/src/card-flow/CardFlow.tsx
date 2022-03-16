@@ -99,7 +99,7 @@ export default function CardFlow() {
   useEffect(() => {
     const eventSubscription = new NativeEventEmitter(
       AccessCheckoutReactNative,
-    ).addListener(AccessCheckout.ValidationEventType,
+    ).addListener(AccessCheckout.CardValidationEventType,
       cardValidationNativeEventListenerOf(cardValidationEventListener));
 
     return () => {
