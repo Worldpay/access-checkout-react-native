@@ -13,7 +13,9 @@ export interface CardValidationEventListener {
   onValidationSuccess?(): void;
 }
 
-export function cardValidationNativeEventListenerOf(delegate: CardValidationEventListener) {
+export function cardValidationNativeEventListenerOf(
+  delegate: CardValidationEventListener
+) {
   return function (event: any) {
     if (event.type === 'brand' && delegate.onCardBrandChanged) {
       if (event.value === null) {

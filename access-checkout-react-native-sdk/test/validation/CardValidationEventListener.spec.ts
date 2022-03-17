@@ -1,5 +1,9 @@
 // @ts-ignore
-import { Brand, CardValidationEventListener, cardValidationNativeEventListenerOf } from '../../src';
+import {
+  Brand,
+  CardValidationEventListener,
+  cardValidationNativeEventListenerOf,
+} from '../../src';
 
 describe('CardValidationEventListener', () => {
   describe('can be instantiated', () => {
@@ -7,19 +11,14 @@ describe('CardValidationEventListener', () => {
       // @ts-ignore
       const listener: CardValidationEventListener = {
         // @ts-ignore
-        onCardBrandChanged(brand?: Brand): void {
-        },
+        onCardBrandChanged(brand?: Brand): void {},
         // @ts-ignore
-        onPanValidChanged(isValid: boolean): void {
-        },
+        onPanValidChanged(isValid: boolean): void {},
         // @ts-ignore
-        onExpiryDateValidChanged(isValid: boolean): void {
-        },
+        onExpiryDateValidChanged(isValid: boolean): void {},
         // @ts-ignore
-        onCvcValidChanged(isValid: boolean): void {
-        },
-        onValidationSuccess() {
-        },
+        onCvcValidChanged(isValid: boolean): void {},
+        onValidationSuccess() {},
       };
     });
 
@@ -27,16 +26,12 @@ describe('CardValidationEventListener', () => {
       // @ts-ignore
       const listener: CardValidationEventListener = {
         // @ts-ignore
-        onPanValidChanged(isValid: boolean): void {
-        },
+        onPanValidChanged(isValid: boolean): void {},
         // @ts-ignore
-        onExpiryDateValidChanged(isValid: boolean): void {
-        },
+        onExpiryDateValidChanged(isValid: boolean): void {},
         // @ts-ignore
-        onCvcValidChanged(isValid: boolean): void {
-        },
-        onValidationSuccess() {
-        },
+        onCvcValidChanged(isValid: boolean): void {},
+        onValidationSuccess() {},
       };
     });
 
@@ -44,13 +39,10 @@ describe('CardValidationEventListener', () => {
       // @ts-ignore
       const listener: CardValidationEventListener = {
         // @ts-ignore
-        onExpiryDateValidChanged(isValid: boolean): void {
-        },
+        onExpiryDateValidChanged(isValid: boolean): void {},
         // @ts-ignore
-        onCvcValidChanged(isValid: boolean): void {
-        },
-        onValidationSuccess() {
-        },
+        onCvcValidChanged(isValid: boolean): void {},
+        onValidationSuccess() {},
       };
     });
 
@@ -58,18 +50,15 @@ describe('CardValidationEventListener', () => {
       // @ts-ignore
       const listener: CardValidationEventListener = {
         // @ts-ignore
-        onCvcValidChanged(isValid: boolean): void {
-        },
-        onValidationSuccess() {
-        },
+        onCvcValidChanged(isValid: boolean): void {},
+        onValidationSuccess() {},
       };
     });
 
     it('without an event handler for cvc validation state changes', () => {
       // @ts-ignore
       const listener: CardValidationEventListener = {
-        onValidationSuccess() {
-        },
+        onValidationSuccess() {},
       };
     });
 
@@ -80,9 +69,7 @@ describe('CardValidationEventListener', () => {
   });
 
   describe('when wired using cardValidationNativeEventListenerOf()', () => {
-    it('has onCardBrandChanged() method called when native event is brand with brand details', () => {
-
-    });
+    it('has onCardBrandChanged() method called when native event is brand with brand details', () => {});
   });
 });
 

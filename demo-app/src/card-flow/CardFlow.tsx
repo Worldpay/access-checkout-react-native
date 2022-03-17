@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, NativeEventEmitter, Text } from 'react-native';
-import AccessCheckoutReactNative, {
+import React, { useState } from 'react';
+import { Alert, Text } from 'react-native';
+import {
   AccessCheckout,
   Brand,
   CardDetails,
   CardValidationConfig,
   CardValidationEventListener,
-  cardValidationNativeEventListenerOf,
   SessionType,
+  useCardValidation,
 } from '../../../access-checkout-react-native-sdk/src/index';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
@@ -54,7 +54,14 @@ export default function CardFlow() {
     merchantId: 'identity',
   });
 
-  const cardValidationEventListener: CardValidationEventListener = {
+  const validationConfig = new CardValidationConfig({
+    panId: 'panInput',
+    expiryDateId: 'expiryDateInput',
+    cvcId: 'cvcInput',
+    enablePanFormatting: true,
+  });
+
+  const validationEventListener: CardValidationEventListener = {
     onCardBrandChanged(brand?: Brand): void {
       if (!brand) {
         setBrand('');
@@ -96,35 +103,21 @@ export default function CardFlow() {
     },
   };
 
-  useEffect(() => {
-    const eventSubscription = new NativeEventEmitter(
-      AccessCheckoutReactNative,
-    ).addListener(AccessCheckout.CardValidationEventType,
-      cardValidationNativeEventListenerOf(cardValidationEventListener));
+  const [initialiseCardValidation] = useCardValidation(
+    accessCheckout,
+    validationConfig,
+    validationEventListener
+  );
 
-    return () => {
-      eventSubscription.remove();
-    };
-  }, []);
-
-  function initialiseValidation() {
-    console.log('Initialising validation');
-
-    const validationConfig = new CardValidationConfig({
-      panId: 'panInput',
-      expiryDateId: 'expiryDateInput',
-      cvcId: 'cvcInput',
-      enablePanFormatting: true,
-    });
-    return accessCheckout
-      .initialiseValidation(validationConfig)
+  const onLayout = () => {
+    initialiseCardValidation()
       .then(() => {
         console.log('Validation successfully initialised');
       })
       .catch((error) => {
         Alert.alert('Error', `${error}`, [{ text: 'OK' }]);
       });
-  }
+  };
 
   function generateSession() {
     let sessionTypes = generateCardAndCvcSessions
@@ -191,7 +184,7 @@ export default function CardFlow() {
   }
 
   return (
-    <VView style={styles.cardFlow} onLayout={initialiseValidation}>
+    <VView style={styles.cardFlow} onLayout={onLayout}>
       <Spinner testID="spinner" show={showSpinner} />
       <HView>
         <PanField
