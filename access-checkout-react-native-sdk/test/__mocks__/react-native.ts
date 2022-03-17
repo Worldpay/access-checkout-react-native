@@ -1,4 +1,6 @@
 // import { EmitterSubscription } from 'react-native';
+// @ts-ignore
+import { EmitterSubscription } from 'react-native';
 import * as ReactNative from 'react-native';
 
 const generateSessionsMock = jest.fn();
@@ -13,7 +15,7 @@ export const NativeModules = {
 };
 
 export const nativeEventSubscriptionMock = {
-  remove: jest.fn(),
+  remove: jest.fn()
 };
 const nativeEventListeners: any = {};
 export const emitNativeEvent = (eventType: string, ...params: any[]): void => {
@@ -38,6 +40,7 @@ export const NativeEventEmitter = jest.fn(() => ({
 
     nativeEventListeners[eventType].push(listener);
 
+    // @ts-ignore
     return nativeEventSubscriptionMock;
   },
 }));
