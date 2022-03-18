@@ -3,7 +3,7 @@ import React
 
 @objc(AccessCheckoutReactNative)
 class AccessCheckoutReactNative: RCTEventEmitter {
-    private let validationEventName = "AccessCheckoutValidationEvent"
+    private let cardValidationEventName = "AccessCheckoutCardValidationEvent"
 
     private var accessCheckoutClient: AccessCheckoutClient?
     private let reactNativeViewLocator: ReactNativeViewLocator
@@ -82,7 +82,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                         .accessBaseUrl(cfg.baseUrl)
                         .validationDelegate(
                             AccessCheckoutCardValidationDelegateRN(
-                                eventEmitter: self, eventName: self.validationEventName)
+                                eventEmitter: self, eventName: self.cardValidationEventName)
                                 as AccessCheckoutCardValidationDelegate
                         )
                         .acceptedCardBrands(cfg.acceptedCardBrands)
@@ -103,6 +103,6 @@ class AccessCheckoutReactNative: RCTEventEmitter {
     }
 
     override func supportedEvents() -> [String]! {
-        return [validationEventName]
+        return [cardValidationEventName]
     }
 }

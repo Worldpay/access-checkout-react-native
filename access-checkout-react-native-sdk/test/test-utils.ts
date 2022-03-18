@@ -55,3 +55,12 @@ export function toMap(object: any): Map<string, string> {
 
   return map;
 }
+
+export function isArray(variable: any) {
+  console.log(Object.prototype.toString.call(variable));
+  return Object.prototype.toString.call(variable) === '[object Array]';
+}
+
+export function isFunction(variable: any) {
+  return Object.prototype.toString.call(variable) === '[object Function]';
+}

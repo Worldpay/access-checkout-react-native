@@ -39,7 +39,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
 
         XCTAssertEqual(
-            accessCheckoutReactNative.supportedEvents(), ["AccessCheckoutValidationEvent"])
+            accessCheckoutReactNative.supportedEvents(), ["AccessCheckoutCardValidationEvent"])
     }
 
     func testReturnAnErrorWhenConfigurationProvidedIsInvalid() {
@@ -72,7 +72,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
             let event = accessCheckoutReactNative.eventsSent[0]
-            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
             XCTAssertEqual(event.body.type, "pan")
             XCTAssertTrue(event.body.isValid!)
 
@@ -102,7 +102,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
             let event = accessCheckoutReactNative.eventsSent[1]
-            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
             XCTAssertEqual(event.body.type, "pan")
             XCTAssertFalse(event.body.isValid!)
 
@@ -130,7 +130,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
             let event = accessCheckoutReactNative.eventsSent[0]
-            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
             XCTAssertEqual(event.body.type, "cvc")
             XCTAssertTrue(event.body.isValid!)
 
@@ -160,7 +160,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
             let event = accessCheckoutReactNative.eventsSent[1]
-            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
             XCTAssertEqual(event.body.type, "cvc")
             XCTAssertFalse(event.body.isValid!)
 
@@ -188,7 +188,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
             let event = accessCheckoutReactNative.eventsSent[0]
-            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
             XCTAssertEqual(event.body.type, "expiry")
             XCTAssertTrue(event.body.isValid!)
 
@@ -218,7 +218,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
             let event = accessCheckoutReactNative.eventsSent[1]
-            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
             XCTAssertEqual(event.body.type, "expiry")
             XCTAssertFalse(event.body.isValid!)
 
@@ -250,7 +250,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
             let event = accessCheckoutReactNative.eventsSent[0]
-            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
             XCTAssertEqual(event.body.type, "brand")
             XCTAssertEqual(event.body.brand?.name, "visa")
             XCTAssertEqual(event.body.brand?.images?.count, 2)
@@ -288,7 +288,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
             let event = accessCheckoutReactNative.eventsSent[1]
-            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
             XCTAssertEqual(event.body.type, "brand")
             XCTAssertNil(event.body.brand)
 
@@ -318,7 +318,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 4)
 
             let event = accessCheckoutReactNative.eventsSent[3]
-            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
             XCTAssertEqual(event.body.type, "all")
             XCTAssertTrue(event.body.isValid!)
 
@@ -358,7 +358,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
             let event = accessCheckoutReactNative.eventsSent[0]
-            XCTAssertEqual(event.name, "AccessCheckoutValidationEvent")
+            XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
             XCTAssertEqual(event.body.type, "brand")
 
             expectationToFulfill.fulfill()

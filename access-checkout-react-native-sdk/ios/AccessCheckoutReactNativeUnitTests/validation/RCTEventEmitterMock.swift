@@ -10,6 +10,6 @@ class RCTEventEmitterMock: RCTEventEmitter {
     }
 
     override func supportedEvents() -> [String]! {
-        return ["AccessCheckoutValidationEvent"]
+        return ["AccessCheckoutCardValidationEvent"]
     }
 }

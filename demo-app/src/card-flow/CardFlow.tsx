@@ -1,11 +1,14 @@
-import AccessCheckoutReactNative, {
+import React, { useState } from 'react';
+import { Alert, Text } from 'react-native';
+import {
   AccessCheckout,
+  Brand,
   CardDetails,
   CardValidationConfig,
+  CardValidationEventListener,
   SessionType,
+  useCardValidation,
 } from '../../../access-checkout-react-native-sdk/src/index';
-import React, { useEffect, useState } from 'react';
-import { Alert, NativeEventEmitter, Text } from 'react-native';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ExpiryDateField from '../common/ExpiryDateField';
@@ -51,82 +54,70 @@ export default function CardFlow() {
     merchantId: 'identity',
   });
 
-  interface BrandImage {
-    type: string;
-    url: string;
-  }
+  const validationConfig = new CardValidationConfig({
+    panId: 'panInput',
+    expiryDateId: 'expiryDateInput',
+    cvcId: 'cvcInput',
+    enablePanFormatting: true,
+  });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function handleValidationResult(result: any) {
-    if (result.type === 'brand') {
-      if (result.value === null) {
+  const validationEventListener: CardValidationEventListener = {
+    onCardBrandChanged(brand?: Brand): void {
+      if (!brand) {
         setBrand('');
         setBrandLogo(unknownBrandLogo);
-      } else {
-        setBrand(result.value.name);
+        return;
+      }
 
-        const images: BrandImage[] = result.value.images;
-
-        for (const img of images) {
-          if (img.type === 'image/png') {
-            setBrandLogo(img.url);
-          }
+      setBrand(brand!.name);
+      for (const image of brand!.images) {
+        if (image.type === 'image/png') {
+          setBrandLogo(image.url);
         }
       }
-      return;
-    }
+    },
 
-    if (result.type === 'pan') {
-      setPanIsValid(result.isValid);
-      if (!result.isValid) setSubmitBtnEnabled(false);
-    }
+    onPanValidChanged(isValid: boolean): void {
+      setPanIsValid(isValid);
+      if (!isValid) {
+        setSubmitBtnEnabled(false);
+      }
+    },
 
-    if (result.type === 'cvc') {
-      setCvcIsValid(result.isValid);
-      if (!result.isValid) setSubmitBtnEnabled(false);
-      return;
-    }
+    onExpiryDateValidChanged(isValid: boolean): void {
+      setExpiryIsValid(isValid);
+      if (!isValid) {
+        setSubmitBtnEnabled(false);
+      }
+    },
 
-    if (result.type === 'expiry') {
-      setExpiryIsValid(result.isValid);
-      if (!result.isValid) setSubmitBtnEnabled(false);
-      return;
-    }
+    onCvcValidChanged(isValid: boolean): void {
+      setCvcIsValid(isValid);
+      if (!isValid) {
+        setSubmitBtnEnabled(false);
+      }
+    },
 
-    if (result.type === 'all') {
+    onValidationSuccess() {
       setSubmitBtnEnabled(true);
-      return;
-    }
-  }
+    },
+  };
 
-  useEffect(() => {
-    const eventSubscription = new NativeEventEmitter(
-      AccessCheckoutReactNative
-    ).addListener(AccessCheckout.ValidationEventType, handleValidationResult);
+  const [initialiseCardValidation] = useCardValidation(
+    accessCheckout,
+    validationConfig,
+    validationEventListener
+  );
 
-    return () => {
-      eventSubscription.remove();
-    };
-  }, []);
-
-  function initialiseValidation() {
-    console.log('Initialising validation');
-
-    const validationConfig = new CardValidationConfig({
-      panId: 'panInput',
-      expiryDateId: 'expiryDateInput',
-      cvcId: 'cvcInput',
-      enablePanFormatting: true,
-    });
-    return accessCheckout
-      .initialiseValidation(validationConfig)
+  const onLayout = () => {
+    initialiseCardValidation()
       .then(() => {
         console.log('Validation successfully initialised');
       })
       .catch((error) => {
         Alert.alert('Error', `${error}`, [{ text: 'OK' }]);
       });
-  }
+  };
 
   function generateSession() {
     let sessionTypes = generateCardAndCvcSessions
@@ -193,7 +184,7 @@ export default function CardFlow() {
   }
 
   return (
-    <VView style={styles.cardFlow} onLayout={initialiseValidation}>
+    <VView style={styles.cardFlow} onLayout={onLayout}>
       <Spinner testID="spinner" show={showSpinner} />
       <HView>
         <PanField

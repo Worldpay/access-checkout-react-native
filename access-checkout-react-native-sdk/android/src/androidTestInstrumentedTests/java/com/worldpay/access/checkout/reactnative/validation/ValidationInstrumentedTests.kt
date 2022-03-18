@@ -61,7 +61,7 @@ class ValidationInstrumentedTests {
 
             assertEventsReceived(scenario) { events ->
                 events.size == 1
-                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().name == "AccessCheckoutCardValidationEvent"
                         && events.first().stringOf("type") == "pan"
                         && events.first().booleanOf("isValid")
             }
@@ -78,11 +78,11 @@ class ValidationInstrumentedTests {
 
             assertEventsReceived(scenario) { events ->
                 events.size == 2
-                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().name == "AccessCheckoutCardValidationEvent"
                         && events.first().stringOf("type") == "pan"
                         && events.first().booleanOf("isValid")
 
-                        && events.last().name == "AccessCheckoutValidationEvent"
+                        && events.last().name == "AccessCheckoutCardValidationEvent"
                         && events.last().stringOf("type") == "pan"
                         && !events.last().booleanOf("isValid")
             }
@@ -98,7 +98,7 @@ class ValidationInstrumentedTests {
 
             assertEventsReceived(scenario) { events ->
                 events.size == 1
-                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().name == "AccessCheckoutCardValidationEvent"
                         && events.first().stringOf("type") == "expiry"
                         && events.first().booleanOf("isValid")
             }
@@ -115,11 +115,11 @@ class ValidationInstrumentedTests {
 
             assertEventsReceived(scenario) { events ->
                 events.size == 2
-                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().name == "AccessCheckoutCardValidationEvent"
                         && events.first().stringOf("type") == "expiry"
                         && events.first().booleanOf("isValid")
 
-                        && events.last().name == "AccessCheckoutValidationEvent"
+                        && events.last().name == "AccessCheckoutCardValidationEvent"
                         && events.last().stringOf("type") == "expiry"
                         && !events.last().booleanOf("isValid")
             }
@@ -135,7 +135,7 @@ class ValidationInstrumentedTests {
 
             assertEventsReceived(scenario) { events ->
                 events.size == 1
-                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().name == "AccessCheckoutCardValidationEvent"
                         && events.first().stringOf("type") == "cvc"
                         && events.first().booleanOf("isValid")
             }
@@ -152,11 +152,11 @@ class ValidationInstrumentedTests {
 
             assertEventsReceived(scenario) { events ->
                 events.size == 2
-                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().name == "AccessCheckoutCardValidationEvent"
                         && events.first().stringOf("type") == "cvc"
                         && events.first().booleanOf("isValid")
 
-                        && events.last().name == "AccessCheckoutValidationEvent"
+                        && events.last().name == "AccessCheckoutCardValidationEvent"
                         && events.last().stringOf("type") == "cvc"
                         && !events.last().booleanOf("isValid")
             }
@@ -174,7 +174,7 @@ class ValidationInstrumentedTests {
 
             assertEventsReceived(scenario) { events ->
                 events.size == 4
-                        && events.last().name == "AccessCheckoutValidationEvent"
+                        && events.last().name == "AccessCheckoutCardValidationEvent"
                         && events.last().stringOf("type") == "all"
                         && events.last().booleanOf("isValid")
             }
@@ -190,7 +190,7 @@ class ValidationInstrumentedTests {
 
             assertEventsReceived(scenario) { events ->
                 events.size == 1 &&
-                        events.first().name == "AccessCheckoutValidationEvent" &&
+                        events.first().name == "AccessCheckoutCardValidationEvent" &&
                         events.first().stringOf("type") == "brand" &&
                         events.first().mapOf("value")?.getString("name") == "visa" &&
                         events.first().mapOf("value")?.getArray("images")
@@ -220,9 +220,9 @@ class ValidationInstrumentedTests {
 
             assertEventsReceived(scenario) { events ->
                 events.size == 2
-                        && events.first().name == "AccessCheckoutValidationEvent"
+                        && events.first().name == "AccessCheckoutCardValidationEvent"
                         && events.first().stringOf("type") == "brand"
-                        && events.last().name == "AccessCheckoutValidationEvent"
+                        && events.last().name == "AccessCheckoutCardValidationEvent"
                         && events.last().stringOf("type") == "pan"
                         && !events.last().booleanOf("isValid")
             }

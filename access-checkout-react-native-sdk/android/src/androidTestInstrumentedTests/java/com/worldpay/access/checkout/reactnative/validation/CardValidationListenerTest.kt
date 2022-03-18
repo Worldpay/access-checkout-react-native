@@ -26,7 +26,7 @@ class CardValidationListenerTest {
         listener.onBrandChange(null)
 
         assertThat(eventsReceived().size).isEqualTo(1)
-        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutValidationEvent")
+        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutCardValidationEvent")
         assertThat(eventsReceived().first().stringOf("type")).isEqualTo("brand")
         assertThat(eventsReceived().first().stringOf("value")).isNull()
     }
@@ -45,7 +45,7 @@ class CardValidationListenerTest {
 
         assertThat(eventsReceived().size).isEqualTo(1)
         val event = eventsReceived().first()
-        assertThat(event.name).isEqualTo("AccessCheckoutValidationEvent")
+        assertThat(event.name).isEqualTo("AccessCheckoutCardValidationEvent")
         assertThat(event.stringOf("type")).isEqualTo("brand")
 
         val value = event.mapOf("value")
@@ -61,7 +61,7 @@ class CardValidationListenerTest {
         listener.onPanValidated(isValid = true)
 
         assertThat(eventsReceived().size).isEqualTo(1)
-        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutValidationEvent")
+        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutCardValidationEvent")
         assertThat(eventsReceived().first().stringOf("type")).isEqualTo("pan")
         assertThat(eventsReceived().first().booleanOf("isValid")).isTrue
     }
@@ -71,7 +71,7 @@ class CardValidationListenerTest {
         listener.onPanValidated(isValid = false)
 
         assertThat(eventsReceived().size).isEqualTo(1)
-        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutValidationEvent")
+        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutCardValidationEvent")
         assertThat(eventsReceived().first().stringOf("type")).isEqualTo("pan")
         assertThat(eventsReceived().first().booleanOf("isValid")).isFalse
     }
@@ -81,7 +81,7 @@ class CardValidationListenerTest {
         listener.onExpiryDateValidated(isValid = true)
 
         assertThat(eventsReceived().size).isEqualTo(1)
-        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutValidationEvent")
+        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutCardValidationEvent")
         assertThat(eventsReceived().first().stringOf("type")).isEqualTo("expiry")
         assertThat(eventsReceived().first().booleanOf("isValid")).isTrue
     }
@@ -91,7 +91,7 @@ class CardValidationListenerTest {
         listener.onExpiryDateValidated(isValid = false)
 
         assertThat(eventsReceived().size).isEqualTo(1)
-        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutValidationEvent")
+        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutCardValidationEvent")
         assertThat(eventsReceived().first().stringOf("type")).isEqualTo("expiry")
         assertThat(eventsReceived().first().booleanOf("isValid")).isFalse
     }
@@ -101,7 +101,7 @@ class CardValidationListenerTest {
         listener.onCvcValidated(isValid = true)
 
         assertThat(eventsReceived().size).isEqualTo(1)
-        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutValidationEvent")
+        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutCardValidationEvent")
         assertThat(eventsReceived().first().stringOf("type")).isEqualTo("cvc")
         assertThat(eventsReceived().first().booleanOf("isValid")).isTrue
     }
@@ -111,7 +111,7 @@ class CardValidationListenerTest {
         listener.onCvcValidated(isValid = false)
 
         assertThat(eventsReceived().size).isEqualTo(1)
-        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutValidationEvent")
+        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutCardValidationEvent")
         assertThat(eventsReceived().first().stringOf("type")).isEqualTo("cvc")
         assertThat(eventsReceived().first().booleanOf("isValid")).isFalse
     }
@@ -121,7 +121,7 @@ class CardValidationListenerTest {
         listener.onValidationSuccess()
 
         assertThat(eventsReceived().size).isEqualTo(1)
-        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutValidationEvent")
+        assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutCardValidationEvent")
         assertThat(eventsReceived().first().stringOf("type")).isEqualTo("all")
         assertThat(eventsReceived().first().booleanOf("isValid")).isTrue
     }
