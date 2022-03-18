@@ -23,7 +23,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
     override func setUp() {
         controller =
-            (storyboard.instantiateViewController(identifier: "CardValidationTestUIViewController")
+            (storyboard.instantiateViewController(withIdentifier: "CardValidationTestUIViewController")
                 as! CardValidationTestUIViewController)
         controller!.loadViewIfNeeded()
         panUITextField = controller!.panTextField
