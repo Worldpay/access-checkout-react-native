@@ -30,7 +30,7 @@ export default class AccessCheckout {
         baseUrl: this.accessBaseUrl,
         merchantId: this.merchantId,
         panValue: cardDetails.pan,
-        expiryValue: cardDetails.expiryDate,
+        expiryDateValue: cardDetails.expiryDate,
         cvcValue: cardDetails.cvc,
         sessionTypes,
       })
@@ -55,7 +55,7 @@ export default class AccessCheckout {
       AccessCheckoutReactNative.initialiseValidation({
         baseUrl: this.accessBaseUrl,
         panId: validationConfig.panId,
-        expiryId: validationConfig.expiryDateId,
+        expiryDateId: validationConfig.expiryDateId,
         cvcId: validationConfig.cvcId,
         enablePanFormatting: validationConfig.enablePanFormatting,
         acceptedCardBrands: validationConfig.acceptedCardBrands,

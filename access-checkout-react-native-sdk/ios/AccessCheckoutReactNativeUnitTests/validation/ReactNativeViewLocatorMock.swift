@@ -21,7 +21,7 @@ class ReactNativeViewLocatorMock: ReactNativeViewLocator {
     override internal func locateUITextField(id: String) -> UITextField? {
         if id.contains("pan") {
             return panUITextField
-        } else if id.contains("expiry") {
+        } else if id.contains("expiryDate") {
             return expiryDateUITextField
         } else if id.contains("cvc") {
             return cvcUITextField

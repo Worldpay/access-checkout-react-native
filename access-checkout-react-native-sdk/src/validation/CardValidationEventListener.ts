@@ -29,7 +29,7 @@ export function cardValidationNativeEventListenerOf(
       delegate.onPanValidChanged(event.isValid);
     }
 
-    if (event.type === 'expiry' && delegate.onExpiryDateValidChanged) {
+    if (event.type === 'expiryDate' && delegate.onExpiryDateValidChanged) {
       delegate.onExpiryDateValidChanged(event.isValid);
     }
 

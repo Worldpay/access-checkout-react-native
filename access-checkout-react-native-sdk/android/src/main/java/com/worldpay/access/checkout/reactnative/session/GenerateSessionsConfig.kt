@@ -6,7 +6,7 @@ class GenerateSessionsConfig(
     val baseUrl: String,
     val merchantId: String,
     val panValue: String,
-    val expiryValue: String,
+    val expiryDateValue: String,
     val cvcValue: String,
     val sessionTypes: List<SessionType>
 )

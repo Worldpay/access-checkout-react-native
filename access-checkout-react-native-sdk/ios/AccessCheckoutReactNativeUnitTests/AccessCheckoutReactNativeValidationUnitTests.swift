@@ -10,7 +10,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     private let config: NSDictionary = [
         "baseUrl": "http://localhost",
         "panId": "pan",
-        "expiryId": "expiry",
+        "expiryDateId": "expiryDate",
         "cvcId": "cvc",
     ]
 
@@ -189,7 +189,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
             let event = accessCheckoutReactNative.eventsSent[0]
             XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
-            XCTAssertEqual(event.body.type, "expiry")
+            XCTAssertEqual(event.body.type, "expiryDate")
             XCTAssertTrue(event.body.isValid!)
 
             expectationToFulfill.fulfill()
@@ -219,7 +219,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
             let event = accessCheckoutReactNative.eventsSent[1]
             XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
-            XCTAssertEqual(event.body.type, "expiry")
+            XCTAssertEqual(event.body.type, "expiryDate")
             XCTAssertFalse(event.body.isValid!)
 
             expectationToFulfill.fulfill()
@@ -267,7 +267,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 1.5)
     }
 
     func testShouldRaiseEventWhenCardBrandGoesFromDetectedToUndetected() {
@@ -342,7 +342,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let config: NSDictionary = [
             "baseUrl": "http://localhost",
             "panId": "pan",
-            "expiryId": "expiry",
+            "expiryDateId": "expiryDate",
             "cvcId": "cvc",
             "acceptedCardBrands": ["mastercard"],
         ]
@@ -377,7 +377,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let config: NSDictionary = [
             "baseUrl": "http://localhost",
             "panId": "pan",
-            "expiryId": "expiry",
+            "expiryDateId": "expiryDate",
             "cvcId": "cvc",
             "enablePanFormatting": true,
         ]

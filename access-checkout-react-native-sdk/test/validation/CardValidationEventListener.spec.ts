@@ -151,7 +151,7 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
   describe('delegates expiry date valid state change to CardValidationEventListener onExpiryDateValidChanged', () => {
     it('and passes true when expiry date is valid', () => {
       const event: any = {
-        type: 'expiry',
+        type: 'expiryDate',
         isValid: true,
       };
       functionReturned(event);
@@ -161,7 +161,7 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
 
     it('and passes false when expiry date is not valid', () => {
       const event: any = {
-        type: 'expiry',
+        type: 'expiryDate',
         isValid: false,
       };
       functionReturned(event);

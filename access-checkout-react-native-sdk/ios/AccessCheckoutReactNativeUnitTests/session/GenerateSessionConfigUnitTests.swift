@@ -114,7 +114,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "",
+            "expiryDateValue": "",
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
 
@@ -128,7 +128,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": 1,
+            "expiryDateValue": 1,
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
 
@@ -156,7 +156,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "some-expiry",
+            "expiryDateValue": "some-expiry-date",
             "cvcValue": "",
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()
@@ -171,7 +171,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "some-expiry",
+            "expiryDateValue": "some-expiry-date",
             "cvcValue": 1,
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()
@@ -186,7 +186,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "some-expiry",
+            "expiryDateValue": "some-expiry-date",
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()
 
@@ -201,7 +201,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "some-expiry",
+            "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc"
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingSessionTypes()
@@ -216,7 +216,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "some-expiry",
+            "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
             "sessionTypes": []
         ]
@@ -232,7 +232,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "some-expiry",
+            "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
             "sessionTypes": ["card", "cvc", "card"]
         ]
@@ -248,7 +248,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "some-expiry",
+            "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
             "sessionTypes": [1]
         ]
@@ -264,7 +264,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "some-expiry",
+            "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
             "sessionTypes": ["something-else"]
         ]
@@ -281,7 +281,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "some-expiry",
+            "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
             "sessionTypes": ["card", "cvc"]
         ]
@@ -291,7 +291,7 @@ class GenerateSessionUnitTests: XCTestCase {
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
         XCTAssertEqual(config.panValue, "some-pan")
-        XCTAssertEqual(config.expiryValue, "some-expiry")
+        XCTAssertEqual(config.expiryDateValue, "some-expiry-date")
         XCTAssertEqual(config.cvcValue, "some-cvc")
         XCTAssertEqual(config.sessionTypes, [SessionType.card, SessionType.cvc])
     }
@@ -301,7 +301,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
-            "expiryValue": "some-expiry",
+            "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
             "sessionTypes": ["cArD", "CVC"]
         ]
@@ -311,7 +311,7 @@ class GenerateSessionUnitTests: XCTestCase {
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
         XCTAssertEqual(config.panValue, "some-pan")
-        XCTAssertEqual(config.expiryValue, "some-expiry")
+        XCTAssertEqual(config.expiryDateValue, "some-expiry-date")
         XCTAssertEqual(config.cvcValue, "some-cvc")
         XCTAssertEqual(config.sessionTypes, [SessionType.card, SessionType.cvc])
     }

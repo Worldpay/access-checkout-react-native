@@ -90,7 +90,7 @@ class CardValidationListener(private val reactContext: ReactApplicationContext):
    */
   override fun onExpiryDateValidated(isValid: Boolean) {
     val resultData = WritableNativeMap()
-    resultData.putString("type", "expiry")
+    resultData.putString("type", "expiryDate")
     resultData.putBoolean("isValid", isValid)
 
     sendEvent(reactContext, resultData)

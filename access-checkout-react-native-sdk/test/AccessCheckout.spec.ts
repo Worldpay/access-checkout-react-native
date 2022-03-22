@@ -63,7 +63,7 @@ describe('AccessCheckout', () => {
         baseUrl: accessBaseUrl,
         merchantId: merchantId,
         panValue: pan,
-        expiryValue: expiryDate,
+        expiryDateValue: expiryDate,
         cvcValue: cvc,
         sessionTypes: ['CARD', 'CVC'],
       });

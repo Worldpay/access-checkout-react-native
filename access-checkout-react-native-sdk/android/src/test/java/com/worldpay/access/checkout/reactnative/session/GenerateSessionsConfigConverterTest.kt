@@ -3,7 +3,6 @@ package com.worldpay.access.checkout.reactnative.session
 import com.facebook.react.bridge.JavaOnlyArray
 import com.facebook.react.bridge.JavaOnlyMap
 import com.worldpay.access.checkout.client.session.model.SessionType
-import com.worldpay.access.checkout.reactnative.session.GenerateSessionsConfigConverter
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test
@@ -20,7 +19,7 @@ class GenerateSessionsConfigConverterTest {
         assertThat(config.baseUrl).isEqualTo("some-base-url")
         assertThat(config.merchantId).isEqualTo("some-merchant-id")
         assertThat(config.panValue).isEqualTo("some-pan-value")
-        assertThat(config.expiryValue).isEqualTo("some-expiry-date-value")
+        assertThat(config.expiryDateValue).isEqualTo("some-expiry-date-value")
         assertThat(config.cvcValue).isEqualTo("some-cvc-value")
         assertThat(config.sessionTypes).isEqualTo(listOf(SessionType.CARD))
     }
@@ -32,7 +31,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected base url to be provided but was not")
+            .withMessage("Expected baseUrl to be provided but was not")
     }
 
     @Test
@@ -42,7 +41,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected merchant id to be provided but was not")
+            .withMessage("Expected merchantId to be provided but was not")
     }
 
     @Test
@@ -52,17 +51,17 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected pan value to be provided but was not")
+            .withMessage("Expected panValue to be provided but was not")
     }
 
     @Test
     fun `should throw exception when expiryDateValue is null`() {
         val map = mapWithValidEntries()
-        map.putString("expiryValue", null)
+        map.putString("expiryDateValue", null)
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected expiry value to be provided but was not")
+            .withMessage("Expected expiryDateValue to be provided but was not")
     }
 
     @Test
@@ -72,7 +71,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected cvc value to be provided but was not")
+            .withMessage("Expected cvcValue to be provided but was not")
     }
 
     @Test
@@ -82,7 +81,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected session types to be provided but was not")
+            .withMessage("Expected sessionTypes to be provided but was not")
     }
 
     @Test
@@ -92,7 +91,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected session types to be provided but was not")
+            .withMessage("Expected sessionTypes to be provided but was not")
     }
 
     @Test
@@ -130,7 +129,7 @@ class GenerateSessionsConfigConverterTest {
         map.putString("baseUrl", "some-base-url")
         map.putString("merchantId", "some-merchant-id")
         map.putString("panValue", "some-pan-value")
-        map.putString("expiryValue", "some-expiry-date-value")
+        map.putString("expiryDateValue", "some-expiry-date-value")
         map.putString("cvcValue", "some-cvc-value")
         map.putArray("sessionTypes", JavaOnlyArray.of("card"))
         return map

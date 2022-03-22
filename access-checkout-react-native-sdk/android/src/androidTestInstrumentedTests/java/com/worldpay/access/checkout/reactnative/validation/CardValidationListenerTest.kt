@@ -82,7 +82,7 @@ class CardValidationListenerTest {
 
         assertThat(eventsReceived().size).isEqualTo(1)
         assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutCardValidationEvent")
-        assertThat(eventsReceived().first().stringOf("type")).isEqualTo("expiry")
+        assertThat(eventsReceived().first().stringOf("type")).isEqualTo("expiryDate")
         assertThat(eventsReceived().first().booleanOf("isValid")).isTrue
     }
 
@@ -92,7 +92,7 @@ class CardValidationListenerTest {
 
         assertThat(eventsReceived().size).isEqualTo(1)
         assertThat(eventsReceived().first().name).isEqualTo("AccessCheckoutCardValidationEvent")
-        assertThat(eventsReceived().first().stringOf("type")).isEqualTo("expiry")
+        assertThat(eventsReceived().first().stringOf("type")).isEqualTo("expiryDate")
         assertThat(eventsReceived().first().booleanOf("isValid")).isFalse
     }
 

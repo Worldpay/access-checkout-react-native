@@ -34,7 +34,7 @@ class AccessCheckoutCardValidationDelegateRN: AccessCheckoutCardValidationDelega
     }
 
     func expiryDateValidChanged(isValid: Bool) {
-        eventEmitter.sendEvent(withName: eventName, body: ["type": "expiry", "isValid": isValid])
+        eventEmitter.sendEvent(withName: eventName, body: ["type": "expiryDate", "isValid": isValid])
     }
 
     func validationSuccess() {

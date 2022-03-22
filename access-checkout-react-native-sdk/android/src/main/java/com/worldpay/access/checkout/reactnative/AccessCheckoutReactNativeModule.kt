@@ -21,7 +21,7 @@ import com.worldpay.access.checkout.session.AccessCheckoutClientDisposer
 /**
  * Module class that implements all the functionality that is required by Javascript for the end user
  *
- * The responsibility of this class is the provide react methods that are then exposed for the JS to use.
+ * The responsibility of this class is to provide react methods that are then exposed for the JS to use.
  */
 class AccessCheckoutReactNativeModule constructor(
     private val reactContext: ReactApplicationContext,
@@ -69,7 +69,7 @@ class AccessCheckoutReactNativeModule constructor(
 
             val cardDetails = CardDetails.Builder()
                 .pan(config.panValue)
-                .expiryDate(config.expiryValue)
+                .expiryDate(config.expiryDateValue)
                 .cvc(config.cvcValue)
                 .build()
 
@@ -93,13 +93,13 @@ class AccessCheckoutReactNativeModule constructor(
             val rootView = reactContext.currentActivity?.window?.decorView?.rootView
 
             val panView = ReactFindViewUtil.findView(rootView, config.panId) as EditText
-            val expiryView = ReactFindViewUtil.findView(rootView, config.expiryId) as EditText
+            val expiryDateView = ReactFindViewUtil.findView(rootView, config.expiryDateId) as EditText
             val cvcView = ReactFindViewUtil.findView(rootView, config.cvcId) as EditText
 
             val cardValidationConfigBuilder = CardValidationConfig.Builder()
                 .baseUrl(config.baseUrl)
                 .pan(panView)
-                .expiryDate(expiryView)
+                .expiryDate(expiryDateView)
                 .cvc(cvcView)
                 .validationListener(CardValidationListener(reactContext))
                 .lifecycleOwner(getLifecycleOwner())

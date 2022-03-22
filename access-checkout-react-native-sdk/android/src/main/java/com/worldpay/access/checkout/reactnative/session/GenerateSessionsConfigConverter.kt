@@ -10,21 +10,21 @@ class GenerateSessionsConfigConverter {
         val baseUrl = readableMap.getString("baseUrl")
         val merchantId = readableMap.getString("merchantId")
         val panValue = readableMap.getString("panValue")
-        val expiryValue = readableMap.getString("expiryValue")
+        val expiryDateValue = readableMap.getString("expiryDateValue")
         val cvcValue = readableMap.getString("cvcValue")
         val sessionTypes = readableMap.getArray("sessionTypes")
 
-        validateNotNull(baseUrl, "base url")
-        validateNotNull(merchantId, "merchant id")
-        validateNotNull(panValue, "pan value")
-        validateNotNull(expiryValue, "expiry value")
-        validateNotNull(cvcValue, "cvc value")
+        validateNotNull(baseUrl, "baseUrl")
+        validateNotNull(merchantId, "merchantId")
+        validateNotNull(panValue, "panValue")
+        validateNotNull(expiryDateValue, "expiryDateValue")
+        validateNotNull(cvcValue, "cvcValue")
 
         return GenerateSessionsConfig(
             baseUrl = baseUrl as String,
             merchantId = merchantId as String,
             panValue = panValue as String,
-            expiryValue = expiryValue as String,
+            expiryDateValue = expiryDateValue as String,
             cvcValue = cvcValue as String,
             sessionTypes = toSessionTypesList(sessionTypes)
         )
@@ -32,7 +32,7 @@ class GenerateSessionsConfigConverter {
 
     private fun toSessionTypesList(sessionTypes: ReadableArray?): List<SessionType> {
         if (sessionTypes == null || sessionTypes.size() == 0) {
-            throw IllegalArgumentException("Expected session types to be provided but was not")
+            throw IllegalArgumentException("Expected sessionTypes to be provided but was not")
         }
 
         if (sessionTypes.size() > 2) {

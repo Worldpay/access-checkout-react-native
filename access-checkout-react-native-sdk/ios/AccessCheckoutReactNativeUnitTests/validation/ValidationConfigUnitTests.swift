@@ -72,7 +72,7 @@ class ValidationConfigUnitTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
             "panId": "some-pan-id",
-            "expiryId": "",
+            "expiryDateId": "",
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryId()
 
@@ -85,7 +85,7 @@ class ValidationConfigUnitTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
             "panId": "some-pan-id",
-            "expiryId": 1,
+            "expiryDateId": 1,
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryId()
 
@@ -111,7 +111,7 @@ class ValidationConfigUnitTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
             "panId": "some-pan-id",
-            "expiryId": "some-expiry-id",
+            "expiryDateId": "some-expiry-date-id",
             "cvcId": "",
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvcId()
@@ -125,7 +125,7 @@ class ValidationConfigUnitTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
             "panId": "some-pan-id",
-            "expiryId": "some-expiry-id",
+            "expiryDateId": "some-expiry-date-id",
             "cvcId": 1,
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvcId()
@@ -139,7 +139,7 @@ class ValidationConfigUnitTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
             "panId": "some-pan-id",
-            "expiryId": "some-expiry-id",
+            "expiryDateId": "some-expiry-date-id",
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvcId()
 
@@ -153,7 +153,7 @@ class ValidationConfigUnitTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
             "panId": "some-pan-id",
-            "expiryId": "some-expiry-id",
+            "expiryDateId": "some-expiry-date-id",
             "cvcId": "some-cvc-id",
             "enablePanFormatting": true,
             "acceptedCardBrands": ["brand-1", "brand-2"]
@@ -163,7 +163,7 @@ class ValidationConfigUnitTests: XCTestCase {
         
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.panId, "some-pan-id")
-        XCTAssertEqual(config.expiryId, "some-expiry-id")
+        XCTAssertEqual(config.expiryDateId, "some-expiry-date-id")
         XCTAssertEqual(config.cvcId, "some-cvc-id")
         XCTAssertEqual(config.enablePanFormatting, true)
         XCTAssertEqual(config.acceptedCardBrands, ["brand-1", "brand-2"])
@@ -173,7 +173,7 @@ class ValidationConfigUnitTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
             "panId": "some-pan-id",
-            "expiryId": "some-expiry-id",
+            "expiryDateId": "some-expiry-date-id",
             "cvcId": "some-cvc-id",
             "enablePanFormatting": "some-string"
         ]
@@ -188,7 +188,7 @@ class ValidationConfigUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panId": "some-pan-id",
-            "expiryId": "some-expiry-id",
+            "expiryDateId": "some-expiry-date-id",
             "cvcId": "some-cvc-id",
         ]
         
@@ -202,7 +202,7 @@ class ValidationConfigUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panId": "some-pan-id",
-            "expiryId": "some-expiry-id",
+            "expiryDateId": "some-expiry-date-id",
             "cvcId": "some-cvc-id",
             "acceptedCardBrands": 1
         ]
@@ -217,7 +217,7 @@ class ValidationConfigUnitTests: XCTestCase {
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "panId": "some-pan-id",
-            "expiryId": "some-expiry-id",
+            "expiryDateId": "some-expiry-date-id",
             "cvcId": "some-cvc-id"
         ]
         

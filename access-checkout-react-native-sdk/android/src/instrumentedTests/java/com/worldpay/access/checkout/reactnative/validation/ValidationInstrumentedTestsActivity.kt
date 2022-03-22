@@ -34,7 +34,7 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
 
         const val bridgeFieldBaseUrl = "baseUrl"
         const val bridgeFieldPanId = "panId"
-        const val bridgeFieldExpiryDateId = "expiryId"
+        const val bridgeFieldExpiryDateId = "expiryDateId"
         const val bridgeFieldCvcId = "cvcId"
         const val bridgeFieldEnablePanFormatting = "enablePanFormatting"
         const val bridgeFieldAcceptedCardBrands = "acceptedCardBrands"
