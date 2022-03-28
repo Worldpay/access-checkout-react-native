@@ -8,6 +8,6 @@ target 'AccessCheckoutReactNativeDemo' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  pod 'AccessCheckoutSDK-React', :path => '../../access-checkout-react-native-sdk/ios/'
+  pod 'AccessCheckoutReactNativeSDKiOSBridge', :path => '../../access-checkout-react-native-sdk/ios/'
   pod 'AccessCheckoutSDK', '~> 2.3.1'
 end
