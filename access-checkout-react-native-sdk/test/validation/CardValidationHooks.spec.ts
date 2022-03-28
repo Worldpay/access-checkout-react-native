@@ -3,9 +3,8 @@ import {
   AccessCheckout,
   CardValidationConfig,
   CardValidationEventListener,
-  useCardValidation,
 } from '../../src';
-import { useCardValidationEventListener } from '../../src/validation/CardValidationHooks';
+import { useCardValidationEventListener, useCardValidation } from '../../src/validation/CardValidationHooks';
 import {
   emitNativeEvent,
   nativeEventSubscriptionMock,
