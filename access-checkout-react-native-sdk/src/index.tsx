@@ -7,7 +7,7 @@ export type Session = {
 
 type AccessCheckoutReactNativeType = {
   generateSessions(config: any): Promise<Session>;
-  initialiseValidation(config: any): Promise<boolean>;
+  initialiseCardValidation(config: any): Promise<boolean>;
   addListener: (eventType: string) => void;
   removeListeners: (count: number) => void;
 };

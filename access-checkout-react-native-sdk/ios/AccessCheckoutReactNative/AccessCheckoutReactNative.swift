@@ -61,8 +61,8 @@ class AccessCheckoutReactNative: RCTEventEmitter {
         }
     }
 
-    @objc(initialiseValidation:withResolver:withRejecter:)
-    func initialiseValidation(
+    @objc(initialiseCardValidation:withResolver:withRejecter:)
+    func initialiseCardValidation(
         config: NSDictionary,
         resolve: @escaping RCTPromiseResolveBlock,
         reject: @escaping RCTPromiseRejectBlock

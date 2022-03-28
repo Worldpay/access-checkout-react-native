@@ -106,7 +106,7 @@ describe('AccessCheckout', () => {
 
     it('returns a promise with a boolean set to true when bridge successfully wires in validation', async () => {
       givenValidationBridgeReturns(true);
-      const result = await checkout.initialiseValidation(validationConfig);
+      const result = await checkout.initialiseCardValidation(validationConfig);
 
       expect(result).toEqual(true);
     });
@@ -115,7 +115,7 @@ describe('AccessCheckout', () => {
       givenValidationBridgeFailsWith(new Error('Failed !'));
 
       try {
-        await checkout.initialiseValidation(validationConfig);
+        await checkout.initialiseCardValidation(validationConfig);
       } catch (error) {
         expect(error).toEqual(new Error('Failed !'));
       }

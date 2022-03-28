@@ -4,13 +4,13 @@ import { EmitterSubscription } from 'react-native';
 import * as ReactNative from 'react-native';
 
 const generateSessionsMock = jest.fn();
-const initialiseValidationMock = jest.fn();
+const initialiseCardValidationMock = jest.fn();
 
 export const NativeModules = {
   ...ReactNative.NativeModules,
   AccessCheckoutReactNative: {
     generateSessions: generateSessionsMock,
-    initialiseValidation: initialiseValidationMock,
+    initialiseCardValidation: initialiseCardValidationMock,
   },
 };
 

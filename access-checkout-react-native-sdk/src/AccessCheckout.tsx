@@ -48,11 +48,11 @@ export default class AccessCheckout {
     });
   }
 
-  initialiseValidation(
+  initialiseCardValidation(
     validationConfig: CardValidationConfig
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      AccessCheckoutReactNative.initialiseValidation({
+      AccessCheckoutReactNative.initialiseCardValidation({
         baseUrl: this.accessBaseUrl,
         panId: validationConfig.panId,
         expiryDateId: validationConfig.expiryDateId,

@@ -8,8 +8,8 @@ RCT_EXTERN_METHOD(generateSessions:(NSDictionary *) config
                   withResolver:(RCTPromiseResolveBlock *) resolve
                   withRejecter:(RCTPromiseRejectBlock *) reject)
 
-// externalises the initialiseValidation method signature that is defined in AccessCheckoutReactNative.swift
-RCT_EXTERN_METHOD(initialiseValidation:(NSDictionary *) config
+// externalises the initialiseCardValidation method signature that is defined in AccessCheckoutReactNative.swift
+RCT_EXTERN_METHOD(initialiseCardValidation:(NSDictionary *) config
                   withResolver:(RCTPromiseResolveBlock *) resolve
                   withRejecter:(RCTPromiseRejectBlock *) reject)
 

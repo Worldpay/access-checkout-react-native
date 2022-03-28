@@ -87,7 +87,7 @@ class AccessCheckoutReactNativeModule constructor(
      * @param promise [Promise] represents the JS promise that the corresponding JS method will return
      */
     @ReactMethod
-    fun initialiseValidation(readableMap: ReadableMap, promise: Promise) {
+    fun initialiseCardValidation(readableMap: ReadableMap, promise: Promise) {
         try {
             val config = ValidationConfigConverter().fromReadableMap(readableMap)
             val rootView = reactContext.currentActivity?.window?.decorView?.rootView

@@ -28,7 +28,7 @@ export function givenGenerateSessionsBridgeFailsWith(error: Error) {
 }
 
 export function givenValidationBridgeReturns(returnValue: boolean) {
-  const mock = NativeModules.AccessCheckoutReactNative.initialiseValidation;
+  const mock = NativeModules.AccessCheckoutReactNative.initialiseCardValidation;
   mock.mockReturnValueOnce(
     new Promise((resolve) => {
       resolve(returnValue);
@@ -37,7 +37,7 @@ export function givenValidationBridgeReturns(returnValue: boolean) {
 }
 
 export function givenValidationBridgeFailsWith(error: Error) {
-  const mock = NativeModules.AccessCheckoutReactNative.initialiseValidation;
+  const mock = NativeModules.AccessCheckoutReactNative.initialiseCardValidation;
   mock.mockReturnValueOnce(
     // @ts-ignore
     new Promise((resolve, reject) => {

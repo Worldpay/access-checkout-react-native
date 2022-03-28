@@ -76,7 +76,7 @@ describe('CardValidationHooks', function () {
     });
 
     it('function returned is designed to initialise the card validation', () => {
-      jest.spyOn(accessCheckout, 'initialiseValidation');
+      jest.spyOn(accessCheckout, 'initialiseCardValidation');
 
       const hooksValues: any = useCardValidation(
         accessCheckout,
@@ -87,7 +87,7 @@ describe('CardValidationHooks', function () {
 
       functionReturned();
 
-      expect(accessCheckout.initialiseValidation).toHaveBeenCalledWith(
+      expect(accessCheckout.initialiseCardValidation).toHaveBeenCalledWith(
         validationConfig
       );
     });

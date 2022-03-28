@@ -42,7 +42,7 @@ export function useCardValidation(
 
   const initialiseCardValidation = () => {
     console.debug(`Initialising validation`);
-    return accessCheckout.initialiseValidation(cardValidationConfig);
+    return accessCheckout.initialiseCardValidation(cardValidationConfig);
   };
 
   return [initialiseCardValidation];
