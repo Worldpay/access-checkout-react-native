@@ -15,7 +15,7 @@ export const NativeModules = {
 };
 
 export const nativeEventSubscriptionMock = {
-  remove: jest.fn()
+  remove: jest.fn(),
 };
 const nativeEventListeners: any = {};
 export const emitNativeEvent = (eventType: string, ...params: any[]): void => {

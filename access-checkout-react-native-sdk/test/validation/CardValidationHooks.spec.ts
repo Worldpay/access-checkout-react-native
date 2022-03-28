@@ -4,7 +4,10 @@ import {
   CardValidationConfig,
   CardValidationEventListener,
 } from '../../src';
-import { useCardValidationEventListener, useCardValidation } from '../../src/validation/CardValidationHooks';
+import {
+  useCardValidationEventListener,
+  useCardValidation,
+} from '../../src/validation/CardValidationHooks';
 import {
   emitNativeEvent,
   nativeEventSubscriptionMock,
@@ -64,7 +67,7 @@ describe('CardValidationHooks', function () {
     });
 
     it('returns an object with a initialiseCardValidation property which is a function', () => {
-      const hooksValues:any = useCardValidation(
+      const hooksValues: any = useCardValidation(
         accessCheckout,
         validationConfig,
         merchantListener
