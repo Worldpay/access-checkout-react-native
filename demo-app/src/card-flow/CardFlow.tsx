@@ -103,7 +103,7 @@ export default function CardFlow() {
     },
   };
 
-  const [initialiseCardValidation] = useCardValidation(
+  const { initialiseCardValidation } = useCardValidation(
     accessCheckout,
     validationConfig,
     validationEventListener

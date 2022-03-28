@@ -64,15 +64,15 @@ describe('CardValidationHooks', function () {
       cvcId: 'cvcInput',
     });
 
-    it('returns an array with a function', () => {
-      const hooksValues = useCardValidation(
+    it('returns an object with a initialiseCardValidation property which is a function', () => {
+      const hooksValues:any = useCardValidation(
         accessCheckout,
         validationConfig,
         merchantListener
       );
 
-      expect(isArray(hooksValues)).toEqual(true);
-      expect(isFunction(hooksValues[0])).toEqual(true);
+      expect(isArray(hooksValues)).toEqual(false);
+      expect(isFunction(hooksValues.initialiseCardValidation)).toEqual(true);
     });
 
     it('function returned is designed to initialise the card validation', () => {
@@ -83,7 +83,7 @@ describe('CardValidationHooks', function () {
         validationConfig,
         merchantListener
       );
-      const functionReturned = hooksValues[0];
+      const functionReturned = hooksValues.initialiseCardValidation;
 
       functionReturned();
 

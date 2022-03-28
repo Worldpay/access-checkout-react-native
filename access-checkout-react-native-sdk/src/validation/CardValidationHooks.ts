@@ -45,5 +45,5 @@ export function useCardValidation(
     return accessCheckout.initialiseCardValidation(cardValidationConfig);
   };
 
-  return [initialiseCardValidation];
+  return { initialiseCardValidation };
 }
