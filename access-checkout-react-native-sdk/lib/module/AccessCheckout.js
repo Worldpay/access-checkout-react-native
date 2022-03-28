@@ -23,7 +23,7 @@ export default class AccessCheckout {
         baseUrl: this.accessBaseUrl,
         merchantId: this.merchantId,
         panValue: cardDetails.pan,
-        expiryValue: cardDetails.expiryDate,
+        expiryDateValue: cardDetails.expiryDate,
         cvcValue: cardDetails.cvc,
         sessionTypes
       }) // @ts-ignore
@@ -38,12 +38,12 @@ export default class AccessCheckout {
     });
   }
 
-  initialiseValidation(validationConfig) {
+  initialiseCardValidation(validationConfig) {
     return new Promise((resolve, reject) => {
-      AccessCheckoutReactNative.initialiseValidation({
+      AccessCheckoutReactNative.initialiseCardValidation({
         baseUrl: this.accessBaseUrl,
         panId: validationConfig.panId,
-        expiryId: validationConfig.expiryDateId,
+        expiryDateId: validationConfig.expiryDateId,
         cvcId: validationConfig.cvcId,
         enablePanFormatting: validationConfig.enablePanFormatting,
         acceptedCardBrands: validationConfig.acceptedCardBrands
@@ -57,5 +57,5 @@ export default class AccessCheckout {
 
 }
 
-_defineProperty(AccessCheckout, "ValidationEventType", 'AccessCheckoutValidationEvent');
+_defineProperty(AccessCheckout, "CardValidationEventType", 'AccessCheckoutCardValidationEvent');
 //# sourceMappingURL=AccessCheckout.js.map
