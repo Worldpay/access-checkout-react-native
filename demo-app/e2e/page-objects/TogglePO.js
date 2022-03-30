@@ -1,5 +1,7 @@
-const { UIComponentPO } = require("./UIComponentPO");
-const { expect } = require("detox");
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { UIComponentPO } = require('./UIComponentPO');
+const { expect } = require('detox');
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 class TogglePO extends UIComponentPO {
   constructor(id) {
@@ -7,7 +9,7 @@ class TogglePO extends UIComponentPO {
   }
 
   async toggleOn() {
-    if (!await this.isToggled()) {
+    if (!(await this.isToggled())) {
       await this.tap();
     }
 

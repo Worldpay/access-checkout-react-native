@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Switch } from 'react-native';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import UIComponentProps from './UIComponentProps';
 

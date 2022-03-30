@@ -3,6 +3,7 @@ import { StyleSheet, TextInput } from 'react-native';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import commonStyles from './common-styles.js';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import UIComponentProps from './UIComponentProps';
 

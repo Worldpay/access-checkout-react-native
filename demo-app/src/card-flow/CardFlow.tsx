@@ -69,8 +69,8 @@ export default function CardFlow() {
         return;
       }
 
-      setBrand(brand!.name);
-      for (const image of brand!.images) {
+      setBrand(brand.name);
+      for (const image of brand.images) {
         if (image.type === 'image/png') {
           setBrandLogo(image.url);
         }
@@ -120,7 +120,7 @@ export default function CardFlow() {
   };
 
   function generateSession() {
-    let sessionTypes = generateCardAndCvcSessions
+    const sessionTypes = generateCardAndCvcSessions
       ? [SessionType.CARD, SessionType.CVC]
       : [SessionType.CARD];
 
@@ -137,6 +137,7 @@ export default function CardFlow() {
     accessCheckout
       .generateSessions(cardDetails, sessionTypes)
       .then((session) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const sessions: any = {
           card: session.get('card'),
           cvc: session.get('cvc'),
