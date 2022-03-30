@@ -5,6 +5,7 @@ import AccessCheckoutReactNative, {
   CardValidationConfig,
   cardValidationNativeEventListenerOf,
 } from '../index';
+// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { CardValidationEventListener } from './CardValidationEventListener';
 

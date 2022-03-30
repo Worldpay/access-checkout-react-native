@@ -6,7 +6,9 @@ export type Session = {
 };
 
 type AccessCheckoutReactNativeType = {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   generateSessions(config: any): Promise<Session>;
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   initialiseCardValidation(config: any): Promise<boolean>;
   addListener: (eventType: string) => void;
   removeListeners: (count: number) => void;

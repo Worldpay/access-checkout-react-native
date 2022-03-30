@@ -1,6 +1,8 @@
 import { AccessCheckoutReactNative } from './index';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { CardDetails } from './session/CardDetails';
+import CardDetails from './session/CardDetails';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import CardValidationConfig from './validation/CardValidationConfig';
 
@@ -34,14 +36,15 @@ export default class AccessCheckout {
         cvcValue: cardDetails.cvc,
         sessionTypes,
       })
-        // @ts-ignore
-        .then((session) => {
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
+        .then((session: any) => {
           const map = new Map<string, string>();
           map.set('card', session.card);
           map.set('cvc', session.cvc);
 
           resolve(map);
         })
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
         .catch((error: any) => {
           reject(error);
         });
@@ -63,6 +66,7 @@ export default class AccessCheckout {
         .then(() => {
           resolve(true);
         })
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
         .catch((error: any) => {
           reject(error);
         });

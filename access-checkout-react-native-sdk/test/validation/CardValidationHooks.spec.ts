@@ -14,6 +14,7 @@ import {
 } from '../__mocks__/react-native';
 import { isArray, isFunction } from '../test-utils';
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 let useEffectCleanUpFunction: any;
 jest.spyOn(React, 'useEffect').mockImplementation((f) => {
   useEffectCleanUpFunction = f();
@@ -22,6 +23,7 @@ jest.spyOn(React, 'useEffect').mockImplementation((f) => {
 describe('CardValidationHooks', function () {
   describe('useCardValidationEventListener', () => {
     it('registers a NativeEvent listener for "AccessCheckoutCardValidationEvent" event', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       let panValid: any = undefined;
       const merchantListener: CardValidationEventListener = {
         onPanValidChanged(isValid: boolean): void {
@@ -67,6 +69,7 @@ describe('CardValidationHooks', function () {
     });
 
     it('returns an object with a initialiseCardValidation property which is a function', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const hooksValues: any = useCardValidation(
         accessCheckout,
         validationConfig,
@@ -80,6 +83,7 @@ describe('CardValidationHooks', function () {
     it('function returned is designed to initialise the card validation', () => {
       jest.spyOn(accessCheckout, 'initialiseCardValidation');
 
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const hooksValues: any = useCardValidation(
         accessCheckout,
         validationConfig,

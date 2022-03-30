@@ -12,6 +12,7 @@
     "prepare": "bob build",
     "typescript": "tsc --noEmit true",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "lint:fix": "eslint --fix \"**/*.{js,ts,tsx}\"",
     "format-code": "prettier '{src,test}/**/*.{ts,tsx}' --write",
     "test": "npm run typescript && jest --clearCache && jest --coverage --verbose"
   },

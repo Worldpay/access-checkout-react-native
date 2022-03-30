@@ -1,5 +1,4 @@
-// @ts-ignore
-import CardDetails from '../../src/session/CardDetails';
+import type CardDetails from '../../src/session/CardDetails';
 
 describe('CardDetails', () => {
   it('can be instantiated by a merchant with a pan, an expiry date and a cvv', () => {

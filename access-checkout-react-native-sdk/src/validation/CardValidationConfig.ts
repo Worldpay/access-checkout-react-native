@@ -2,7 +2,7 @@ export default class CardValidationConfig {
   panId: string;
   expiryDateId: string;
   cvcId: string;
-  enablePanFormatting: boolean = false;
+  enablePanFormatting = false;
   acceptedCardBrands: string[] = [];
 
   constructor({
