@@ -9,6 +9,7 @@ class SuccessCallback<T> constructor(
 ) : Callback {
 
     override fun invoke(vararg args: Any?) {
+        @Suppress("UNCHECKED_CAST")
         val valueToReturn: T = args[0] as T
 
         continuation.resumeWith(success(valueToReturn))
