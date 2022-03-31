@@ -7,7 +7,8 @@
     <application>
         <activity
             android:name="com.worldpay.access.checkout.reactnative.validation.ValidationInstrumentedTestsActivity"
-            android:label="Extra Activity">
+            android:label="Extra Activity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -15,7 +16,8 @@
         </activity>
         <activity
             android:name="com.worldpay.access.checkout.reactnative.session.SessionsInstrumentedTestsActivity"
-            android:label="Extra Activity">
+            android:label="Extra Activity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,7 +25,8 @@
         </activity>
         <activity
             android:name="com.worldpay.access.checkout.reactnative.EmptyInstrumentedTestsActivity"
-            android:label="Extra Activity">
+            android:label="Extra Activity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
