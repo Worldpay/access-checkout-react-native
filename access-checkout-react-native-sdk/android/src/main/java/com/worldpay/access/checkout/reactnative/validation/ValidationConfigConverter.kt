@@ -39,7 +39,7 @@ class ValidationConfigConverter {
 
     private fun asArrayList(readableArray: ReadableArray): Array<String> {
         val list = ArrayList<String>()
-        readableArray.toArrayList().forEachIndexed { index, element ->
+        readableArray.toArrayList().forEachIndexed { _, element ->
             if (element is String) {
                 list.add(element)
             } else {

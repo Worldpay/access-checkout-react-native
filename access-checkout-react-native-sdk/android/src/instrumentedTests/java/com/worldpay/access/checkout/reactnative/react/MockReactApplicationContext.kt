@@ -24,6 +24,7 @@ class MockReactApplicationContext(context: Context, private val activity: Activi
     }
 
     override fun <T : JavaScriptModule?> getJSModule(jsInterface: Class<T>?): T {
+        @Suppress("UNCHECKED_CAST")
         return rtcDeviceEventEmitter as T
     }
 
