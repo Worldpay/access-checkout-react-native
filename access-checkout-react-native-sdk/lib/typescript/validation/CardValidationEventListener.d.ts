@@ -1,4 +1,4 @@
-import { Brand } from './Brand';
+import Brand from './Brand';
 export interface CardValidationEventListener {
     onCardBrandChanged?(brand?: Brand): void;
     onPanValidChanged?(isValid: boolean): void;

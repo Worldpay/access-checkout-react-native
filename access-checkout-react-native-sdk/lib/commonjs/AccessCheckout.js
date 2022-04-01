@@ -33,13 +33,14 @@ class AccessCheckout {
         expiryDateValue: cardDetails.expiryDate,
         cvcValue: cardDetails.cvc,
         sessionTypes
-      }) // @ts-ignore
+      }) // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
       .then(session => {
         const map = new Map();
         map.set('card', session.card);
         map.set('cvc', session.cvc);
         resolve(map);
-      }).catch(error => {
+      }) // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      .catch(error => {
         reject(error);
       });
     });
@@ -56,7 +57,8 @@ class AccessCheckout {
         acceptedCardBrands: validationConfig.acceptedCardBrands
       }).then(() => {
         resolve(true);
-      }).catch(error => {
+      }) // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      .catch(error => {
         reject(error);
       });
     });

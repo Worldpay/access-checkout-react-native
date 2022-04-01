@@ -1,4 +1,4 @@
-import { CardDetails } from './session/CardDetails';
+import CardDetails from './session/CardDetails';
 import CardValidationConfig from './validation/CardValidationConfig';
 export default class AccessCheckout {
     static CardValidationEventType: string;
