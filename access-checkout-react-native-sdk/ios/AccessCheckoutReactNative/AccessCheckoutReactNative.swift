@@ -36,7 +36,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
 
             let cardDetails = try CardDetailsBuilder()
                 .pan(cfg.panValue)
-                .expiryDate(cfg.expiryValue)
+                .expiryDate(cfg.expiryDateValue)
                 .cvc(cfg.cvcValue)
                 .build()
 
@@ -61,8 +61,8 @@ class AccessCheckoutReactNative: RCTEventEmitter {
         }
     }
 
-    @objc(initialiseValidation:withResolver:withRejecter:)
-    func initialiseValidation(
+    @objc(initialiseCardValidation:withResolver:withRejecter:)
+    func initialiseCardValidation(
         config: NSDictionary,
         resolve: @escaping RCTPromiseResolveBlock,
         reject: @escaping RCTPromiseRejectBlock
@@ -71,7 +71,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
             do {
                 let cfg = try ValidationConfig(dictionary: config)
                 let panInput = self.reactNativeViewLocator.locateUITextField(id: cfg.panId)
-                let expiryInput = self.reactNativeViewLocator.locateUITextField(id: cfg.expiryId)
+                let expiryInput = self.reactNativeViewLocator.locateUITextField(id: cfg.expiryDateId)
                 let cvcInput = self.reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
 
                 if panInput != nil, expiryInput != nil, cvcInput != nil {

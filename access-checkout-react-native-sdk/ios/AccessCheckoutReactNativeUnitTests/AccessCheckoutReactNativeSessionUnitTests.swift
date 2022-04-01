@@ -19,7 +19,7 @@ class AccessCheckoutReactNativeUnitTests: XCTestCase {
             "baseUrl": stubServices.baseUrl,
             "merchantId": "identity",
             "panValue": "4444333322221111",
-            "expiryValue": "12/30",
+            "expiryDateValue": "12/30",
             "cvcValue": "123",
             "sessionTypes": ["card"],
         ]
@@ -49,7 +49,7 @@ class AccessCheckoutReactNativeUnitTests: XCTestCase {
             "baseUrl": stubServices.baseUrl,
             "merchantId": "identity",
             "panValue": "4444333322221111",
-            "expiryValue": "12/30",
+            "expiryDateValue": "12/30",
             "cvcValue": "123",
             "sessionTypes": ["card", "cvc"],
         ]
@@ -82,7 +82,7 @@ class AccessCheckoutReactNativeUnitTests: XCTestCase {
             "baseUrl": stubServices.baseUrl,
             "merchantId": "identity",
             "panValue": "4444333322221111",
-            "expiryValue": "12/30",
+            "expiryDateValue": "12/30",
             "cvcValue": "123",
             "sessionTypes": ["card"],
         ]

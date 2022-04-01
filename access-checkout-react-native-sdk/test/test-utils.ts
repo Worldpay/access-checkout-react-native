@@ -20,6 +20,7 @@ export function givenGenerateSessionsBridgeReturns({
 export function givenGenerateSessionsBridgeFailsWith(error: Error) {
   const mock = NativeModules.AccessCheckoutReactNative.generateSessions;
   mock.mockReturnValueOnce(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     new Promise((resolve, reject) => {
       reject(error);
@@ -28,7 +29,7 @@ export function givenGenerateSessionsBridgeFailsWith(error: Error) {
 }
 
 export function givenValidationBridgeReturns(returnValue: boolean) {
-  const mock = NativeModules.AccessCheckoutReactNative.initialiseValidation;
+  const mock = NativeModules.AccessCheckoutReactNative.initialiseCardValidation;
   mock.mockReturnValueOnce(
     new Promise((resolve) => {
       resolve(returnValue);
@@ -37,8 +38,9 @@ export function givenValidationBridgeReturns(returnValue: boolean) {
 }
 
 export function givenValidationBridgeFailsWith(error: Error) {
-  const mock = NativeModules.AccessCheckoutReactNative.initialiseValidation;
+  const mock = NativeModules.AccessCheckoutReactNative.initialiseCardValidation;
   mock.mockReturnValueOnce(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     new Promise((resolve, reject) => {
       reject(error);
@@ -46,21 +48,24 @@ export function givenValidationBridgeFailsWith(error: Error) {
   );
 }
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 export function toMap(object: any): Map<string, string> {
   const map = new Map<string, string>();
 
-  for (let prop in object) {
+  for (const prop in object) {
     map.set(prop, object[prop]);
   }
 
   return map;
 }
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 export function isArray(variable: any) {
   console.log(Object.prototype.toString.call(variable));
   return Object.prototype.toString.call(variable) === '[object Array]';
 }
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 export function isFunction(variable: any) {
   return Object.prototype.toString.call(variable) === '[object Function]';
 }

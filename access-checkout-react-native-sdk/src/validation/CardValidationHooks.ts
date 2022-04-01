@@ -5,6 +5,7 @@ import AccessCheckoutReactNative, {
   CardValidationConfig,
   cardValidationNativeEventListenerOf,
 } from '../index';
+// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { CardValidationEventListener } from './CardValidationEventListener';
 
@@ -42,8 +43,8 @@ export function useCardValidation(
 
   const initialiseCardValidation = () => {
     console.debug(`Initialising validation`);
-    return accessCheckout.initialiseValidation(cardValidationConfig);
+    return accessCheckout.initialiseCardValidation(cardValidationConfig);
   };
 
-  return [initialiseCardValidation];
+  return { initialiseCardValidation };
 }

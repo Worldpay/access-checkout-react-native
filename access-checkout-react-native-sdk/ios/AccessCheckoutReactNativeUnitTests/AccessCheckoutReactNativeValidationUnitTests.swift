@@ -10,7 +10,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
     private let config: NSDictionary = [
         "baseUrl": "http://localhost",
         "panId": "pan",
-        "expiryId": "expiry",
+        "expiryDateId": "expiryDate",
         "cvcId": "cvc",
     ]
 
@@ -47,7 +47,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let invalidConfig: NSDictionary = [:]
         let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: invalidConfig) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: invalidConfig) { (success) in
             XCTFail("validation initialisation should have faild but it didn't")
             expectationToFulfill.fulfill()
         } reject: { (errorCode, errorDescription, error) in
@@ -64,7 +64,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
             self.panUITextField!.insertText("4444333322221111")
@@ -92,7 +92,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.panUITextField!.insertText("4444333322221111")
@@ -122,7 +122,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
             self.cvcUITextField!.insertText("123")
@@ -150,7 +150,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.cvcUITextField!.insertText("123")
@@ -180,7 +180,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertEqual(true, (success as! Bool))
 
             self.expiryDateUITextField!.insertText("10/34")
@@ -189,7 +189,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
             let event = accessCheckoutReactNative.eventsSent[0]
             XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
-            XCTAssertEqual(event.body.type, "expiry")
+            XCTAssertEqual(event.body.type, "expiryDate")
             XCTAssertTrue(event.body.isValid!)
 
             expectationToFulfill.fulfill()
@@ -208,7 +208,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.expiryDateUITextField!.insertText("10/34")
@@ -219,7 +219,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
             let event = accessCheckoutReactNative.eventsSent[1]
             XCTAssertEqual(event.name, "AccessCheckoutCardValidationEvent")
-            XCTAssertEqual(event.body.type, "expiry")
+            XCTAssertEqual(event.body.type, "expiryDate")
             XCTAssertFalse(event.body.isValid!)
 
             expectationToFulfill.fulfill()
@@ -239,7 +239,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             // Waiting for configuration to have successfully loaded
@@ -267,7 +267,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 2)
     }
 
     func testShouldRaiseEventWhenCardBrandGoesFromDetectedToUndetected() {
@@ -276,7 +276,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             // Waiting for configuration to have successfully loaded
@@ -300,7 +300,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
             expectationToFulfill.fulfill()
         }
 
-        wait(for: [expectationToFulfill], timeout: 1)
+        wait(for: [expectationToFulfill], timeout: 2)
     }
 
     func testShouldRaiseEventWhenAllFieldsBecomeValid() {
@@ -308,7 +308,7 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.panUITextField!.insertText("4444333322221111")
@@ -342,12 +342,12 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let config: NSDictionary = [
             "baseUrl": "http://localhost",
             "panId": "pan",
-            "expiryId": "expiry",
+            "expiryDateId": "expiryDate",
             "cvcId": "cvc",
             "acceptedCardBrands": ["mastercard"],
         ]
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             // Waiting for configuration to have successfully loaded
@@ -377,14 +377,14 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
         let config: NSDictionary = [
             "baseUrl": "http://localhost",
             "panId": "pan",
-            "expiryId": "expiry",
+            "expiryDateId": "expiryDate",
             "cvcId": "cvc",
             "enablePanFormatting": true,
         ]
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
 
-        accessCheckoutReactNative.initialiseValidation(config: config) { (success) in
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
 
             self.panUITextField!.insertText("44443333")

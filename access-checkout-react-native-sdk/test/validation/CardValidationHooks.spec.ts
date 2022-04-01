@@ -3,15 +3,18 @@ import {
   AccessCheckout,
   CardValidationConfig,
   CardValidationEventListener,
-  useCardValidation,
 } from '../../src';
-import { useCardValidationEventListener } from '../../src/validation/CardValidationHooks';
+import {
+  useCardValidationEventListener,
+  useCardValidation,
+} from '../../src/validation/CardValidationHooks';
 import {
   emitNativeEvent,
   nativeEventSubscriptionMock,
 } from '../__mocks__/react-native';
 import { isArray, isFunction } from '../test-utils';
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 let useEffectCleanUpFunction: any;
 jest.spyOn(React, 'useEffect').mockImplementation((f) => {
   useEffectCleanUpFunction = f();
@@ -20,6 +23,7 @@ jest.spyOn(React, 'useEffect').mockImplementation((f) => {
 describe('CardValidationHooks', function () {
   describe('useCardValidationEventListener', () => {
     it('registers a NativeEvent listener for "AccessCheckoutCardValidationEvent" event', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       let panValid: any = undefined;
       const merchantListener: CardValidationEventListener = {
         onPanValidChanged(isValid: boolean): void {
@@ -64,30 +68,32 @@ describe('CardValidationHooks', function () {
       cvcId: 'cvcInput',
     });
 
-    it('returns an array with a function', () => {
-      const hooksValues = useCardValidation(
-        accessCheckout,
-        validationConfig,
-        merchantListener
-      );
-
-      expect(isArray(hooksValues)).toEqual(true);
-      expect(isFunction(hooksValues[0])).toEqual(true);
-    });
-
-    it('function returned is designed to initialise the card validation', () => {
-      jest.spyOn(accessCheckout, 'initialiseValidation');
-
+    it('returns an object with a initialiseCardValidation property which is a function', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const hooksValues: any = useCardValidation(
         accessCheckout,
         validationConfig,
         merchantListener
       );
-      const functionReturned = hooksValues[0];
+
+      expect(isArray(hooksValues)).toEqual(false);
+      expect(isFunction(hooksValues.initialiseCardValidation)).toEqual(true);
+    });
+
+    it('function returned is designed to initialise the card validation', () => {
+      jest.spyOn(accessCheckout, 'initialiseCardValidation');
+
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      const hooksValues: any = useCardValidation(
+        accessCheckout,
+        validationConfig,
+        merchantListener
+      );
+      const functionReturned = hooksValues.initialiseCardValidation;
 
       functionReturned();
 
-      expect(accessCheckout.initialiseValidation).toHaveBeenCalledWith(
+      expect(accessCheckout.initialiseCardValidation).toHaveBeenCalledWith(
         validationConfig
       );
     });

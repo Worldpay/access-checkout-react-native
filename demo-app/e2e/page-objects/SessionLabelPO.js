@@ -1,6 +1,8 @@
-const { waitFor } = require("detox");
-const { UIComponentPO } = require("./UIComponentPO");
-const { TIMEOUT_IN_MS } = require("./Options");
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { waitFor } = require('detox');
+const { UIComponentPO } = require('./UIComponentPO');
+const { TIMEOUT_IN_MS } = require('./Options');
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 class SessionLabelPO extends UIComponentPO {
   constructor(id) {

@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath 'org.jacoco:org.jacoco.core:0.8.7'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
     }
@@ -51,6 +51,7 @@ dependencies {
     androidTestInstrumentedTestsImplementation 'com.google.android.gms:play-services-vision:20.1.3'
     androidTestInstrumentedTestsImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestInstrumentedTestsImplementation 'androidx.test:runner:1.4.0'
+    //noinspection GradleDependency
     androidTestInstrumentedTestsImplementation 'junit:junit:4.12'
     androidTestInstrumentedTestsImplementation 'org.assertj:assertj-core:3.21.0'
     androidTestInstrumentedTestsImplementation "com.github.tomakehurst:wiremock-standalone:2.27.2"

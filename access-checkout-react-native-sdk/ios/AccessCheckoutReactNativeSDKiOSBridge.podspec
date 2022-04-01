@@ -3,8 +3,8 @@ require "json"
 package = JSON.parse(File.read(File.join(__dir__, "../package.json")))
 
 Pod::Spec.new do |s|
-  s.name         = "AccessCheckoutSDK-React"
-  s.version      = package["version"]
+  s.name         = "AccessCheckoutReactNativeSDKiOSBridge"
+  s.version      = "1.0.0"
   s.summary      = package["description"]
   s.homepage     = package["repository"]["url"]
   s.license      = package["license"]

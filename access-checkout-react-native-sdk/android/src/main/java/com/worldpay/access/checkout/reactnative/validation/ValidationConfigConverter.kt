@@ -8,7 +8,7 @@ class ValidationConfigConverter {
     fun fromReadableMap(readableMap: ReadableMap): ValidationConfig {
         val baseUrl = readableMap.getString("baseUrl")
         val panId = readableMap.getString("panId")
-        val expiryId = readableMap.getString("expiryId")
+        val expiryDateId = readableMap.getString("expiryDateId")
         val cvcId = readableMap.getString("cvcId")
         val enablePanFormatting = try {
             readableMap.getBoolean("enablePanFormatting")
@@ -17,10 +17,10 @@ class ValidationConfigConverter {
         }
         val acceptedCardBrandsReadableArray = readableMap.getArray("acceptedCardBrands")
 
-        validateNotNull(baseUrl, "base url")
-        validateNotNull(panId, "pan id")
-        validateNotNull(expiryId, "expiry id")
-        validateNotNull(cvcId, "cvc id")
+        validateNotNull(baseUrl, "baseUrl")
+        validateNotNull(panId, "panId")
+        validateNotNull(expiryDateId, "expiryDateId")
+        validateNotNull(cvcId, "cvcId")
 
         var acceptedCardBrands = emptyArray<String>()
         if (acceptedCardBrandsReadableArray != null) {
@@ -30,7 +30,7 @@ class ValidationConfigConverter {
         return ValidationConfig(
             baseUrl = baseUrl as String,
             panId = panId as String,
-            expiryId = expiryId as String,
+            expiryDateId = expiryDateId as String,
             cvcId = cvcId as String,
             enablePanFormatting = enablePanFormatting,
             acceptedCardBrands = acceptedCardBrands
@@ -39,7 +39,7 @@ class ValidationConfigConverter {
 
     private fun asArrayList(readableArray: ReadableArray): Array<String> {
         val list = ArrayList<String>()
-        readableArray.toArrayList().forEachIndexed { index, element ->
+        readableArray.toArrayList().forEachIndexed { _, element ->
             if (element is String) {
                 list.add(element)
             } else {

@@ -34,7 +34,7 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
 
         const val bridgeFieldBaseUrl = "baseUrl"
         const val bridgeFieldPanId = "panId"
-        const val bridgeFieldExpiryDateId = "expiryId"
+        const val bridgeFieldExpiryDateId = "expiryDateId"
         const val bridgeFieldCvcId = "cvcId"
         const val bridgeFieldEnablePanFormatting = "enablePanFormatting"
         const val bridgeFieldAcceptedCardBrands = "acceptedCardBrands"
@@ -96,7 +96,7 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
         val module = AccessCheckoutReactNativeModule(reactApplicationContext)
 
         launch {
-            initialiseValidation(module, validationArguments)
+            initialiseCardValidation(module, validationArguments)
         }
     }
 
@@ -140,7 +140,7 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
         return arguments
     }
 
-    private suspend fun initialiseValidation(
+    private suspend fun initialiseCardValidation(
         module: AccessCheckoutReactNativeModule,
         arguments: JavaOnlyMap
     ): Boolean = suspendCoroutine { continuation ->
@@ -149,7 +149,7 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
             FailureCallback(continuation)
         )
 
-        module.initialiseValidation(arguments, promise)
+        module.initialiseCardValidation(arguments, promise)
     }
 
     private fun createEditText(id: String): EditText {

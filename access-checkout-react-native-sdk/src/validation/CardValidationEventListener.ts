@@ -1,5 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { Brand } from './Brand';
+import Brand from './Brand';
 
 export interface CardValidationEventListener {
   onCardBrandChanged?(brand?: Brand): void;
@@ -16,6 +17,7 @@ export interface CardValidationEventListener {
 export function cardValidationNativeEventListenerOf(
   delegate: CardValidationEventListener
 ) {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   return function (event: any) {
     if (event.type === 'brand' && delegate.onCardBrandChanged) {
       if (event.value === null) {
@@ -29,7 +31,7 @@ export function cardValidationNativeEventListenerOf(
       delegate.onPanValidChanged(event.isValid);
     }
 
-    if (event.type === 'expiry' && delegate.onExpiryDateValidChanged) {
+    if (event.type === 'expiryDate' && delegate.onExpiryDateValidChanged) {
       delegate.onExpiryDateValidChanged(event.isValid);
     }
 

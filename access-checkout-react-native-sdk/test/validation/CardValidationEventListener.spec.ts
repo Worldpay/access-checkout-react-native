@@ -1,75 +1,86 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+import Brand from '../../src/validation/Brand';
 import {
-  Brand,
   CardValidationEventListener,
   cardValidationNativeEventListenerOf,
 } from '../../src';
 
 describe('CardValidationEventListener', () => {
   describe('can be instantiated', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    let listener: CardValidationEventListener;
+
     it('with all event handlers set up', () => {
-      // @ts-ignore
-      const listener: CardValidationEventListener = {
-        // @ts-ignore
-        onCardBrandChanged(brand?: Brand): void {},
-        // @ts-ignore
-        onPanValidChanged(isValid: boolean): void {},
-        // @ts-ignore
-        onExpiryDateValidChanged(isValid: boolean): void {},
-        // @ts-ignore
-        onCvcValidChanged(isValid: boolean): void {},
+      listener = {
+        onCardBrandChanged(brand?: Brand): void {
+          console.log(brand);
+        },
+        onPanValidChanged(isValid: boolean): void {
+          console.log(isValid);
+        },
+        onExpiryDateValidChanged(isValid: boolean): void {
+          console.log(isValid);
+        },
+        onCvcValidChanged(isValid: boolean): void {
+          console.log(isValid);
+        },
+        // eslint-disable-next-line  @typescript-eslint/no-empty-function
         onValidationSuccess() {},
       };
     });
 
     it('without an event handler for card brand changes', () => {
-      // @ts-ignore
-      const listener: CardValidationEventListener = {
-        // @ts-ignore
-        onPanValidChanged(isValid: boolean): void {},
-        // @ts-ignore
-        onExpiryDateValidChanged(isValid: boolean): void {},
-        // @ts-ignore
-        onCvcValidChanged(isValid: boolean): void {},
+      listener = {
+        onPanValidChanged(isValid: boolean): void {
+          console.log(isValid);
+        },
+        onExpiryDateValidChanged(isValid: boolean): void {
+          console.log(isValid);
+        },
+        onCvcValidChanged(isValid: boolean): void {
+          console.log(isValid);
+        },
+        // eslint-disable-next-line  @typescript-eslint/no-empty-function
         onValidationSuccess() {},
       };
     });
 
     it('without an event handler for pan validation state changes', () => {
-      // @ts-ignore
-      const listener: CardValidationEventListener = {
-        // @ts-ignore
-        onExpiryDateValidChanged(isValid: boolean): void {},
-        // @ts-ignore
-        onCvcValidChanged(isValid: boolean): void {},
+      listener = {
+        onExpiryDateValidChanged(isValid: boolean): void {
+          console.log(isValid);
+        },
+        onCvcValidChanged(isValid: boolean): void {
+          console.log(isValid);
+        },
+        // eslint-disable-next-line  @typescript-eslint/no-empty-function
         onValidationSuccess() {},
       };
     });
 
     it('without an event handler for expiry date validation state changes', () => {
-      // @ts-ignore
-      const listener: CardValidationEventListener = {
-        // @ts-ignore
-        onCvcValidChanged(isValid: boolean): void {},
+      listener = {
+        onCvcValidChanged(isValid: boolean): void {
+          console.log(isValid);
+        },
+        // eslint-disable-next-line  @typescript-eslint/no-empty-function
         onValidationSuccess() {},
       };
     });
 
     it('without an event handler for cvc validation state changes', () => {
-      // @ts-ignore
-      const listener: CardValidationEventListener = {
+      listener = {
+        // eslint-disable-next-line  @typescript-eslint/no-empty-function
         onValidationSuccess() {},
       };
     });
 
     it('without an event handler for all fields valid', () => {
-      // @ts-ignore
-      const listener: CardValidationEventListener = {};
+      // eslint-disable-next-line  @typescript-eslint/no-unused-vars
+      listener = {};
     });
-  });
-
-  describe('when wired using cardValidationNativeEventListenerOf()', () => {
-    it('has onCardBrandChanged() method called when native event is brand with brand details', () => {});
   });
 });
 
@@ -106,6 +117,7 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
         name: 'visa',
         images: [],
       };
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const event: any = {
         type: 'brand',
         value: brand,
@@ -116,6 +128,7 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
     });
 
     it('with undefined when no card brand detected', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const event: any = {
         type: 'brand',
         value: null,
@@ -128,6 +141,7 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
 
   describe('delegates pan valid state change to CardValidationEventListener onPanValidChanged', () => {
     it('and passes true when pan is valid', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const event: any = {
         type: 'pan',
         isValid: true,
@@ -138,6 +152,7 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
     });
 
     it('and passes false when pan is not valid', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const event: any = {
         type: 'pan',
         isValid: false,
@@ -150,8 +165,9 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
 
   describe('delegates expiry date valid state change to CardValidationEventListener onExpiryDateValidChanged', () => {
     it('and passes true when expiry date is valid', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const event: any = {
-        type: 'expiry',
+        type: 'expiryDate',
         isValid: true,
       };
       functionReturned(event);
@@ -160,8 +176,9 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
     });
 
     it('and passes false when expiry date is not valid', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const event: any = {
-        type: 'expiry',
+        type: 'expiryDate',
         isValid: false,
       };
       functionReturned(event);
@@ -172,6 +189,7 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
 
   describe('delegates cvc valid state change to CardValidationEventListener onCvcValidChanged', () => {
     it('and passes true when cvc is valid', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const event: any = {
         type: 'cvc',
         isValid: true,
@@ -182,6 +200,7 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
     });
 
     it('and passes false when cvc is not valid', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const event: any = {
         type: 'cvc',
         isValid: false,
@@ -193,6 +212,7 @@ describe('cardValidationNativeEventListenerOf() returns a function which', () =>
   });
 
   it('delegates validation success to CardValidationEventListener onValidationSuccess', () => {
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     const event: any = {
       type: 'all',
       isValid: true,

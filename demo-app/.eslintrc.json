@@ -21,5 +21,9 @@
   ],
   "rules": {
     "prettier/prettier": 2 // Means error
+  },
+  "env": {
+    "node": true,
+    "jest": true
   }
 }

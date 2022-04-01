@@ -99,7 +99,7 @@ class ValidationInstrumentedTests {
             assertEventsReceived(scenario) { events ->
                 events.size == 1
                         && events.first().name == "AccessCheckoutCardValidationEvent"
-                        && events.first().stringOf("type") == "expiry"
+                        && events.first().stringOf("type") == "expiryDate"
                         && events.first().booleanOf("isValid")
             }
         }
@@ -116,11 +116,11 @@ class ValidationInstrumentedTests {
             assertEventsReceived(scenario) { events ->
                 events.size == 2
                         && events.first().name == "AccessCheckoutCardValidationEvent"
-                        && events.first().stringOf("type") == "expiry"
+                        && events.first().stringOf("type") == "expiryDate"
                         && events.first().booleanOf("isValid")
 
                         && events.last().name == "AccessCheckoutCardValidationEvent"
-                        && events.last().stringOf("type") == "expiry"
+                        && events.last().stringOf("type") == "expiryDate"
                         && !events.last().booleanOf("isValid")
             }
         }

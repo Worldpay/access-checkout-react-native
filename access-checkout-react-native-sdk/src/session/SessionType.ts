@@ -1,4 +1,4 @@
 export default class SessionType {
-  static CARD: string = 'CARD';
-  static CVC: string = 'CVC';
+  static CARD = 'CARD';
+  static CVC = 'CVC';
 }

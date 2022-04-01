@@ -1,4 +1,5 @@
-const { element, by, expect } = require("detox");
+/* eslint-disable-next-line @typescript-eslint/no-var-requires */
+const { element, by, expect } = require('detox');
 
 class UIComponentPO {
   constructor(id) {

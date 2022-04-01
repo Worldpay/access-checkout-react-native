@@ -1,5 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Brand from '../../src/validation/Brand';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import BrandImage from '../../src/validation/BrandImage';
 

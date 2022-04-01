@@ -7,10 +7,10 @@ export default class HView extends Component<ViewProps> {
   }
 
   render() {
-    let { children, ...rest } = this.props;
-    let style = [this.props.style];
+    const { children, ...rest } = this.props;
+    const style = [this.props.style];
 
-    let customStyle: ViewStyle = {};
+    const customStyle: ViewStyle = {};
     customStyle.flexDirection = 'row';
 
     style.push(customStyle);

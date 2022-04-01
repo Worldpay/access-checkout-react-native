@@ -77,7 +77,7 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
 
         XCTAssertEqual(eventEmitter.eventsSent.count, 1)
         XCTAssertEqual(eventEmitter.eventsSent[0].name, "event-name")
-        XCTAssertEqual(eventEmitter.eventsSent[0].body.type, "expiry")
+        XCTAssertEqual(eventEmitter.eventsSent[0].body.type, "expiryDate")
         XCTAssertTrue(eventEmitter.eventsSent[0].body.isValid!)
     }
 
@@ -89,7 +89,7 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
 
         XCTAssertEqual(eventEmitter.eventsSent.count, 1)
         XCTAssertEqual(eventEmitter.eventsSent[0].name, "event-name")
-        XCTAssertEqual(eventEmitter.eventsSent[0].body.type, "expiry")
+        XCTAssertEqual(eventEmitter.eventsSent[0].body.type, "expiryDate")
         XCTAssertFalse(eventEmitter.eventsSent[0].body.isValid!)
     }
 

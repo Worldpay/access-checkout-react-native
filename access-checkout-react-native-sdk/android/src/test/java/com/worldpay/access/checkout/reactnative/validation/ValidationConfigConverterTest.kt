@@ -2,7 +2,6 @@ package com.worldpay.access.checkout.reactnative.validation
 
 import com.facebook.react.bridge.JavaOnlyArray
 import com.facebook.react.bridge.JavaOnlyMap
-import com.worldpay.access.checkout.reactnative.validation.ValidationConfigConverter
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test
@@ -18,7 +17,7 @@ class ValidationConfigConverterTest {
 
         assertThat(config.baseUrl).isEqualTo("some-url")
         assertThat(config.panId).isEqualTo("some-pan-id")
-        assertThat(config.expiryId).isEqualTo("some-expiry-date-id")
+        assertThat(config.expiryDateId).isEqualTo("some-expiry-date-id")
         assertThat(config.cvcId).isEqualTo("some-cvc-id")
         assertThat(config.enablePanFormatting).isTrue
         assertThat(config.acceptedCardBrands).isEqualTo(arrayOf("visa", "jcb"))
@@ -29,7 +28,7 @@ class ValidationConfigConverterTest {
         val map = JavaOnlyMap()
         map.putString("baseUrl", "some-url")
         map.putString("panId", "some-pan-id")
-        map.putString("expiryId", "some-expiry-date-id")
+        map.putString("expiryDateId", "some-expiry-date-id")
         map.putString("cvcId", "some-cvc-id")
 
         val config = converter.fromReadableMap(map)
@@ -42,7 +41,7 @@ class ValidationConfigConverterTest {
         val map = JavaOnlyMap()
         map.putString("baseUrl", "some-url")
         map.putString("panId", "some-pan-id")
-        map.putString("expiryId", "some-expiry-date-id")
+        map.putString("expiryDateId", "some-expiry-date-id")
         map.putString("cvcId", "some-cvc-id")
 
         val config = converter.fromReadableMap(map)
@@ -57,7 +56,7 @@ class ValidationConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected base url to be provided but was not")
+            .withMessage("Expected baseUrl to be provided but was not")
     }
 
     @Test
@@ -67,17 +66,17 @@ class ValidationConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected pan id to be provided but was not")
+            .withMessage("Expected panId to be provided but was not")
     }
 
     @Test
     fun `should throw exception when expiryDateId is null`() {
         val map = mapWithValidEntries()
-        map.putString("expiryId", null)
+        map.putString("expiryDateId", null)
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected expiry id to be provided but was not")
+            .withMessage("Expected expiryDateId to be provided but was not")
     }
 
     @Test
@@ -87,7 +86,7 @@ class ValidationConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected cvc id to be provided but was not")
+            .withMessage("Expected cvcId to be provided but was not")
     }
 
     @Test
@@ -104,7 +103,7 @@ class ValidationConfigConverterTest {
         val map = JavaOnlyMap()
         map.putString("baseUrl", "some-url")
         map.putString("panId", "some-pan-id")
-        map.putString("expiryId", "some-expiry-date-id")
+        map.putString("expiryDateId", "some-expiry-date-id")
         map.putString("cvcId", "some-cvc-id")
         map.putBoolean("enablePanFormatting", true)
         map.putArray("acceptedCardBrands", JavaOnlyArray.of("visa", "jcb"))

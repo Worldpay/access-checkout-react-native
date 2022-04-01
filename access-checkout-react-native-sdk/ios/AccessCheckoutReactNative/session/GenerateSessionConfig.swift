@@ -4,7 +4,7 @@ struct GenerateSessionConfig {
     let baseUrl: String
     let merchantId: String
     let panValue: String
-    let expiryValue: String
+    let expiryDateValue: String
     let cvcValue: String
     let sessionTypes: Set<SessionType>
     
@@ -12,7 +12,7 @@ struct GenerateSessionConfig {
         self.baseUrl = dictionary["baseUrl"] as? String ?? ""
         self.merchantId = dictionary["merchantId"] as? String ?? ""
         self.panValue = dictionary["panValue"] as? String ?? ""
-        self.expiryValue = dictionary["expiryValue"] as? String ?? ""
+        self.expiryDateValue = dictionary["expiryDateValue"] as? String ?? ""
         self.cvcValue = dictionary["cvcValue"] as? String ?? ""
         
         if self.baseUrl == "" {
@@ -27,7 +27,7 @@ struct GenerateSessionConfig {
             throw AccessCheckoutRnIllegalArgumentError.missingPan()
         }
         
-        if self.expiryValue == "" {
+        if self.expiryDateValue == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
         }
         
@@ -45,14 +45,14 @@ struct GenerateSessionConfig {
             throw AccessCheckoutRnIllegalArgumentError.tooManySessionTypes(numberFound: sessionTypes.count)
         }
         
-        var st = Set<SessionType>()
+        var set = Set<SessionType>()
         for sessionType in sessionTypes {
             if let type = sessionType as? String {
                 switch type.lowercased() {
                 case "card":
-                    st.insert(SessionType.card)
+                    set.insert(SessionType.card)
                 case "cvc":
-                    st.insert(SessionType.cvc)
+                    set.insert(SessionType.cvc)
                 default:
                     throw AccessCheckoutRnIllegalArgumentError.unrecognisedSessionType(type: type)
                 }
@@ -60,6 +60,6 @@ struct GenerateSessionConfig {
                 throw AccessCheckoutRnIllegalArgumentError.sessionTypeIsNotString()
             }
         }
-        self.sessionTypes = st
+        self.sessionTypes = set
     }
 }
