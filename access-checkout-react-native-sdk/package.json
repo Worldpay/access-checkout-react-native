@@ -24,9 +24,9 @@
   "files": [
     "src/",
     "lib/",
-    "android/publish",
+    "android/com",
     "ios/AccessCheckoutReactNative",
-    "ios/AccessCheckoutSDK-React.podspec"
+    "ios/AccessCheckoutReactNativeSDKiOSBridge.podspec"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.5",

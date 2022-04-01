@@ -17,7 +17,7 @@
 
 # Files in the access-checkout-react-native-sdk folder
 access-checkout-react-native-sdk/src/*.js
-access-checkout-react-native-sdk/android/publish/**/*
+access-checkout-react-native-sdk/android/com/**/*
 
 # Files in the demo-app flder
 demo-app/src/**/*.js

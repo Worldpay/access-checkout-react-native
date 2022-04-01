@@ -46,11 +46,11 @@ if ! [[ "${version}" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
 fi
 
 mavenLocalPublicationOutputPath=~/.m2/repository/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/$version
-publishFolderPath=./publish/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${version}
+publishFolderPath=./com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${version}
 
 cd android
 echo "Deleting Android Bridge Artifacts from publish folder and from local .m2 directory"
-rm -Rf publish $mavenLocalPublicationOutputPath/*
+rm -Rf com $mavenLocalPublicationOutputPath/*
 if [ $? -ne 0 ]; then
   echo "Failed. Stopping publish process and exiting now"
   exit 1
