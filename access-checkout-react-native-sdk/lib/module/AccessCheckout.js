@@ -1,6 +1,7 @@
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import { AccessCheckoutReactNative } from './index'; // @ts-ignore
+import { AccessCheckoutReactNative } from './index'; // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 
 export default class AccessCheckout {
   constructor(_ref) {
@@ -26,13 +27,14 @@ export default class AccessCheckout {
         expiryDateValue: cardDetails.expiryDate,
         cvcValue: cardDetails.cvc,
         sessionTypes
-      }) // @ts-ignore
+      }) // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
       .then(session => {
         const map = new Map();
         map.set('card', session.card);
         map.set('cvc', session.cvc);
         resolve(map);
-      }).catch(error => {
+      }) // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      .catch(error => {
         reject(error);
       });
     });
@@ -49,7 +51,8 @@ export default class AccessCheckout {
         acceptedCardBrands: validationConfig.acceptedCardBrands
       }).then(() => {
         resolve(true);
-      }).catch(error => {
+      }) // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      .catch(error => {
         reject(error);
       });
     });

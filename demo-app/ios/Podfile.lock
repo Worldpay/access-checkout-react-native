@@ -1,5 +1,5 @@
 PODS:
-  - AccessCheckoutReactNativeSDKiOSBridge (0.0.1):
+  - AccessCheckoutReactNativeSDKiOSBridge (1.0.0):
     - AccessCheckoutSDK (~> 2.3.1)
     - React-Core
   - AccessCheckoutSDK (2.3.1)
@@ -345,7 +345,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AccessCheckoutReactNativeSDKiOSBridge: a6bbece65694e4cce039fc15a20403996d477893
+  AccessCheckoutReactNativeSDKiOSBridge: 357a36ddca299c2f93e52848052bcf06162bc343
   AccessCheckoutSDK: 6ef1b5c61710b434f652ed7840fa67e9c8a4e690
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cde416483dac037923206447da6e1454df403714
