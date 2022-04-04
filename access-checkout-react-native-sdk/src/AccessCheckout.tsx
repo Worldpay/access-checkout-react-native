@@ -4,6 +4,9 @@ import { AccessCheckoutReactNative } from './index';
 import CardDetails from './session/CardDetails';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+import Sessions from './session/Sessions';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import CardValidationConfig from './validation/CardValidationConfig';
 
 export default class AccessCheckout {
@@ -26,7 +29,7 @@ export default class AccessCheckout {
   generateSessions(
     cardDetails: CardDetails,
     sessionTypes: string[]
-  ): Promise<Map<string, string>> {
+  ): Promise<Sessions> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.generateSessions({
         baseUrl: this.accessBaseUrl,
@@ -37,12 +40,16 @@ export default class AccessCheckout {
         sessionTypes,
       })
         // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
-        .then((session: any) => {
-          const map = new Map<string, string>();
-          map.set('card', session.card);
-          map.set('cvc', session.cvc);
+        .then((bridgeSessions: any) => {
+          const sessions: Sessions = {};
+          if (bridgeSessions.card) {
+            sessions.card = bridgeSessions.card;
+          }
+          if (bridgeSessions.cvc) {
+            sessions.cvc = bridgeSessions.cvc;
+          }
 
-          resolve(map);
+          resolve(sessions);
         })
         // eslint-disable-next-line  @typescript-eslint/no-explicit-any
         .catch((error: any) => {

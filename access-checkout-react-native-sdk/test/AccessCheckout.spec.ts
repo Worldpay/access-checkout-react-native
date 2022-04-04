@@ -1,5 +1,8 @@
 import { NativeModules } from 'react-native';
 import { AccessCheckout } from '../src/';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import Sessions from '../src/session/Sessions';
 import SessionType from '../src/session/SessionType';
 import CardValidationConfig from '../src/validation/CardValidationConfig';
 import {
@@ -7,7 +10,7 @@ import {
   givenGenerateSessionsBridgeReturns,
   givenValidationBridgeFailsWith,
   givenValidationBridgeReturns,
-  toMap,
+  hasProperty,
 } from './test-utils';
 
 const accessBaseUrl = 'https://access.worldpay.com';
@@ -69,20 +72,53 @@ describe('AccessCheckout', () => {
       });
     });
 
-    it('returns a resolved promise with a map of sessions when bridge successfully generates a session', async () => {
+    it('returns a resolved promise with a sessions object containing only a card session when bridge successfully generates only a card session', async () => {
+      givenGenerateSessionsBridgeReturns({
+        card: 'card-session',
+      });
+
+      const result: Sessions = await checkout.generateSessions(
+        cardDetails,
+        sessionTypes
+      );
+
+      expect(hasProperty(result, 'cvc')).toEqual(false);
+      expect(result).toEqual({
+        card: 'card-session',
+      });
+    });
+
+    it('returns a resolved promise with a sessions object containing both a card session and a cvc session when bridge successfully generates both sessions', async () => {
       givenGenerateSessionsBridgeReturns({
         card: 'card-session',
         cvc: 'cvc-session',
       });
 
-      const result = await checkout.generateSessions(cardDetails, sessionTypes);
-
-      expect(result).toEqual(
-        toMap({
-          card: 'card-session',
-          cvc: 'cvc-session',
-        })
+      const result: Sessions = await checkout.generateSessions(
+        cardDetails,
+        sessionTypes
       );
+
+      expect(result).toEqual({
+        card: 'card-session',
+        cvc: 'cvc-session',
+      });
+    });
+
+    it('returns a resolved promise with a sessions object containing only a cvc session when bridge successfully generates only a cvc session', async () => {
+      givenGenerateSessionsBridgeReturns({
+        cvc: 'cvc-session',
+      });
+
+      const result: Sessions = await checkout.generateSessions(
+        cardDetails,
+        sessionTypes
+      );
+
+      expect(hasProperty(result, 'card')).toEqual(false);
+      expect(result).toEqual({
+        cvc: 'cvc-session',
+      });
     });
 
     it('returns a rejected promise with the error returned by the bridge when bridge fails to generate a session', async () => {

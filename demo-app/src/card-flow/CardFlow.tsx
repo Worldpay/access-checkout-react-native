@@ -3,10 +3,12 @@ import { Alert, Text } from 'react-native';
 import {
   AccessCheckout,
   Brand,
+  CARD,
   CardDetails,
   CardValidationConfig,
   CardValidationEventListener,
-  SessionType,
+  CVC,
+  Sessions,
   useCardValidation,
 } from '../../../access-checkout-react-native-sdk/src/index';
 import CardBrandImage from '../common/CardBrandImage';
@@ -120,9 +122,7 @@ export default function CardFlow() {
   };
 
   function generateSession() {
-    const sessionTypes = generateCardAndCvcSessions
-      ? [SessionType.CARD, SessionType.CVC]
-      : [SessionType.CARD];
+    const sessionTypes = generateCardAndCvcSessions ? [CARD, CVC] : [CARD];
 
     setShowSpinner(true);
     setIsEditable(false);
@@ -136,14 +136,7 @@ export default function CardFlow() {
 
     accessCheckout
       .generateSessions(cardDetails, sessionTypes)
-      .then((session) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const sessions: any = {
-          card: session.get('card'),
-          cvc: session.get('cvc'),
-        };
-
-        console.log(sessions);
+      .then((sessions: Sessions) => {
         if (sessions.card) {
           setCardSession(sessions.card);
         }
