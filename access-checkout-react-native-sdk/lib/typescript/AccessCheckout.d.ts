@@ -1,4 +1,5 @@
 import CardDetails from './session/CardDetails';
+import Sessions from './session/Sessions';
 import CardValidationConfig from './validation/CardValidationConfig';
 export default class AccessCheckout {
     static CardValidationEventType: string;
@@ -8,6 +9,6 @@ export default class AccessCheckout {
         accessBaseUrl: string;
         merchantId?: string;
     });
-    generateSessions(cardDetails: CardDetails, sessionTypes: string[]): Promise<Map<string, string>>;
+    generateSessions(cardDetails: CardDetails, sessionTypes: string[]): Promise<Sessions>;
     initialiseCardValidation(validationConfig: CardValidationConfig): Promise<boolean>;
 }

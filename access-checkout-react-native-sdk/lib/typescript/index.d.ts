@@ -1,9 +1,9 @@
-export declare type Session = {
+declare type BridgeSessions = {
     card: string;
     cvc: string;
 };
 declare type AccessCheckoutReactNativeType = {
-    generateSessions(config: any): Promise<Session>;
+    generateSessions(config: any): Promise<BridgeSessions>;
     initialiseCardValidation(config: any): Promise<boolean>;
     addListener: (eventType: string) => void;
     removeListeners: (count: number) => void;
@@ -13,7 +13,8 @@ declare const _default: AccessCheckoutReactNativeType;
 export default _default;
 export { default as AccessCheckout } from './AccessCheckout';
 export { default as CardDetails } from './session/CardDetails';
-export { default as SessionType } from './session/SessionType';
+export { default as SessionType, CARD, CVC } from './session/SessionType';
+export { default as Sessions } from './session/Sessions';
 export { default as CardValidationConfig } from './validation/CardValidationConfig';
 export { default as Brand } from './validation/Brand';
 export { default as BrandImage } from './validation/BrandImage';

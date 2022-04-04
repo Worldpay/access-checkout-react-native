@@ -5,4 +5,7 @@ export default class SessionType {}
 _defineProperty(SessionType, "CARD", 'CARD');
 
 _defineProperty(SessionType, "CVC", 'CVC');
+
+export const CARD = SessionType.CARD;
+export const CVC = SessionType.CVC;
 //# sourceMappingURL=SessionType.js.map
