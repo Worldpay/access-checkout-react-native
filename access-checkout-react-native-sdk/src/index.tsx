@@ -1,13 +1,13 @@
 import { NativeModules } from 'react-native';
 
-export type Session = {
+type BridgeSessions = {
   card: string;
   cvc: string;
 };
 
 type AccessCheckoutReactNativeType = {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  generateSessions(config: any): Promise<Session>;
+  generateSessions(config: any): Promise<BridgeSessions>;
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   initialiseCardValidation(config: any): Promise<boolean>;
   addListener: (eventType: string) => void;
@@ -22,7 +22,9 @@ export { default as AccessCheckout } from './AccessCheckout';
 
 export { default as CardDetails } from './session/CardDetails';
 
-export { default as SessionType } from './session/SessionType';
+export { default as SessionType, CARD, CVC } from './session/SessionType';
+
+export { default as Sessions } from './session/Sessions';
 
 export { default as CardValidationConfig } from './validation/CardValidationConfig';
 

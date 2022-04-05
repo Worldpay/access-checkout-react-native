@@ -28,11 +28,18 @@ export default class AccessCheckout {
         cvcValue: cardDetails.cvc,
         sessionTypes
       }) // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
-      .then(session => {
-        const map = new Map();
-        map.set('card', session.card);
-        map.set('cvc', session.cvc);
-        resolve(map);
+      .then(bridgeSessions => {
+        const sessions = {};
+
+        if (bridgeSessions.card) {
+          sessions.card = bridgeSessions.card;
+        }
+
+        if (bridgeSessions.cvc) {
+          sessions.cvc = bridgeSessions.cvc;
+        }
+
+        resolve(sessions);
       }) // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       .catch(error => {
         reject(error);

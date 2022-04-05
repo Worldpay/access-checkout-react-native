@@ -69,3 +69,8 @@ export function isArray(variable: any) {
 export function isFunction(variable: any) {
   return Object.prototype.toString.call(variable) === '[object Function]';
 }
+
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+export function hasProperty(object: any, propertyName: string) {
+  return Object.prototype.hasOwnProperty.call(object, propertyName);
+}

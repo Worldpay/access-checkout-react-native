@@ -24,7 +24,6 @@ repositories {
 
     maven { url("$rootDir/../node_modules/react-native/android") }
     maven { url("$rootDir/../node_modules/jsc-android/dist") }
-    maven { url("./lib/") }
 }
 
 apply from: './gradle/android.gradle'
@@ -34,7 +33,7 @@ apply from: './gradle/publications.gradle'
 dependencies {
     api 'com.facebook.react:react-native:0.+'
 
-    implementation 'com.worldpay.access:access-checkout-android:2.4.1'
+    implementation 'com.worldpay.access:access-checkout-android:2.5.0'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
 
     testImplementation 'androidx.test:core:1.4.0'
