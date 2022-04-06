@@ -2,10 +2,11 @@
 
 invalidArgumentsMessage="Invalid arguments \n
 Usage: \n
-publish -d|--destination=[local|staging]
+publish -d|--destination=[local|staging|prod]
 \n\n
 local will publish to http://localhost:4873\n
 staging will publish to https://hydra-014399089400.d.codeartifact.eu-west-1.amazonaws.com/npm/access-checkout-react-native/\n
+prod will publish to https://registry.npmjs.org\n
 \n
 \n
 Also to publish manually to staging, prior to running this script, make sure that you have authenticated on aws-vault using 'aws-vault exec gw2dev-sso'\n
@@ -31,6 +32,8 @@ if [ "${destination}" == "local" ]; then
   registryAddress="http://localhost:4873"
 elif [ "${destination}" == "staging" ]; then
   registryAddress="https://hydra-014399089400.d.codeartifact.eu-west-1.amazonaws.com/npm/access-checkout-react-native/"
+elif [ "${destination}" == "prod" ]; then
+  registryAddress="https://registry.npmjs.org"
 fi
 
 if [ -z "${registryAddress}"  ]; then
@@ -45,7 +48,7 @@ if ! [[ "${version}" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
   exit 1
 fi
 
-mavenLocalPublicationOutputPath=~/.m2/repository/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/$version
+mavenLocalPublicationOutputPath=~/.m2/repository/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${version}
 publishFolderPath=./com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${version}
 
 cd android
@@ -111,7 +114,11 @@ fi
 
 echo "Publishing React Native SDK ${version} to ${registryAddress}"
 cd ..
-npm publish --registry $registryAddress
+if [ "${destination}" != "prod" ]; then
+  npm publish --registry $registryAddress
+else
+  npm publish --registry $registryAddress --dry-run
+fi
 if [ $? -ne 0 ]; then
   echo "Failed. Stopping publish process and exiting now"
   exit 1
