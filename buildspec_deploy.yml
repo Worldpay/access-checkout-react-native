@@ -1,0 +1,21 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    hydra_npm_username: hydra_npm:username
+    hydra_npm_password: hydra_npm:password
+  exported-variables:
+    - CODEBUILD_BUILD_NUMBER
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+      java: corretto8
+    commands:
+  build:
+    commands:
+      - echo "Publishing React Native SDK..."
+      - ./access-checkout-react-native-sdk/scripts/publish.sh -d=prod
+  post_build:
+    commands:
+      - ./access-checkout-react-native-sdk/scripts/post-deploy.sh
