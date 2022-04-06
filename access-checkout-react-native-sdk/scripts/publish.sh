@@ -42,14 +42,15 @@ if [ -z "${registryAddress}"  ]; then
   exit 1
 fi
 
-version="$(jq -r '.version' ./package.json)"
-if ! [[ "${version}" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
-  echo "Failed to find version in format x.y.z (instead found '${version}')"
+sdkVersion="$(jq -r '.version' ./package.json)"
+if ! [[ "${sdkVersion}" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+  echo "Failed to find version in format x.y.z (instead found '${sdkVersion}')"
   exit 1
 fi
 
-mavenLocalPublicationOutputPath=~/.m2/repository/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${version}
-publishFolderPath=./com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${version}
+androidBridgeVersion=$(cat android/gradle.properties | grep -m 1 'version=' | sed 's/version=//')
+mavenLocalPublicationOutputPath=~/.m2/repository/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${androidBridgeVersion}
+androidBridgePublishPath=./com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${androidBridgeVersion}
 
 cd android
 echo "Deleting Android Bridge Artifacts from publish folder and from local .m2 directory"
@@ -59,42 +60,42 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "Publishing Android Bridge Artifacts to Maven Local"
+echo "Publishing Android Bridge ${androidBridgeVersion} Artifacts to Maven Local"
 ./gradlew publishReleasePublicationToMavenLocal
 if [ $? -ne 0 ]; then
   echo "Failed. Stopping publish process and exiting now"
   exit 1
 fi
 
-echo "Creating Android Bridge Artifacts destination folder '${publishFolderPath}'"
-mkdir -p ${publishFolderPath}
+echo "Creating Android Bridge Artifacts destination folder '${androidBridgePublishPath}'"
+mkdir -p ${androidBridgePublishPath}
 if [ $? -ne 0 ]; then
   echo "Failed. Stopping publish process and exiting now"
   exit 1
 fi
 
-androidBridgeAarPath="${mavenLocalPublicationOutputPath}/access-checkout-react-native-sdk-android-bridge-${version}.aar"
+androidBridgeAarPath="${mavenLocalPublicationOutputPath}/access-checkout-react-native-sdk-android-bridge-${androidBridgeVersion}.aar"
 echo $androidBridgeAarPath
 if ! [[ -f "${androidBridgeAarPath}" ]]; then
     echo "Failed to find Android Bridge aar file at ${androidBridgeAarPath}"
     exit 1
 fi
 
-androidBridgePomPath="${mavenLocalPublicationOutputPath}/access-checkout-react-native-sdk-android-bridge-${version}.pom"
+androidBridgePomPath="${mavenLocalPublicationOutputPath}/access-checkout-react-native-sdk-android-bridge-${androidBridgeVersion}.pom"
 if ! [[ -f "${androidBridgePomPath}" ]]; then
     echo "Failed to find Android Bridge pom file at ${androidBridgePomPath}"
     exit 1
 fi
 
-androidBridgeModulePath="${mavenLocalPublicationOutputPath}/access-checkout-react-native-sdk-android-bridge-${version}.module"
+androidBridgeModulePath="${mavenLocalPublicationOutputPath}/access-checkout-react-native-sdk-android-bridge-${androidBridgeVersion}.module"
 if ! [[ -f "${androidBridgeModulePath}" ]]; then
     echo "Failed to find Android Bridge module file at ${androidBridgeModulePath}"
     exit 1
 fi
 
-echo "Moving the following files from local .m2 directory into the newly created '${publishFolderPath}' folder"
+echo "Moving the following files from local .m2 directory into the newly created '${androidBridgePublishPath}' folder"
 ls -1 $mavenLocalPublicationOutputPath
-mv $mavenLocalPublicationOutputPath/* ${publishFolderPath}
+mv $mavenLocalPublicationOutputPath/* ${androidBridgePublishPath}
 if [ $? -ne 0 ]; then
   echo "Failed. Stopping publish process and exiting now"
   exit 1
@@ -112,7 +113,7 @@ if [ "${destination}" == "staging" ]; then
   fi
 fi
 
-echo "Publishing React Native SDK ${version} to ${registryAddress}"
+echo "Publishing React Native SDK ${sdkVersion} to ${registryAddress}"
 cd ..
 if [ "${destination}" != "prod" ]; then
   npm publish --registry $registryAddress
