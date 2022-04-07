@@ -63,9 +63,9 @@ npm install
 # Regenerate all lib files and ensure that there are no differences with what is in the repo
 npm run prepare
 
-numberFilesChanged=$(git status --porcelain | wc -l)
+numberFilesChanged=$(git status lib --porcelain | wc -l)
 if [ $numberFilesChanged -ne 0 ]; then
-  echo "Some of the files in 'lib' may be different from what is in the repo. Please check. Stopping publish process and exiting now"
+  echo "Some of the files in 'lib' are different from what is in the repo. Please check. Stopping publish process and exiting now"
   exit 1
 fi
 
@@ -138,10 +138,16 @@ echo "Publishing React Native SDK ${sdkVersion} to ${registryAddress}"
 cd ..
 if [ "${destination}" != "prod" ]; then
   npm publish --registry $registryAddress
+  publishStatusCode=$?
+
+  echo "Resetting registry to default NPM registry"
+  npm config delete registry
 else
   npm publish --registry $registryAddress --dry-run
+  publishStatusCode=$?
 fi
-if [ $? -ne 0 ]; then
+
+if [ $publishStatusCode -ne 0 ]; then
   echo "Failed. Stopping publish process and exiting now"
   exit 1
 fi
