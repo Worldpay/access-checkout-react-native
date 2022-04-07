@@ -6,22 +6,22 @@ import { AccessCheckoutReactNative } from './index'; // eslint-disable-next-line
 export default class AccessCheckout {
   constructor(_ref) {
     let {
-      accessBaseUrl,
+      baseUrl,
       merchantId
     } = _ref;
 
-    _defineProperty(this, "accessBaseUrl", void 0);
+    _defineProperty(this, "baseUrl", void 0);
 
     _defineProperty(this, "merchantId", void 0);
 
-    this.accessBaseUrl = accessBaseUrl;
+    this.baseUrl = baseUrl;
     this.merchantId = merchantId;
   }
 
   generateSessions(cardDetails, sessionTypes) {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.generateSessions({
-        baseUrl: this.accessBaseUrl,
+        baseUrl: this.baseUrl,
         merchantId: this.merchantId,
         panValue: cardDetails.pan,
         expiryDateValue: cardDetails.expiryDate,
@@ -50,7 +50,7 @@ export default class AccessCheckout {
   initialiseCardValidation(validationConfig) {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCardValidation({
-        baseUrl: this.accessBaseUrl,
+        baseUrl: this.baseUrl,
         panId: validationConfig.panId,
         expiryDateId: validationConfig.expiryDateId,
         cvcId: validationConfig.cvcId,
