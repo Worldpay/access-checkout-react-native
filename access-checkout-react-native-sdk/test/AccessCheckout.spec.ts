@@ -1,5 +1,5 @@
 import { NativeModules } from 'react-native';
-import { AccessCheckout } from '../src/';
+import { AccessCheckout, CVC } from '../src/';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Sessions from '../src/session/Sessions';
@@ -129,6 +129,41 @@ describe('AccessCheckout', () => {
       } catch (error) {
         expect(error).toEqual(new Error('Failed !'));
       }
+    });
+
+    describe('generate cvc session feature', () => {
+      const checkout = new AccessCheckout({ accessBaseUrl, merchantId });
+      const cardDetails = { cvc };
+      const sessionType = [CVC];
+
+      it('delegates the generation of a cvc session to the React Native bridge', async () => {
+        givenGenerateSessionsBridgeReturns({});
+
+        await checkout.generateSessions(cardDetails, sessionType);
+
+        const bridgeMock =
+          NativeModules.AccessCheckoutReactNative.generateSessions.mock;
+        expect(bridgeMock.calls.length).toEqual(1);
+
+        const args = bridgeMock.calls[0][0];
+
+        expect(args).toEqual({
+          baseUrl: accessBaseUrl,
+          merchantId: merchantId,
+          cvcValue: cvc,
+          sessionTypes: ['CVC'],
+        });
+      });
+
+      it('returns a rejected promise with the error returned by the bridge when bridge fails to generate a cvc session', async () => {
+        givenGenerateSessionsBridgeFailsWith(new Error('Failed !'));
+
+        try {
+          await checkout.generateSessions(cardDetails, sessionType);
+        } catch (error) {
+          expect(error).toEqual(new Error('Failed !'));
+        }
+      });
     });
   });
 
