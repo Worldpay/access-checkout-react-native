@@ -10,7 +10,7 @@ phases:
   install:
     runtime-versions:
       nodejs: 12
-      java: corretto8
+      java: corretto11
     commands:
   build:
     commands:
