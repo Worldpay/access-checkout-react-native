@@ -52,7 +52,7 @@ export default function CardFlow() {
   const [cvcSession, setCvcSession] = useState('');
 
   const accessCheckout = new AccessCheckout({
-    accessBaseUrl: 'https://preprod.access.worldpay.com',
+    baseUrl: 'https://preprod.access.worldpay.com',
     merchantId: 'identity',
   });
 

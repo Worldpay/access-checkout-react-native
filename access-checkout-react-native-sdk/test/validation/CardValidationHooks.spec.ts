@@ -59,7 +59,7 @@ describe('CardValidationHooks', function () {
     const merchantListener: CardValidationEventListener = {};
 
     const accessCheckout = new AccessCheckout({
-      accessBaseUrl: '',
+      baseUrl: '',
       merchantId: '',
     });
     const validationConfig = new CardValidationConfig({
