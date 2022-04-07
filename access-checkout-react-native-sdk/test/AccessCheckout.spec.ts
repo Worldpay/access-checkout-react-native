@@ -13,7 +13,7 @@ import {
   hasProperty,
 } from './test-utils';
 
-const accessBaseUrl = 'https://access.worldpay.com';
+const baseUrl = 'https://access.worldpay.com';
 const merchantId = '123';
 const pan = '4444';
 const expiryDate = '12/34';
@@ -29,26 +29,26 @@ describe('AccessCheckout', () => {
   });
 
   describe('can be constructed', () => {
-    it('by passing just an accessBaseUrl', () => {
-      const checkout = new AccessCheckout({ accessBaseUrl });
+    it('by passing just an baseUrl', () => {
+      const checkout = new AccessCheckout({ baseUrl });
 
       expect(checkout).toBeDefined();
     });
 
-    it('by passing an accessBaseUrl and a merchantId', () => {
-      const checkout = new AccessCheckout({ accessBaseUrl, merchantId });
+    it('by passing an baseUrl and a merchantId', () => {
+      const checkout = new AccessCheckout({ baseUrl, merchantId });
 
       expect(checkout).toBeDefined();
     });
 
     it('by passing parameters in any order', () => {
-      expect(new AccessCheckout({ accessBaseUrl, merchantId })).toBeDefined();
-      expect(new AccessCheckout({ merchantId, accessBaseUrl })).toBeDefined();
+      expect(new AccessCheckout({ baseUrl, merchantId })).toBeDefined();
+      expect(new AccessCheckout({ merchantId, baseUrl })).toBeDefined();
     });
   });
 
   describe('generate sessions feature', () => {
-    const checkout = new AccessCheckout({ accessBaseUrl, merchantId });
+    const checkout = new AccessCheckout({ baseUrl, merchantId });
     const cardDetails = { pan, expiryDate, cvc };
     const sessionTypes = [SessionType.CARD, SessionType.CVC];
 
@@ -63,8 +63,8 @@ describe('AccessCheckout', () => {
 
       const args = bridgeMock.calls[0][0];
       expect(args).toEqual({
-        baseUrl: accessBaseUrl,
-        merchantId: merchantId,
+        baseUrl,
+        merchantId,
         panValue: pan,
         expiryDateValue: expiryDate,
         cvcValue: cvc,
@@ -133,7 +133,7 @@ describe('AccessCheckout', () => {
   });
 
   describe('Card validation feature', () => {
-    const checkout = new AccessCheckout({ accessBaseUrl, merchantId });
+    const checkout = new AccessCheckout({ baseUrl, merchantId });
     const validationConfig = new CardValidationConfig({
       panId,
       expiryDateId,
