@@ -122,8 +122,8 @@ export default function CardFlow() {
   };
 
   function generateSession() {
-    //this is where we would want to add [cvc]
     const sessionTypes = generateCardAndCvcSessions ? [CARD, CVC] : [CARD];
+
     setShowSpinner(true);
     setIsEditable(false);
     setSubmitBtnEnabled(false);
@@ -212,15 +212,6 @@ export default function CardFlow() {
           onChange={setGenerateCardAndCvcSessions}
         />
       </HView>
-      {/*<HView>*/}
-      {/*  <HView style={{ marginTop: '2%', marginRight: '2%', marginLeft: '3%' }}>*/}
-      {/*    <Text>Generate CVC Only session</Text>*/}
-      {/*  </HView>*/}
-      {/*  <Toggle*/}
-      {/*      testID="cvcToggle"*/}
-      {/*      onChange={setCvcSession}*/}
-      {/*  />*/}
-      {/*</HView>*/}
       <VView style={{ marginTop: '8%' }}>
         <SubmitButton
           testID="submitButton"
