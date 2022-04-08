@@ -10,6 +10,7 @@ import com.facebook.react.uimanager.util.ReactFindViewUtil
 import com.worldpay.access.checkout.client.session.AccessCheckoutClient
 import com.worldpay.access.checkout.client.session.AccessCheckoutClientBuilder
 import com.worldpay.access.checkout.client.session.model.CardDetails
+import com.worldpay.access.checkout.client.session.model.SessionType
 import com.worldpay.access.checkout.client.validation.AccessCheckoutValidationInitialiser
 import com.worldpay.access.checkout.client.validation.config.CardValidationConfig
 import com.worldpay.access.checkout.reactnative.session.GenerateSessionsConfigConverter
@@ -53,28 +54,38 @@ class AccessCheckoutReactNativeModule constructor(
     @ReactMethod
     fun generateSessions(readableMap: ReadableMap, promise: Promise) {
         Handler(Looper.getMainLooper()).post {
-            val config = GenerateSessionsConfigConverter().fromReadableMap(readableMap)
+            try {
+                val config = GenerateSessionsConfigConverter().fromReadableMap(readableMap)
 
-            if (accessCheckoutClient == null) {
-                accessCheckoutClient = AccessCheckoutClientBuilder()
-                    .baseUrl(config.baseUrl)
-                    .merchantId(config.merchantId)
-                    .sessionResponseListener(sessionResponseListener)
-                    .context(reactApplicationContext)
-                    .lifecycleOwner(getLifecycleOwner())
-                    .build()
+                if (accessCheckoutClient == null) {
+                    accessCheckoutClient = AccessCheckoutClientBuilder()
+                        .baseUrl(config.baseUrl)
+                        .merchantId(config.merchantId)
+                        .sessionResponseListener(sessionResponseListener)
+                        .context(reactApplicationContext)
+                        .lifecycleOwner(getLifecycleOwner())
+                        .build()
+                }
+
+                sessionResponseListener.promise = promise
+
+                val cardDetails: CardDetails = if (isCvcSessionOnly(config.sessionTypes)) {
+                    CardDetails.Builder()
+                        .cvc(config.cvcValue!!)
+                        .build()
+                } else {
+                    CardDetails.Builder()
+                        .pan(config.panValue)
+                        .expiryDate(config.expiryDateValue)
+                        .cvc(config.cvcValue!!)
+                        .build()
+                }
+
+                accessCheckoutClient!!.generateSessions(cardDetails, config.sessionTypes)
+
+            } catch (exception: RuntimeException) {
+                promise.reject(exception)
             }
-
-            sessionResponseListener.promise = promise
-
-            val cardDetails = CardDetails.Builder()
-                .pan(config.panValue)
-                .expiryDate(config.expiryDateValue)
-                .cvc(config.cvcValue)
-                .build()
-
-            accessCheckoutClient!!.generateSessions(cardDetails, config.sessionTypes)
-
         }
     }
 
@@ -131,4 +142,9 @@ class AccessCheckoutReactNativeModule constructor(
 
 
     private fun getLifecycleOwner() = (reactContext.currentActivity as LifecycleOwner)
+
+    private fun isCvcSessionOnly(sessionType: List<SessionType>): Boolean {
+        return sessionType.count() == 1 && sessionType.first() == SessionType.CVC
+    }
 }
+

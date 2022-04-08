@@ -45,7 +45,7 @@ class GenerateSessionsConfigConverterTest {
     }
 
     @Test
-    fun `should throw exception when panValue is null`() {
+    fun `should allow the panValue to be null`() {
         val map = mapWithValidEntries()
         map.putString("panValue", null)
 
@@ -55,7 +55,7 @@ class GenerateSessionsConfigConverterTest {
     }
 
     @Test
-    fun `should throw exception when expiryDateValue is null`() {
+    fun `should allow the expiryDateValue to be null`() {
         val map = mapWithValidEntries()
         map.putString("expiryDateValue", null)
 

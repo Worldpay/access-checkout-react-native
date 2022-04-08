@@ -62,5 +62,20 @@ class VerifiedTokensStub {
                     )
             )
         }
+        fun stubSessionsFailure(errorName: String, message: String) {
+            stubFor(
+                post("/verifiedTokens/sessions")
+                    .willReturn(
+                        aResponse()
+                            .withStatus(404)
+                            .withBody(
+                                """{
+                                    "errorName": "$errorName",
+                                    "message": "$message"
+                               }"""
+                            )
+                    )
+            )
+        }
     }
 }
