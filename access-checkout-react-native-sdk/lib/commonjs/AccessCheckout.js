@@ -76,4 +76,5 @@ class AccessCheckout {
 exports.default = AccessCheckout;
 
 _defineProperty(AccessCheckout, "CardValidationEventType", 'AccessCheckoutCardValidationEvent');
+_defineProperty(AccessCheckout, "CvcValidationEventType", 'AccessCheckoutCvcOnlyValidationEvent');
 //# sourceMappingURL=AccessCheckout.js.map
