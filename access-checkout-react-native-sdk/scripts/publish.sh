@@ -12,6 +12,14 @@ prod will publish to https://registry.npmjs.org\n
 Also to publish manually to staging, prior to running this script, make sure that you have authenticated on aws-vault using 'aws-vault exec gw2dev-sso'\n
 "
 
+# Making sure we are in the access-checkout-react-native-sdk directory
+currentDirectory=$(basename $(pwd))
+if [ "${currentDirectory}" != "access-checkout-react-native-sdk" ]; then
+  echo "This script must be run from the 'access-checkout-react-native-sdk' directory"
+  exit 1
+fi
+
+# Extracting arguments
 for i in "$@"
 do
 case $i in
@@ -22,7 +30,7 @@ case $i in
     *)
     echo "Unknonwn option $i \n"
     echo $invalidArgumentsMessage
-    exit 2
+    exit 1
     # unknown option
     ;;
 esac
@@ -36,15 +44,28 @@ elif [ "${destination}" == "prod" ]; then
   registryAddress="https://registry.npmjs.org"
 fi
 
-if [ -z "${registryAddress}"  ]; then
+if [ -z "${registryAddress}" ]; then
   echo -e "Registry address is empty, it looks like destination has not been correctly specified \n"
   echo -e $invalidArgumentsMessage
   exit 1
 fi
 
+# Checking version is present and in correct format
 sdkVersion="$(jq -r '.version' ./package.json)"
 if ! [[ "${sdkVersion}" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
   echo "Failed to find version in format x.y.z (instead found '${sdkVersion}')"
+  exit 1
+fi
+
+# Installing NPM dependencies (required by Gradle)
+npm install
+
+# Regenerate all lib files and ensure that there are no differences with what is in the repo
+npm run prepare
+
+numberFilesChanged=$(git status lib --porcelain | wc -l)
+if [ $numberFilesChanged -ne 0 ]; then
+  echo "Some of the files in 'lib' are different from what is in the repo. Please check. Stopping publish process and exiting now"
   exit 1
 fi
 
@@ -117,10 +138,16 @@ echo "Publishing React Native SDK ${sdkVersion} to ${registryAddress}"
 cd ..
 if [ "${destination}" != "prod" ]; then
   npm publish --registry $registryAddress
+  publishStatusCode=$?
+
+  echo "Resetting registry to default NPM registry"
+  npm config delete registry
 else
   npm publish --registry $registryAddress --dry-run
+  publishStatusCode=$?
 fi
-if [ $? -ne 0 ]; then
+
+if [ $publishStatusCode -ne 0 ]; then
   echo "Failed. Stopping publish process and exiting now"
   exit 1
 fi
