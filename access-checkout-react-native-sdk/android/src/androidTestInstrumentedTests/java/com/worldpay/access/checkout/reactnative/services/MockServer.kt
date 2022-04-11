@@ -22,8 +22,6 @@ object MockServer {
     private var hasStarted = false
 
     fun startStubServices(context: Context, port: Int = PORT) {
-        ProviderInstaller.installIfNeeded(context)
-
         Log.d("MockServer", "Starting WireMock server!")
 
         MockServer.context = context

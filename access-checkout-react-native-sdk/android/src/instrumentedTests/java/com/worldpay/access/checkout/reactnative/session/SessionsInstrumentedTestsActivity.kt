@@ -21,7 +21,7 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
         const val bridgeFieldBaseUrl = "baseUrl"
         const val bridgeFieldMerchantId = "merchantId"
         const val bridgeFieldPanId = "panValue"
-        const val bridgeFieldExpiryDateId = "expiryValue"
+        const val bridgeFieldExpiryDateId = "expiryDateValue"
         const val bridgeFieldCvcId = "cvcValue"
         const val bridgeFieldSessionTypes = "sessionTypes"
     }
