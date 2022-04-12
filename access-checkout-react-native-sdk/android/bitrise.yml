@@ -12,17 +12,43 @@ workflows:
     - install-missing-android-tools@3:
         inputs:
         - gradlew_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/gradlew"
-    - android-unit-test@1:
+    - avd-manager@1:
+        title: Start Android emulator
         inputs:
-        - arguments: ''
-        - report_path_pattern: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testInstrumentedTestsDebugUnitTest"
-        - result_path_pattern: "*build/test-results/testInstrumentedTestsDebugUnitTest"
-        - is_debug: 'true'
-        - project_location: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android"
+          - api_level: '30'
+    - wait-for-android-emulator@1: {}
+    - script@1:
+        title: Run instrumentation tests
+        inputs:
+          - working_dir: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/"
+          - content: |
+              #!/bin/bash
+
+              ./gradlew testInstrumentedTestsDebugUnitTest connectedAndroidTest testCoverage
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testInstrumentedTestsDebugUnitTest/index.html"
     - deploy-to-bitrise-io@2:
         inputs:
         - is_compress: 'true'
-        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testInstrumentedTestsDebugUnitTest/index.html"
+        - zip_name: 'unit-tests'
+        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testInstrumentedTestsDebugUnitTest/"
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/androidTests/connected/flavors/instrumentedTests/index.html"
+    - deploy-to-bitrise-io@2:
+        inputs:
+          - is_compress: 'true'
+          - zip_name: 'instrumented-tests'
+          - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/androidTests/connected/flavors/instrumentedTests/"
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/testCoverage/html/index.html"
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - is_compress: 'true'
+        - zip_name: 'instrumented-tests'
+        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/testCoverage/html/"
 app:
   envs:
   - opts:
