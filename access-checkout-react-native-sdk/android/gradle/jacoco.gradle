@@ -21,7 +21,7 @@ def codeCoverageExclusions = [
 
 def classDirs = files([
         fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: codeCoverageExclusions) +
-                fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: codeCoverageExclusions)
+                fileTree(dir: "${buildDir}/tmp/kotlin-classes/instrumentedTestsDebug", excludes: codeCoverageExclusions)
 ])
 
 def execData = files("$buildDir/jacoco/testInstrumentedTestsDebugUnitTest.exec")
