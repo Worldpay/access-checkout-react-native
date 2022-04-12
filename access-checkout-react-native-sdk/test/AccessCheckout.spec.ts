@@ -132,7 +132,7 @@ describe('AccessCheckout', () => {
     });
 
     describe('generate cvc session feature', () => {
-      const checkout = new AccessCheckout({ accessBaseUrl, merchantId });
+      const checkout = new AccessCheckout({ baseUrl, merchantId });
       const cardDetails = { cvc };
       const sessionType = [CVC];
 
@@ -148,8 +148,8 @@ describe('AccessCheckout', () => {
         const args = bridgeMock.calls[0][0];
 
         expect(args).toEqual({
-          baseUrl: accessBaseUrl,
-          merchantId: merchantId,
+          baseUrl,
+          merchantId,
           cvcValue: cvc,
           sessionTypes: ['CVC'],
         });
