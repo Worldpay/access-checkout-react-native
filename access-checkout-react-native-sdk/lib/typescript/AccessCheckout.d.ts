@@ -3,10 +3,10 @@ import Sessions from './session/Sessions';
 import CardValidationConfig from './validation/CardValidationConfig';
 export default class AccessCheckout {
     static CardValidationEventType: string;
-    accessBaseUrl: string;
+    baseUrl: string;
     merchantId?: string;
-    constructor({ accessBaseUrl, merchantId, }: {
-        accessBaseUrl: string;
+    constructor({ baseUrl, merchantId, }: {
+        baseUrl: string;
         merchantId?: string;
     });
     generateSessions(cardDetails: CardDetails, sessionTypes: string[]): Promise<Sessions>;
