@@ -63,19 +63,22 @@ npm install
 # Regenerate all lib files and ensure that there are no differences with what is in the repo
 npm run prepare
 
-numberFilesChanged=$(git status lib --porcelain | wc -l)
-if [ $numberFilesChanged -ne 0 ]; then
-  echo "Some of the files in 'lib' are different from what is in the repo. Please check. Stopping publish process and exiting now"
-  exit 1
-fi
+#numberFilesChanged=$(git status lib --porcelain | wc -l)
+#if [ $numberFilesChanged -ne 0 ]; then
+#  echo "Some of the files in 'lib' are different from what is in the repo. Please check. Stopping publish process and exiting now"
+#  exit 1
+#fi
 
+artifactName="access-checkout-react-native-sdk-android-bridge"
 androidBridgeVersion=$(cat android/gradle.properties | grep -m 1 'version=' | sed 's/version=//')
-mavenLocalPublicationOutputPath=~/.m2/repository/com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${androidBridgeVersion}
-androidBridgePublishPath=./com/worldpay/access/access-checkout-react-native-sdk-android-bridge/${androidBridgeVersion}
+androidBridgePublishPath=./com/worldpay/access/${artifactName}/${androidBridgeVersion}
+androidBridgePublishPathWithoutVersion=./com/worldpay/access/${artifactName}
+mavenLocalPublicationOutputPath=~/.m2/repository/com/worldpay/access/${artifactName}/${androidBridgeVersion}
+mavenLocalPublicationXmlMetadataPath=~/.m2/repository/com/worldpay/access/${artifactName}/maven-metadata-local.xml
 
 cd android
 echo "Deleting Android Bridge Artifacts from publish folder and from local .m2 directory"
-rm -Rf com $mavenLocalPublicationOutputPath/*
+rm -Rf com $mavenLocalPublicationOutputPath $mavenLocalPublicationXmlMetadataPath
 if [ $? -ne 0 ]; then
   echo "Failed. Stopping publish process and exiting now"
   exit 1
@@ -95,28 +98,40 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-androidBridgeAarPath="${mavenLocalPublicationOutputPath}/access-checkout-react-native-sdk-android-bridge-${androidBridgeVersion}.aar"
-echo $androidBridgeAarPath
-if ! [[ -f "${androidBridgeAarPath}" ]]; then
-    echo "Failed to find Android Bridge aar file at ${androidBridgeAarPath}"
+mavenLocalAarPath="${mavenLocalPublicationOutputPath}/${artifactName}-${androidBridgeVersion}.aar"
+echo $mavenLocalAarPath
+if ! [[ -f "${mavenLocalAarPath}" ]]; then
+    echo "Failed to find Android Bridge aar file at ${mavenLocalAarPath}"
     exit 1
 fi
 
-androidBridgePomPath="${mavenLocalPublicationOutputPath}/access-checkout-react-native-sdk-android-bridge-${androidBridgeVersion}.pom"
-if ! [[ -f "${androidBridgePomPath}" ]]; then
-    echo "Failed to find Android Bridge pom file at ${androidBridgePomPath}"
+mavenLocalPomPath="${mavenLocalPublicationOutputPath}/${artifactName}-${androidBridgeVersion}.pom"
+if ! [[ -f "${mavenLocalPomPath}" ]]; then
+    echo "Failed to find Android Bridge pom file at ${mavenLocalPomPath}"
     exit 1
 fi
 
-androidBridgeModulePath="${mavenLocalPublicationOutputPath}/access-checkout-react-native-sdk-android-bridge-${androidBridgeVersion}.module"
-if ! [[ -f "${androidBridgeModulePath}" ]]; then
-    echo "Failed to find Android Bridge module file at ${androidBridgeModulePath}"
+mavenLocalModulePath="${mavenLocalPublicationOutputPath}/${artifactName}-${androidBridgeVersion}.module"
+if ! [[ -f "${mavenLocalModulePath}" ]]; then
+    echo "Failed to find Android Bridge module file at ${mavenLocalModulePath}"
+    exit 1
+fi
+
+if ! [[ -f ${mavenLocalPublicationXmlMetadataPath} ]]; then
+    echo "Failed to find Making metadata XML file at ${mavenLocalPublicationXmlMetadataPath}"
     exit 1
 fi
 
 echo "Moving the following files from local .m2 directory into the newly created '${androidBridgePublishPath}' folder"
 ls -1 $mavenLocalPublicationOutputPath
 mv $mavenLocalPublicationOutputPath/* ${androidBridgePublishPath}
+if [ $? -ne 0 ]; then
+  echo "Failed. Stopping publish process and exiting now"
+  exit 1
+fi
+
+echo "Moving 'maven-metadata-local.xml' file from local .m2 directory to '${androidBridgePublishPathWithoutVersion}' folder and renaming it 'maven-metadata.xml'"
+mv ${mavenLocalPublicationXmlMetadataPath} ${androidBridgePublishPathWithoutVersion}/maven-metadata.xml
 if [ $? -ne 0 ]; then
   echo "Failed. Stopping publish process and exiting now"
   exit 1
