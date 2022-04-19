@@ -9,7 +9,7 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.worldpay.access.checkout.reactnative.AccessCheckoutReactNativePackage;
+import com.worldpay.access.checkout.reactnative.AccessCheckoutReactPackage;
 
 import java.util.List;
 
@@ -38,8 +38,7 @@ public class MainActivity extends ReactActivity {
             @SuppressWarnings("UnnecessaryLocalVariable")
             List<ReactPackage> packages = new PackageList(this).getPackages();
             // Packages that cannot be autolinked yet can be added manually here, for AccessCheckoutReactNativeDemo:
-            // packages.add(new MyReactNativePackage());
-            packages.add(new AccessCheckoutReactNativePackage());
+            packages.add(new AccessCheckoutReactPackage());
             return packages;
           }
 
