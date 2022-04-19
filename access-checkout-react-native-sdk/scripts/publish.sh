@@ -63,11 +63,11 @@ npm install
 # Regenerate all lib files and ensure that there are no differences with what is in the repo
 npm run prepare
 
-#numberFilesChanged=$(git status lib --porcelain | wc -l)
-#if [ $numberFilesChanged -ne 0 ]; then
-#  echo "Some of the files in 'lib' are different from what is in the repo. Please check. Stopping publish process and exiting now"
-#  exit 1
-#fi
+numberFilesChanged=$(git status lib --porcelain | wc -l)
+if [ $numberFilesChanged -ne 0 ]; then
+  echo "Some of the files in 'lib' are different from what is in the repo. Please check. Stopping publish process and exiting now"
+  exit 1
+fi
 
 artifactName="access-checkout-react-native-sdk-android-bridge"
 androidBridgeVersion=$(cat android/gradle.properties | grep -m 1 'version=' | sed 's/version=//')
