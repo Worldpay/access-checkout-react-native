@@ -1,7 +1,4 @@
-import { NativeModules } from 'react-native';
-export const {
-  AccessCheckoutReactNative
-} = NativeModules;
+import AccessCheckoutReactNative from './AccessCheckoutReactNative';
 export default AccessCheckoutReactNative;
 export { default as AccessCheckout } from './AccessCheckout';
 export { default as CardDetails } from './session/CardDetails';

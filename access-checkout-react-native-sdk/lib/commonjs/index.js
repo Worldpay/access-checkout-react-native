@@ -9,7 +9,6 @@ Object.defineProperty(exports, "AccessCheckout", {
     return _AccessCheckout.default;
   }
 });
-exports.AccessCheckoutReactNative = void 0;
 Object.defineProperty(exports, "Brand", {
   enumerable: true,
   get: function () {
@@ -78,7 +77,7 @@ Object.defineProperty(exports, "useCardValidation", {
   }
 });
 
-var _reactNative = require("react-native");
+var _AccessCheckoutReactNative = _interopRequireDefault(require("./AccessCheckoutReactNative"));
 
 var _AccessCheckout = _interopRequireDefault(require("./AccessCheckout"));
 
@@ -104,10 +103,6 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const {
-  AccessCheckoutReactNative
-} = _reactNative.NativeModules;
-exports.AccessCheckoutReactNative = AccessCheckoutReactNative;
-var _default = AccessCheckoutReactNative;
+var _default = _AccessCheckoutReactNative.default;
 exports.default = _default;
 //# sourceMappingURL=index.js.map

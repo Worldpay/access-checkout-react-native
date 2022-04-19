@@ -1,6 +1,6 @@
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import { AccessCheckoutReactNative } from './index'; // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+import { AccessCheckoutReactNative } from './AccessCheckoutReactNative'; // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 
 export default class AccessCheckout {

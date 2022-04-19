@@ -10,17 +10,21 @@ var _react = require("react");
 
 var _reactNative = require("react-native");
 
-var _index = _interopRequireWildcard(require("../index"));
+var _AccessCheckout = _interopRequireDefault(require("../AccessCheckout"));
 
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+var _AccessCheckoutReactNative = _interopRequireDefault(require("../AccessCheckoutReactNative"));
 
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+var _CardValidationEventListener = require("./CardValidationEventListener");
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
+// @ts-ignore
 function useCardValidationEventListener(merchantListener) {
   (0, _react.useEffect)(() => {
-    const nativeEventListener = (0, _index.cardValidationNativeEventListenerOf)(merchantListener);
-    const nativeEventEmitter = new _reactNative.NativeEventEmitter(_index.default);
-    const eventSubscription = nativeEventEmitter.addListener(_index.AccessCheckout.CardValidationEventType, nativeEventListener);
+    const nativeEventListener = (0, _CardValidationEventListener.cardValidationNativeEventListenerOf)(merchantListener);
+    const nativeEventEmitter = new _reactNative.NativeEventEmitter(_AccessCheckoutReactNative.default);
+    const eventSubscription = nativeEventEmitter.addListener(_AccessCheckout.default.CardValidationEventType, nativeEventListener);
     return () => {
       eventSubscription.remove();
     };
