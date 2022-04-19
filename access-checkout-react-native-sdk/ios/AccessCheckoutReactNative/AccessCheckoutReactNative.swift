@@ -105,4 +105,9 @@ class AccessCheckoutReactNative: RCTEventEmitter {
     override func supportedEvents() -> [String]! {
         return [cardValidationEventName]
     }
+    
+    @objc
+    static override func requiresMainQueueSetup() -> Bool {
+        return false
+    }
 }
