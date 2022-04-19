@@ -1,4 +1,4 @@
-import { AccessCheckoutReactNative } from './index';
+import { AccessCheckoutReactNative } from './AccessCheckoutReactNative';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import CardDetails from './session/CardDetails';

@@ -1,13 +1,16 @@
 import { useEffect } from 'react';
 import { NativeEventEmitter } from 'react-native';
-import AccessCheckoutReactNative, {
-  AccessCheckout,
-  CardValidationConfig,
-  cardValidationNativeEventListenerOf,
-} from '../index';
+import AccessCheckout from '../AccessCheckout';
+import AccessCheckoutReactNative from '../AccessCheckoutReactNative';
 // eslint-disable-next-line  @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { CardValidationEventListener } from './CardValidationEventListener';
+import CardValidationConfig from './CardValidationConfig';
+// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import {
+  CardValidationEventListener,
+  cardValidationNativeEventListenerOf,
+} from './CardValidationEventListener';
 
 export function useCardValidationEventListener(
   merchantListener: CardValidationEventListener
