@@ -13,10 +13,6 @@ export function useCardValidationEventListener(
   merchantListener: CardValidationEventListener
 ) {
   useEffect(() => {
-    console.debug(
-      `Adding CardValidationEventListener for ${AccessCheckout.CardValidationEventType} events`
-    );
-
     const nativeEventListener =
       cardValidationNativeEventListenerOf(merchantListener);
     const nativeEventEmitter = new NativeEventEmitter(
@@ -42,7 +38,6 @@ export function useCardValidation(
   useCardValidationEventListener(merchantListener);
 
   const initialiseCardValidation = () => {
-    console.debug(`Initialising validation`);
     return accessCheckout.initialiseCardValidation(cardValidationConfig);
   };
 
