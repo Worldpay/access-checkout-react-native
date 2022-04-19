@@ -18,7 +18,6 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 function useCardValidationEventListener(merchantListener) {
   (0, _react.useEffect)(() => {
-    console.debug(`Adding CardValidationEventListener for ${_index.AccessCheckout.CardValidationEventType} events`);
     const nativeEventListener = (0, _index.cardValidationNativeEventListenerOf)(merchantListener);
     const nativeEventEmitter = new _reactNative.NativeEventEmitter(_index.default);
     const eventSubscription = nativeEventEmitter.addListener(_index.AccessCheckout.CardValidationEventType, nativeEventListener);
@@ -32,7 +31,6 @@ function useCardValidation(accessCheckout, cardValidationConfig, merchantListene
   useCardValidationEventListener(merchantListener);
 
   const initialiseCardValidation = () => {
-    console.debug(`Initialising validation`);
     return accessCheckout.initialiseCardValidation(cardValidationConfig);
   };
 
