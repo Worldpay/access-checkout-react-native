@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _index = require("./index");
+var _AccessCheckoutReactNative = require("./AccessCheckoutReactNative");
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -26,7 +26,7 @@ class AccessCheckout {
 
   generateSessions(cardDetails, sessionTypes) {
     return new Promise((resolve, reject) => {
-      _index.AccessCheckoutReactNative.generateSessions({
+      _AccessCheckoutReactNative.AccessCheckoutReactNative.generateSessions({
         baseUrl: this.baseUrl,
         merchantId: this.merchantId,
         panValue: cardDetails.pan,
@@ -55,7 +55,7 @@ class AccessCheckout {
 
   initialiseCardValidation(validationConfig) {
     return new Promise((resolve, reject) => {
-      _index.AccessCheckoutReactNative.initialiseCardValidation({
+      _AccessCheckoutReactNative.AccessCheckoutReactNative.initialiseCardValidation({
         baseUrl: this.baseUrl,
         panId: validationConfig.panId,
         expiryDateId: validationConfig.expiryDateId,

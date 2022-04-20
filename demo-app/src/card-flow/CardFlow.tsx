@@ -114,7 +114,7 @@ export default function CardFlow() {
   const onLayout = () => {
     initialiseCardValidation()
       .then(() => {
-        console.log('Validation successfully initialised');
+        console.info('Validation successfully initialised');
       })
       .catch((error) => {
         Alert.alert('Error', `${error}`, [{ text: 'OK' }]);
@@ -137,6 +137,8 @@ export default function CardFlow() {
     accessCheckout
       .generateSessions(cardDetails, sessionTypes)
       .then((sessions: Sessions) => {
+        console.info(`Successfully generated session(s)`);
+
         if (sessions.card) {
           setCardSession(sessions.card);
         }
