@@ -16,12 +16,11 @@ import org.awaitility.Awaitility.await
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import java.lang.AssertionError
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
 
 class SessionsInstrumentedTests {
-    private val timeOutInMs = 10000L
+    private val timeOutInMs = 5000L
 
     @Before
     fun setup() {
@@ -44,9 +43,9 @@ class SessionsInstrumentedTests {
     fun testShouldBeAbleToGenerateACardSession() {
         VerifiedTokensStub.stubSessionsSuccess("my-session")
         sessionsTextFixture().pan("4444333322221111")
-            .expiryDate("12/34")
-            .cvc("123")
-            .sessionsTypes(listOf(CARD))
+                .expiryDate("12/34")
+                .cvc("123")
+                .sessionsTypes(listOf(CARD))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -60,15 +59,15 @@ class SessionsInstrumentedTests {
         SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
 
         sessionsTextFixture().pan("4444333322221111")
-            .expiryDate("12/34")
-            .cvc("123")
-            .sessionsTypes(listOf(CARD, CVC))
+                .expiryDate("12/34")
+                .cvc("123")
+                .sessionsTypes(listOf(CARD, CVC))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
         val expectedSessions = mapOf(
-            "card" to "my-session",
-            "cvc" to "my-other-session"
+                "card" to "my-session",
+                "cvc" to "my-other-session"
         )
         assertSessionsAre(scenario, expectedSessions)
     }
@@ -78,69 +77,53 @@ class SessionsInstrumentedTests {
         SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
 
         sessionsTextFixture()
-            .cvc("123")
-            .sessionsTypes(listOf(CVC))
+                .cvc("123")
+                .sessionsTypes(listOf(CVC))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
         val expectedSessions = mapOf(
-            "cvc" to "my-other-session"
+                "cvc" to "my-other-session"
         )
         assertSessionsAre(scenario, expectedSessions)
     }
 
     @Test
-    fun testShouldBeAbleToGiveErrorWhenFailingToGenerateCvcSession() {
+    fun testShouldThrowExceptionWhenFailingGenerateSession() {
         val message = "Unable to generate session"
         val errorName = "Invalid Request"
-        val expectedMessage = "$errorName : $message"
+        val expectedException = RuntimeException("$errorName : $message")
 
+        VerifiedTokensStub.stubSessionsSuccess("my-session")
         SessionsStub.stubSessionsPaymentsCvcFailure(errorName, message)
 
         sessionsTextFixture()
-            .cvc("123")
-            .sessionsTypes(listOf(CVC))
+                .pan("4444333322221111")
+                .expiryDate("12/34")
+                .cvc("123")
+                .sessionsTypes(listOf(CARD, CVC))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
-        assertErrorMessageIs(scenario, expectedMessage)
-    }
-
-    @Test
-    fun testShouldBeAbleToGenerateACardAndCvcFailure(){
-        val errorName = "Invalid Request"
-        val errorMessage = "Unable to generate a card and cvc session"
-        val expectedMessage = "$errorName : $errorMessage"
-
-        VerifiedTokensStub.stubSessionsFailure(errorName, errorMessage)
-        SessionsStub.stubSessionsPaymentsCvcFailure(errorName, errorMessage)
-
-        sessionsTextFixture().pan("4444333322221111")
-            .expiryDate("12/34")
-            .cvc("123")
-            .sessionsTypes(listOf(CARD, CVC))
-
-        val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
-
-        assertErrorMessageIs(scenario, expectedMessage)
+        assertExceptionIs(scenario, expectedException)
     }
 
     @Test
     fun testShouldBeAbleToGiveErrorWhenANullCvcIsPassed() {
-        val expectedMessage = "Expected cvcValue to be provided but was not"
+        val exception = RuntimeException("Expected cvcValue to be provided but was not")
 
         sessionsTextFixture()
-            .cvc(null)
-            .sessionsTypes(listOf(CVC))
+                .cvc(null)
+                .sessionsTypes(listOf(CVC))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
-        assertErrorMessageIs(scenario, expectedMessage)
+        assertExceptionIs(scenario, exception)
     }
 
     private fun assertSessionsAre(
-        scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
-        expectedMap: Map<String, String>
+            scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
+            expectedMap: Map<String, String>
     ) {
         await().atMost(timeOutInMs, MILLISECONDS).until {
             var sessions: Map<String, String> = HashMap()
@@ -154,8 +137,8 @@ class SessionsInstrumentedTests {
     }
 
     private fun assertErrorMessageIs(
-        scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
-        expectedErrorMessage: String
+            scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
+            expectedErrorMessage: String
     ) {
         await().atMost(timeOutInMs, MILLISECONDS).until {
             var errorMessage = ""
@@ -166,14 +149,44 @@ class SessionsInstrumentedTests {
             }
 
             if (errorMessage.isEmpty()) {
-                 false
-             } else {
-                 if (errorMessage != expectedErrorMessage) {
-                     throw AssertionError("Expected exception message to be '${expectedErrorMessage}' but was '${errorMessage}'")
-                 } else {
-                     true
-                 }
-             }
+                false
+            } else {
+                if (errorMessage != expectedErrorMessage) {
+                    throw AssertionError("Expected exception message to be '${expectedErrorMessage}' but was '${errorMessage}'")
+                } else {
+                    true
+                }
+            }
+        }
+    }
+
+    private fun assertExceptionIs(
+            scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
+            expectedException: RuntimeException
+    ) {
+        await().atMost(timeOutInMs, MILLISECONDS).until {
+            var exception: RuntimeException? = null
+            scenario.onActivity { activity ->
+                if (activity.exception != null) {
+                    exception = activity.exception
+                }
+            }
+
+            if (exception == null) {
+                false
+            } else {
+                when {
+                    exception!!::class.java != expectedException::class.java -> {
+                        throw AssertionError("Expected exception class to be '${expectedException::class.java.simpleName}' but was '${exception!!::class.java.simpleName}'")
+                    }
+                    exception!!.message != expectedException.message -> {
+                        throw AssertionError("Expected exception message to be '${expectedException.message}' but was '${exception!!.message}'")
+                    }
+                    else -> {
+                        true
+                    }
+                }
+            }
         }
     }
 }

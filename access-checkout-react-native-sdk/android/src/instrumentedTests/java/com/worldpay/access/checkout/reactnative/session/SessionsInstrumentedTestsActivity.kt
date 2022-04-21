@@ -14,7 +14,6 @@ import com.worldpay.access.checkout.reactnative.react.SuccessCallback
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import java.lang.RuntimeException
 import kotlin.coroutines.suspendCoroutine
 
 open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineScope by MainScope() {
@@ -29,7 +28,7 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
 
     var sessions: MutableMap<String, String> = HashMap()
     var errorMessage: String = ""
-
+    var exception: RuntimeException? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +42,8 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
         arguments.putString(bridgeFieldExpiryDateId, SessionsTestFixture.expiryDate())
         arguments.putString(bridgeFieldCvcId, SessionsTestFixture.cvc())
         arguments.putArray(
-            bridgeFieldSessionTypes,
-            JavaOnlyArray.from(SessionsTestFixture.sessionsTypes())
+                bridgeFieldSessionTypes,
+                JavaOnlyArray.from(SessionsTestFixture.sessionsTypes())
         )
 
         val module = AccessCheckoutReactNativeModule(mockReactApplicationContext(this))
@@ -59,25 +58,23 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
                 if (result.getString("cvc") != null) {
                     sessions["cvc"] = result.getString("cvc") as String
                 }
-            }
-            catch (runtimeException: RuntimeException)
-            {
-                errorMessage = runtimeException.message!!
+            } catch (runtimeException: RuntimeException) {
+                exception = runtimeException
             }
 
         }
     }
 
     private suspend fun generateSessions(
-        module: AccessCheckoutReactNativeModule,
-        arguments: JavaOnlyMap
+            module: AccessCheckoutReactNativeModule,
+            arguments: JavaOnlyMap
     ): ReadableMap =
-        suspendCoroutine { continuation ->
-            val promise = PromiseImpl(
-                SuccessCallback(continuation),
-                FailureCallback(continuation)
-            )
+            suspendCoroutine { continuation ->
+                val promise = PromiseImpl(
+                        SuccessCallback(continuation),
+                        FailureCallback(continuation)
+                )
 
-            module.generateSessions(arguments, promise)
-        }
+                module.generateSessions(arguments, promise)
+            }
 }

@@ -60,14 +60,11 @@ class SessionResponseListenerImplTest {
 
     @Test
     fun shouldResolvePromiseWithAnErrorWhenReceivingOnlyCvcSession() {
-        val map = mapOf(CVC to "cvc-session")
+        val expectedMessage = "Failed to create session"
+        val exception = AccessCheckoutException(expectedMessage)
 
-        val test: AccessCheckoutException = AccessCheckoutException("Failed to create session")
+        listener.onError(exception)
 
-        listener.onError(test)
-
-        val expectedMap = WritableNativeMap()
-        expectedMap.putString("cvc", "cvc-session")
-//        assertThat(promise.resolvedValue).isEqualTo(expectedMap)
+        assertThat(promise.rejectedMessage).isEqualTo(expectedMessage)
     }
 }
