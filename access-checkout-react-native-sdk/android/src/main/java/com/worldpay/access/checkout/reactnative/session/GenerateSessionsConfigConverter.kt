@@ -16,6 +16,8 @@ class GenerateSessionsConfigConverter {
 
         validateNotNull(baseUrl, "baseUrl")
         validateNotNull(merchantId, "merchantId")
+        validateNotNull(panValue, "panValue")
+        validateNotNull(expiryDateValue, "expiryDateValue")
         validateNotNull(cvcValue, "cvcValue")
 
         return GenerateSessionsConfig(
