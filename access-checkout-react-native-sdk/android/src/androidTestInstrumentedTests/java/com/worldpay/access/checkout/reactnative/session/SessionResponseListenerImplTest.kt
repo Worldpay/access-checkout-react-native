@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.test.platform.app.InstrumentationRegistry
 import com.facebook.react.bridge.WritableNativeMap
 import com.facebook.soloader.SoLoader
+import com.worldpay.access.checkout.client.api.exception.AccessCheckoutException
 import com.worldpay.access.checkout.client.session.model.SessionType.CARD
 import com.worldpay.access.checkout.client.session.model.SessionType.CVC
 import com.worldpay.access.checkout.reactnative.react.PromiseMock
@@ -55,5 +56,15 @@ class SessionResponseListenerImplTest {
         expectedMap.putString("card", "card-session")
         expectedMap.putString("cvc", "cvc-session")
         assertThat(promise.resolvedValue).isEqualTo(expectedMap)
+    }
+
+    @Test
+    fun shouldResolvePromiseWithAnErrorWhenReceivingOnlyCvcSession() {
+        val expectedMessage = "Failed to create session"
+        val exception = AccessCheckoutException(expectedMessage)
+
+        listener.onError(exception)
+
+        assertThat(promise.rejectedMessage).isEqualTo(expectedMessage)
     }
 }

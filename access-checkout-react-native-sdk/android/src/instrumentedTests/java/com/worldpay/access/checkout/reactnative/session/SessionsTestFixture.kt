@@ -30,7 +30,7 @@ class SessionsTestFixture {
             return INSTANCE.expiryDate
         }
 
-        fun cvc(): String {
+        fun cvc(): String? {
             return INSTANCE.cvc
         }
 
@@ -41,7 +41,7 @@ class SessionsTestFixture {
 
     var pan: String = ""
     var expiryDate: String = ""
-    var cvc: String = ""
+    var cvc: String? = null
     var sessionsTypes: MutableList<String> = ArrayList()
 
     fun pan(pan: String): SessionsTestFixture {
@@ -54,7 +54,7 @@ class SessionsTestFixture {
         return this
     }
 
-    fun cvc(cvc: String): SessionsTestFixture {
+    fun cvc(cvc: String?): SessionsTestFixture {
         this.cvc = cvc
         return this
     }
