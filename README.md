@@ -1,4 +1,4 @@
-# Access Checkout React Native SDK 
+cd # Access Checkout React Native SDK 
 
 **Build Status**: ![](https://app.bitrise.io/app/7c9d34547d2631cb/status.svg?token=d4DIyXeuCdqvXY8oOOBkZA&branch=master)
 
