@@ -3,16 +3,14 @@ import AccessCheckoutSDK
 struct GenerateSessionConfig {
     let baseUrl: String
     let merchantId: String
-    let panValue: String
-    let expiryDateValue: String
-    let cvcValue: String
+    var panValue: String? = nil
+    var expiryDateValue: String? = nil
+    let cvcValue: String?
     let sessionTypes: Set<SessionType>
     
     init(dictionary: NSDictionary) throws {
         self.baseUrl = dictionary["baseUrl"] as? String ?? ""
         self.merchantId = dictionary["merchantId"] as? String ?? ""
-        self.panValue = dictionary["panValue"] as? String ?? ""
-        self.expiryDateValue = dictionary["expiryDateValue"] as? String ?? ""
         self.cvcValue = dictionary["cvcValue"] as? String ?? ""
         
         if self.baseUrl == "" {
@@ -23,12 +21,20 @@ struct GenerateSessionConfig {
             throw AccessCheckoutRnIllegalArgumentError.missingMerchantId()
         }
         
-        if self.panValue == "" {
-            throw AccessCheckoutRnIllegalArgumentError.missingPan()
+        if dictionary["panValue"] != nil {
+            if let string = dictionary["panValue"] as? String, string != "" {
+                self.panValue = string
+            } else {
+                throw AccessCheckoutRnIllegalArgumentError.missingPan()
+            }
         }
         
-        if self.expiryDateValue == "" {
-            throw AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
+        if dictionary["expiryDateValue"] != nil {
+            if let string = dictionary["expiryDateValue"] as? String, string != "" {
+                self.expiryDateValue = string
+            } else {
+                throw AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
+            }
         }
         
         if self.cvcValue == "" {

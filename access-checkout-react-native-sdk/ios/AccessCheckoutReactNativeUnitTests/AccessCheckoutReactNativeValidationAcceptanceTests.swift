@@ -5,7 +5,7 @@ import XCTest
 @testable import AccessCheckoutReactNative
 @testable import AccessCheckoutReactNativeUnitTestsApp
 
-class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
+class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
     private let stubServices = StubServices(baseUrl: "http://localhost")
     private let config: NSDictionary = [
         "baseUrl": "http://localhost",

@@ -96,18 +96,6 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    func testThatConfigCannotBeCreatedWhenPanValueIsAbsentFromTheDictionary() {
-        let dictionary: NSDictionary = [
-            "baseUrl": "some-url",
-            "merchantId": "some-merchant-id",
-        ]
-        let expectedError = AccessCheckoutRnIllegalArgumentError.missingPan()
-
-        XCTAssertThrowsError(try GenerateSessionConfig(dictionary: dictionary)) { error in
-            XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
-        }
-    }
-
     // MARK: Testing errors related to Expiry Value
     func testThatConfigCannotBeCreatedWhenExpiryValueIsAnEmptyString() {
         let dictionary: NSDictionary = [
@@ -129,19 +117,6 @@ class GenerateSessionUnitTests: XCTestCase {
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
             "expiryDateValue": 1,
-        ]
-        let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
-
-        XCTAssertThrowsError(try GenerateSessionConfig(dictionary: dictionary)) { error in
-            XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
-        }
-    }
-
-    func testThatConfigCannotBeCreatedWhenExpiryValueIsAbsentFromTheDictionary() {
-        let dictionary: NSDictionary = [
-            "baseUrl": "some-url",
-            "merchantId": "some-merchant-id",
-            "panValue": "some-pan",
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
 
@@ -276,7 +251,7 @@ class GenerateSessionUnitTests: XCTestCase {
     }
     
     // MARK: Testing happy paths
-    func testGenerateSessionConfigCanBePopulatedFromDictionary() {
+    func testGenerateSessionConfigCanBeCreatedWithAllCardDetails() {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
@@ -294,6 +269,22 @@ class GenerateSessionUnitTests: XCTestCase {
         XCTAssertEqual(config.expiryDateValue, "some-expiry-date")
         XCTAssertEqual(config.cvcValue, "some-cvc")
         XCTAssertEqual(config.sessionTypes, [SessionType.card, SessionType.cvc])
+    }
+    
+    func testThatConfigCanBeCreatedWithCvcOnly() {
+        let dictionary: NSDictionary = [
+            "baseUrl": "some-url",
+            "merchantId": "some-merchant-id",
+            "cvcValue": "some-cvc",
+            "sessionTypes": ["cvc"]
+        ]
+        
+        let config = try! GenerateSessionConfig(dictionary: dictionary)
+        
+        XCTAssertEqual(config.baseUrl, "some-url")
+        XCTAssertEqual(config.merchantId, "some-merchant-id")
+        XCTAssertEqual(config.cvcValue, "some-cvc")
+        XCTAssertEqual(config.sessionTypes, [SessionType.cvc])
     }
     
     func testGenerateSessionConfigSessionTypesCanBePopulatedIndependentlyOfCase() {

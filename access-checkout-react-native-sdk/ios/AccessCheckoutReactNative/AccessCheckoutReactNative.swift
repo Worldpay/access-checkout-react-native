@@ -33,13 +33,20 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     .merchantId(cfg.merchantId)
                     .build()
             }
-
-            let cardDetails = try CardDetailsBuilder()
-                .pan(cfg.panValue)
-                .expiryDate(cfg.expiryDateValue)
-                .cvc(cfg.cvcValue)
+            
+            let cardDetails: CardDetails
+            
+            if isCvcSessionOnly(sessionTypes: cfg.sessionTypes) {
+                cardDetails = try CardDetailsBuilder()
+                .cvc(cfg.cvcValue!)
                 .build()
-
+            } else {
+               cardDetails = try CardDetailsBuilder()
+                    .pan(cfg.panValue!)
+                    .expiryDate(cfg.expiryDateValue!)
+                    .cvc(cfg.cvcValue!)
+                    .build()
+            }
             try accessCheckoutClient!.generateSessions(
                 cardDetails: cardDetails, sessionTypes: cfg.sessionTypes
             ) {
@@ -100,6 +107,10 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                 reject("", "invalid validation config found", error)
             }
         }
+    }
+    
+    func isCvcSessionOnly(sessionTypes: Set<SessionType>) -> Bool {
+        return sessionTypes.count == 1 && sessionTypes.first == SessionType.cvc
     }
 
     override func supportedEvents() -> [String]! {

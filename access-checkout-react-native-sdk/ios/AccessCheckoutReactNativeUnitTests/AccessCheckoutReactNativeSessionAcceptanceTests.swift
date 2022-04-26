@@ -4,7 +4,7 @@ import XCTest
 @testable import AccessCheckoutReactNative
 @testable import AccessCheckoutSDK
 
-class AccessCheckoutReactNativeUnitTests: XCTestCase {
+class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
     let accessCheckoutReactNative = AccessCheckoutReactNative()
     let stubServices = StubServices(baseUrl: "http://localhost")
 
@@ -30,6 +30,32 @@ class AccessCheckoutReactNativeUnitTests: XCTestCase {
             expectationToFulfill.fulfill()
         } reject: { (_, _, _) in
             XCTFail("got an unexpected error back from stubs")
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+    
+    func testShouldSupportGeneratingACvcSession() {
+        let stubServices = StubServices(baseUrl: "http://localhost")
+            .stubServicesRootDiscovery()
+            .stubSessionsDiscovery()
+            .stubSessionsSessionSuccess(session: "my-cvc-session")
+
+        let expectationToFulfill = expectation(description: "Session retrieved")
+        let dictionary: NSDictionary = [
+            "baseUrl": stubServices.baseUrl,
+            "merchantId": "identity",
+            "cvcValue": "123",
+            "sessionTypes": ["cvc"],
+        ]
+
+        accessCheckoutReactNative.generateSessions(config: dictionary) { (sessions) in
+            let cvcSession = (sessions as! [String: String?])["cvc"]
+            XCTAssertEqual("my-cvc-session", cvcSession)
+            expectationToFulfill.fulfill()
+        } reject: { (_, message, _) in
+            XCTFail(message!)
             expectationToFulfill.fulfill()
         }
 
@@ -114,4 +140,26 @@ class AccessCheckoutReactNativeUnitTests: XCTestCase {
 
         wait(for: [expectationToFulfill], timeout: 5)
     }
+    
+    func testReturnAnErrorWhenCvcIsNil() {
+        let expectationToFulfill = expectation(description: "Error should be returned")
+        let invalidConfig: NSDictionary = [
+            "baseUrl": stubServices.baseUrl,
+            "merchantId": "identity",
+            "sessionTypes": ["cvc"],
+        ]
+
+        accessCheckoutReactNative.generateSessions(config: invalidConfig) { (sessions) in
+            XCTFail("generating sessions should have faild but it didn't")
+            expectationToFulfill.fulfill()
+        } reject: { (errorCode, errorDescription, error) in
+            let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()
+            XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
 }
+
+    
