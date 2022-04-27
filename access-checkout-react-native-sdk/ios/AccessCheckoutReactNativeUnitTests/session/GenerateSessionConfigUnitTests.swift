@@ -1,5 +1,5 @@
-import XCTest
 import AccessCheckoutSDK
+import XCTest
 
 @testable import AccessCheckoutReactNative
 
@@ -169,7 +169,7 @@ class GenerateSessionUnitTests: XCTestCase {
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
-    
+
     // MARK: Testing errors related to Session types
     func testErrorIsRaisedWhenSessionTypesIsAbsent() {
         let dictionary: NSDictionary = [
@@ -177,7 +177,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "merchantId": "some-merchant-id",
             "panValue": "some-pan",
             "expiryDateValue": "some-expiry-date",
-            "cvcValue": "some-cvc"
+            "cvcValue": "some-cvc",
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingSessionTypes()
 
@@ -185,7 +185,7 @@ class GenerateSessionUnitTests: XCTestCase {
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
-    
+
     func testErrorIsRaisedWhenSessionTypesIsEmpty() {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
@@ -193,7 +193,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "panValue": "some-pan",
             "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
-            "sessionTypes": []
+            "sessionTypes": [],
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingSessionTypes()
 
@@ -201,7 +201,7 @@ class GenerateSessionUnitTests: XCTestCase {
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
-    
+
     func testErrorIsRaisedWhenMoreThan2SessionTypesArePassed() {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
@@ -209,7 +209,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "panValue": "some-pan",
             "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
-            "sessionTypes": ["card", "cvc", "card"]
+            "sessionTypes": ["card", "cvc", "card"],
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.tooManySessionTypes(numberFound: 3)
 
@@ -217,7 +217,7 @@ class GenerateSessionUnitTests: XCTestCase {
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
-    
+
     func testErrorIsRaisedWhenSessionTypeIsNotString() {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
@@ -225,7 +225,7 @@ class GenerateSessionUnitTests: XCTestCase {
             "panValue": "some-pan",
             "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
-            "sessionTypes": [1]
+            "sessionTypes": [1],
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.sessionTypeIsNotString()
 
@@ -233,7 +233,7 @@ class GenerateSessionUnitTests: XCTestCase {
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
-    
+
     func testErrorIsRaisedWhenUnrecognisedSessionTypeIsPassed() {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
@@ -241,15 +241,16 @@ class GenerateSessionUnitTests: XCTestCase {
             "panValue": "some-pan",
             "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
-            "sessionTypes": ["something-else"]
+            "sessionTypes": ["something-else"],
         ]
-        let expectedError = AccessCheckoutRnIllegalArgumentError.unrecognisedSessionType(type: "something-else")
+        let expectedError = AccessCheckoutRnIllegalArgumentError.unrecognisedSessionType(
+            type: "something-else")
 
         XCTAssertThrowsError(try GenerateSessionConfig(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
-    
+
     // MARK: Testing happy paths
     func testGenerateSessionConfigCanBeCreatedWithAllCardDetails() {
         let dictionary: NSDictionary = [
@@ -258,11 +259,11 @@ class GenerateSessionUnitTests: XCTestCase {
             "panValue": "some-pan",
             "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
-            "sessionTypes": ["card", "cvc"]
+            "sessionTypes": ["card", "cvc"],
         ]
-        
+
         let config = try! GenerateSessionConfig(dictionary: dictionary)
-        
+
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
         XCTAssertEqual(config.panValue, "some-pan")
@@ -270,23 +271,23 @@ class GenerateSessionUnitTests: XCTestCase {
         XCTAssertEqual(config.cvcValue, "some-cvc")
         XCTAssertEqual(config.sessionTypes, [SessionType.card, SessionType.cvc])
     }
-    
+
     func testThatConfigCanBeCreatedWithCvcOnly() {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
             "cvcValue": "some-cvc",
-            "sessionTypes": ["cvc"]
+            "sessionTypes": ["cvc"],
         ]
-        
+
         let config = try! GenerateSessionConfig(dictionary: dictionary)
-        
+
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
         XCTAssertEqual(config.cvcValue, "some-cvc")
         XCTAssertEqual(config.sessionTypes, [SessionType.cvc])
     }
-    
+
     func testGenerateSessionConfigSessionTypesCanBePopulatedIndependentlyOfCase() {
         let dictionary: NSDictionary = [
             "baseUrl": "some-url",
@@ -294,11 +295,11 @@ class GenerateSessionUnitTests: XCTestCase {
             "panValue": "some-pan",
             "expiryDateValue": "some-expiry-date",
             "cvcValue": "some-cvc",
-            "sessionTypes": ["cArD", "CVC"]
+            "sessionTypes": ["cArD", "CVC"],
         ]
-        
+
         let config = try! GenerateSessionConfig(dictionary: dictionary)
-        
+
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
         XCTAssertEqual(config.panValue, "some-pan")

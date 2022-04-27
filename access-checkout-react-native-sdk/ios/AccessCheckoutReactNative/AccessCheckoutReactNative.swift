@@ -33,15 +33,15 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     .merchantId(cfg.merchantId)
                     .build()
             }
-            
+
             let cardDetails: CardDetails
-            
+
             if isCvcSessionOnly(sessionTypes: cfg.sessionTypes) {
                 cardDetails = try CardDetailsBuilder()
-                .cvc(cfg.cvcValue!)
-                .build()
+                    .cvc(cfg.cvcValue!)
+                    .build()
             } else {
-               cardDetails = try CardDetailsBuilder()
+                cardDetails = try CardDetailsBuilder()
                     .pan(cfg.panValue!)
                     .expiryDate(cfg.expiryDateValue!)
                     .cvc(cfg.cvcValue!)
@@ -78,7 +78,8 @@ class AccessCheckoutReactNative: RCTEventEmitter {
             do {
                 let cfg = try ValidationConfig(dictionary: config)
                 let panInput = self.reactNativeViewLocator.locateUITextField(id: cfg.panId)
-                let expiryInput = self.reactNativeViewLocator.locateUITextField(id: cfg.expiryDateId)
+                let expiryInput = self.reactNativeViewLocator.locateUITextField(
+                    id: cfg.expiryDateId)
                 let cvcInput = self.reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
 
                 if panInput != nil, expiryInput != nil, cvcInput != nil {
@@ -108,7 +109,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
             }
         }
     }
-    
+
     func isCvcSessionOnly(sessionTypes: Set<SessionType>) -> Bool {
         return sessionTypes.count == 1 && sessionTypes.first == SessionType.cvc
     }
@@ -116,7 +117,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
     override func supportedEvents() -> [String]! {
         return [cardValidationEventName]
     }
-    
+
     @objc
     static override func requiresMainQueueSetup() -> Bool {
         return false

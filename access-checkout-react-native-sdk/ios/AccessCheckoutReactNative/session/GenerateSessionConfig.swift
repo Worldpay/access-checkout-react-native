@@ -7,20 +7,20 @@ struct GenerateSessionConfig {
     var expiryDateValue: String? = nil
     let cvcValue: String?
     let sessionTypes: Set<SessionType>
-    
+
     init(dictionary: NSDictionary) throws {
         self.baseUrl = dictionary["baseUrl"] as? String ?? ""
         self.merchantId = dictionary["merchantId"] as? String ?? ""
         self.cvcValue = dictionary["cvcValue"] as? String ?? ""
-        
+
         if self.baseUrl == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
         }
-        
+
         if self.merchantId == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingMerchantId()
         }
-        
+
         if dictionary["panValue"] != nil {
             if let string = dictionary["panValue"] as? String, string != "" {
                 self.panValue = string
@@ -28,7 +28,7 @@ struct GenerateSessionConfig {
                 throw AccessCheckoutRnIllegalArgumentError.missingPan()
             }
         }
-        
+
         if dictionary["expiryDateValue"] != nil {
             if let string = dictionary["expiryDateValue"] as? String, string != "" {
                 self.expiryDateValue = string
@@ -36,21 +36,22 @@ struct GenerateSessionConfig {
                 throw AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
             }
         }
-        
+
         if self.cvcValue == "" {
             throw AccessCheckoutRnIllegalArgumentError.missingCvc()
         }
-        
+
         let sessionTypes = dictionary["sessionTypes"] as? [AnyObject] ?? []
-        
+
         if sessionTypes.count == 0 {
             throw AccessCheckoutRnIllegalArgumentError.missingSessionTypes()
         }
-        
+
         if sessionTypes.count > 2 {
-            throw AccessCheckoutRnIllegalArgumentError.tooManySessionTypes(numberFound: sessionTypes.count)
+            throw AccessCheckoutRnIllegalArgumentError.tooManySessionTypes(
+                numberFound: sessionTypes.count)
         }
-        
+
         var set = Set<SessionType>()
         for sessionType in sessionTypes {
             if let type = sessionType as? String {

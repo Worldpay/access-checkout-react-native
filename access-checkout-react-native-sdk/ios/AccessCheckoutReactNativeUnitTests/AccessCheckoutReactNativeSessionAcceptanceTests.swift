@@ -35,7 +35,7 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
 
         wait(for: [expectationToFulfill], timeout: 5)
     }
-    
+
     func testShouldSupportGeneratingACvcSession() {
         let stubServices = StubServices(baseUrl: "http://localhost")
             .stubServicesRootDiscovery()
@@ -93,15 +93,16 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
 
         wait(for: [expectationToFulfill], timeout: 5)
     }
-    
+
     func testReturnAnErrorWhenFailingToGenerateASession() {
         let stubServices = StubServices(baseUrl: "http://localhost")
             .stubServicesRootDiscovery()
             .stubVerifiedTokensDiscovery()
             .stubVerifiedTokensSessionSuccess(session: "my-session")
             .stubSessionsDiscovery()
-            .stubVerifiedTokensSessionFailure(errorName: "unexpectedApiError",
-                                              errorMessage: "some error message")
+            .stubVerifiedTokensSessionFailure(
+                errorName: "unexpectedApiError",
+                errorMessage: "some error message")
 
         let expectationToFulfill = expectation(description: "Error should be returned")
         let dictionary: NSDictionary = [
@@ -117,7 +118,8 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
             XCTFail("generating sessions should have faild but it didn't")
             expectationToFulfill.fulfill()
         } reject: { (errorCode, errorDescription, error) in
-            let expectedError = AccessCheckoutError.unexpectedApiError(message: "some error message")
+            let expectedError = AccessCheckoutError.unexpectedApiError(
+                message: "some error message")
             XCTAssertEqual(error as! AccessCheckoutError, expectedError)
             expectationToFulfill.fulfill()
         }
@@ -140,7 +142,7 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
 
         wait(for: [expectationToFulfill], timeout: 5)
     }
-    
+
     func testReturnAnErrorWhenCvcIsNil() {
         let expectationToFulfill = expectation(description: "Error should be returned")
         let invalidConfig: NSDictionary = [
@@ -162,4 +164,3 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
     }
 }
 
-    
