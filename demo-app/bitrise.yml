@@ -49,7 +49,7 @@ workflows:
 
             echo "Running Detox tests"
 
-            JEST_HTML_REPORTER_OUTPUT_PATH="./reports/e2e-tests/android-e2e-tests.html" detox test --configuration android-ci --cleanup --loglevel verbose
+            JEST_HTML_REPORTER_OUTPUT_PATH="./reports/e2e-tests/android-e2e-tests.html" detox test --configuration android-ci --loglevel verbose
             status=$?
 
             ./scripts/stop-react-native-background.sh
