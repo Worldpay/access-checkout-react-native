@@ -6,71 +6,45 @@ workflows:
   ACO-RN-DemoApp-e2e-tests-Android:
     steps:
     - npm@1:
-        title: Install detox-cli
+        title: "Install detox-cli"
         inputs:
         - command: install -g detox-cli
     - npm@1:
-        title: Install SDK dependencies
+        title: "Install SDK dependencies"
         inputs:
         - command: install
-        - workdir: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/"
+        - workdir: $BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/
     - npm@1:
-        title: Install demo-app dependencies
+        title: "Install demo-app dependencies"
         inputs:
         - command: install
-        - workdir: "$BITRISE_SOURCE_DIR/demo-app/"
-    - script@1:
-        title: Build app for Detox
+        - workdir: $BITRISE_SOURCE_DIR/demo-app/
+    - script@1.2:
+        title: "Build app for Detox"
         inputs:
-        - working_dir: "$BITRISE_SOURCE_DIR/demo-app"
-        - content: |
-            #!/bin/bash
-
-            echo "Building app for Detox"
-            detox build --configuration android
+        - working_dir: $BITRISE_SOURCE_DIR/demo-app/
+        - content: ./scripts/ci/detox-android-build.sh
     - avd-manager@1:
-        title: Start Android emulator
+        title: "Start Android emulator"
         inputs:
         - api_level: '30'
     - wait-for-android-emulator@1:
         title: Wait for Android emulator to boot
         inputs:
         - boot_timeout: 600
-    - script@1:
-        title: Run Detox e2e tests for Android
+    - script@1.2:
+        title: "Run Detox e2e tests for Android"
         inputs:
-        - working_dir: "$BITRISE_SOURCE_DIR/demo-app/"
-        - content: |
-            #!/bin/bash
-
-            set +e
-
-            ./scripts/start-react-native-background.sh
-
-            echo "Running Detox tests"
-
-            JEST_HTML_REPORTER_OUTPUT_PATH="./reports/e2e-tests/android-e2e-tests.html" detox test --configuration android-ci --loglevel verbose
-            status=$?
-
-            ./scripts/stop-react-native-background.sh
-
-            if [ $status -ne 0 ]; then
-              exit $status
-            fi
-    - script@1:
-        title: Stop Android emulator
+        - working_dir: $BITRISE_SOURCE_DIR/demo-app/
+        - content: ./scripts/ci/detox-android-run.sh
+    - script@1.2:
+        title: "Delete Android emulator"
         inputs:
-        - working_dir: "$BITRISE_SOURCE_DIR/demo-app/"
-        - content: |
-            #!/bin/bash
-
-            emulatorName="emulator"
-
-            echo "Deleting emulator $emulatorName"
-            avdmanager -v delete avd -n $emulatorName
+        - working_dir: $BITRISE_SOURCE_DIR/demo-app/
+        - content: ./scripts/ci/detox-android-delete-emulator.sh
     - deploy-to-bitrise-io@2:
         inputs:
-        - deploy_path: "$BITRISE_SOURCE_DIR/demo-app/reports/e2e-tests/"
+        - deploy_path: $BITRISE_SOURCE_DIR/demo-app/reports/e2e-tests/
     meta:
       bitrise.io:
         stack: linux-docker-android-20.04
@@ -78,41 +52,37 @@ workflows:
     steps:
     - cache-pull@2: {}
     - npm@1:
+        title: "Install detox-cli"
         inputs:
-        - command: install -g detox-cli
-        title: Install detox-cli
+          - command: install -g detox-cli
     - npm@1:
-        title: Install SDK dependencies
+        title: "Install SDK dependencies"
         inputs:
         - command: install
-        - workdir: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/"
+        - workdir: $BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/
     - npm@1:
-        title: Install demo-app dependencies
+        title: "Install demo-app dependencies"
         inputs:
         - command: install
-        - workdir: "$BITRISE_SOURCE_DIR/demo-app/"
+        - workdir: $BITRISE_SOURCE_DIR/demo-app/
     - cocoapods-install@2:
-        title: Install pods for iOS Bridge SDK
+        title: "Install pods for iOS Bridge SDK"
         inputs:
-        - source_root_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/"
+        - source_root_path: $BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/
     - cocoapods-install@2:
-        title: Install pods for demo-app
+        title: "Install pods for demo-app"
         inputs:
-        - source_root_path: "$BITRISE_SOURCE_DIR/demo-app/ios/"
-    - script@1:
+        - source_root_path: $BITRISE_SOURCE_DIR/demo-app/ios/
+    - script@1.2:
+        title: "Build app for Detox"
         inputs:
-        - content: |-
-            #!/bin/bash
-
-            cd demo-app
-
-            echo "Building app for Detox"
-            detox build --configuration ios-ci
-
-            echo "Running e2e tests"
-            ./scripts/ci/detox-run-ios.sh
-
-            set -e
+        - working_dir: $BITRISE_SOURCE_DIR/demo-app/
+        - content: ./scripts/ci/detox-ios-build.sh
+    - script@1.2:
+        title: "Run Detox e2e tests for iOS"
+        inputs:
+        - working_dir: $BITRISE_SOURCE_DIR/demo-app/
+        - content: ./scripts/ci/detox-ios-run.sh
     - deploy-to-bitrise-io@2:
         inputs:
           - deploy_path: "$BITRISE_SOURCE_DIR/demo-app/reports/e2e-tests/"
