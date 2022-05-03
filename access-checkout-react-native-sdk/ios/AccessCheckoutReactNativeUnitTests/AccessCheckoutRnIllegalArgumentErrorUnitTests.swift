@@ -28,7 +28,7 @@ class AccessCheckoutRnIllegalArgumentErrorUnitTests: XCTestCase {
 
         XCTAssertEqual(error.message, "Expected pan to be provided but was not")
     }
-    
+
     func testMissingPanIdMessage() {
         let error = AccessCheckoutRnIllegalArgumentError.missingPanId()
 
@@ -40,7 +40,7 @@ class AccessCheckoutRnIllegalArgumentErrorUnitTests: XCTestCase {
 
         XCTAssertEqual(error.message, "Expected expiry date to be provided but was not")
     }
-    
+
     func testMissingExpiryId() {
         let error = AccessCheckoutRnIllegalArgumentError.missingExpiryId()
 

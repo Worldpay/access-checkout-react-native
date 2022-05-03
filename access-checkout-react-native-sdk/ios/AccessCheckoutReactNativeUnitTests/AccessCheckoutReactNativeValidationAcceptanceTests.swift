@@ -5,7 +5,7 @@ import XCTest
 @testable import AccessCheckoutReactNative
 @testable import AccessCheckoutReactNativeUnitTestsApp
 
-class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
+class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
     private let stubServices = StubServices(baseUrl: "http://localhost")
     private let config: NSDictionary = [
         "baseUrl": "http://localhost",
@@ -23,7 +23,8 @@ class AccessCheckoutReactNativeValidationUnitTests: XCTestCase {
 
     override func setUp() {
         controller =
-            (storyboard.instantiateViewController(withIdentifier: "CardValidationTestUIViewController")
+            (storyboard.instantiateViewController(
+                withIdentifier: "CardValidationTestUIViewController")
                 as! CardValidationTestUIViewController)
         controller!.loadViewIfNeeded()
         panUITextField = controller!.panTextField

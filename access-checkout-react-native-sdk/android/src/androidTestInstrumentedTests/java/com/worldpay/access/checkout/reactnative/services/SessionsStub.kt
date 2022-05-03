@@ -15,7 +15,7 @@ class SessionsStub {
                                     "_links": {
                                         "sessions:paymentsCvc": {
                                             "href": "https://localhost:8443/sessions/payments/cvc"
-                                        },
+                                        },  
                                         "resourceTree": {
                                             "href": "https://localhost:8443/rels/sessions/resourceTree.json"
                                         },

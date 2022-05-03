@@ -28,7 +28,7 @@ import styles from './style.js';
 
 export default function CardFlow() {
   const unknownBrandLogo =
-    'https://preprod.access.worldpay.com/access-checkout/assets/unknown.png';
+    'https://npe.access.worldpay.com/access-checkout/assets/unknown.png';
 
   const [panValue, setPan] = useState<string>('');
   const [expiryValue, setExpiry] = useState<string>('');
@@ -52,7 +52,7 @@ export default function CardFlow() {
   const [cvcSession, setCvcSession] = useState('');
 
   const accessCheckout = new AccessCheckout({
-    baseUrl: 'https://preprod.access.worldpay.com',
+    baseUrl: 'https://npe.access.worldpay.com',
     merchantId: 'identity',
   });
 
