@@ -133,6 +133,25 @@ class AccessCheckoutReactNativeModule constructor(
         }
     }
 
+
+    /**
+     * Required to prevent a warning from being displayed when running react-native >= 0.65
+     */
+    @Suppress("UNUSED_PARAMETER", "unused")
+    @ReactMethod
+    fun addListener(eventName: String?) {
+
+    }
+
+    /**
+     * Required to prevent a warning from being displayed when running react-native >= 0.65
+     */
+    @Suppress("UNUSED_PARAMETER", "unused")
+    @ReactMethod
+    fun removeListeners(count: Double) {
+
+    }
+
     override fun onCatalystInstanceDestroy() {
         if (accessCheckoutClient != null) {
             accessCheckoutClientDisposer.dispose(accessCheckoutClient!!)
