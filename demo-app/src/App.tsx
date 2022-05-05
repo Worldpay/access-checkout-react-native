@@ -10,7 +10,7 @@ function MyTabs() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Card Flow" component={CardFlow} />
-      <Tab.Screen name="Cvc Flow" component={CvcFlow} />
+      <Tab.Screen name="Cvc Flow2" component={CvcFlow} />
     </Tab.Navigator>
   );
 }
@@ -18,8 +18,6 @@ function MyTabs() {
 export default function App() {
   return (
     <React.Fragment>
-      <CardFlow />
-      <CvcFlow />
       <NavigationContainer>
         <MyTabs />
       </NavigationContainer>
