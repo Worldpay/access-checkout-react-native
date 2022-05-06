@@ -1,0 +1,14 @@
+#!/bin/bash
+
+message=$(cat .git/COMMIT_EDITMSG)
+
+if ! [[ "${message}" =~ ^US[0-9]{6,8}:.+$ ]]; then
+  echo ""
+  echo "Your commit message is invalid. Commit message must be in the form [User Story number]: [commit message]"
+  echo "e.g."
+  echo "US123456: change something in my app"
+  echo ""
+  exit 1
+fi
+
+exit 0
