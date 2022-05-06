@@ -17,7 +17,7 @@ export default function App() {
   return (
     <VView style={styles.app}>
       <VView style={styles.main}>
-        {(screen === screens.card) ? <CardFlow /> : <CvcOnlyFlow />}
+        {screen === screens.card ? <CardFlow /> : <CvcOnlyFlow />}
       </VView>
       <HView style={styles.nav}>
         <NavItem
@@ -32,8 +32,7 @@ export default function App() {
           image={screens.cvc}
           selected={screen === screens.cvc}
           onPress={() => setScreen(screens.cvc)}
-        >
-        </NavItem>
+        ></NavItem>
       </HView>
     </VView>
   );

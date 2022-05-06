@@ -4,7 +4,7 @@ import {
   CardDetails,
   CVC,
   Sessions,
-} from '../../../access-checkout-react-native-sdk/src/index';
+} from '../../../access-checkout-react-native-sdk/src';
 import CvcField from '../common/CvcField';
 import HView from '../common/HView';
 import Spinner from '../common/Spinner';
@@ -12,7 +12,7 @@ import SubmitButton from '../common/SubmitButton';
 import VView from '../common/VView';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import styles from './style.js';
+import styles from '../card-flow/style.js';
 import { Alert, Text } from 'react-native';
 import SessionLabel from '../common/SessionLabel';
 
