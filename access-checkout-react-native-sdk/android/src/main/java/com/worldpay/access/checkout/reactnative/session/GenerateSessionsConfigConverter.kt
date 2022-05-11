@@ -16,16 +16,25 @@ class GenerateSessionsConfigConverter {
 
         validateNotNull(baseUrl, "baseUrl")
         validateNotNull(merchantId, "merchantId")
-        validateNotNull(panValue, "panValue")
-        validateNotNull(expiryDateValue, "expiryDateValue")
-        validateNotNull(cvcValue, "cvcValue")
+
+        if (sessionTypes != null && sessionTypes.toArrayList().contains("card"))
+        {
+            validateNotNull(panValue, "panValue")
+            validateNotNull(expiryDateValue, "expiryDateValue")
+            validateNotNull(cvcValue, "cvcValue")
+        }
+
+        if (sessionTypes != null && sessionTypes.toArrayList().contains("cvc"))
+        {
+            validateNotNull(cvcValue, "cvcValue")
+        }
 
         return GenerateSessionsConfig(
             baseUrl = baseUrl as String,
             merchantId = merchantId as String,
-            panValue = panValue as String,
-            expiryDateValue = expiryDateValue as String,
-            cvcValue = cvcValue as String,
+            panValue = panValue,
+            expiryDateValue = expiryDateValue,
+            cvcValue = cvcValue,
             sessionTypes = toSessionTypesList(sessionTypes)
         )
     }
@@ -67,3 +76,4 @@ class GenerateSessionsConfigConverter {
         }
     }
 }
+

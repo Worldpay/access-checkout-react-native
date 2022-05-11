@@ -75,8 +75,8 @@ class AccessCheckoutReactNativeModule constructor(
                         .build()
                 } else {
                     CardDetails.Builder()
-                        .pan(config.panValue)
-                        .expiryDate(config.expiryDateValue)
+                        .pan(config.panValue!!)
+                        .expiryDate(config.expiryDateValue!!)
                         .cvc(config.cvcValue!!)
                         .build()
                 }
