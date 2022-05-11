@@ -44,12 +44,12 @@ class SessionsTestFixture {
     var cvc: String? = null
     var sessionsTypes: MutableList<String> = ArrayList()
 
-    fun pan(pan: String): SessionsTestFixture {
+    fun pan(pan: String?): SessionsTestFixture {
         this.pan = pan
         return this
     }
 
-    fun expiryDate(expiryDate: String): SessionsTestFixture {
+    fun expiryDate(expiryDate: String?): SessionsTestFixture {
         this.expiryDate = expiryDate
         return this
     }
