@@ -131,7 +131,7 @@ class GenerateSessionsConfigConverterTest {
         map.putString("panValue", "some-pan-value")
         map.putString("expiryDateValue", "some-expiry-date-value")
         map.putString("cvcValue", "some-cvc-value")
-        map.putArray("sessionTypes", JavaOnlyArray.of("card"))
+        map.putArray("sessionTypes", JavaOnlyArray.of("card","cvc"))
         return map
     }
 }
