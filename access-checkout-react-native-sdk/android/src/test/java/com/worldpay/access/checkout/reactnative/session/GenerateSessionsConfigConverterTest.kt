@@ -94,7 +94,7 @@ class GenerateSessionsConfigConverterTest {
     }
 
     @Test
-    fun `should Convert Map Into GenerateSessionConfig When Session Type is Cvc Only`() {
+    fun `should convert map into generateSessionConfig when session types is cvc only`() {
         val map = mapWithCvcSessionTypesAndValidEntries()
         val convert = converter.fromReadableMap(map)
 

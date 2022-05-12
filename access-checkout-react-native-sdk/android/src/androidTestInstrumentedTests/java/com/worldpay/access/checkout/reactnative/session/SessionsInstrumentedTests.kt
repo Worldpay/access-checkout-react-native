@@ -109,7 +109,7 @@ class SessionsInstrumentedTests {
     }
 
     @Test
-    fun testShouldBeAbleToGiveErrorWhenANullCvcIsPassed() {
+    fun testShouldBeAbleToGiveErrorWhenSessionsTypeContainsCvcAndANullCvcIsPassed() {
         val exception = RuntimeException("Expected cvcValue to be provided but was not")
 
         sessionsTextFixture()
