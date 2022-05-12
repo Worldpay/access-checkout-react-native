@@ -17,14 +17,14 @@ class GenerateSessionsConfigConverter {
         validateNotNull(baseUrl, "baseUrl")
         validateNotNull(merchantId, "merchantId")
 
-        if (sessionTypes != null && sessionTypes.toArrayList().contains("card"))
+        if (isSessionType(sessionTypes,"card"))
         {
             validateNotNull(panValue, "panValue")
             validateNotNull(expiryDateValue, "expiryDateValue")
             validateNotNull(cvcValue, "cvcValue")
         }
 
-        if (sessionTypes != null && sessionTypes.toArrayList().contains("cvc"))
+        if (isSessionType(sessionTypes, "cvc"))
         {
             validateNotNull(cvcValue, "cvcValue")
         }
@@ -74,6 +74,11 @@ class GenerateSessionsConfigConverter {
         if (property == null) {
             throw IllegalArgumentException("Expected $propertyKey to be provided but was not")
         }
+    }
+
+    private fun isSessionType(sessions: ReadableArray?, sessionType: String) : Boolean
+    {
+        return sessions != null && sessions.toArrayList().contains(sessionType)
     }
 }
 
