@@ -7,7 +7,7 @@ export default class HView extends Component<ViewProps> {
   }
 
   render() {
-    const { children, testID, style, ...rest } = this.props;
+    const { children, style, ...rest } = this.props;
     const styles: StyleProp<ViewStyle> = {};
     styles.display = 'flex';
     styles.flexDirection = 'row';
