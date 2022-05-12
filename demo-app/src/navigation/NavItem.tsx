@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { GestureResponderEvent, Image, Text, TextStyle, ViewProps, ViewStyle } from 'react-native';
+import {
+  GestureResponderEvent,
+  Image,
+  Text,
+  TextStyle,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 import VView from '../common/VView';
 
 const images = {
@@ -27,7 +34,9 @@ export default class NavItem extends Component<NavItemProps> {
 
   render() {
     const { image, onPress, selected, style, title } = this.props;
-    const imageSource = selected ? ((images as any)[image]).on : ((images as any)[image]).off;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const imageFiles = (images as any)[image];
+    const imageSource = selected ? imageFiles.on : imageFiles.off;
 
     const viewStyles: ViewStyle = {};
     viewStyles.alignItems = 'center';
@@ -42,14 +51,9 @@ export default class NavItem extends Component<NavItemProps> {
     };
 
     return (
-      <VView
-        testID={`nav-${image}`}
-        style={viewStyles}
-        onTouchStart={onPress}>
+      <VView testID={`nav-${image}`} style={viewStyles} onTouchStart={onPress}>
         <Image source={imageSource} />
-        <Text style={textStyles}>
-          {title}
-        </Text>
+        <Text style={textStyles}>{title}</Text>
       </VView>
     );
   }

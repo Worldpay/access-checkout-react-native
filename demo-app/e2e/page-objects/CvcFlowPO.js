@@ -6,9 +6,14 @@ const { UIComponentPO } = require('./UIComponentPO');
 
 class CvcFlowPO {
   constructor() {
+    this.cvcOnlyNavItem = new UIComponentPO('nav-cvc');
     this.cvc = new TextInputPO('cvcInput');
     this.submitButton = new UIComponentPO('submitButton');
     this.cvcSession = new SessionLabelPO('cvcSession');
+  }
+
+  async selectCvcOnlyFlow() {
+    await this.cvcOnlyNavItem.tap();
   }
 
   async submit() {

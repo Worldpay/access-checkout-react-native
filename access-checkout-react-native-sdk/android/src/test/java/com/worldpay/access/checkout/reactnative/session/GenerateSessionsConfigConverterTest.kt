@@ -81,7 +81,6 @@ class GenerateSessionsConfigConverterTest {
         val convert = converter.fromReadableMap(map)
 
         assertEquals(convert::class.java, GenerateSessionsConfig::class.java)
-
     }
 
     @Test
