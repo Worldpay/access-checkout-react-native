@@ -145,9 +145,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertTrue(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -175,9 +175,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertFalse(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -203,9 +203,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertTrue(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -233,9 +233,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertFalse(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -261,9 +261,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertTrue(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -291,9 +291,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertFalse(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -328,9 +328,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertEqual(event.body.brand?.images?[1].url, "http://localhost/visa.svg")
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -361,9 +361,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertNil(event.body.brand)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -391,9 +391,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertTrue(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -430,9 +430,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertEqual(event.body.type, "brand")
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -461,9 +461,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             XCTAssertEqual(self.panUITextField!.text!, "4444 3333")
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }

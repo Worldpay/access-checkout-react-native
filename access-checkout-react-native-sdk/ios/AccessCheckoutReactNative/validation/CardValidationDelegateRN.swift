@@ -1,7 +1,7 @@
 import AccessCheckoutSDK
 import React
 
-class AccessCheckoutCardValidationDelegateRN: AccessCheckoutCardValidationDelegate {
+class CardValidationDelegateRN: AccessCheckoutCardValidationDelegate {
     private let eventName: String
     private let eventEmitter: RCTEventEmitter
 

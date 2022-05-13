@@ -77,41 +77,41 @@ class AccessCheckoutReactNative: RCTEventEmitter {
     ) {
         DispatchQueue.main.async {
             do {
-                let cfg = try ValidationConfig(dictionary: config)
-                let panInput = self.reactNativeViewLocator.locateUITextField(id: cfg.panId)
+                let config = try CardValidationConfigRN(dictionary: config)
+                let panInput = self.reactNativeViewLocator.locateUITextField(id: config.panId)
                 let expiryInput = self.reactNativeViewLocator.locateUITextField(
-                    id: cfg.expiryDateId)
-                let cvcInput = self.reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
+                    id: config.expiryDateId)
+                let cvcInput = self.reactNativeViewLocator.locateUITextField(id: config.cvcId)
 
                 if panInput == nil {
                     let error = AccessCheckoutRnIllegalArgumentError.panTextFieldNotFound(
-                        panNativeId: cfg.panId)
+                        panNativeId: config.panId)
                     reject("", error.localizedDescription, error)
                     return
                 } else if expiryInput == nil {
                     let error = AccessCheckoutRnIllegalArgumentError.expiryDateTextFieldNotFound(
-                        expiryDateNativeId: cfg.expiryDateId)
+                        expiryDateNativeId: config.expiryDateId)
                     reject("", error.localizedDescription, error)
                     return
                 } else if cvcInput == nil {
                     let error = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
-                        cvcNativeId: cfg.cvcId)
+                        cvcNativeId: config.cvcId)
                     reject("", error.localizedDescription, error)
                     return
                 }
 
-                let validationDelegate = AccessCheckoutCardValidationDelegateRN(
+                let validationDelegate = CardValidationDelegateRN(
                     eventEmitter: self, eventName: self.cardValidationEventName)
 
                 var builder = CardValidationConfig.builder()
                     .pan(panInput!)
                     .expiryDate(expiryInput!)
                     .cvc(cvcInput!)
-                    .accessBaseUrl(cfg.baseUrl)
+                    .accessBaseUrl(config.baseUrl)
                     .validationDelegate(validationDelegate)
-                    .acceptedCardBrands(cfg.acceptedCardBrands)
+                    .acceptedCardBrands(config.acceptedCardBrands)
 
-                if cfg.enablePanFormatting {
+                if config.enablePanFormatting {
                     builder = builder.enablePanFormatting()
                 }
 

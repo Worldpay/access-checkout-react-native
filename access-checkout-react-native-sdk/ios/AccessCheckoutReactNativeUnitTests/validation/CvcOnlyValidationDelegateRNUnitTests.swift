@@ -5,7 +5,7 @@ import XCTest
 class CvcOnlyValidationDelegateRNUnitTests: XCTestCase {
     private let eventEmitter = RCTEventEmitterMock()
     
-    public func testShouldEmitEventWhenCvcIsValid() {
+    func testShouldEmitEventWhenCvcIsValid() {
         let delegate = CvcOnlyValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
@@ -17,7 +17,7 @@ class CvcOnlyValidationDelegateRNUnitTests: XCTestCase {
         XCTAssertTrue(eventEmitter.eventsSent[0].body.isValid!)
     }
 
-    public func testShouldEmitEventWhenCvcIsInvalid() {
+    func testShouldEmitEventWhenCvcIsInvalid() {
         let delegate = CvcOnlyValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
@@ -29,7 +29,7 @@ class CvcOnlyValidationDelegateRNUnitTests: XCTestCase {
         XCTAssertFalse(eventEmitter.eventsSent[0].body.isValid!)
     }
 
-    public func testShouldEmitEventWhenValidationSuccess() {
+    func testShouldEmitEventWhenValidationSuccess() {
         let delegate = CvcOnlyValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 

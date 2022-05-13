@@ -1,14 +1,14 @@
 import XCTest
 @testable import AccessCheckoutReactNative
 
-class ValidationConfigUnitTests: XCTestCase {
+class CardValidationConfigRNUnitTests: XCTestCase {
 
     // MARK: Testing errors related to base URL
     func testThatConfigCannotBeCreatedWhenBaseUrlIsAnEmptyString() {
         let dictionary: NSDictionary = ["baseUrl": ""]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -17,7 +17,7 @@ class ValidationConfigUnitTests: XCTestCase {
         let dictionary: NSDictionary = ["baseUrl": 1]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -26,7 +26,7 @@ class ValidationConfigUnitTests: XCTestCase {
         let dictionary: NSDictionary = ["some-other-key": "some-value"]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -39,7 +39,7 @@ class ValidationConfigUnitTests: XCTestCase {
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingPanId()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -51,7 +51,7 @@ class ValidationConfigUnitTests: XCTestCase {
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingPanId()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -62,7 +62,7 @@ class ValidationConfigUnitTests: XCTestCase {
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingPanId()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -76,7 +76,7 @@ class ValidationConfigUnitTests: XCTestCase {
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryId()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -89,7 +89,7 @@ class ValidationConfigUnitTests: XCTestCase {
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryId()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -101,7 +101,7 @@ class ValidationConfigUnitTests: XCTestCase {
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryId()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -116,7 +116,7 @@ class ValidationConfigUnitTests: XCTestCase {
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvcId()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -130,7 +130,7 @@ class ValidationConfigUnitTests: XCTestCase {
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvcId()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -143,7 +143,7 @@ class ValidationConfigUnitTests: XCTestCase {
         ]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvcId()
 
-        XCTAssertThrowsError(try ValidationConfig(dictionary: dictionary)) { error in
+        XCTAssertThrowsError(try CardValidationConfigRN(dictionary: dictionary)) { error in
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
         }
     }
@@ -159,7 +159,7 @@ class ValidationConfigUnitTests: XCTestCase {
             "acceptedCardBrands": ["brand-1", "brand-2"]
         ]
         
-        let config = try! ValidationConfig(dictionary: dictionary)
+        let config = try! CardValidationConfigRN(dictionary: dictionary)
         
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.panId, "some-pan-id")
@@ -178,7 +178,7 @@ class ValidationConfigUnitTests: XCTestCase {
             "enablePanFormatting": "some-string"
         ]
         
-        let config = try! ValidationConfig(dictionary: dictionary)
+        let config = try! CardValidationConfigRN(dictionary: dictionary)
         
         XCTAssertFalse(config.enablePanFormatting)
     }
@@ -192,7 +192,7 @@ class ValidationConfigUnitTests: XCTestCase {
             "cvcId": "some-cvc-id",
         ]
         
-        let config = try! ValidationConfig(dictionary: dictionary)
+        let config = try! CardValidationConfigRN(dictionary: dictionary)
         
         XCTAssertFalse(config.enablePanFormatting)
     }
@@ -207,7 +207,7 @@ class ValidationConfigUnitTests: XCTestCase {
             "acceptedCardBrands": 1
         ]
         
-        let config = try! ValidationConfig(dictionary: dictionary)
+        let config = try! CardValidationConfigRN(dictionary: dictionary)
         
         XCTAssertEqual(config.acceptedCardBrands, [])
     }
@@ -221,7 +221,7 @@ class ValidationConfigUnitTests: XCTestCase {
             "cvcId": "some-cvc-id"
         ]
         
-        let config = try! ValidationConfig(dictionary: dictionary)
+        let config = try! CardValidationConfigRN(dictionary: dictionary)
         
         XCTAssertEqual(config.acceptedCardBrands, [])
     }
