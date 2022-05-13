@@ -36,7 +36,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             cvcUITextField: cvcUITextField!)
     }
 
-    func testReturnAnErrorWhenConfigurationProvidedIsInvalid() {
+    func testShouldReturnAnErrorWhenConfigurationProvidedIsInvalid() {
         let expectationToFulfill = expectation(description: "Error should be returned")
         let invalidConfig: NSDictionary = [:]
         let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
@@ -47,6 +47,80 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         } reject: { (errorCode, errorDescription, error) in
             let expectedError = AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+
+    func testShouldReturnAnErrorWhenPanTextFieldNotFound() {
+        let expectationToFulfill = expectation(description: "Error should be returned")
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+
+        reactNativeViewLocatorMock!.panUITextField = nil
+        let expectedError = AccessCheckoutRnIllegalArgumentError.panTextFieldNotFound(
+            panNativeId: "pan")
+
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
+            XCTFail("validation initialisation should have faild but it didn't")
+            expectationToFulfill.fulfill()
+        } reject: { (_, _, error) in
+            XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+
+    func testShouldReturnAnErrorWhenExpiryDateTextFieldNotFound() {
+        let expectationToFulfill = expectation(description: "Error should be returned")
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+
+        reactNativeViewLocatorMock!.expiryDateUITextField = nil
+        let expectedError = AccessCheckoutRnIllegalArgumentError.expiryDateTextFieldNotFound(
+            expiryDateNativeId: "expiryDate")
+
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
+            XCTFail("validation initialisation should have faild but it didn't")
+            expectationToFulfill.fulfill()
+        } reject: { (_, _, error) in
+            XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+
+    func testShouldReturnAnErrorWhenCvcTextFieldNotFound() {
+        let expectationToFulfill = expectation(description: "Error should be returned")
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+
+        reactNativeViewLocatorMock!.cvcUITextField = nil
+        let expectedError = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
+            cvcNativeId: "cvc")
+
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
+            XCTFail("validation initialisation should have faild but it didn't")
+            expectationToFulfill.fulfill()
+        } reject: { (_, _, error) in
+            XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+
+    func testShouldResolvePromiseWithTrueWhenSuccessfullyInitialised() {
+        let expectationToFulfill = expectation(description: "run test successfully")
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
+            XCTAssertTrue(success as! Bool)
+            expectationToFulfill.fulfill()
+        } reject: { (_, _, error) in
+            XCTFail(
+                "got an error back from initialisation \(String(describing: error))"
+            )
             expectationToFulfill.fulfill()
         }
 

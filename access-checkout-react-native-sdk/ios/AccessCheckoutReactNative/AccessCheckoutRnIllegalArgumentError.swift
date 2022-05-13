@@ -71,6 +71,18 @@ public struct AccessCheckoutRnIllegalArgumentError: Error, Equatable {
             message: "Unrecgonised session type found \(type), only CARD or CVC is accepted")
     }
 
+    static func panTextFieldNotFound(panNativeId: String) -> AccessCheckoutRnIllegalArgumentError {
+        return AccessCheckoutRnIllegalArgumentError(
+            message: "Failed to find Pan TextField with nativeID \(panNativeId)")
+    }
+
+    static func expiryDateTextFieldNotFound(expiryDateNativeId: String)
+        -> AccessCheckoutRnIllegalArgumentError
+    {
+        return AccessCheckoutRnIllegalArgumentError(
+            message: "Failed to find Expry Date TextField with nativeID \(expiryDateNativeId)")
+    }
+
     static func cvcTextFieldNotFound(cvcNativeId: String) -> AccessCheckoutRnIllegalArgumentError {
         return AccessCheckoutRnIllegalArgumentError(
             message: "Failed to find Cvc TextField with nativeID \(cvcNativeId)")

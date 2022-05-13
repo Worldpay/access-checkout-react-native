@@ -83,27 +83,42 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     id: cfg.expiryDateId)
                 let cvcInput = self.reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
 
-                if panInput != nil, expiryInput != nil, cvcInput != nil {
-                    let validationDelegate = AccessCheckoutCardValidationDelegateRN(
-                        eventEmitter: self, eventName: self.cardValidationEventName)
-
-                    var builder = CardValidationConfig.builder()
-                        .pan(panInput!)
-                        .expiryDate(expiryInput!)
-                        .cvc(cvcInput!)
-                        .accessBaseUrl(cfg.baseUrl)
-                        .validationDelegate(validationDelegate)
-                        .acceptedCardBrands(cfg.acceptedCardBrands)
-
-                    if cfg.enablePanFormatting {
-                        builder = builder.enablePanFormatting()
-                    }
-
-                    let validationConfig = try! builder.build()
-
-                    AccessCheckoutValidationInitialiser().initialise(validationConfig)
-                    resolve(true)
+                if panInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.panTextFieldNotFound(
+                        panNativeId: cfg.panId)
+                    reject("", error.localizedDescription, error)
+                    return
+                } else if expiryInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.expiryDateTextFieldNotFound(
+                        expiryDateNativeId: cfg.expiryDateId)
+                    reject("", error.localizedDescription, error)
+                    return
+                } else if cvcInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
+                        cvcNativeId: cfg.cvcId)
+                    reject("", error.localizedDescription, error)
+                    return
                 }
+
+                let validationDelegate = AccessCheckoutCardValidationDelegateRN(
+                    eventEmitter: self, eventName: self.cardValidationEventName)
+
+                var builder = CardValidationConfig.builder()
+                    .pan(panInput!)
+                    .expiryDate(expiryInput!)
+                    .cvc(cvcInput!)
+                    .accessBaseUrl(cfg.baseUrl)
+                    .validationDelegate(validationDelegate)
+                    .acceptedCardBrands(cfg.acceptedCardBrands)
+
+                if cfg.enablePanFormatting {
+                    builder = builder.enablePanFormatting()
+                }
+
+                let validationConfig = try! builder.build()
+
+                AccessCheckoutValidationInitialiser().initialise(validationConfig)
+                resolve(true)
             } catch {
                 reject("", "invalid validation config found", error)
             }
@@ -128,18 +143,16 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     return
                 }
 
-                if cvcInput != nil {
-                    let validationDelegate = CvcOnlyValidationDelegateRN(
-                        eventEmitter: self, eventName: self.cvcOnlyValidationEventName)
+                let validationDelegate = CvcOnlyValidationDelegateRN(
+                    eventEmitter: self, eventName: self.cvcOnlyValidationEventName)
 
-                    let validationConfig = try! CvcOnlyValidationConfig.builder()
-                        .cvc(cvcInput!)
-                        .validationDelegate(validationDelegate)
-                        .build()
+                let validationConfig = try! CvcOnlyValidationConfig.builder()
+                    .cvc(cvcInput!)
+                    .validationDelegate(validationDelegate)
+                    .build()
 
-                    AccessCheckoutValidationInitialiser().initialise(validationConfig)
-                    resolve(true)
-                }
+                AccessCheckoutValidationInitialiser().initialise(validationConfig)
+                resolve(true)
             } catch {
                 reject("", "invalid validation config found", error)
             }
