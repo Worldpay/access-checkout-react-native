@@ -19,7 +19,6 @@ import SessionLabel from '../common/SessionLabel';
 export default function CvcFlow() {
   const [cvcValue, setCvc] = useState<string>('');
 
-  //const [setSubmitBtnEnabled] = useState<boolean>(false);
   const [showSpinner, setShowSpinner] = useState<boolean>(false);
   const [isEditable, setIsEditable] = useState<boolean>(true);
 
@@ -35,7 +34,6 @@ export default function CvcFlow() {
 
     setShowSpinner(true);
     setIsEditable(false);
-    //setSubmitBtnEnabled(false);
 
     const cardDetails: CardDetails = {
       cvc: cvcValue,
@@ -55,7 +53,6 @@ export default function CvcFlow() {
       })
       .finally(() => {
         setShowSpinner(false);
-        //setSubmitBtnEnabled(true);
         setIsEditable(true);
       });
   }

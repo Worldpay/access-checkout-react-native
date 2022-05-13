@@ -76,7 +76,7 @@ class GenerateSessionsConfigConverterTest {
     }
 
     @Test
-    fun `should Convert Map Into GenerateSessionConfig When Session Type Contains Card`() {
+    fun `should convert map into generateSessionConfig when session type contains card`() {
         val map = mapWithCardSessionTypesAndValidEntries()
         val convert = converter.fromReadableMap(map)
 
@@ -161,6 +161,7 @@ class GenerateSessionsConfigConverterTest {
         map.putArray("sessionTypes", JavaOnlyArray.of("card"))
         return map
     }
+
     private fun mapWithCvcSessionTypesAndValidEntries(): JavaOnlyMap {
         val map = JavaOnlyMap()
         map.putString("baseUrl", "some-base-url")
