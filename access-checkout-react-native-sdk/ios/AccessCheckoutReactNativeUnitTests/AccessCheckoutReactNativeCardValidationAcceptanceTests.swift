@@ -5,7 +5,7 @@ import XCTest
 @testable import AccessCheckoutReactNative
 @testable import AccessCheckoutReactNativeUnitTestsApp
 
-class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
+class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
     private let stubServices = StubServices(baseUrl: "http://localhost")
     private let config: NSDictionary = [
         "baseUrl": "http://localhost",
@@ -34,13 +34,6 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             panUITextField: panUITextField!,
             expiryDateUITextField: expiryDateUITextField!,
             cvcUITextField: cvcUITextField!)
-    }
-
-    func testEventsSupportedByNativeModule() {
-        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
-
-        XCTAssertEqual(
-            accessCheckoutReactNative.supportedEvents(), ["AccessCheckoutCardValidationEvent"])
     }
 
     func testReturnAnErrorWhenConfigurationProvidedIsInvalid() {

@@ -70,4 +70,9 @@ public struct AccessCheckoutRnIllegalArgumentError: Error, Equatable {
         return AccessCheckoutRnIllegalArgumentError(
             message: "Unrecgonised session type found \(type), only CARD or CVC is accepted")
     }
+
+    static func cvcTextFieldNotFound(cvcNativeId: String) -> AccessCheckoutRnIllegalArgumentError {
+        return AccessCheckoutRnIllegalArgumentError(
+            message: "Failed to find Cvc TextField with nativeID \(cvcNativeId)")
+    }
 }
