@@ -43,9 +43,9 @@ class SessionsInstrumentedTests {
     fun testShouldBeAbleToGenerateACardSession() {
         VerifiedTokensStub.stubSessionsSuccess("my-session")
         sessionsTextFixture().pan("4444333322221111")
-                .expiryDate("12/34")
-                .cvc("123")
-                .sessionsTypes(listOf(CARD))
+            .expiryDate("12/34")
+            .cvc("123")
+            .sessionsTypes(listOf(CARD))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -59,15 +59,15 @@ class SessionsInstrumentedTests {
         SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
 
         sessionsTextFixture().pan("4444333322221111")
-                .expiryDate("12/34")
-                .cvc("123")
-                .sessionsTypes(listOf(CARD, CVC))
+            .expiryDate("12/34")
+            .cvc("123")
+            .sessionsTypes(listOf(CARD, CVC))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
         val expectedSessions = mapOf(
-                "card" to "my-session",
-                "cvc" to "my-other-session"
+            "card" to "my-session",
+            "cvc" to "my-other-session"
         )
         assertSessionsAre(scenario, expectedSessions)
     }
@@ -77,13 +77,13 @@ class SessionsInstrumentedTests {
         SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
 
         sessionsTextFixture()
-                .cvc("123")
-                .sessionsTypes(listOf(CVC))
+            .cvc("123")
+            .sessionsTypes(listOf(CVC))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
         val expectedSessions = mapOf(
-                "cvc" to "my-other-session"
+            "cvc" to "my-other-session"
         )
         assertSessionsAre(scenario, expectedSessions)
     }
@@ -98,10 +98,10 @@ class SessionsInstrumentedTests {
         SessionsStub.stubSessionsPaymentsCvcFailure(errorName, message)
 
         sessionsTextFixture()
-                .pan("4444333322221111")
-                .expiryDate("12/34")
-                .cvc("123")
-                .sessionsTypes(listOf(CARD, CVC))
+            .pan("4444333322221111")
+            .expiryDate("12/34")
+            .cvc("123")
+            .sessionsTypes(listOf(CARD, CVC))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -113,8 +113,8 @@ class SessionsInstrumentedTests {
         val exception = RuntimeException("Expected cvcValue to be provided but was not")
 
         sessionsTextFixture()
-                .cvc(null)
-                .sessionsTypes(listOf(CVC))
+            .cvc(null)
+            .sessionsTypes(listOf(CVC))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -122,8 +122,8 @@ class SessionsInstrumentedTests {
     }
 
     private fun assertSessionsAre(
-            scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
-            expectedMap: Map<String, String>
+        scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
+        expectedMap: Map<String, String>
     ) {
         await().atMost(timeOutInMs, MILLISECONDS).until {
             var sessions: Map<String, String> = HashMap()
@@ -137,8 +137,8 @@ class SessionsInstrumentedTests {
     }
 
     private fun assertErrorMessageIs(
-            scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
-            expectedErrorMessage: String
+        scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
+        expectedErrorMessage: String
     ) {
         await().atMost(timeOutInMs, MILLISECONDS).until {
             var errorMessage = ""
@@ -161,8 +161,8 @@ class SessionsInstrumentedTests {
     }
 
     private fun assertExceptionIs(
-            scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
-            expectedException: RuntimeException
+        scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
+        expectedException: RuntimeException
     ) {
         await().atMost(timeOutInMs, MILLISECONDS).until {
             var exception: RuntimeException? = null
