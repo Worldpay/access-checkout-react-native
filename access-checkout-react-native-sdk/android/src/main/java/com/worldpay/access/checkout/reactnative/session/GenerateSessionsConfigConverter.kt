@@ -3,6 +3,9 @@ package com.worldpay.access.checkout.reactnative.session
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.worldpay.access.checkout.client.session.model.SessionType
+import com.worldpay.access.checkout.client.session.model.SessionType.CARD
+import com.worldpay.access.checkout.client.session.model.SessionType.CVC
+
 
 class GenerateSessionsConfigConverter {
 
@@ -16,18 +19,34 @@ class GenerateSessionsConfigConverter {
 
         validateNotNull(baseUrl, "baseUrl")
         validateNotNull(merchantId, "merchantId")
-        validateNotNull(panValue, "panValue")
-        validateNotNull(expiryDateValue, "expiryDateValue")
-        validateNotNull(cvcValue, "cvcValue")
 
-        return GenerateSessionsConfig(
-            baseUrl = baseUrl as String,
-            merchantId = merchantId as String,
-            panValue = panValue as String,
-            expiryDateValue = expiryDateValue as String,
-            cvcValue = cvcValue as String,
-            sessionTypes = toSessionTypesList(sessionTypes)
-        )
+        val sessionTypesList = toSessionTypesList(sessionTypes)
+
+        if (sessionTypesList.contains(CARD)) {
+            validateNotNull(panValue, "panValue")
+            validateNotNull(expiryDateValue, "expiryDateValue")
+            validateNotNull(cvcValue, "cvcValue")
+
+            return GenerateSessionsConfig(
+                baseUrl = baseUrl!!,
+                merchantId = merchantId!!,
+                panValue = panValue!!,
+                expiryDateValue = expiryDateValue!!,
+                cvcValue = cvcValue!!,
+                sessionTypes = sessionTypesList
+            )
+        } else {
+            validateNotNull(cvcValue, "cvcValue")
+
+            return GenerateSessionsConfig(
+                baseUrl = baseUrl!!,
+                merchantId = merchantId!!,
+                panValue = "",
+                expiryDateValue = "",
+                cvcValue = cvcValue!!,
+                sessionTypes = sessionTypesList
+            )
+        }
     }
 
     private fun toSessionTypesList(sessionTypes: ReadableArray?): List<SessionType> {
@@ -67,3 +86,4 @@ class GenerateSessionsConfigConverter {
         }
     }
 }
+
