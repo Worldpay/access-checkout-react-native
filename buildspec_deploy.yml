@@ -10,12 +10,13 @@ phases:
   install:
     runtime-versions:
       nodejs: 12
-      java: corretto8
+      java: corretto11
     commands:
   build:
     commands:
       - echo "Publishing React Native SDK..."
-      - ./access-checkout-react-native-sdk/scripts/publish.sh -d=prod
+      - cd access-checkout-react-native-sdk
+      - ./scripts/publish.sh -d=prod
   post_build:
     commands:
-      - ./access-checkout-react-native-sdk/scripts/post-deploy.sh
+      - ./scripts/post-deploy.sh

@@ -34,12 +34,19 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     .build()
             }
 
-            let cardDetails = try CardDetailsBuilder()
-                .pan(cfg.panValue)
-                .expiryDate(cfg.expiryDateValue)
-                .cvc(cfg.cvcValue)
-                .build()
+            let cardDetails: CardDetails
 
+            if isCvcSessionOnly(sessionTypes: cfg.sessionTypes) {
+                cardDetails = try CardDetailsBuilder()
+                    .cvc(cfg.cvcValue!)
+                    .build()
+            } else {
+                cardDetails = try CardDetailsBuilder()
+                    .pan(cfg.panValue!)
+                    .expiryDate(cfg.expiryDateValue!)
+                    .cvc(cfg.cvcValue!)
+                    .build()
+            }
             try accessCheckoutClient!.generateSessions(
                 cardDetails: cardDetails, sessionTypes: cfg.sessionTypes
             ) {
@@ -71,7 +78,8 @@ class AccessCheckoutReactNative: RCTEventEmitter {
             do {
                 let cfg = try ValidationConfig(dictionary: config)
                 let panInput = self.reactNativeViewLocator.locateUITextField(id: cfg.panId)
-                let expiryInput = self.reactNativeViewLocator.locateUITextField(id: cfg.expiryDateId)
+                let expiryInput = self.reactNativeViewLocator.locateUITextField(
+                    id: cfg.expiryDateId)
                 let cvcInput = self.reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
 
                 if panInput != nil, expiryInput != nil, cvcInput != nil {
@@ -102,7 +110,16 @@ class AccessCheckoutReactNative: RCTEventEmitter {
         }
     }
 
+    func isCvcSessionOnly(sessionTypes: Set<SessionType>) -> Bool {
+        return sessionTypes.count == 1 && sessionTypes.first == SessionType.cvc
+    }
+
     override func supportedEvents() -> [String]! {
         return [cardValidationEventName]
+    }
+
+    @objc
+    static override func requiresMainQueueSetup() -> Bool {
+        return false
     }
 }

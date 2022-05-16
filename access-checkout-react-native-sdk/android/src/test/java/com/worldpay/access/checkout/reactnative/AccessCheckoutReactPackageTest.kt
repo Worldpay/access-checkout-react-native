@@ -9,12 +9,12 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-internal class AccessCheckoutReactNativePackageTest {
-    private val acoReactNativePackage = AccessCheckoutReactNativePackage()
+internal class AccessCheckoutReactPackageTest {
+    private val acoReactPackage = AccessCheckoutReactPackage()
 
     @Test
     fun `createNativeModules() should return list with one AccessCheckoutReactNativeModule`() {
-        val nativeModules = acoReactNativePackage.createNativeModules(reactApplicationContext())
+        val nativeModules = acoReactPackage.createNativeModules(reactApplicationContext())
 
         assertThat(nativeModules).hasSize(1)
         assertThat(nativeModules[0]).isInstanceOf(AccessCheckoutReactNativeModule::class.java)
@@ -22,7 +22,7 @@ internal class AccessCheckoutReactNativePackageTest {
 
     @Test
     fun `createViewManagers() should not create view managers`() {
-        val viewManagers = acoReactNativePackage.createViewManagers(reactApplicationContext())
+        val viewManagers = acoReactPackage.createViewManagers(reactApplicationContext())
 
         assertThat(viewManagers).isEmpty()
     }

@@ -22,15 +22,15 @@ class SessionsTestFixture {
             return INSTANCE
         }
 
-        fun pan(): String {
+        fun pan(): String? {
             return INSTANCE.pan
         }
 
-        fun expiryDate(): String {
+        fun expiryDate(): String? {
             return INSTANCE.expiryDate
         }
 
-        fun cvc(): String {
+        fun cvc(): String? {
             return INSTANCE.cvc
         }
 
@@ -39,22 +39,22 @@ class SessionsTestFixture {
         }
     }
 
-    var pan: String = ""
-    var expiryDate: String = ""
-    var cvc: String = ""
+    var pan: String? = null
+    var expiryDate: String? = null
+    var cvc: String? = null
     var sessionsTypes: MutableList<String> = ArrayList()
 
-    fun pan(pan: String): SessionsTestFixture {
+    fun pan(pan: String?): SessionsTestFixture {
         this.pan = pan
         return this
     }
 
-    fun expiryDate(expiryDate: String): SessionsTestFixture {
+    fun expiryDate(expiryDate: String?): SessionsTestFixture {
         this.expiryDate = expiryDate
         return this
     }
 
-    fun cvc(cvc: String): SessionsTestFixture {
+    fun cvc(cvc: String?): SessionsTestFixture {
         this.cvc = cvc
         return this
     }
@@ -66,9 +66,9 @@ class SessionsTestFixture {
     }
 
     fun clear(): SessionsTestFixture {
-        INSTANCE.pan = ""
-        INSTANCE.expiryDate = ""
-        INSTANCE.cvc = ""
+        INSTANCE.pan = null
+        INSTANCE.expiryDate = null
+        INSTANCE.cvc = null
         INSTANCE.sessionsTypes.clear()
         return this
     }

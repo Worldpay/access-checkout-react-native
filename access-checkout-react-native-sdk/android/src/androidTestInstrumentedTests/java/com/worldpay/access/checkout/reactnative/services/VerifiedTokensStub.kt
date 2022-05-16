@@ -6,12 +6,12 @@ class VerifiedTokensStub {
     companion object {
         fun stubRootSuccess() {
             stubFor(
-                get("/verifiedTokens")
-                    .willReturn(
-                        aResponse()
-                            .withStatus(200)
-                            .withBody(
-                                """{
+                    get("/verifiedTokens")
+                            .willReturn(
+                                    aResponse()
+                                            .withStatus(200)
+                                            .withBody(
+                                                    """{
                                     "_links": {
                                         "resourceTree": {
                                             "href": "https://localhost:8443/rels/verifiedTokens/resourceTree.json"
@@ -31,20 +31,20 @@ class VerifiedTokensStub {
                                         ]
                                     }
                                 }"""
+                                            )
                             )
-                    )
             )
         }
 
         fun stubSessionsSuccess(session: String) {
             stubFor(
-                post("/verifiedTokens/sessions")
-                    .willReturn(
-                        aResponse()
-                            .withStatus(201)
-                            .withHeader("Location", session)
-                            .withBody(
-                                """{
+                    post("/verifiedTokens/sessions")
+                            .willReturn(
+                                    aResponse()
+                                            .withStatus(201)
+                                            .withHeader("Location", session)
+                                            .withBody(
+                                                    """{
                                     "_links": {
                                         "curies": [
                                             {
@@ -58,8 +58,8 @@ class VerifiedTokensStub {
                                         }
                                     }
                                 }"""
+                                            )
                             )
-                    )
             )
         }
     }

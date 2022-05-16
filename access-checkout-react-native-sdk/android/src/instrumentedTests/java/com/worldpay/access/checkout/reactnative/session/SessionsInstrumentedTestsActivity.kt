@@ -21,12 +21,14 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
         const val bridgeFieldBaseUrl = "baseUrl"
         const val bridgeFieldMerchantId = "merchantId"
         const val bridgeFieldPanId = "panValue"
-        const val bridgeFieldExpiryDateId = "expiryValue"
+        const val bridgeFieldExpiryDateId = "expiryDateValue"
         const val bridgeFieldCvcId = "cvcValue"
         const val bridgeFieldSessionTypes = "sessionTypes"
     }
 
     var sessions: MutableMap<String, String> = HashMap()
+    var errorMessage: String = ""
+    var exception: RuntimeException? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,34 +42,39 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
         arguments.putString(bridgeFieldExpiryDateId, SessionsTestFixture.expiryDate())
         arguments.putString(bridgeFieldCvcId, SessionsTestFixture.cvc())
         arguments.putArray(
-            bridgeFieldSessionTypes,
-            JavaOnlyArray.from(SessionsTestFixture.sessionsTypes())
+                bridgeFieldSessionTypes,
+                JavaOnlyArray.from(SessionsTestFixture.sessionsTypes())
         )
 
         val module = AccessCheckoutReactNativeModule(mockReactApplicationContext(this))
 
         launch {
-            val result = generateSessions(module, arguments)
+            try {
+                val result = generateSessions(module, arguments)
 
-            if (result.getString("card") != null) {
-                sessions["card"] = result.getString("card") as String
+                if (result.getString("card") != null) {
+                    sessions["card"] = result.getString("card") as String
+                }
+                if (result.getString("cvc") != null) {
+                    sessions["cvc"] = result.getString("cvc") as String
+                }
+            } catch (runtimeException: RuntimeException) {
+                exception = runtimeException
             }
-            if (result.getString("cvc") != null) {
-                sessions["cvc"] = result.getString("cvc") as String
-            }
+
         }
     }
 
     private suspend fun generateSessions(
-        module: AccessCheckoutReactNativeModule,
-        arguments: JavaOnlyMap
+            module: AccessCheckoutReactNativeModule,
+            arguments: JavaOnlyMap
     ): ReadableMap =
-        suspendCoroutine { continuation ->
-            val promise = PromiseImpl(
-                SuccessCallback(continuation),
-                FailureCallback(continuation)
-            )
+            suspendCoroutine { continuation ->
+                val promise = PromiseImpl(
+                        SuccessCallback(continuation),
+                        FailureCallback(continuation)
+                )
 
-            module.generateSessions(arguments, promise)
-        }
+                module.generateSessions(arguments, promise)
+            }
 }

@@ -28,7 +28,7 @@ import styles from './style.js';
 
 export default function CardFlow() {
   const unknownBrandLogo =
-    'https://preprod.access.worldpay.com/access-checkout/assets/unknown.png';
+    'https://npe.access.worldpay.com/access-checkout/assets/unknown.png';
 
   const [panValue, setPan] = useState<string>('');
   const [expiryValue, setExpiry] = useState<string>('');
@@ -52,7 +52,7 @@ export default function CardFlow() {
   const [cvcSession, setCvcSession] = useState('');
 
   const accessCheckout = new AccessCheckout({
-    accessBaseUrl: 'https://preprod.access.worldpay.com',
+    baseUrl: 'https://npe.access.worldpay.com',
     merchantId: 'identity',
   });
 
@@ -114,7 +114,7 @@ export default function CardFlow() {
   const onLayout = () => {
     initialiseCardValidation()
       .then(() => {
-        console.log('Validation successfully initialised');
+        console.info('Validation successfully initialised');
       })
       .catch((error) => {
         Alert.alert('Error', `${error}`, [{ text: 'OK' }]);
@@ -137,6 +137,8 @@ export default function CardFlow() {
     accessCheckout
       .generateSessions(cardDetails, sessionTypes)
       .then((sessions: Sessions) => {
+        console.info(`Successfully generated session(s)`);
+
         if (sessions.card) {
           setCardSession(sessions.card);
         }

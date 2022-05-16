@@ -1,4 +1,4 @@
-import { AccessCheckoutReactNative } from './index';
+import { AccessCheckoutReactNative } from './AccessCheckoutReactNative';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import CardDetails from './session/CardDetails';
@@ -16,20 +16,17 @@ export default class AccessCheckout {
   static CardValidationEventType = 'AccessCheckoutCardValidationEvent';
   static CvcValidationEventType = 'AccessCheckoutCvcValidationEvent';
 
-  accessBaseUrl: string;
+  baseUrl: string;
   merchantId?: string;
 
   constructor({
-    accessBaseUrl,
+    baseUrl,
     merchantId,
   }: {
-    accessBaseUrl: string;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    x;
+    baseUrl: string;
     merchantId?: string;
   }) {
-    this.accessBaseUrl = accessBaseUrl;
+    this.baseUrl = baseUrl;
     this.merchantId = merchantId;
   }
 
@@ -39,7 +36,7 @@ export default class AccessCheckout {
   ): Promise<Sessions> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.generateSessions({
-        baseUrl: this.accessBaseUrl,
+        baseUrl: this.baseUrl,
         merchantId: this.merchantId,
         panValue: cardDetails.pan,
         expiryDateValue: cardDetails.expiryDate,
@@ -70,7 +67,7 @@ export default class AccessCheckout {
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCardValidation({
-        baseUrl: this.accessBaseUrl,
+        baseUrl: this.baseUrl,
         panId: validationConfig.panId,
         expiryDateId: validationConfig.expiryDateId,
         cvcId: validationConfig.cvcId,
@@ -92,7 +89,7 @@ export default class AccessCheckout {
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCvcValidation({
-        baseUrl: this.accessBaseUrl,
+        baseUrl: this.baseUrl,
         cvcId: validationConfig.cvcId,
       })
         .then(() => {
