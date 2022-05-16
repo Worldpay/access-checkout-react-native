@@ -2,7 +2,7 @@ import XCTest
 
 @testable import AccessCheckoutReactNative
 
-class AccessCheckoutCvcOnlyValidationEventUnitTest: XCTestCase {
+class CvcOnlyValidationConfigUnitTest: XCTestCase {
     func testThatConfigCannotBeCreatedWhenCvcIdIsAnEmptyString() {
         let dictionary: NSDictionary = ["cvcId": ""]
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvcId()

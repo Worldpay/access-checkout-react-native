@@ -77,7 +77,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
         wait(for: [expectationToFulfill], timeout: 5)
     }
 
-    func testShouldRaiseventWhenCvcBecomesValid() {
+    func testShouldRaiseEventWhenCvcBecomesValid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
             reactNativeViewLocatorMock!)
