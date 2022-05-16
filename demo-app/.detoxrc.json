@@ -6,7 +6,7 @@
     "ios": {
       "type": "ios.app",
       "binaryPath": "ios/Build/Build/Products/Debug-iphonesimulator/AccessCheckoutReactNativeDemo.app",
-      "build": "./scripts/ios-detox-build.sh -v=14.5"
+      "build": "./scripts/ios-detox-build.sh -v=14.4"
     },
     "android": {
       "type": "android.apk",
