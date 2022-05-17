@@ -12,6 +12,8 @@ export { default as Sessions } from './session/Sessions';
 
 export { default as CardValidationConfig } from './validation/CardValidationConfig';
 
+export { default as CvcOnlyValidationConfig } from './validation/CvcOnlyValidationConfig';
+
 export { default as Brand } from './validation/Brand';
 
 export { default as BrandImage } from './validation/BrandImage';
@@ -21,4 +23,10 @@ export {
   cardValidationNativeEventListenerOf,
 } from './validation/CardValidationEventListener';
 
+export {
+  CvcOnlyValidationEventListener,
+  cvcOnlyValidationNativeEventListenerOf,
+} from './validation/CvcOnlyValidationEventListener';
+
 export { useCardValidation } from './validation/CardValidationHooks';
+export { useCvcOnlyValidation } from './validation/CvcOnlyValidationHooks';
