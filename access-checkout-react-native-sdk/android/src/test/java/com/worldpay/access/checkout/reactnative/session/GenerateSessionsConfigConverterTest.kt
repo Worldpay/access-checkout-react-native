@@ -6,13 +6,14 @@ import com.worldpay.access.checkout.client.session.model.SessionType
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class GenerateSessionsConfigConverterTest {
     private val converter = GenerateSessionsConfigConverter()
 
     @Test
     fun shouldConvertMapIntoValidationConfig() {
-        val map = mapWithValidEntries()
+        val map = mapWithCardSessionTypesAndValidEntries()
 
         val config = converter.fromReadableMap(map)
 
@@ -26,7 +27,7 @@ class GenerateSessionsConfigConverterTest {
 
     @Test
     fun `should throw exception when baseUrl is null`() {
-        val map = mapWithValidEntries()
+        val map = mapWithCardSessionTypesAndValidEntries()
         map.putString("baseUrl", null)
 
         assertThatIllegalArgumentException()
@@ -36,7 +37,7 @@ class GenerateSessionsConfigConverterTest {
 
     @Test
     fun `should throw exception when merchantId is null`() {
-        val map = mapWithValidEntries()
+        val map = mapWithCardSessionTypesAndValidEntries()
         map.putString("merchantId", null)
 
         assertThatIllegalArgumentException()
@@ -45,8 +46,8 @@ class GenerateSessionsConfigConverterTest {
     }
 
     @Test
-    fun `should throw exception when panValue is null`() {
-        val map = mapWithValidEntries()
+    fun `should throw exception when session types contains card and panValue is null`() {
+        val map = mapWithCardSessionTypesAndValidEntries()
         map.putString("panValue", null)
 
         assertThatIllegalArgumentException()
@@ -55,8 +56,8 @@ class GenerateSessionsConfigConverterTest {
     }
 
     @Test
-    fun `should throw exception when expiryDateValue is null`() {
-        val map = mapWithValidEntries()
+    fun `should throw exception when session types contains card and expiryDate is null`() {
+        val map = mapWithCardSessionTypesAndValidEntries()
         map.putString("expiryDateValue", null)
 
         assertThatIllegalArgumentException()
@@ -65,8 +66,8 @@ class GenerateSessionsConfigConverterTest {
     }
 
     @Test
-    fun `should throw exception when cvcValue is null`() {
-        val map = mapWithValidEntries()
+    fun `should throw exception when session types contains card and cvc is null`() {
+        val map = mapWithCardSessionTypesAndValidEntries()
         map.putString("cvcValue", null)
 
         assertThatIllegalArgumentException()
@@ -75,8 +76,34 @@ class GenerateSessionsConfigConverterTest {
     }
 
     @Test
+    fun `should convert map into generateSessionConfig when session type contains card`() {
+        val map = mapWithCardSessionTypesAndValidEntries()
+        val convert = converter.fromReadableMap(map)
+
+        assertEquals(convert::class.java, GenerateSessionsConfig::class.java)
+    }
+
+    @Test
+    fun `should throw exception when session types contains cvc and cvc is null`() {
+        val map = mapWithCvcSessionTypesAndValidEntries()
+        map.putString("cvcValue", null)
+
+        assertThatIllegalArgumentException()
+            .isThrownBy { converter.fromReadableMap(map) }
+            .withMessage("Expected cvcValue to be provided but was not")
+    }
+
+    @Test
+    fun `should convert map into generateSessionConfig when session types is cvc only`() {
+        val map = mapWithCvcSessionTypesAndValidEntries()
+        val convert = converter.fromReadableMap(map)
+
+        assertEquals(convert::class.java, GenerateSessionsConfig::class.java)
+    }
+
+    @Test
     fun `should throw exception when sessionTypes is null`() {
-        val map = mapWithValidEntries()
+        val map = mapWithCardSessionTypesAndValidEntries()
         map.putArray("sessionTypes", null)
 
         assertThatIllegalArgumentException()
@@ -86,7 +113,7 @@ class GenerateSessionsConfigConverterTest {
 
     @Test
     fun `should throw exception when sessionTypes is empty`() {
-        val map = mapWithValidEntries()
+        val map = mapWithCardSessionTypesAndValidEntries()
         map.putArray("sessionTypes", JavaOnlyArray.of())
 
         assertThatIllegalArgumentException()
@@ -96,8 +123,8 @@ class GenerateSessionsConfigConverterTest {
 
     @Test
     fun `should throw exception when sessionTypes has more than 2 entries`() {
-        val map = mapWithValidEntries()
-        map.putArray("sessionTypes", JavaOnlyArray.of("card", "cvc", "cvc"))
+        val map = mapWithCardSessionTypesAndValidEntries()
+        map.putArray("sessionTypes", JavaOnlyArray.of("card", "cvc", "other"))
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
@@ -106,7 +133,7 @@ class GenerateSessionsConfigConverterTest {
 
     @Test
     fun `should throw exception when sessionTypes has an entry which is not a string`() {
-        val map = mapWithValidEntries()
+        val map = mapWithCardSessionTypesAndValidEntries()
         map.putArray("sessionTypes", JavaOnlyArray.of("card", 1))
 
         assertThatIllegalArgumentException()
@@ -116,7 +143,7 @@ class GenerateSessionsConfigConverterTest {
 
     @Test
     fun `should throw exception when sessionTypes has an entry which is not recognised`() {
-        val map = mapWithValidEntries()
+        val map = mapWithCardSessionTypesAndValidEntries()
         map.putArray("sessionTypes", JavaOnlyArray.of("card", "other"))
 
         assertThatIllegalArgumentException()
@@ -124,7 +151,7 @@ class GenerateSessionsConfigConverterTest {
             .withMessage("Unrecognised session type found other, only CARD or CVC is accepted")
     }
 
-    private fun mapWithValidEntries(): JavaOnlyMap {
+    private fun mapWithCardSessionTypesAndValidEntries(): JavaOnlyMap {
         val map = JavaOnlyMap()
         map.putString("baseUrl", "some-base-url")
         map.putString("merchantId", "some-merchant-id")
@@ -132,6 +159,15 @@ class GenerateSessionsConfigConverterTest {
         map.putString("expiryDateValue", "some-expiry-date-value")
         map.putString("cvcValue", "some-cvc-value")
         map.putArray("sessionTypes", JavaOnlyArray.of("card"))
+        return map
+    }
+
+    private fun mapWithCvcSessionTypesAndValidEntries(): JavaOnlyMap {
+        val map = JavaOnlyMap()
+        map.putString("baseUrl", "some-base-url")
+        map.putString("merchantId", "some-merchant-id")
+        map.putString("cvcValue", "some-cvc-value")
+        map.putArray("sessionTypes", JavaOnlyArray.of("cvc"))
         return map
     }
 }

@@ -1,6 +1,6 @@
 import AccessCheckoutSDK
 
-struct ValidationConfig {
+struct CardValidationConfigRN {
     let baseUrl: String
     let panId: String
     let expiryDateId: String

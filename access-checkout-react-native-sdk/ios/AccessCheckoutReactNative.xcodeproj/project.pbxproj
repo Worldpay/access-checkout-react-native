@@ -8,24 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		1ACAF0B6E37F6E6556A6AF73 /* Pods_AccessCheckoutReactNativeUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3266479B098EECF68079728 /* Pods_AccessCheckoutReactNativeUnitTests.framework */; };
+		515BA38C282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA38B282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift */; };
+		515BA394282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA393282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift */; };
+		515BA39C282E6F9600BA262D /* CvcValidationTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 515BA39B282E6F9600BA262D /* CvcValidationTest.storyboard */; };
+		515BA3A4282E829100BA262D /* CvcOnlyValidationConfigUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA3A3282E829100BA262D /* CvcOnlyValidationConfigUnitTest.swift */; };
+		515BA3A9282E829D00BA262D /* CvcOnlyValidationConfigRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA3A8282E829D00BA262D /* CvcOnlyValidationConfigRN.swift */; };
+		515BA3CA282E903300BA262D /* CvcOnlyValidationDelegateRNUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA3C9282E903300BA262D /* CvcOnlyValidationDelegateRNUnitTests.swift */; };
+		515BA3E4282E93A900BA262D /* CvcOnlyValidationDelegateRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA3E3282E93A900BA262D /* CvcOnlyValidationDelegateRN.swift */; };
+		515FFD6A282E994300A15AEB /* AccessCheckoutReactNativeUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515FFD69282E994300A15AEB /* AccessCheckoutReactNativeUnitTests.swift */; };
 		5164FB5827F22E1B0077AA77 /* AccessCheckoutReactNativeSDKiOSBridge.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 5164FB5727F22E1B0077AA77 /* AccessCheckoutReactNativeSDKiOSBridge.podspec */; };
 		5167BB2727A459BF00F8569D /* StubServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5167BB2627A459BF00F8569D /* StubServices.swift */; };
-		5167BB3527A7FE7000F8569D /* AccessCheckoutReactNativeValidationAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5167BB3427A7FE7000F8569D /* AccessCheckoutReactNativeValidationAcceptanceTests.swift */; };
+		5167BB3527A7FE7000F8569D /* AccessCheckoutReactNativeCardValidationAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5167BB3427A7FE7000F8569D /* AccessCheckoutReactNativeCardValidationAcceptanceTests.swift */; };
 		5167BB3927A7FFB100F8569D /* ReactNativeViewLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5167BB3827A7FFB100F8569D /* ReactNativeViewLocator.swift */; };
 		516A9F612757D3B800E9B00E /* AccessCheckoutReactNative.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 516A9F572757D3B800E9B00E /* AccessCheckoutReactNative.framework */; };
-		516A9FA92757D6EB00E9B00E /* ValidationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A9FA02757D6EB00E9B00E /* ValidationConfig.swift */; };
+		516A9FA92757D6EB00E9B00E /* CardValidationConfigRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A9FA02757D6EB00E9B00E /* CardValidationConfigRN.swift */; };
 		516A9FAA2757D6EB00E9B00E /* AccessCheckoutReactNative.m in Sources */ = {isa = PBXBuildFile; fileRef = 516A9FA12757D6EB00E9B00E /* AccessCheckoutReactNative.m */; };
 		516A9FAB2757D6EB00E9B00E /* GenerateSessionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A9FA22757D6EB00E9B00E /* GenerateSessionConfig.swift */; };
 		516A9FAC2757D6EB00E9B00E /* AccessCheckoutRnIllegalArgumentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A9FA32757D6EB00E9B00E /* AccessCheckoutRnIllegalArgumentError.swift */; };
 		516A9FAF2757D6EB00E9B00E /* AccessCheckoutReactNativeModule-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 516A9FA62757D6EB00E9B00E /* AccessCheckoutReactNativeModule-Bridging-Header.h */; };
-		516A9FB02757D6EB00E9B00E /* AccessCheckoutCardValidationDelegateRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A9FA72757D6EB00E9B00E /* AccessCheckoutCardValidationDelegateRN.swift */; };
+		516A9FB02757D6EB00E9B00E /* CardValidationDelegateRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A9FA72757D6EB00E9B00E /* CardValidationDelegateRN.swift */; };
 		516A9FB12757D6EB00E9B00E /* AccessCheckoutReactNative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A9FA82757D6EB00E9B00E /* AccessCheckoutReactNative.swift */; };
 		51C8CFBA27B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFB927B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift */; };
-		51C8CFC827B6D55700F30FD5 /* ValidationConfigUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFC727B6D55700F30FD5 /* ValidationConfigUnitTests.swift */; };
+		51C8CFC827B6D55700F30FD5 /* CardValidationConfigRNUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFC727B6D55700F30FD5 /* CardValidationConfigRNUnitTests.swift */; };
 		51C8CFCD27B6E71300F30FD5 /* RCTEventEmitterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFCC27B6E71300F30FD5 /* RCTEventEmitterMock.swift */; };
 		51C8CFD227B6E72900F30FD5 /* RCTEventMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFD127B6E72900F30FD5 /* RCTEventMock.swift */; };
 		51C8CFD727B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFD627B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift */; };
-		51C8CFDF27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFDE27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift */; };
+		51C8CFDF27B6E86000F30FD5 /* CardValidationDelegateRNUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFDE27B6E86000F30FD5 /* CardValidationDelegateRNUnitTests.swift */; };
 		51C8D02C27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8D02B27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift */; };
 		51C8D03727BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8D03627BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift */; };
 		51D03E7027A85FBA009781EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D03E6E27A85FBA009781EB /* Main.storyboard */; };
@@ -57,27 +65,35 @@
 
 /* Begin PBXFileReference section */
 		0E0967EA219C22625A9504E8 /* Pods_AccessCheckoutReactNative.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AccessCheckoutReactNative.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		515BA38B282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift; sourceTree = "<group>"; };
+		515BA393282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CvcOnlyValidationTestUIViewController.swift; sourceTree = "<group>"; };
+		515BA39B282E6F9600BA262D /* CvcValidationTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CvcValidationTest.storyboard; sourceTree = "<group>"; };
+		515BA3A3282E829100BA262D /* CvcOnlyValidationConfigUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CvcOnlyValidationConfigUnitTest.swift; sourceTree = "<group>"; };
+		515BA3A8282E829D00BA262D /* CvcOnlyValidationConfigRN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CvcOnlyValidationConfigRN.swift; sourceTree = "<group>"; };
+		515BA3C9282E903300BA262D /* CvcOnlyValidationDelegateRNUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CvcOnlyValidationDelegateRNUnitTests.swift; sourceTree = "<group>"; };
+		515BA3E3282E93A900BA262D /* CvcOnlyValidationDelegateRN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CvcOnlyValidationDelegateRN.swift; sourceTree = "<group>"; };
+		515FFD69282E994300A15AEB /* AccessCheckoutReactNativeUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeUnitTests.swift; sourceTree = "<group>"; };
 		5164FB5727F22E1B0077AA77 /* AccessCheckoutReactNativeSDKiOSBridge.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AccessCheckoutReactNativeSDKiOSBridge.podspec; sourceTree = "<group>"; };
 		5167BB2627A459BF00F8569D /* StubServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubServices.swift; sourceTree = "<group>"; };
-		5167BB3427A7FE7000F8569D /* AccessCheckoutReactNativeValidationAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeValidationAcceptanceTests.swift; sourceTree = "<group>"; };
+		5167BB3427A7FE7000F8569D /* AccessCheckoutReactNativeCardValidationAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeCardValidationAcceptanceTests.swift; sourceTree = "<group>"; };
 		5167BB3827A7FFB100F8569D /* ReactNativeViewLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeViewLocator.swift; sourceTree = "<group>"; };
 		516A9F572757D3B800E9B00E /* AccessCheckoutReactNative.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AccessCheckoutReactNative.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		516A9F5B2757D3B800E9B00E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		516A9F602757D3B800E9B00E /* AccessCheckoutReactNativeUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AccessCheckoutReactNativeUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		516A9F672757D3B800E9B00E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		516A9FA02757D6EB00E9B00E /* ValidationConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationConfig.swift; sourceTree = "<group>"; };
+		516A9FA02757D6EB00E9B00E /* CardValidationConfigRN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardValidationConfigRN.swift; sourceTree = "<group>"; };
 		516A9FA12757D6EB00E9B00E /* AccessCheckoutReactNative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessCheckoutReactNative.m; sourceTree = "<group>"; };
 		516A9FA22757D6EB00E9B00E /* GenerateSessionConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateSessionConfig.swift; sourceTree = "<group>"; };
 		516A9FA32757D6EB00E9B00E /* AccessCheckoutRnIllegalArgumentError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessCheckoutRnIllegalArgumentError.swift; sourceTree = "<group>"; };
 		516A9FA62757D6EB00E9B00E /* AccessCheckoutReactNativeModule-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AccessCheckoutReactNativeModule-Bridging-Header.h"; sourceTree = "<group>"; };
-		516A9FA72757D6EB00E9B00E /* AccessCheckoutCardValidationDelegateRN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessCheckoutCardValidationDelegateRN.swift; sourceTree = "<group>"; };
+		516A9FA72757D6EB00E9B00E /* CardValidationDelegateRN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardValidationDelegateRN.swift; sourceTree = "<group>"; };
 		516A9FA82757D6EB00E9B00E /* AccessCheckoutReactNative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNative.swift; sourceTree = "<group>"; };
 		51C8CFB927B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSessionConfigUnitTests.swift; sourceTree = "<group>"; };
-		51C8CFC727B6D55700F30FD5 /* ValidationConfigUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationConfigUnitTests.swift; sourceTree = "<group>"; };
+		51C8CFC727B6D55700F30FD5 /* CardValidationConfigRNUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardValidationConfigRNUnitTests.swift; sourceTree = "<group>"; };
 		51C8CFCC27B6E71300F30FD5 /* RCTEventEmitterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTEventEmitterMock.swift; sourceTree = "<group>"; };
 		51C8CFD127B6E72900F30FD5 /* RCTEventMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTEventMock.swift; sourceTree = "<group>"; };
 		51C8CFD627B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeViewLocatorMock.swift; sourceTree = "<group>"; };
-		51C8CFDE27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutCardValidationDelegateRNUnitTests.swift; sourceTree = "<group>"; };
+		51C8CFDE27B6E86000F30FD5 /* CardValidationDelegateRNUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardValidationDelegateRNUnitTests.swift; sourceTree = "<group>"; };
 		51C8D02B27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutRnIllegalArgumentErrorUnitTests.swift; sourceTree = "<group>"; };
 		51C8D03627BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeViewLocatorUnitTests.swift; sourceTree = "<group>"; };
 		51D03E6627A85FBA009781EB /* AccessCheckoutReactNativeUnitTestsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccessCheckoutReactNativeUnitTestsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,10 +195,13 @@
 				517D9E4D27A41409002B1611 /* session */,
 				517D9E4E27A4140F002B1611 /* validation */,
 				516A9F672757D3B800E9B00E /* Info.plist */,
+				5167BB3427A7FE7000F8569D /* AccessCheckoutReactNativeCardValidationAcceptanceTests.swift */,
+				515BA38B282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift */,
 				64ADC9382816E1510045BA58 /* AccessCheckoutReactNativeSessionAcceptanceTests.swift */,
-				5167BB3427A7FE7000F8569D /* AccessCheckoutReactNativeValidationAcceptanceTests.swift */,
+				515FFD69282E994300A15AEB /* AccessCheckoutReactNativeUnitTests.swift */,
 				51C8D02B27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift */,
 				51D03EBB27A8658B009781EB /* CardValidationTestUIViewController.swift */,
+				515BA393282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift */,
 			);
 			path = AccessCheckoutReactNativeUnitTests;
 			sourceTree = "<group>";
@@ -198,12 +217,14 @@
 		517D9E4E27A4140F002B1611 /* validation */ = {
 			isa = PBXGroup;
 			children = (
-				51C8CFDE27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift */,
+				51C8CFC727B6D55700F30FD5 /* CardValidationConfigRNUnitTests.swift */,
+				51C8CFDE27B6E86000F30FD5 /* CardValidationDelegateRNUnitTests.swift */,
+				515BA3A3282E829100BA262D /* CvcOnlyValidationConfigUnitTest.swift */,
+				515BA3C9282E903300BA262D /* CvcOnlyValidationDelegateRNUnitTests.swift */,
 				51C8CFD627B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift */,
 				51C8D03627BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift */,
 				51C8CFD127B6E72900F30FD5 /* RCTEventMock.swift */,
 				51C8CFCC27B6E71300F30FD5 /* RCTEventEmitterMock.swift */,
-				51C8CFC727B6D55700F30FD5 /* ValidationConfigUnitTests.swift */,
 			);
 			path = validation;
 			sourceTree = "<group>";
@@ -211,9 +232,11 @@
 		517D9E5027A4141F002B1611 /* validation */ = {
 			isa = PBXGroup;
 			children = (
-				516A9FA72757D6EB00E9B00E /* AccessCheckoutCardValidationDelegateRN.swift */,
+				516A9FA02757D6EB00E9B00E /* CardValidationConfigRN.swift */,
+				516A9FA72757D6EB00E9B00E /* CardValidationDelegateRN.swift */,
+				515BA3A8282E829D00BA262D /* CvcOnlyValidationConfigRN.swift */,
+				515BA3E3282E93A900BA262D /* CvcOnlyValidationDelegateRN.swift */,
 				5167BB3827A7FFB100F8569D /* ReactNativeViewLocator.swift */,
-				516A9FA02757D6EB00E9B00E /* ValidationConfig.swift */,
 			);
 			path = validation;
 			sourceTree = "<group>";
@@ -239,6 +262,7 @@
 			children = (
 				51D03E8027A8601B009781EB /* AppDelegate.swift */,
 				51D03E9B27A8611D009781EB /* CardValidationTest.storyboard */,
+				515BA39B282E6F9600BA262D /* CvcValidationTest.storyboard */,
 				51D03E6E27A85FBA009781EB /* Main.storyboard */,
 				51D03E7127A85FC4009781EB /* Assets.xcassets */,
 				51D03E7327A85FC4009781EB /* LaunchScreen.storyboard */,
@@ -393,6 +417,7 @@
 				51D03E7527A85FC4009781EB /* LaunchScreen.storyboard in Resources */,
 				51D03E9C27A8611D009781EB /* CardValidationTest.storyboard in Resources */,
 				51D03E7227A85FC4009781EB /* Assets.xcassets in Resources */,
+				515BA39C282E6F9600BA262D /* CvcValidationTest.storyboard in Resources */,
 				51D03E7027A85FBA009781EB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,9 +497,11 @@
 				516A9FAA2757D6EB00E9B00E /* AccessCheckoutReactNative.m in Sources */,
 				516A9FAB2757D6EB00E9B00E /* GenerateSessionConfig.swift in Sources */,
 				5167BB3927A7FFB100F8569D /* ReactNativeViewLocator.swift in Sources */,
-				516A9FA92757D6EB00E9B00E /* ValidationConfig.swift in Sources */,
-				516A9FB02757D6EB00E9B00E /* AccessCheckoutCardValidationDelegateRN.swift in Sources */,
+				516A9FA92757D6EB00E9B00E /* CardValidationConfigRN.swift in Sources */,
+				516A9FB02757D6EB00E9B00E /* CardValidationDelegateRN.swift in Sources */,
 				516A9FB12757D6EB00E9B00E /* AccessCheckoutReactNative.swift in Sources */,
+				515BA3E4282E93A900BA262D /* CvcOnlyValidationDelegateRN.swift in Sources */,
+				515BA3A9282E829D00BA262D /* CvcOnlyValidationConfigRN.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,17 +509,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51C8CFC827B6D55700F30FD5 /* ValidationConfigUnitTests.swift in Sources */,
+				51C8CFC827B6D55700F30FD5 /* CardValidationConfigRNUnitTests.swift in Sources */,
 				51C8CFD727B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift in Sources */,
+				515BA3CA282E903300BA262D /* CvcOnlyValidationDelegateRNUnitTests.swift in Sources */,
 				51C8CFBA27B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift in Sources */,
 				5167BB2727A459BF00F8569D /* StubServices.swift in Sources */,
 				51C8D02C27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift in Sources */,
+				515FFD6A282E994300A15AEB /* AccessCheckoutReactNativeUnitTests.swift in Sources */,
 				51D03EBC27A8658B009781EB /* CardValidationTestUIViewController.swift in Sources */,
+				515BA394282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift in Sources */,
 				64ADC9392816E1510045BA58 /* AccessCheckoutReactNativeSessionAcceptanceTests.swift in Sources */,
-				51C8CFDF27B6E86000F30FD5 /* AccessCheckoutCardValidationDelegateRNUnitTests.swift in Sources */,
+				51C8CFDF27B6E86000F30FD5 /* CardValidationDelegateRNUnitTests.swift in Sources */,
 				51C8CFCD27B6E71300F30FD5 /* RCTEventEmitterMock.swift in Sources */,
+				515BA38C282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift in Sources */,
 				51C8D03727BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift in Sources */,
-				5167BB3527A7FE7000F8569D /* AccessCheckoutReactNativeValidationAcceptanceTests.swift in Sources */,
+				5167BB3527A7FE7000F8569D /* AccessCheckoutReactNativeCardValidationAcceptanceTests.swift in Sources */,
+				515BA3A4282E829100BA262D /* CvcOnlyValidationConfigUnitTest.swift in Sources */,
 				51C8CFD227B6E72900F30FD5 /* RCTEventMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

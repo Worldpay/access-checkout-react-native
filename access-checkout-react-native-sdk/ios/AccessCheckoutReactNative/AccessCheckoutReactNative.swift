@@ -4,6 +4,7 @@ import React
 @objc(AccessCheckoutReactNative)
 class AccessCheckoutReactNative: RCTEventEmitter {
     private let cardValidationEventName = "AccessCheckoutCardValidationEvent"
+    private let cvcOnlyValidationEventName = "AccessCheckoutCvcOnlyValidationEvent"
 
     private var accessCheckoutClient: AccessCheckoutClient?
     private let reactNativeViewLocator: ReactNativeViewLocator
@@ -76,46 +77,94 @@ class AccessCheckoutReactNative: RCTEventEmitter {
     ) {
         DispatchQueue.main.async {
             do {
-                let cfg = try ValidationConfig(dictionary: config)
-                let panInput = self.reactNativeViewLocator.locateUITextField(id: cfg.panId)
+                let config = try CardValidationConfigRN(dictionary: config)
+                let panInput = self.reactNativeViewLocator.locateUITextField(id: config.panId)
                 let expiryInput = self.reactNativeViewLocator.locateUITextField(
-                    id: cfg.expiryDateId)
-                let cvcInput = self.reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
+                    id: config.expiryDateId)
+                let cvcInput = self.reactNativeViewLocator.locateUITextField(id: config.cvcId)
 
-                if panInput != nil, expiryInput != nil, cvcInput != nil {
-                    var builder = CardValidationConfig.builder()
-                        .pan(panInput!)
-                        .expiryDate(expiryInput!)
-                        .cvc(cvcInput!)
-                        .accessBaseUrl(cfg.baseUrl)
-                        .validationDelegate(
-                            AccessCheckoutCardValidationDelegateRN(
-                                eventEmitter: self, eventName: self.cardValidationEventName)
-                                as AccessCheckoutCardValidationDelegate
-                        )
-                        .acceptedCardBrands(cfg.acceptedCardBrands)
-
-                    if cfg.enablePanFormatting {
-                        builder = builder.enablePanFormatting()
-                    }
-
-                    let validationConfig = try! builder.build()
-
-                    AccessCheckoutValidationInitialiser().initialise(validationConfig)
-                    resolve(true)
+                if panInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.panTextFieldNotFound(
+                        panNativeId: config.panId)
+                    reject("", error.localizedDescription, error)
+                    return
+                } else if expiryInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.expiryDateTextFieldNotFound(
+                        expiryDateNativeId: config.expiryDateId)
+                    reject("", error.localizedDescription, error)
+                    return
+                } else if cvcInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
+                        cvcNativeId: config.cvcId)
+                    reject("", error.localizedDescription, error)
+                    return
                 }
+
+                let validationDelegate = CardValidationDelegateRN(
+                    eventEmitter: self, eventName: self.cardValidationEventName)
+
+                var builder = CardValidationConfig.builder()
+                    .pan(panInput!)
+                    .expiryDate(expiryInput!)
+                    .cvc(cvcInput!)
+                    .accessBaseUrl(config.baseUrl)
+                    .validationDelegate(validationDelegate)
+                    .acceptedCardBrands(config.acceptedCardBrands)
+
+                if config.enablePanFormatting {
+                    builder = builder.enablePanFormatting()
+                }
+
+                let validationConfig = try! builder.build()
+
+                AccessCheckoutValidationInitialiser().initialise(validationConfig)
+                resolve(true)
             } catch {
                 reject("", "invalid validation config found", error)
             }
         }
     }
 
-    func isCvcSessionOnly(sessionTypes: Set<SessionType>) -> Bool {
+    @objc(initialiseCvcOnlyValidation:withResolver:withRejecter:)
+    func initialiseCvcOnlyValidation(
+        config: NSDictionary,
+        resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock
+    ) {
+        DispatchQueue.main.async {
+            do {
+                let config = try CvcOnlyValidationConfigRN(dictionary: config)
+                let cvcInput = self.reactNativeViewLocator.locateUITextField(id: config.cvcId)
+
+                if cvcInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
+                        cvcNativeId: config.cvcId)
+                    reject("", error.localizedDescription, error)
+                    return
+                }
+
+                let validationDelegate = CvcOnlyValidationDelegateRN(
+                    eventEmitter: self, eventName: self.cvcOnlyValidationEventName)
+
+                let validationConfig = try! CvcOnlyValidationConfig.builder()
+                    .cvc(cvcInput!)
+                    .validationDelegate(validationDelegate)
+                    .build()
+
+                AccessCheckoutValidationInitialiser().initialise(validationConfig)
+                resolve(true)
+            } catch {
+                reject("", "invalid validation config found", error)
+            }
+        }
+    }
+
+    private func isCvcSessionOnly(sessionTypes: Set<SessionType>) -> Bool {
         return sessionTypes.count == 1 && sessionTypes.first == SessionType.cvc
     }
 
     override func supportedEvents() -> [String]! {
-        return [cardValidationEventName]
+        return [cardValidationEventName, cvcOnlyValidationEventName]
     }
 
     @objc
