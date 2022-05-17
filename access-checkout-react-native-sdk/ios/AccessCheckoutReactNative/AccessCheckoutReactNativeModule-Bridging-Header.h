@@ -7,3 +7,6 @@
 
 @interface AccessCheckoutCardValidationDelegateRN: NSObject <RCTBridgeModule>
 @end
+
+@interface CvcOnlyValidationDelegateRN: NSObject <RCTBridgeModule>
+@end

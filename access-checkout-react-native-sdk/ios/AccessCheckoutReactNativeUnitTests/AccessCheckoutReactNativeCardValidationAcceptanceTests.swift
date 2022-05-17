@@ -5,7 +5,7 @@ import XCTest
 @testable import AccessCheckoutReactNative
 @testable import AccessCheckoutReactNativeUnitTestsApp
 
-class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
+class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
     private let stubServices = StubServices(baseUrl: "http://localhost")
     private let config: NSDictionary = [
         "baseUrl": "http://localhost",
@@ -36,14 +36,7 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             cvcUITextField: cvcUITextField!)
     }
 
-    func testEventsSupportedByNativeModule() {
-        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
-
-        XCTAssertEqual(
-            accessCheckoutReactNative.supportedEvents(), ["AccessCheckoutCardValidationEvent"])
-    }
-
-    func testReturnAnErrorWhenConfigurationProvidedIsInvalid() {
+    func testShouldReturnAnErrorWhenConfigurationProvidedIsInvalid() {
         let expectationToFulfill = expectation(description: "Error should be returned")
         let invalidConfig: NSDictionary = [:]
         let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
@@ -54,6 +47,80 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
         } reject: { (errorCode, errorDescription, error) in
             let expectedError = AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
             XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+
+    func testShouldReturnAnErrorWhenPanTextFieldNotFound() {
+        let expectationToFulfill = expectation(description: "Error should be returned")
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+
+        reactNativeViewLocatorMock!.panUITextField = nil
+        let expectedError = AccessCheckoutRnIllegalArgumentError.panTextFieldNotFound(
+            panNativeId: "pan")
+
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
+            XCTFail("validation initialisation should have faild but it didn't")
+            expectationToFulfill.fulfill()
+        } reject: { (_, _, error) in
+            XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+
+    func testShouldReturnAnErrorWhenExpiryDateTextFieldNotFound() {
+        let expectationToFulfill = expectation(description: "Error should be returned")
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+
+        reactNativeViewLocatorMock!.expiryDateUITextField = nil
+        let expectedError = AccessCheckoutRnIllegalArgumentError.expiryDateTextFieldNotFound(
+            expiryDateNativeId: "expiryDate")
+
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
+            XCTFail("validation initialisation should have faild but it didn't")
+            expectationToFulfill.fulfill()
+        } reject: { (_, _, error) in
+            XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+
+    func testShouldReturnAnErrorWhenCvcTextFieldNotFound() {
+        let expectationToFulfill = expectation(description: "Error should be returned")
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+
+        reactNativeViewLocatorMock!.cvcUITextField = nil
+        let expectedError = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
+            cvcNativeId: "cvc")
+
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
+            XCTFail("validation initialisation should have faild but it didn't")
+            expectationToFulfill.fulfill()
+        } reject: { (_, _, error) in
+            XCTAssertEqual(error as! AccessCheckoutRnIllegalArgumentError, expectedError)
+            expectationToFulfill.fulfill()
+        }
+
+        wait(for: [expectationToFulfill], timeout: 5)
+    }
+
+    func testShouldResolvePromiseWithTrueWhenSuccessfullyInitialised() {
+        let expectationToFulfill = expectation(description: "run test successfully")
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+
+        accessCheckoutReactNative.initialiseCardValidation(config: config) { (success) in
+            XCTAssertTrue(success as! Bool)
+            expectationToFulfill.fulfill()
+        } reject: { (_, _, error) in
+            XCTFail(
+                "got an error back from initialisation \(String(describing: error))"
+            )
             expectationToFulfill.fulfill()
         }
 
@@ -78,9 +145,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertTrue(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -108,9 +175,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertFalse(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -136,9 +203,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertTrue(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -166,9 +233,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertFalse(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -194,9 +261,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertTrue(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -224,9 +291,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertFalse(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -261,9 +328,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertEqual(event.body.brand?.images?[1].url, "http://localhost/visa.svg")
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -294,9 +361,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertNil(event.body.brand)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -324,9 +391,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertTrue(event.body.isValid!)
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -363,9 +430,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertEqual(event.body.type, "brand")
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }
@@ -394,9 +461,9 @@ class AccessCheckoutReactNativeValidationAcceptanceTests: XCTestCase {
             XCTAssertEqual(self.panUITextField!.text!, "4444 3333")
 
             expectationToFulfill.fulfill()
-        } reject: { (a, b, c) in
+        } reject: { (_, _, error) in
             XCTFail(
-                "got an error back from validation \(String(describing: a)) \(String(describing: b)) \(String(describing: c))"
+                "got an error back from validation: \(String(describing: error))"
             )
             expectationToFulfill.fulfill()
         }

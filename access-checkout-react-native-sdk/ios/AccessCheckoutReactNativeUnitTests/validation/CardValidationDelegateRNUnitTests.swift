@@ -5,10 +5,10 @@ import XCTest
 @testable import AccessCheckoutReactNative
 @testable import AccessCheckoutSDK
 
-class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
+class CardValidationDelegateRNUnitTests: XCTestCase {
     private let eventEmitter = RCTEventEmitterMock()
 
-    func testShouldRaiseEventWhenCardBrandChangedWithCardBrand() {
+    func testShouldEmitEventWhenCardBrandChangedWithCardBrand() {
         let cardBrand = CardBrand(
             name: "visa",
             images: [
@@ -16,7 +16,7 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
                 CardBrandImage(type: "type-2", url: "url-2"),
             ])
 
-        let delegate = AccessCheckoutCardValidationDelegateRN(
+        let delegate = CardValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
         delegate.cardBrandChanged(cardBrand: cardBrand)
@@ -32,8 +32,8 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
         XCTAssertEqual(event.body.brand?.images?[1].url, "url-2")
     }
 
-    func testShouldRaiseEventWhenCardBrandChangedWithNoCardBrand() {
-        let delegate = AccessCheckoutCardValidationDelegateRN(
+    func testShouldEmitEventWhenCardBrandChangedWithNoCardBrand() {
+        let delegate = CardValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
         delegate.cardBrandChanged(cardBrand: nil)
@@ -45,8 +45,8 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
         XCTAssertNil(event.body.brand)
     }
 
-    public func testShouldRaiseEventWhenPanIsValid() {
-        let delegate = AccessCheckoutCardValidationDelegateRN(
+    func testShouldEmitEventWhenPanIsValid() {
+        let delegate = CardValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
         delegate.panValidChanged(isValid: true)
@@ -57,8 +57,8 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
         XCTAssertTrue(eventEmitter.eventsSent[0].body.isValid!)
     }
 
-    public func testShouldRaiseEventWhenPanIsInvalid() {
-        let delegate = AccessCheckoutCardValidationDelegateRN(
+    func testShouldEmitEventWhenPanIsInvalid() {
+        let delegate = CardValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
         delegate.panValidChanged(isValid: false)
@@ -69,8 +69,8 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
         XCTAssertFalse(eventEmitter.eventsSent[0].body.isValid!)
     }
 
-    public func testShouldRaiseEventWhenExpiryDateIsValid() {
-        let delegate = AccessCheckoutCardValidationDelegateRN(
+    func testShouldEmitEventWhenExpiryDateIsValid() {
+        let delegate = CardValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
         delegate.expiryDateValidChanged(isValid: true)
@@ -81,8 +81,8 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
         XCTAssertTrue(eventEmitter.eventsSent[0].body.isValid!)
     }
 
-    public func testShouldRaiseEventWhenExpiryDateIsInvalid() {
-        let delegate = AccessCheckoutCardValidationDelegateRN(
+    func testShouldEmitEventWhenExpiryDateIsInvalid() {
+        let delegate = CardValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
         delegate.expiryDateValidChanged(isValid: false)
@@ -93,8 +93,8 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
         XCTAssertFalse(eventEmitter.eventsSent[0].body.isValid!)
     }
 
-    public func testShouldRaiseEventWhenCvcIsValid() {
-        let delegate = AccessCheckoutCardValidationDelegateRN(
+    func testShouldEmitEventWhenCvcIsValid() {
+        let delegate = CardValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
         delegate.cvcValidChanged(isValid: true)
@@ -105,8 +105,8 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
         XCTAssertTrue(eventEmitter.eventsSent[0].body.isValid!)
     }
 
-    public func testShouldRaiseEventWhenCvcIsInvalid() {
-        let delegate = AccessCheckoutCardValidationDelegateRN(
+    func testShouldEmitEventWhenCvcIsInvalid() {
+        let delegate = CardValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
         delegate.cvcValidChanged(isValid: false)
@@ -117,8 +117,8 @@ class AccessCheckoutCardValidationDelegateRNUnitTests: XCTestCase {
         XCTAssertFalse(eventEmitter.eventsSent[0].body.isValid!)
     }
 
-    public func testShouldRaiseEventWhenValidationSuccess() {
-        let delegate = AccessCheckoutCardValidationDelegateRN(
+    func testShouldEmitEventWhenValidationSuccess() {
+        let delegate = CardValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
 
         delegate.validationSuccess()
