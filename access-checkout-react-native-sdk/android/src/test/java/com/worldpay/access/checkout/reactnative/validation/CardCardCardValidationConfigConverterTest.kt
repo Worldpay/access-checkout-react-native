@@ -6,8 +6,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test
 
-class ValidationConfigConverterTest {
-    private val converter = ValidationConfigConverter()
+class CardCardCardValidationConfigConverterTest {
+    private val converter = CardValidationConfigConverter()
 
     @Test
     fun `should convert map into validation config`() {

@@ -16,7 +16,7 @@ import org.junit.*
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
-class ValidationInstrumentedTests {
+class CardValidationInstrumentedTests {
     private val timeOutInMs = 5000L
 
     companion object {

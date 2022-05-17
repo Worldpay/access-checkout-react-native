@@ -3,9 +3,9 @@ package com.worldpay.access.checkout.reactnative.validation
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 
-class ValidationConfigConverter {
+class CardValidationConfigConverter {
 
-    fun fromReadableMap(readableMap: ReadableMap): ValidationConfig {
+    fun fromReadableMap(readableMap: ReadableMap): CardValidationConfig {
         val baseUrl = readableMap.getString("baseUrl")
         val panId = readableMap.getString("panId")
         val expiryDateId = readableMap.getString("expiryDateId")
@@ -27,7 +27,7 @@ class ValidationConfigConverter {
             acceptedCardBrands = asArrayList(acceptedCardBrandsReadableArray)
         }
 
-        return ValidationConfig(
+        return CardValidationConfig(
             baseUrl = baseUrl as String,
             panId = panId as String,
             expiryDateId = expiryDateId as String,

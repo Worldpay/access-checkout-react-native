@@ -16,7 +16,7 @@ import com.worldpay.access.checkout.client.validation.listener.AccessCheckoutCvc
 
 class CvcOnlyValidationListener(private val reactContext: ReactApplicationContext): AccessCheckoutCvcValidationListener {
 
-    private val eventName = "AccessCheckoutCvcValidationListener"
+    private val eventName = "AccessCheckoutCvcOnlyValidationEvent"
 
     /**
      * Handles the cvc validated event given by ACO SDK.

@@ -27,10 +27,12 @@ class CvcOnlyValidationInstrumentedTestsActivity : ComponentActivity(),
 
     companion object {
         const val cvcId = "cvcId"
+        const val bridgeFieldBaseUrl = "baseUrl"
 
         const val bridgeFieldCvcId = "cvcId"
 
-        private val actions = LinkedBlockingQueue<((CvcOnlyValidationInstrumentedTestsActivity) -> Unit)>()
+        private val actions =
+            LinkedBlockingQueue<((CvcOnlyValidationInstrumentedTestsActivity) -> Unit)>()
 
         fun run(action: (CvcOnlyValidationInstrumentedTestsActivity) -> Unit) {
             actions.offer(action)
@@ -102,7 +104,8 @@ class CvcOnlyValidationInstrumentedTestsActivity : ComponentActivity(),
 
     private fun testFixtureToReadableMap(): JavaOnlyMap {
         val arguments = JavaOnlyMap()
-        arguments.putString(bridgeFieldCvcId, ValidationTestFixture.cvcId())
+        arguments.putString(bridgeFieldBaseUrl, CvcOnlyValidationTestFixture.baseUrl())
+        arguments.putString(bridgeFieldCvcId, CvcOnlyValidationTestFixture.cvcId())
 
         return arguments
     }

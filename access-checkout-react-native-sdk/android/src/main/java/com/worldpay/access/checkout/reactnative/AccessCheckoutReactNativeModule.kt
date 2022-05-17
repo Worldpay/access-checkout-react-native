@@ -17,8 +17,9 @@ import com.worldpay.access.checkout.client.validation.config.CvcValidationConfig
 import com.worldpay.access.checkout.reactnative.session.GenerateSessionsConfigConverter
 import com.worldpay.access.checkout.reactnative.session.SessionResponseListenerImpl
 import com.worldpay.access.checkout.reactnative.validation.CardValidationListener
+import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationConfigConverter
 import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationListener
-import com.worldpay.access.checkout.reactnative.validation.ValidationConfigConverter
+import com.worldpay.access.checkout.reactnative.validation.CardValidationConfigConverter
 import com.worldpay.access.checkout.session.AccessCheckoutClientDisposer
 
 /**
@@ -102,7 +103,7 @@ class AccessCheckoutReactNativeModule constructor(
     @ReactMethod
     fun initialiseCardValidation(readableMap: ReadableMap, promise: Promise) {
         try {
-            val config = ValidationConfigConverter().fromReadableMap(readableMap)
+            val config = CardValidationConfigConverter().fromReadableMap(readableMap)
             val rootView = reactContext.currentActivity?.window?.decorView?.rootView
 
             val panView = ReactFindViewUtil.findView(rootView, config.panId) as EditText
@@ -146,7 +147,7 @@ class AccessCheckoutReactNativeModule constructor(
     @ReactMethod
     fun initialiseCvcOnlyValidation(readableMap: ReadableMap, promise: Promise) {
         try {
-            val config = ValidationConfigConverter().fromReadableMap(readableMap)
+            val config = CvcOnlyValidationConfigConverter().fromReadableMap(readableMap)
             val rootView = reactContext.currentActivity?.window?.decorView?.rootView
 
             val cvcView = ReactFindViewUtil.findView(rootView, config.cvcId) as EditText
