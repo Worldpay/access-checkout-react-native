@@ -117,7 +117,7 @@ class CardValidationListenerTest {
     }
 
     @Test
-    fun shouldRaiseEventWithAllValidityStatusWhenAllFieldsBecomesInvalid() {
+    fun shouldRaiseEventWithAllValidityStatusWhenAllFieldsBecomesValid() {
         listener.onValidationSuccess()
 
         assertThat(eventsReceived().size).isEqualTo(1)

@@ -5,6 +5,3 @@ class CvcOnlyValidationConfig(
     val cvcId: String,
 )
 
-
-
-
