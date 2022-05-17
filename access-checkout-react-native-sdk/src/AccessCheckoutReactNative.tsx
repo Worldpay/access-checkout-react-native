@@ -10,6 +10,8 @@ type AccessCheckoutReactNativeType = {
   generateSessions(config: any): Promise<BridgeSessions>;
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   initialiseCardValidation(config: any): Promise<boolean>;
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  initialiseCvcOnlyValidation(config: any): Promise<boolean>;
   addListener: (eventType: string) => void;
   removeListeners: (count: number) => void;
 };
