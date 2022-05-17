@@ -14,7 +14,7 @@ import CvcOnlyValidationConfig from './validation/CvcOnlyValidationConfig';
 
 export default class AccessCheckout {
   static CardValidationEventType = 'AccessCheckoutCardValidationEvent';
-  static CvcValidationEventType = 'AccessCheckoutCvcValidationEvent';
+  static CvcOnlyValidationEventType = 'AccessCheckoutCvcOnlyValidationEvent';
 
   baseUrl: string;
   merchantId?: string;
@@ -84,12 +84,11 @@ export default class AccessCheckout {
     });
   }
 
-  initialiseCvcValidation(
+  initialiseCvcOnlyValidation(
     validationConfig: CvcOnlyValidationConfig
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      AccessCheckoutReactNative.initialiseCvcValidation({
-        baseUrl: this.accessBaseUrl,
+      AccessCheckoutReactNative.initialiseCvcOnlyValidation({
         cvcId: validationConfig.cvcId,
       })
         .then(() => {

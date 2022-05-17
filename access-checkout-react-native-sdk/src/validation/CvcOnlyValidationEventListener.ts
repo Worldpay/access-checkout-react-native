@@ -1,13 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 
-export interface CvcValidationEventListener {
+export interface CvcOnlyValidationEventListener {
   onCvcValidChanged?(isValid: boolean): void;
 
   onValidationSuccess?(): void;
 }
-export function cvcValidationNativeEventListenerOf(
-  delegate: CvcValidationEventListener
+export function cvcOnlyValidationNativeEventListenerOf(
+  delegate: CvcOnlyValidationEventListener
 ) {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   return function (event: any) {
