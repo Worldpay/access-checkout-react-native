@@ -4,4 +4,3 @@ class CvcOnlyValidationConfig(
     val baseUrl: String,
     val cvcId: String,
 )
-
