@@ -102,7 +102,8 @@ class CvcOnlyValidationInstrumentedTests {
     }
 
     private fun startActivity(): ActivityScenario<CvcOnlyValidationInstrumentedTestsActivity> {
-        val scenario = ActivityScenario.launch(CvcOnlyValidationInstrumentedTestsActivity::class.java)
+        val scenario =
+            ActivityScenario.launch(CvcOnlyValidationInstrumentedTestsActivity::class.java)
 
         scenario.onActivity { activity ->
             activity.clearEventsReceived()

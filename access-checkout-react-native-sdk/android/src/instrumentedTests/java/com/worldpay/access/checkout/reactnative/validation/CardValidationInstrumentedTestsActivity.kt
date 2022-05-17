@@ -125,16 +125,16 @@ class CardValidationInstrumentedTestsActivity : ComponentActivity(),
 
     private fun testFixtureToReadableMap(): JavaOnlyMap {
         val arguments = JavaOnlyMap()
-        arguments.putString(bridgeFieldBaseUrl, ValidationTestFixture.baseUrl())
-        arguments.putString(bridgeFieldPanId, ValidationTestFixture.panId())
-        arguments.putString(bridgeFieldExpiryDateId, ValidationTestFixture.expiryDateId())
-        arguments.putString(bridgeFieldCvcId, ValidationTestFixture.cvcId())
+        arguments.putString(bridgeFieldBaseUrl, CardValidationTestFixture.baseUrl())
+        arguments.putString(bridgeFieldPanId, CardValidationTestFixture.panId())
+        arguments.putString(bridgeFieldExpiryDateId, CardValidationTestFixture.expiryDateId())
+        arguments.putString(bridgeFieldCvcId, CardValidationTestFixture.cvcId())
         arguments.putBoolean(
-            bridgeFieldEnablePanFormatting, ValidationTestFixture.enablePanFormatting()
+            bridgeFieldEnablePanFormatting, CardValidationTestFixture.enablePanFormatting()
         )
 
         val acceptedCardBrands = JavaOnlyArray()
-        ValidationTestFixture.acceptedCardBrands()
+        CardValidationTestFixture.acceptedCardBrands()
             .forEach { brand -> acceptedCardBrands.pushString(brand) }
         arguments.putArray(bridgeFieldAcceptedCardBrands, acceptedCardBrands)
         return arguments

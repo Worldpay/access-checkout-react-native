@@ -1,8 +1,8 @@
 package com.worldpay.access.checkout.reactnative.validation
 
-class ValidationTestFixture {
+class CardValidationTestFixture {
     companion object {
-        private val INSTANCE = ValidationTestFixture()
+        private val INSTANCE = CardValidationTestFixture()
 
         private const val BASE_URL = "https://localhost:8443/"
 
@@ -10,7 +10,7 @@ class ValidationTestFixture {
             return BASE_URL
         }
 
-        fun validationTestFixture(): ValidationTestFixture {
+        fun validationTestFixture(): CardValidationTestFixture {
             return INSTANCE
         }
 
@@ -41,27 +41,27 @@ class ValidationTestFixture {
     private var enablePanFormatting = false
     private var acceptedCardBrands: MutableList<String> = ArrayList()
 
-    fun panId(panId: String): ValidationTestFixture {
+    fun panId(panId: String): CardValidationTestFixture {
         this.panId = panId
         return this
     }
 
-    fun expiryDateId(expiryDateId: String): ValidationTestFixture {
+    fun expiryDateId(expiryDateId: String): CardValidationTestFixture {
         this.expiryDateId = expiryDateId
         return this
     }
 
-    fun cvcId(cvcId: String): ValidationTestFixture {
+    fun cvcId(cvcId: String): CardValidationTestFixture {
         this.cvcId = cvcId
         return this
     }
 
-    fun acceptedCardBrands(cardBrands: List<String>): ValidationTestFixture {
+    fun acceptedCardBrands(cardBrands: List<String>): CardValidationTestFixture {
         acceptedCardBrands.addAll(cardBrands)
         return this
     }
 
-    fun clear(): ValidationTestFixture {
+    fun clear(): CardValidationTestFixture {
         INSTANCE.panId = ""
         INSTANCE.expiryDateId = ""
         INSTANCE.cvcId = ""

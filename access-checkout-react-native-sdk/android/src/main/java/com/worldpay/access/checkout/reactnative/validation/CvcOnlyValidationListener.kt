@@ -14,7 +14,8 @@ import com.worldpay.access.checkout.client.validation.listener.AccessCheckoutCvc
  * Each event will contain an object that JS can then use to extract information
  */
 
-class CvcOnlyValidationListener(private val reactContext: ReactApplicationContext): AccessCheckoutCvcValidationListener {
+class CvcOnlyValidationListener(private val reactContext: ReactApplicationContext) :
+    AccessCheckoutCvcValidationListener {
 
     private val eventName = "AccessCheckoutCvcOnlyValidationEvent"
 

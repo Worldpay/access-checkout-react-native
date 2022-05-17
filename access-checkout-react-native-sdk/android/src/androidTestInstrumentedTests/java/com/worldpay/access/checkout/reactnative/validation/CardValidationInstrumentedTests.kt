@@ -10,7 +10,7 @@ import com.worldpay.access.checkout.reactnative.services.CardBrandsStub.Companio
 import com.worldpay.access.checkout.reactnative.services.MockServer
 import com.worldpay.access.checkout.reactnative.services.MockServer.startStubServices
 import com.worldpay.access.checkout.reactnative.services.MockServer.stopStubServices
-import com.worldpay.access.checkout.reactnative.validation.ValidationTestFixture.Companion.validationTestFixture
+import com.worldpay.access.checkout.reactnative.validation.CardValidationTestFixture.Companion.validationTestFixture
 import org.awaitility.Awaitility.await
 import org.junit.*
 import java.util.concurrent.CopyOnWriteArrayList
