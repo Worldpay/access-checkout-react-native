@@ -40,11 +40,11 @@ class ValidationInstrumentedTests {
     fun setUp() {
         validationTestFixture()
             .clear()
-            .panId(ValidationInstrumentedTestsActivity.panId)
-            .expiryDateId(ValidationInstrumentedTestsActivity.expiryDateId)
-            .cvcId(ValidationInstrumentedTestsActivity.cvcId)
+            .panId(CardValidationInstrumentedTestsActivity.panId)
+            .expiryDateId(CardValidationInstrumentedTestsActivity.expiryDateId)
+            .cvcId(CardValidationInstrumentedTestsActivity.cvcId)
 
-        ValidationInstrumentedTestsActivity.clearActions()
+        CardValidationInstrumentedTestsActivity.clearActions()
     }
 
     @After
@@ -55,7 +55,7 @@ class ValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenPanBecomesValid() {
         startActivity().use { scenario ->
-            ValidationInstrumentedTestsActivity.run { activity ->
+            CardValidationInstrumentedTestsActivity.run { activity ->
                 activity.setPan("4444333322221111")
             }
 
@@ -71,7 +71,7 @@ class ValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenPanBecomesInvalid() {
         startActivity().use { scenario ->
-            ValidationInstrumentedTestsActivity.run { activity ->
+            CardValidationInstrumentedTestsActivity.run { activity ->
                 activity.setPan("4444333322221111")
                 activity.setPan("4")
             }
@@ -92,7 +92,7 @@ class ValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenExpiryDateBecomesValid() {
         startActivity().use { scenario ->
-            ValidationInstrumentedTestsActivity.run { activity ->
+            CardValidationInstrumentedTestsActivity.run { activity ->
                 activity.setExpiryDate("12/30")
             }
 
@@ -108,7 +108,7 @@ class ValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenExpiryDateBecomesInvalid() {
         startActivity().use { scenario ->
-            ValidationInstrumentedTestsActivity.run { activity ->
+            CardValidationInstrumentedTestsActivity.run { activity ->
                 activity.setExpiryDate("12/30")
                 activity.setExpiryDate("12/3")
             }
@@ -129,7 +129,7 @@ class ValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenCvcBecomesValid() {
         startActivity().use { scenario ->
-            ValidationInstrumentedTestsActivity.run { activity ->
+            CardValidationInstrumentedTestsActivity.run { activity ->
                 activity.setCvc("123")
             }
 
@@ -145,7 +145,7 @@ class ValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenCvcBecomesInvalid() {
         startActivity().use { scenario ->
-            ValidationInstrumentedTestsActivity.run { activity ->
+            CardValidationInstrumentedTestsActivity.run { activity ->
                 activity.setCvc("123")
                 activity.setCvc("12")
             }
@@ -166,7 +166,7 @@ class ValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenAllFieldsBecomeValid() {
         startActivity().use { scenario ->
-            ValidationInstrumentedTestsActivity.run { activity ->
+            CardValidationInstrumentedTestsActivity.run { activity ->
                 activity.setPan("4444333322221111")
                 activity.setExpiryDate("12/30")
                 activity.setCvc("123")
@@ -184,7 +184,7 @@ class ValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenRecognisingCardBrand() {
         startActivityWithCardBrandRules().use { scenario ->
-            ValidationInstrumentedTestsActivity.run { activity ->
+            CardValidationInstrumentedTestsActivity.run { activity ->
                 activity.setPan("4")
             }
 
@@ -214,7 +214,7 @@ class ValidationInstrumentedTests {
         validationTestFixture().acceptedCardBrands(listOf("jcb"))
 
         startActivityWithCardBrandRules().use { scenario ->
-            ValidationInstrumentedTestsActivity.run { activity ->
+            CardValidationInstrumentedTestsActivity.run { activity ->
                 activity.setPan("4")
             }
 
@@ -229,8 +229,8 @@ class ValidationInstrumentedTests {
         }
     }
 
-    private fun startActivity(): ActivityScenario<ValidationInstrumentedTestsActivity> {
-        val scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
+    private fun startActivity(): ActivityScenario<CardValidationInstrumentedTestsActivity> {
+        val scenario = ActivityScenario.launch(CardValidationInstrumentedTestsActivity::class.java)
 
         scenario.onActivity { activity ->
             activity.clearEventsReceived()
@@ -243,10 +243,10 @@ class ValidationInstrumentedTests {
         return scenario
     }
 
-    private fun startActivityWithCardBrandRules(): ActivityScenario<ValidationInstrumentedTestsActivity> {
+    private fun startActivityWithCardBrandRules(): ActivityScenario<CardValidationInstrumentedTestsActivity> {
         stubCardBrandsRules()
 
-        val scenario = ActivityScenario.launch(ValidationInstrumentedTestsActivity::class.java)
+        val scenario = ActivityScenario.launch(CardValidationInstrumentedTestsActivity::class.java)
         waitUntilCardConfigurationHasBeenLoaded(timeOutInMs)
 
         scenario.onActivity { activity ->
@@ -261,7 +261,7 @@ class ValidationInstrumentedTests {
     }
 
     private fun assertEventsReceived(
-        scenario: ActivityScenario<ValidationInstrumentedTestsActivity>?,
+        scenario: ActivityScenario<CardValidationInstrumentedTestsActivity>?,
         assertion: (List<EventMock>) -> Boolean
     ) {
         await().atMost(timeOutInMs, MILLISECONDS).until {

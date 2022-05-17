@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
 import kotlin.coroutines.suspendCoroutine
 
 
-class ValidationInstrumentedTestsActivity : ComponentActivity(),
+class CardValidationInstrumentedTestsActivity : ComponentActivity(),
     CoroutineScope by MainScope() {
 
     companion object {
@@ -39,9 +39,9 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
         const val bridgeFieldEnablePanFormatting = "enablePanFormatting"
         const val bridgeFieldAcceptedCardBrands = "acceptedCardBrands"
 
-        private val actions = LinkedBlockingQueue<((ValidationInstrumentedTestsActivity) -> Unit)>()
+        private val actions = LinkedBlockingQueue<((CardValidationInstrumentedTestsActivity) -> Unit)>()
 
-        fun run(action: (ValidationInstrumentedTestsActivity) -> Unit) {
+        fun run(action: (CardValidationInstrumentedTestsActivity) -> Unit) {
             actions.offer(action)
         }
 
@@ -97,7 +97,6 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
 
         launch {
             initialiseCardValidation(module, validationArguments)
-            initialiseCvcOnlyValidation(module, validationArguments)
         }
     }
 
@@ -151,18 +150,6 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
         )
 
         module.initialiseCardValidation(arguments, promise)
-    }
-
-    private suspend fun initialiseCvcOnlyValidation(
-        module: AccessCheckoutReactNativeModule,
-        arguments: JavaOnlyMap
-    ): Boolean = suspendCoroutine { continuation ->
-        val promise = PromiseImpl(
-            SuccessCallback(continuation),
-            FailureCallback(continuation)
-        )
-
-        module.initialiseCvcOnlyValidation(arguments, promise)
     }
 
     private fun createEditText(id: String): EditText {

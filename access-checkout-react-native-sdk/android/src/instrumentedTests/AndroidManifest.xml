@@ -6,7 +6,7 @@
 
     <application>
         <activity
-            android:name="com.worldpay.access.checkout.reactnative.validation.ValidationInstrumentedTestsActivity"
+            android:name="com.worldpay.access.checkout.reactnative.validation.CardValidationInstrumentedTestsActivity"
             android:label="Extra Activity"
             android:exported="true">
             <intent-filter>
