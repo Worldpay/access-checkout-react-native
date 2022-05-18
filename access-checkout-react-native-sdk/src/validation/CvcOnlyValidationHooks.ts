@@ -13,10 +13,6 @@ export function useCvcOnlyValidationEventListener(
   merchantListener: CvcOnlyValidationEventListener
 ) {
   useEffect(() => {
-    console.debug(
-      `Adding CvcOnlyValidationEventListener for ${AccessCheckout.CvcOnlyValidationEventType} events`
-    );
-
     const nativeEventListener =
       cvcOnlyValidationNativeEventListenerOf(merchantListener);
     const nativeEventEmitter = new NativeEventEmitter(
@@ -42,7 +38,6 @@ export function useCvcOnlyValidation(
   useCvcOnlyValidationEventListener(merchantListener);
 
   const initialiseCvcOnlyValidation = () => {
-    console.debug(`Initialising validation`);
     return accessCheckout.initialiseCvcOnlyValidation(cvcOnlyValidationConfig);
   };
 

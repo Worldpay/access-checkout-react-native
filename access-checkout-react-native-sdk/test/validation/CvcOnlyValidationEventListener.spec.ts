@@ -28,6 +28,15 @@ describe('CvcOnlyValidationEventListener', () => {
 
     it('without an event handler for all fields valid', () => {
       // eslint-disable-next-line  @typescript-eslint/no-unused-vars
+      listener = {
+        onCvcValidChanged(isValid: boolean): void {
+          console.log(isValid);
+        },
+      };
+    });
+
+    it('without any event handlers', () => {
+      // eslint-disable-next-line  @typescript-eslint/no-unused-vars
       listener = {};
     });
   });
