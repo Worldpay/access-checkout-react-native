@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
 import kotlin.coroutines.suspendCoroutine
 
 
-class ValidationInstrumentedTestsActivity : ComponentActivity(),
+class CardValidationInstrumentedTestsActivity : ComponentActivity(),
     CoroutineScope by MainScope() {
 
     companion object {
@@ -39,9 +39,9 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
         const val bridgeFieldEnablePanFormatting = "enablePanFormatting"
         const val bridgeFieldAcceptedCardBrands = "acceptedCardBrands"
 
-        private val actions = LinkedBlockingQueue<((ValidationInstrumentedTestsActivity) -> Unit)>()
+        private val actions = LinkedBlockingQueue<((CardValidationInstrumentedTestsActivity) -> Unit)>()
 
-        fun run(action: (ValidationInstrumentedTestsActivity) -> Unit) {
+        fun run(action: (CardValidationInstrumentedTestsActivity) -> Unit) {
             actions.offer(action)
         }
 
@@ -125,16 +125,16 @@ class ValidationInstrumentedTestsActivity : ComponentActivity(),
 
     private fun testFixtureToReadableMap(): JavaOnlyMap {
         val arguments = JavaOnlyMap()
-        arguments.putString(bridgeFieldBaseUrl, ValidationTestFixture.baseUrl())
-        arguments.putString(bridgeFieldPanId, ValidationTestFixture.panId())
-        arguments.putString(bridgeFieldExpiryDateId, ValidationTestFixture.expiryDateId())
-        arguments.putString(bridgeFieldCvcId, ValidationTestFixture.cvcId())
+        arguments.putString(bridgeFieldBaseUrl, CardValidationTestFixture.baseUrl())
+        arguments.putString(bridgeFieldPanId, CardValidationTestFixture.panId())
+        arguments.putString(bridgeFieldExpiryDateId, CardValidationTestFixture.expiryDateId())
+        arguments.putString(bridgeFieldCvcId, CardValidationTestFixture.cvcId())
         arguments.putBoolean(
-            bridgeFieldEnablePanFormatting, ValidationTestFixture.enablePanFormatting()
+            bridgeFieldEnablePanFormatting, CardValidationTestFixture.enablePanFormatting()
         )
 
         val acceptedCardBrands = JavaOnlyArray()
-        ValidationTestFixture.acceptedCardBrands()
+        CardValidationTestFixture.acceptedCardBrands()
             .forEach { brand -> acceptedCardBrands.pushString(brand) }
         arguments.putArray(bridgeFieldAcceptedCardBrands, acceptedCardBrands)
         return arguments

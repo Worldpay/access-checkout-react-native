@@ -1,6 +1,6 @@
 package com.worldpay.access.checkout.reactnative.validation
 
-class ValidationConfig(
+class CardValidationConfig(
         val baseUrl: String,
         val panId: String,
         val expiryDateId: String,

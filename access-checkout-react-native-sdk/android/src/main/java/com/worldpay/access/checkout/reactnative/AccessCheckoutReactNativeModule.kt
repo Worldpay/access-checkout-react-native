@@ -13,10 +13,13 @@ import com.worldpay.access.checkout.client.session.model.CardDetails
 import com.worldpay.access.checkout.client.session.model.SessionType
 import com.worldpay.access.checkout.client.validation.AccessCheckoutValidationInitialiser
 import com.worldpay.access.checkout.client.validation.config.CardValidationConfig
+import com.worldpay.access.checkout.client.validation.config.CvcValidationConfig
 import com.worldpay.access.checkout.reactnative.session.GenerateSessionsConfigConverter
 import com.worldpay.access.checkout.reactnative.session.SessionResponseListenerImpl
 import com.worldpay.access.checkout.reactnative.validation.CardValidationListener
-import com.worldpay.access.checkout.reactnative.validation.ValidationConfigConverter
+import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationConfigConverter
+import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationListener
+import com.worldpay.access.checkout.reactnative.validation.CardValidationConfigConverter
 import com.worldpay.access.checkout.session.AccessCheckoutClientDisposer
 
 /**
@@ -100,7 +103,7 @@ class AccessCheckoutReactNativeModule constructor(
     @ReactMethod
     fun initialiseCardValidation(readableMap: ReadableMap, promise: Promise) {
         try {
-            val config = ValidationConfigConverter().fromReadableMap(readableMap)
+            val config = CardValidationConfigConverter().fromReadableMap(readableMap)
             val rootView = reactContext.currentActivity?.window?.decorView?.rootView
 
             val panView = ReactFindViewUtil.findView(rootView, config.panId) as EditText
@@ -133,6 +136,39 @@ class AccessCheckoutReactNativeModule constructor(
         }
     }
 
+    /**
+     * Exposes the generateSession method to JS
+     *
+     * @ReactMethod annotation is needed as all native modules that need to be invoked must have this annotation
+     *
+     * @param readableMap [ReadableMap] represents the configuration object that the validation function will use
+     * @param promise [Promise] represents the JS promise that the corresponding JS method will return
+     */
+    @ReactMethod
+    fun initialiseCvcOnlyValidation(readableMap: ReadableMap, promise: Promise) {
+        try {
+            val config = CvcOnlyValidationConfigConverter().fromReadableMap(readableMap)
+            val rootView = reactContext.currentActivity?.window?.decorView?.rootView
+
+            val cvcView = ReactFindViewUtil.findView(rootView, config.cvcId) as EditText
+
+            val cvcOnlyValidationConfigBuilder = CvcValidationConfig.Builder()
+                .cvc(cvcView)
+                .validationListener(CvcOnlyValidationListener(reactContext))
+                .lifecycleOwner(getLifecycleOwner())
+
+            Handler(Looper.getMainLooper()).post {
+                try {
+                    AccessCheckoutValidationInitialiser.initialise(cvcOnlyValidationConfigBuilder.build())
+                    promise.resolve(true)
+                } catch (ex: Exception) {
+                    promise.reject(ex)
+                }
+            }
+        } catch (ex: Exception) {
+            promise.reject(ex)
+        }
+    }
 
     /**
      * Required to prevent a warning from being displayed when running react-native >= 0.65
