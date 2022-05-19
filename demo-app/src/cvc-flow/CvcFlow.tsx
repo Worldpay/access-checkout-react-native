@@ -61,7 +61,7 @@ export default function CvcFlow() {
   const onLayout = () => {
     initialiseCvcOnlyValidation()
       .then(() => {
-        console.info('Validation successfully initialised');
+        console.info('Cvc Only Validation successfully initialised');
       })
       .catch((error) => {
         Alert.alert('Error', `${error}`, [{ text: 'OK' }]);

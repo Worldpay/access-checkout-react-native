@@ -114,7 +114,7 @@ export default function CardFlow() {
   const onLayout = () => {
     initialiseCardValidation()
       .then(() => {
-        console.info('Validation successfully initialised');
+        console.info('Card Validation successfully initialised');
       })
       .catch((error) => {
         Alert.alert('Error', `${error}`, [{ text: 'OK' }]);
