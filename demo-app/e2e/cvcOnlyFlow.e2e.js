@@ -2,7 +2,7 @@
 const { device, expect } = require('detox');
 const jestExpect = require('expect');
 const { cvcSessionRegEx } = require('./helpers/RegularExpressions');
-const { CvcFlowPO } = require('./page-objects/CvcFlowPO');
+const { CvcFlowPO } = require('./page-objects/CvcOnlyFlowPO');
 const { CvcFlowStatesPO } = require('./page-objects/CvcvFlowStatesPO');
 
 /* eslint-enable @typescript-eslint/no-var-requires */
