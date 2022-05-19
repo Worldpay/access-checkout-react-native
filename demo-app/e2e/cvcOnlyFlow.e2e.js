@@ -3,16 +3,15 @@ const { device, expect } = require('detox');
 const jestExpect = require('expect');
 const { cvcSessionRegEx } = require('./helpers/RegularExpressions');
 const { CvcFlowPO } = require('./page-objects/CvcOnlyFlowPO');
-const { CvcFlowStatesPO } = require('./page-objects/CvcvFlowStatesPO');
-
+const { CvcOnlyFlowStatesPO } = require('./page-objects/CvcOnlyFlowStatesPO');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
-describe('Cvc flow', () => {
+describe('CVC only flow', () => {
   const view = new CvcFlowPO();
   const cvc = view.cvc;
   const cvcSession = view.cvcSession;
   const submitButton = view.submitButton;
-  const states = new CvcFlowStatesPO();
+  const states = new CvcOnlyFlowStatesPO();
 
   beforeAll(async () => {
     await device.launchApp();
@@ -38,22 +37,24 @@ describe('Cvc flow', () => {
       jestExpect(await states.submitButtonEnabled()).toBe(false);
     });
 
-    it('the CVC should be invalid', async () => {
+    it('the cvc should be invalid', async () => {
       jestExpect(await states.cvcIsValid()).toBe(false);
     });
   });
 
-  describe('when user enters a valid Cvc', () => {
-    it('should mark the Cvc as valid', async () => {
-      await cvc.type('123');
-
-      jestExpect(await states.cvcIsValid()).toBe(true);
+  describe('when user enters invalid cvc details', () => {
+    beforeEach(async () => {
+      await cvc.type('12', '12');
     });
   });
 
   describe('when user enters valid cvc details', () => {
     beforeEach(async () => {
       await cvc.type('123', '123');
+    });
+
+    it('should mark the cvc as valid', async () => {
+      jestExpect(await states.cvcIsValid()).toBe(true);
     });
 
     it('submit button should be enabled', async () => {

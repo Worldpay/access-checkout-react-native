@@ -5,10 +5,10 @@ const { LabelPO } = require('./LabelPO');
 
 class CvcOnlyFlowStatesPO extends UIComponentPO {
   constructor() {
-    super('cvcFlowE2eStates');
+    super('cvcOnlyFlowE2eStates');
 
     this.submitButtonEnabledLabel = new LabelPO(
-      'cvcFlowE2eStates.submitButtonEnabled'
+      'cvcOnlyFlowE2eStates.submitButtonEnabled'
     );
     this.cvcIsValidLabel = new LabelPO('cvcOnlyFlowE2eStates.cvcIsValid');
   }
@@ -36,4 +36,4 @@ class CvcOnlyFlowStatesPO extends UIComponentPO {
   }
 }
 
-module.exports = { CvcFlowStatesPO: CvcOnlyFlowStatesPO };
+module.exports = { CvcOnlyFlowStatesPO };

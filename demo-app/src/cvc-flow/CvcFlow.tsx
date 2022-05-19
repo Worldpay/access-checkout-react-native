@@ -18,7 +18,7 @@ import VView from '../common/VView';
 import styles from '../card-flow/style.js';
 import { Alert, Text } from 'react-native';
 import SessionLabel from '../common/SessionLabel';
-import CvcOnlyFlowE2eStates from '../card-flow/CardFlow.e2e.states';
+import CvcOnlyFlowE2eStates from '../cvc-flow/CvcOnlyFlow.e2e.states';
 
 export default function CvcFlow() {
   const [cvcValue, setCvc] = useState<string>('');
