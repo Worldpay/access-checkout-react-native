@@ -44,7 +44,15 @@ describe('CVC only flow', () => {
 
   describe('when user enters invalid cvc details', () => {
     beforeEach(async () => {
-      await cvc.type('12', '12');
+      it('the cvc should be invalid with one entry', async () => {
+        await cvc.type('1', '1');
+        jestExpect(await states.cvcIsValid()).toBe(false);
+      });
+
+      it('the cvc should be invalid with two entry', async () => {
+        await cvc.type('12', '12');
+        jestExpect(await states.cvcIsValid()).toBe(false);
+      });
     });
   });
 

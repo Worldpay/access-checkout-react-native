@@ -72,5 +72,8 @@
       "lib/",
       "src/"
     ]
+  },
+  "dependencies": {
+    "expect": "^28.1.0"
   }
 }
