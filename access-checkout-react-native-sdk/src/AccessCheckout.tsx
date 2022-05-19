@@ -8,9 +8,13 @@ import Sessions from './session/Sessions';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import CardValidationConfig from './validation/CardValidationConfig';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import CvcOnlyValidationConfig from './validation/CvcOnlyValidationConfig';
 
 export default class AccessCheckout {
   static CardValidationEventType = 'AccessCheckoutCardValidationEvent';
+  static CvcOnlyValidationEventType = 'AccessCheckoutCvcOnlyValidationEvent';
 
   baseUrl: string;
   merchantId?: string;
@@ -69,6 +73,23 @@ export default class AccessCheckout {
         cvcId: validationConfig.cvcId,
         enablePanFormatting: validationConfig.enablePanFormatting,
         acceptedCardBrands: validationConfig.acceptedCardBrands,
+      })
+        .then(() => {
+          resolve(true);
+        })
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+
+  initialiseCvcOnlyValidation(
+    validationConfig: CvcOnlyValidationConfig
+  ): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      AccessCheckoutReactNative.initialiseCvcOnlyValidation({
+        cvcId: validationConfig.cvcId,
       })
         .then(() => {
           resolve(true);
