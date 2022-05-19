@@ -43,15 +43,30 @@ describe('CVC only flow', () => {
   });
 
   describe('when user enters invalid cvc details', () => {
-    beforeEach(async () => {
-      it('the cvc should be invalid with one entry', async () => {
+    describe('and the cvc has a length of 1', () => {
+      beforeEach(async () => {
         await cvc.type('1', '1');
+      });
+      it('should mark the cvc as invalid', async () => {
         jestExpect(await states.cvcIsValid()).toBe(false);
       });
 
-      it('the cvc should be invalid with two entry', async () => {
+      it('submit button should be disabled', async () => {
+        jestExpect(await states.submitButtonEnabled()).toBe(false);
+      });
+    });
+
+    describe('and the cvc has a length of 2', () => {
+      beforeEach(async () => {
         await cvc.type('12', '12');
+      });
+
+      it('should mark the cvc as invalid', async () => {
         jestExpect(await states.cvcIsValid()).toBe(false);
+      });
+
+      it('submit button should be disabled', async () => {
+        jestExpect(await states.submitButtonEnabled()).toBe(false);
       });
     });
   });
