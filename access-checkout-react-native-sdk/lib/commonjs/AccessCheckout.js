@@ -71,10 +71,24 @@ class AccessCheckout {
     });
   }
 
+  initialiseCvcOnlyValidation(validationConfig) {
+    return new Promise((resolve, reject) => {
+      _AccessCheckoutReactNative.AccessCheckoutReactNative.initialiseCvcOnlyValidation({
+        cvcId: validationConfig.cvcId
+      }).then(() => {
+        resolve(true);
+      }) // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      .catch(error => {
+        reject(error);
+      });
+    });
+  }
+
 }
 
 exports.default = AccessCheckout;
 
 _defineProperty(AccessCheckout, "CardValidationEventType", 'AccessCheckoutCardValidationEvent');
-_defineProperty(AccessCheckout, "CvcValidationEventType", 'AccessCheckoutCvcOnlyValidationEvent');
+
+_defineProperty(AccessCheckout, "CvcOnlyValidationEventType", 'AccessCheckoutCvcOnlyValidationEvent');
 //# sourceMappingURL=AccessCheckout.js.map

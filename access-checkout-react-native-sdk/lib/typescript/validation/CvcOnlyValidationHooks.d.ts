@@ -1,7 +1,6 @@
-import AccessCheckout from '../AccessCheckout';
-import { CvcValidationEventListener } from './CvcValidationEventListener';
-import CvcOnlyValidationConfig from "./CvcOnlyValidationConfig";
-export declare function useCvcOnlyValidationEventListener(merchantListener: CvcValidationEventListener): void;
-export declare function useCvcOnlyValidation(accessCheckout: AccessCheckout, cvcOnlyValidationConfig: CvcOnlyValidationConfig, merchantListener: CvcValidationEventListener): {
+import { AccessCheckout, CvcOnlyValidationConfig } from '../index';
+import { CvcOnlyValidationEventListener } from './CvcOnlyValidationEventListener';
+export declare function useCvcOnlyValidationEventListener(merchantListener: CvcOnlyValidationEventListener): void;
+export declare function useCvcOnlyValidation(accessCheckout: AccessCheckout, cvcOnlyValidationConfig: CvcOnlyValidationConfig, merchantListener: CvcOnlyValidationEventListener): {
     initialiseCvcOnlyValidation: () => Promise<boolean>;
 };
