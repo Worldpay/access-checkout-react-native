@@ -2,12 +2,12 @@
 const { device, expect } = require('detox');
 const jestExpect = require('expect');
 const { cvcSessionRegEx } = require('./helpers/RegularExpressions');
-const { CvcFlowPO } = require('./page-objects/CvcOnlyFlowPO');
+const { CvcOnlyFlowPO } = require('./page-objects/CvcOnlyFlowPO');
 const { CvcOnlyFlowStatesPO } = require('./page-objects/CvcOnlyFlowStatesPO');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 describe('CVC only flow', () => {
-  const view = new CvcFlowPO();
+  const view = new CvcOnlyFlowPO();
   const cvc = view.cvc;
   const cvcSession = view.cvcSession;
   const submitButton = view.submitButton;
@@ -43,31 +43,16 @@ describe('CVC only flow', () => {
   });
 
   describe('when user enters invalid cvc details', () => {
-    describe('and the cvc has a length of 1', () => {
-      beforeEach(async () => {
-        await cvc.type('1', '1');
-      });
-      it('should mark the cvc as invalid', async () => {
-        jestExpect(await states.cvcIsValid()).toBe(false);
-      });
-
-      it('submit button should be disabled', async () => {
-        jestExpect(await states.submitButtonEnabled()).toBe(false);
-      });
+    beforeEach(async () => {
+      await cvc.type('12', '12');
     });
 
-    describe('and the cvc has a length of 2', () => {
-      beforeEach(async () => {
-        await cvc.type('12', '12');
-      });
+    it('should mark the cvc as invalid', async () => {
+      jestExpect(await states.cvcIsValid()).toBe(false);
+    });
 
-      it('should mark the cvc as invalid', async () => {
-        jestExpect(await states.cvcIsValid()).toBe(false);
-      });
-
-      it('submit button should be disabled', async () => {
-        jestExpect(await states.submitButtonEnabled()).toBe(false);
-      });
+    it('submit button should be disabled', async () => {
+      jestExpect(await states.submitButtonEnabled()).toBe(false);
     });
   });
 

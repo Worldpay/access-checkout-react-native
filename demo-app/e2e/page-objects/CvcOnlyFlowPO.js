@@ -21,4 +21,4 @@ class CvcOnlyFlowPO {
   }
 }
 
-module.exports = { CvcFlowPO: CvcOnlyFlowPO };
+module.exports = { CvcOnlyFlowPO };
