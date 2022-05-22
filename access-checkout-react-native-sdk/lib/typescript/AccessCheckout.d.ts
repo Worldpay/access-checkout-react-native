@@ -1,8 +1,10 @@
 import CardDetails from './session/CardDetails';
 import Sessions from './session/Sessions';
 import CardValidationConfig from './validation/CardValidationConfig';
+import CvcOnlyValidationConfig from './validation/CvcOnlyValidationConfig';
 export default class AccessCheckout {
     static CardValidationEventType: string;
+    static CvcOnlyValidationEventType: string;
     baseUrl: string;
     merchantId?: string;
     constructor({ baseUrl, merchantId, }: {
@@ -11,4 +13,5 @@ export default class AccessCheckout {
     });
     generateSessions(cardDetails: CardDetails, sessionTypes: string[]): Promise<Sessions>;
     initialiseCardValidation(validationConfig: CardValidationConfig): Promise<boolean>;
+    initialiseCvcOnlyValidation(validationConfig: CvcOnlyValidationConfig): Promise<boolean>;
 }

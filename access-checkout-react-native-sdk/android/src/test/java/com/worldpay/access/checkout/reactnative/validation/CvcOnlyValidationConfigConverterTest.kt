@@ -14,18 +14,7 @@ class CvcOnlyValidationConfigConverterTest {
 
         val config = converter.fromReadableMap(map)
 
-        assertThat(config.baseUrl).isEqualTo("some-url")
         assertThat(config.cvcId).isEqualTo("some-cvc-id")
-    }
-
-    @Test
-    fun `should throw exception when baseUrl is null`() {
-        val map = mapWithValidEntries()
-        map.putString("baseUrl", null)
-
-        assertThatIllegalArgumentException()
-            .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected baseUrl to be provided but was not")
     }
 
     @Test
@@ -41,7 +30,6 @@ class CvcOnlyValidationConfigConverterTest {
 
     private fun mapWithValidEntries(): JavaOnlyMap {
         val map = JavaOnlyMap()
-        map.putString("baseUrl", "some-url")
         map.putString("cvcId", "some-cvc-id")
         return map
     }

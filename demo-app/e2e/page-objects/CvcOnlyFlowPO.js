@@ -4,7 +4,7 @@ const { TextInputPO } = require('./TextInputPO');
 const { UIComponentPO } = require('./UIComponentPO');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
-class CvcFlowPO {
+class CvcOnlyFlowPO {
   constructor() {
     this.cvcOnlyNavItem = new UIComponentPO('nav-cvc');
     this.cvc = new TextInputPO('cvcInput');
@@ -21,4 +21,4 @@ class CvcFlowPO {
   }
 }
 
-module.exports = { CvcFlowPO };
+module.exports = { CvcOnlyFlowPO };

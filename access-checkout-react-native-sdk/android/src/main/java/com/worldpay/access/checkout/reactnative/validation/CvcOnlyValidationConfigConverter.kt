@@ -6,14 +6,11 @@ import com.facebook.react.bridge.ReadableMap
 class CvcOnlyValidationConfigConverter {
 
     fun fromReadableMap(readableMap: ReadableMap): CvcOnlyValidationConfig {
-        val baseUrl = readableMap.getString("baseUrl")
         val cvcId = readableMap.getString("cvcId")
 
-        validateNotNull(baseUrl, "baseUrl")
         validateNotNull(cvcId, "cvcId")
 
         return CvcOnlyValidationConfig(
-            baseUrl = baseUrl as String,
             cvcId = cvcId as String,
         )
     }

@@ -3,14 +3,14 @@ const { UIComponentPO } = require('./UIComponentPO');
 const { LabelPO } = require('./LabelPO');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
-class CvcFlowStatesPO extends UIComponentPO {
+class CvcOnlyFlowStatesPO extends UIComponentPO {
   constructor() {
-    super('cvcFlowE2eStates');
+    super('cvcOnlyFlowE2eStates');
 
     this.submitButtonEnabledLabel = new LabelPO(
-      'cvcFlowE2eStates.submitButtonEnabled'
+      'cvcOnlyFlowE2eStates.submitButtonEnabled'
     );
-    this.cvcIsValidLabel = new LabelPO('cvcFlowE2eStates.cvcIsValid');
+    this.cvcIsValidLabel = new LabelPO('cvcOnlyFlowE2eStates.cvcIsValid');
   }
 
   async submitButtonEnabled() {
@@ -36,4 +36,4 @@ class CvcFlowStatesPO extends UIComponentPO {
   }
 }
 
-module.exports = { CvcFlowStatesPO };
+module.exports = { CvcOnlyFlowStatesPO };

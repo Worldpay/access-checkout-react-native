@@ -51,6 +51,18 @@ Object.defineProperty(exports, "CardValidationEventListener", {
     return _CardValidationEventListener.CardValidationEventListener;
   }
 });
+Object.defineProperty(exports, "CvcOnlyValidationConfig", {
+  enumerable: true,
+  get: function () {
+    return _CvcOnlyValidationConfig.default;
+  }
+});
+Object.defineProperty(exports, "CvcOnlyValidationEventListener", {
+  enumerable: true,
+  get: function () {
+    return _CvcOnlyValidationEventListener.CvcOnlyValidationEventListener;
+  }
+});
 Object.defineProperty(exports, "SessionType", {
   enumerable: true,
   get: function () {
@@ -69,11 +81,23 @@ Object.defineProperty(exports, "cardValidationNativeEventListenerOf", {
     return _CardValidationEventListener.cardValidationNativeEventListenerOf;
   }
 });
+Object.defineProperty(exports, "cvcOnlyValidationNativeEventListenerOf", {
+  enumerable: true,
+  get: function () {
+    return _CvcOnlyValidationEventListener.cvcOnlyValidationNativeEventListenerOf;
+  }
+});
 exports.default = void 0;
 Object.defineProperty(exports, "useCardValidation", {
   enumerable: true,
   get: function () {
     return _CardValidationHooks.useCardValidation;
+  }
+});
+Object.defineProperty(exports, "useCvcOnlyValidation", {
+  enumerable: true,
+  get: function () {
+    return _CvcOnlyValidationHooks.useCvcOnlyValidation;
   }
 });
 
@@ -89,13 +113,19 @@ var _Sessions = _interopRequireDefault(require("./session/Sessions"));
 
 var _CardValidationConfig = _interopRequireDefault(require("./validation/CardValidationConfig"));
 
+var _CvcOnlyValidationConfig = _interopRequireDefault(require("./validation/CvcOnlyValidationConfig"));
+
 var _Brand = _interopRequireDefault(require("./validation/Brand"));
 
 var _BrandImage = _interopRequireDefault(require("./validation/BrandImage"));
 
 var _CardValidationEventListener = require("./validation/CardValidationEventListener");
 
+var _CvcOnlyValidationEventListener = require("./validation/CvcOnlyValidationEventListener");
+
 var _CardValidationHooks = require("./validation/CardValidationHooks");
+
+var _CvcOnlyValidationHooks = require("./validation/CvcOnlyValidationHooks");
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
