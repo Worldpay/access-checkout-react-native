@@ -2,8 +2,7 @@ version: 0.2
 
 env:
   secrets-manager:
-    hydra_npm_username: hydra_npm:username
-    hydra_npm_password: hydra_npm:password
+    hydra_npm_token: hydra_npm:token
   exported-variables:
     - CODEBUILD_BUILD_NUMBER
 phases:
@@ -12,11 +11,15 @@ phases:
       nodejs: 12
       java: corretto11
     commands:
+  pre_build:
+    commands:
+      - cd access-checkout-react-native-sdk
+      - ./scripts/deploy/set-npm-token.sh
   build:
     commands:
       - echo "Publishing React Native SDK..."
-      - cd access-checkout-react-native-sdk
       - ./scripts/publish.sh -d=prod
   post_build:
     commands:
-      - ./scripts/post-deploy.sh
+      - ./scripts/deploy/remove-npm-token.sh
+      - ./scripts/deploy/slack-notification.sh

@@ -158,12 +158,12 @@ if [ "${destination}" != "prod" ]; then
   echo "Resetting registry to default NPM registry"
   npm config delete registry
 else
-  npm publish --registry $registryAddress --dry-run
+  npm publish --registry $registryAddress --access public
   publishStatusCode=$?
 fi
 
 if [ $publishStatusCode -ne 0 ]; then
-  echo "Failed. Stopping publish process and exiting now"
+  echo "Failed to publish SDK, status code was ${publishStatusCode}"
   exit 1
 fi
 
