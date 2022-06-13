@@ -7,7 +7,7 @@ import {
   CvcOnlyValidationEventListener,
   Sessions,
   useCvcOnlyValidation,
-} from '../../../access-checkout-react-native-sdk/src';
+} from '@worldpay-beta/access-worldpay-checkout-react-native-sdk-beta';
 import CvcField from '../common/CvcField';
 import HView from '../common/HView';
 import Spinner from '../common/Spinner';

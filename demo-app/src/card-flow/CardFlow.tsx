@@ -10,7 +10,7 @@ import {
   CVC,
   Sessions,
   useCardValidation,
-} from '@worldpay/access-worldpay-checkout-react-native-sdk';
+} from '@worldpay-beta/access-worldpay-checkout-react-native-sdk-beta';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ExpiryDateField from '../common/ExpiryDateField';
