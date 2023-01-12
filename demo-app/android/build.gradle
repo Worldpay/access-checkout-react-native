@@ -34,8 +34,19 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
 
         google()
-        jcenter()
-        mavenCentral()
+
+        // the excludeGroup instructions below are used to force Grade to use the version of react-native
+        // declared in ../node_modules/react-native/android
+        jcenter {
+            content {
+                excludeGroup("com.facebook.react")
+            }
+        }
+        mavenCentral {
+            content {
+                excludeGroup("com.facebook.react")
+            }
+        }
         mavenLocal()
     }
 }
