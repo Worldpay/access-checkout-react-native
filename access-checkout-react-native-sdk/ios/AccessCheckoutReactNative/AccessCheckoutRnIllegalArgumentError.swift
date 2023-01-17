@@ -87,4 +87,9 @@ public struct AccessCheckoutRnIllegalArgumentError: Error, Equatable {
         return AccessCheckoutRnIllegalArgumentError(
             message: "Failed to find Cvc TextField with nativeID \(cvcNativeId)")
     }
+    
+    static func missingReactNativeSdkVersion() -> AccessCheckoutRnIllegalArgumentError {
+        return AccessCheckoutRnIllegalArgumentError(
+            message: "Expected React Native SDK version to be provided but was not")
+    }
 }
