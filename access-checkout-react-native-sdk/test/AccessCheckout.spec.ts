@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import { NativeModules } from 'react-native';
 import { AccessCheckout, CVC } from '../src/';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -23,13 +24,18 @@ const panId = 'panId';
 const expiryDateId = 'expiryDateId';
 const cvcId = 'cvcId';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const packageDotJson = JSON.parse(
+  fs.readFileSync('./package.json', { encoding: 'utf8' }),
+);
+
 describe('AccessCheckout', () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
   describe('can be constructed', () => {
-    it('by passing just an baseUrl', () => {
+    it('by passing just a baseUrl', () => {
       const checkout = new AccessCheckout({ baseUrl });
 
       expect(checkout).toBeDefined();
@@ -69,7 +75,21 @@ describe('AccessCheckout', () => {
         expiryDateValue: expiryDate,
         cvcValue: cvc,
         sessionTypes: ['CARD', 'CVC'],
+        reactNativeSdkVersion: packageDotJson.version,
       });
+    });
+
+    it('passes the SDK version to the React Native bridge', async () => {
+      givenGenerateSessionsBridgeReturns({});
+
+      await checkout.generateSessions(cardDetails, sessionTypes);
+
+      const bridgeMock =
+        NativeModules.AccessCheckoutReactNative.generateSessions.mock;
+      expect(bridgeMock.calls.length).toEqual(1);
+
+      const args = bridgeMock.calls[0][0];
+      expect(args.reactNativeSdkVersion).toEqual(packageDotJson.version);
     });
 
     it('returns a resolved promise with a sessions object containing only a card session when bridge successfully generates only a card session', async () => {
@@ -79,7 +99,7 @@ describe('AccessCheckout', () => {
 
       const result: Sessions = await checkout.generateSessions(
         cardDetails,
-        sessionTypes
+        sessionTypes,
       );
 
       expect(hasProperty(result, 'cvc')).toEqual(false);
@@ -96,7 +116,7 @@ describe('AccessCheckout', () => {
 
       const result: Sessions = await checkout.generateSessions(
         cardDetails,
-        sessionTypes
+        sessionTypes,
       );
 
       expect(result).toEqual({
@@ -112,7 +132,7 @@ describe('AccessCheckout', () => {
 
       const result: Sessions = await checkout.generateSessions(
         cardDetails,
-        sessionTypes
+        sessionTypes,
       );
 
       expect(hasProperty(result, 'card')).toEqual(false);
@@ -152,6 +172,7 @@ describe('AccessCheckout', () => {
           merchantId,
           cvcValue: cvc,
           sessionTypes: ['CVC'],
+          reactNativeSdkVersion: packageDotJson.version,
         });
       });
 
@@ -192,4 +213,5 @@ describe('AccessCheckout', () => {
       }
     });
   });
-});
+})
+;
