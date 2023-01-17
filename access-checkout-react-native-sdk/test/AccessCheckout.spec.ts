@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import { NativeModules } from 'react-native';
+import CvcOnlyValidationConfig from '../src/validation/CvcOnlyValidationConfig';
 import { AccessCheckout, CVC } from '../src/';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -9,8 +10,10 @@ import CardValidationConfig from '../src/validation/CardValidationConfig';
 import {
   givenGenerateSessionsBridgeFailsWith,
   givenGenerateSessionsBridgeReturns,
-  givenValidationBridgeFailsWith,
-  givenValidationBridgeReturns,
+  givenCardValidationBridgeFailsWith,
+  givenCardValidationBridgeReturns,
+  givenCvcOnlyValidationBridgeFailsWith,
+  givenCvcOnlyValidationBridgeReturns,
   hasProperty,
 } from './test-utils';
 
@@ -199,17 +202,43 @@ describe('AccessCheckout', () => {
     });
 
     it('returns a promise with a boolean set to true when bridge successfully wires in validation', async () => {
-      givenValidationBridgeReturns(true);
+      givenCardValidationBridgeReturns(true);
       const result = await checkout.initialiseCardValidation(validationConfig);
 
       expect(result).toEqual(true);
     });
 
     it('returns a rejected promise with the error returned by the bridge when bridge fails to wire in validation', async () => {
-      givenValidationBridgeFailsWith(new Error('Failed !'));
+      givenCardValidationBridgeFailsWith(new Error('Failed !'));
 
       try {
         await checkout.initialiseCardValidation(validationConfig);
+      } catch (error) {
+        expect(error).toEqual(new Error('Failed !'));
+      }
+    });
+  });
+
+  describe('Cvc validation feature', () => {
+    const checkout = new AccessCheckout({ baseUrl, merchantId });
+    const validationConfig = new CvcOnlyValidationConfig({
+      cvcId,
+    });
+
+    it('returns a promise with a boolean set to true when bridge successfully wires in validation', async () => {
+      givenCvcOnlyValidationBridgeReturns(true);
+      const result = await checkout.initialiseCvcOnlyValidation(
+        validationConfig
+      );
+
+      expect(result).toEqual(true);
+    });
+
+    it('returns a rejected promise with the error returned by the bridge when bridge fails to wire in validation', async () => {
+      givenCvcOnlyValidationBridgeFailsWith(new Error('Failed !'));
+
+      try {
+        await checkout.initialiseCvcOnlyValidation(validationConfig);
       } catch (error) {
         expect(error).toEqual(new Error('Failed !'));
       }

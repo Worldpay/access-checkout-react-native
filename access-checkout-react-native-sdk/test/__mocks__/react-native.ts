@@ -5,12 +5,14 @@ import * as ReactNative from 'react-native';
 
 const generateSessionsMock = jest.fn();
 const initialiseCardValidationMock = jest.fn();
+const initialiseCvcOnlyValidationMock = jest.fn();
 
 export const NativeModules = {
   ...ReactNative.NativeModules,
   AccessCheckoutReactNative: {
     generateSessions: generateSessionsMock,
     initialiseCardValidation: initialiseCardValidationMock,
+    initialiseCvcOnlyValidation: initialiseCvcOnlyValidationMock,
   },
 };
 
