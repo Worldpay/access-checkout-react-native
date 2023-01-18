@@ -16,11 +16,12 @@ import com.worldpay.access.checkout.client.validation.config.CardValidationConfi
 import com.worldpay.access.checkout.client.validation.config.CvcValidationConfig
 import com.worldpay.access.checkout.reactnative.session.GenerateSessionsConfigConverter
 import com.worldpay.access.checkout.reactnative.session.SessionResponseListenerImpl
+import com.worldpay.access.checkout.reactnative.validation.CardValidationConfigConverter
 import com.worldpay.access.checkout.reactnative.validation.CardValidationListener
 import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationConfigConverter
 import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationListener
-import com.worldpay.access.checkout.reactnative.validation.CardValidationConfigConverter
 import com.worldpay.access.checkout.session.AccessCheckoutClientDisposer
+import com.worldpay.access.checkout.session.api.client.WpSdkHeader
 
 /**
  * Module class that implements all the functionality that is required by Javascript for the end user
@@ -59,6 +60,10 @@ class AccessCheckoutReactNativeModule constructor(
         Handler(Looper.getMainLooper()).post {
             try {
                 val config = GenerateSessionsConfigConverter().fromReadableMap(readableMap)
+
+                val wpSdkHeaderValue =
+                    "access-checkout-react-native/${config.reactNativeSdkVersion}"
+                WpSdkHeader.overrideValue(wpSdkHeaderValue)
 
                 if (accessCheckoutClient == null) {
                     accessCheckoutClient = AccessCheckoutClientBuilder()
@@ -107,7 +112,8 @@ class AccessCheckoutReactNativeModule constructor(
             val rootView = reactContext.currentActivity?.window?.decorView?.rootView
 
             val panView = ReactFindViewUtil.findView(rootView, config.panId) as EditText
-            val expiryDateView = ReactFindViewUtil.findView(rootView, config.expiryDateId) as EditText
+            val expiryDateView =
+                ReactFindViewUtil.findView(rootView, config.expiryDateId) as EditText
             val cvcView = ReactFindViewUtil.findView(rootView, config.cvcId) as EditText
 
             val cardValidationConfigBuilder = CardValidationConfig.Builder()

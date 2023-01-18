@@ -37,12 +37,17 @@ class SessionsTestFixture {
         fun sessionsTypes(): List<String> {
             return INSTANCE.sessionsTypes
         }
+
+        fun reactNativeSdkVersion(): String? {
+            return INSTANCE.reactNativeSdkVersion
+        }
     }
 
     var pan: String? = null
     var expiryDate: String? = null
     var cvc: String? = null
     var sessionsTypes: MutableList<String> = ArrayList()
+    var reactNativeSdkVersion: String? = null
 
     fun pan(pan: String?): SessionsTestFixture {
         this.pan = pan
@@ -65,11 +70,17 @@ class SessionsTestFixture {
         return this
     }
 
+    fun reactNativeSdkVersion(reactNativeSdkVersion: String?): SessionsTestFixture {
+        this.reactNativeSdkVersion = reactNativeSdkVersion
+        return this
+    }
+
     fun clear(): SessionsTestFixture {
         INSTANCE.pan = null
         INSTANCE.expiryDate = null
         INSTANCE.cvc = null
         INSTANCE.sessionsTypes.clear()
+        INSTANCE.reactNativeSdkVersion = null
         return this
     }
 }

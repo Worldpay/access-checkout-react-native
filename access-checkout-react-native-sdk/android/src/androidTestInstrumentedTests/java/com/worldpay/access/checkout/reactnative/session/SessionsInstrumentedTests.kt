@@ -3,6 +3,7 @@ package com.worldpay.access.checkout.reactnative.session
 import android.content.Context
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import com.github.tomakehurst.wiremock.client.WireMock.*
 import com.worldpay.access.checkout.reactnative.services.AccessServicesRootStub
 import com.worldpay.access.checkout.reactnative.services.MockServer
 import com.worldpay.access.checkout.reactnative.services.MockServer.startStubServices
@@ -119,6 +120,31 @@ class SessionsInstrumentedTests {
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
         assertExceptionIs(scenario, exception)
+    }
+
+    @Test
+    fun testShouldSetNativeSdkWpSdkHeaderWithAccessCheckoutReactNativeVersion() {
+        VerifiedTokensStub.stubSessionsSuccess("my-session")
+        SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
+
+        sessionsTextFixture().pan("4444333322221111")
+            .expiryDate("12/34")
+            .cvc("123")
+            .sessionsTypes(listOf(CARD, CVC))
+            .reactNativeSdkVersion("1.2.3")
+
+        val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
+
+        val expectedSessions = mapOf(
+            "card" to "my-session",
+            "cvc" to "my-other-session"
+        )
+        assertSessionsAre(scenario, expectedSessions)
+
+        verify(
+            postRequestedFor(urlEqualTo("/sessions/payments/cvc"))
+                .withHeader("X-WP-SDK", equalTo("access-checkout-react-native/1.2.3"))
+        );
     }
 
     private fun assertSessionsAre(

@@ -8,6 +8,7 @@ class GenerateSessionsConfig(
     val panValue: String?,
     val expiryDateValue: String?,
     val cvcValue: String?,
-    val sessionTypes: List<SessionType>
+    val sessionTypes: List<SessionType>,
+    val reactNativeSdkVersion: String
 )
 
