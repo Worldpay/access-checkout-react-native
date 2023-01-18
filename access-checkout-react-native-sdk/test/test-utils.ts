@@ -28,7 +28,7 @@ export function givenGenerateSessionsBridgeFailsWith(error: Error) {
   );
 }
 
-export function givenValidationBridgeReturns(returnValue: boolean) {
+export function givenCardValidationBridgeReturns(returnValue: boolean) {
   const mock = NativeModules.AccessCheckoutReactNative.initialiseCardValidation;
   mock.mockReturnValueOnce(
     new Promise((resolve) => {
@@ -37,7 +37,7 @@ export function givenValidationBridgeReturns(returnValue: boolean) {
   );
 }
 
-export function givenValidationBridgeFailsWith(error: Error) {
+export function givenCardValidationBridgeFailsWith(error: Error) {
   const mock = NativeModules.AccessCheckoutReactNative.initialiseCardValidation;
   mock.mockReturnValueOnce(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -48,15 +48,24 @@ export function givenValidationBridgeFailsWith(error: Error) {
   );
 }
 
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any
-export function toMap(object: any): Map<string, string> {
-  const map = new Map<string, string>();
+export function givenCvcOnlyValidationBridgeReturns(returnValue: boolean) {
+  const mock = NativeModules.AccessCheckoutReactNative.initialiseCvcOnlyValidation;
+  mock.mockReturnValueOnce(
+    new Promise((resolve) => {
+      resolve(returnValue);
+    })
+  );
+}
 
-  for (const prop in object) {
-    map.set(prop, object[prop]);
-  }
-
-  return map;
+export function givenCvcOnlyValidationBridgeFailsWith(error: Error) {
+  const mock = NativeModules.AccessCheckoutReactNative.initialiseCvcOnlyValidation;
+  mock.mockReturnValueOnce(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    new Promise((resolve, reject) => {
+      reject(error);
+    })
+  );
 }
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any

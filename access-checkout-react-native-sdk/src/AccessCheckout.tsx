@@ -13,8 +13,9 @@ import CardValidationConfig from './validation/CardValidationConfig';
 import CvcOnlyValidationConfig from './validation/CvcOnlyValidationConfig';
 
 export default class AccessCheckout {
-  static CardValidationEventType = 'AccessCheckoutCardValidationEvent';
-  static CvcOnlyValidationEventType = 'AccessCheckoutCvcOnlyValidationEvent';
+  private readonly ReactNativeSdkVersion = '1.0.0';
+  static readonly CardValidationEventType = 'AccessCheckoutCardValidationEvent';
+  static readonly CvcOnlyValidationEventType = 'AccessCheckoutCvcOnlyValidationEvent';
 
   baseUrl: string;
   merchantId?: string;
@@ -42,6 +43,7 @@ export default class AccessCheckout {
         expiryDateValue: cardDetails.expiryDate,
         cvcValue: cardDetails.cvc,
         sessionTypes,
+        reactNativeSdkVersion: this.ReactNativeSdkVersion,
       })
         // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
         .then((bridgeSessions: any) => {
