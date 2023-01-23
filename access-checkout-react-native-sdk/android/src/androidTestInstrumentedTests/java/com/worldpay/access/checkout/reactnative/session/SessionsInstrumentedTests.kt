@@ -167,30 +167,6 @@ class SessionsInstrumentedTests {
         }
     }
 
-    private fun assertErrorMessageIs(
-        scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
-        expectedErrorMessage: String
-    ) {
-        await().atMost(timeOutInMs, MILLISECONDS).until {
-            var errorMessage = ""
-            scenario.onActivity { activity ->
-                if (activity.errorMessage != "") {
-                    errorMessage = activity.errorMessage
-                }
-            }
-
-            if (errorMessage.isEmpty()) {
-                false
-            } else {
-                if (errorMessage != expectedErrorMessage) {
-                    throw AssertionError("Expected exception message to be '${expectedErrorMessage}' but was '${errorMessage}'")
-                } else {
-                    true
-                }
-            }
-        }
-    }
-
     private fun assertExceptionIs(
         scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
         expectedException: RuntimeException
