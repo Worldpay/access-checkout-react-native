@@ -1,6 +1,6 @@
 #!/bin/bash
 
-help="\nUsage: bump_version.sh -v=<version -t=<rally_ticket_number>\n"
+help="\nUsage: bump-version.sh -v=<version -t=<rally_ticket_number>\n"
 
 for i in "$@"
 do
@@ -21,6 +21,16 @@ case $i in
     ;;
 esac
 done
+
+function trimVersion() {
+  trim=$(sed 's/^[[:space:]]*//' <<< "$version")
+  version=$(sed 's/[[:space:]]*$//' <<< "$trim")
+}
+
+function trimTicketNumber() {
+  trim=$(sed 's/^[[:space:]]*//' <<< "$rally_ticket_number")
+  rally_ticket_number=$(sed 's/[[:space:]]*$//' <<< "$trim")
+}
 
 function validateArguments() {
   if [ -z "${version}"  ]; then
@@ -206,6 +216,8 @@ pushChanges() {
   fi
 }
 
+trimVersion
+trimTicketNumber
 validateArguments
 checkNoPendingChangesToCommit "Please run git reset --hard HEAD to clean your working directory and staging area"
 pullLatestChangesFromMaster
