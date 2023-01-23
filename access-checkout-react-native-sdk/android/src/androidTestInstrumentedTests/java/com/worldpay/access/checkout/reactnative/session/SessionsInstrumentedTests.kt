@@ -3,6 +3,7 @@ package com.worldpay.access.checkout.reactnative.session
 import android.content.Context
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import com.github.tomakehurst.wiremock.client.WireMock.*
 import com.worldpay.access.checkout.reactnative.services.AccessServicesRootStub
 import com.worldpay.access.checkout.reactnative.services.MockServer
 import com.worldpay.access.checkout.reactnative.services.MockServer.startStubServices
@@ -46,6 +47,7 @@ class SessionsInstrumentedTests {
             .expiryDate("12/34")
             .cvc("123")
             .sessionsTypes(listOf(CARD))
+            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -62,6 +64,7 @@ class SessionsInstrumentedTests {
             .expiryDate("12/34")
             .cvc("123")
             .sessionsTypes(listOf(CARD, CVC))
+            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -79,6 +82,7 @@ class SessionsInstrumentedTests {
         sessionsTextFixture()
             .cvc("123")
             .sessionsTypes(listOf(CVC))
+            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -102,6 +106,7 @@ class SessionsInstrumentedTests {
             .expiryDate("12/34")
             .cvc("123")
             .sessionsTypes(listOf(CARD, CVC))
+            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -115,10 +120,36 @@ class SessionsInstrumentedTests {
         sessionsTextFixture()
             .cvc(null)
             .sessionsTypes(listOf(CVC))
+            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
         assertExceptionIs(scenario, exception)
+    }
+
+    @Test
+    fun testShouldSetNativeSdkWpSdkHeaderWithAccessCheckoutReactNativeVersion() {
+        VerifiedTokensStub.stubSessionsSuccess("my-session")
+        SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
+
+        sessionsTextFixture().pan("4444333322221111")
+            .expiryDate("12/34")
+            .cvc("123")
+            .sessionsTypes(listOf(CARD, CVC))
+            .reactNativeSdkVersion("1.2.3")
+
+        val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
+
+        val expectedSessions = mapOf(
+            "card" to "my-session",
+            "cvc" to "my-other-session"
+        )
+        assertSessionsAre(scenario, expectedSessions)
+
+        verify(
+            postRequestedFor(urlEqualTo("/sessions/payments/cvc"))
+                .withHeader("X-WP-SDK", equalTo("access-checkout-react-native/1.2.3"))
+        );
     }
 
     private fun assertSessionsAre(
@@ -133,30 +164,6 @@ class SessionsInstrumentedTests {
             }
 
             sessions == expectedMap
-        }
-    }
-
-    private fun assertErrorMessageIs(
-        scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
-        expectedErrorMessage: String
-    ) {
-        await().atMost(timeOutInMs, MILLISECONDS).until {
-            var errorMessage = ""
-            scenario.onActivity { activity ->
-                if (activity.errorMessage != "") {
-                    errorMessage = activity.errorMessage
-                }
-            }
-
-            if (errorMessage.isEmpty()) {
-                false
-            } else {
-                if (errorMessage != expectedErrorMessage) {
-                    throw AssertionError("Expected exception message to be '${expectedErrorMessage}' but was '${errorMessage}'")
-                } else {
-                    true
-                }
-            }
         }
     }
 

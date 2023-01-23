@@ -8,7 +8,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.3'
         classpath 'org.jacoco:org.jacoco.core:0.8.7'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
     }
 }
 
@@ -42,8 +42,8 @@ apply from: './gradle/publications.gradle'
 dependencies {
     api 'com.facebook.react:react-native:0.+'
 
-    implementation 'com.worldpay.access:access-checkout-android:2.5.0'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
+    implementation 'com.worldpay.access:access-checkout-android:2.5.2'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.21'
 
     testImplementation 'androidx.test:core:1.4.0'
     testImplementation 'junit:junit:4.13.2'
@@ -51,7 +51,7 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.4'
 
     instrumentedTestsImplementation 'androidx.test:core:1.4.0'
-    instrumentedTestsImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
+    instrumentedTestsImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
     instrumentedTestsImplementation 'org.awaitility:awaitility-kotlin:3.1.6'
     instrumentedTestsImplementation 'com.github.tomakehurst:wiremock-standalone:2.27.2'
 

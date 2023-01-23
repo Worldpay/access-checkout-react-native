@@ -59,6 +59,7 @@ class PromiseMock : Promise {
         throw RuntimeException("Not yet implemented")
     }
 
+    @Deprecated("", ReplaceWith(""))
     override fun reject(message: String?) {
         throw RuntimeException("Not yet implemented")
     }

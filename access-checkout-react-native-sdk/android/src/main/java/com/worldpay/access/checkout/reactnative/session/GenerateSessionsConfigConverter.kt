@@ -4,28 +4,29 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.worldpay.access.checkout.client.session.model.SessionType
 import com.worldpay.access.checkout.client.session.model.SessionType.CARD
-import com.worldpay.access.checkout.client.session.model.SessionType.CVC
 
 
 class GenerateSessionsConfigConverter {
 
-    fun fromReadableMap(readableMap: ReadableMap): GenerateSessionsConfig {
-        val baseUrl = readableMap.getString("baseUrl")
-        val merchantId = readableMap.getString("merchantId")
-        val panValue = readableMap.getString("panValue")
-        val expiryDateValue = readableMap.getString("expiryDateValue")
-        val cvcValue = readableMap.getString("cvcValue")
-        val sessionTypes = readableMap.getArray("sessionTypes")
+    fun fromReadableMap(map: ReadableMap): GenerateSessionsConfig {
+        val baseUrl = extractString(fromMap = map, forKey = "baseUrl")
+        val merchantId = extractString(fromMap = map, forKey = "merchantId")
+        val panValue = extractString(fromMap = map, forKey = "panValue")
+        val expiryDateValue = extractString(fromMap = map, forKey = "expiryDateValue")
+        val cvcValue = extractString(fromMap = map, forKey = "cvcValue")
+        val sessionTypes = map.getArray("sessionTypes")
+        val reactNativeSdkVersion = extractString(fromMap = map, forKey = "reactNativeSdkVersion")
 
-        validateNotNull(baseUrl, "baseUrl")
-        validateNotNull(merchantId, "merchantId")
+        validateNonEmptyString(baseUrl, "baseUrl")
+        validateNonEmptyString(merchantId, "merchantId")
+        validateNonEmptyString(reactNativeSdkVersion, "reactNativeSdkVersion")
 
         val sessionTypesList = toSessionTypesList(sessionTypes)
 
         if (sessionTypesList.contains(CARD)) {
-            validateNotNull(panValue, "panValue")
-            validateNotNull(expiryDateValue, "expiryDateValue")
-            validateNotNull(cvcValue, "cvcValue")
+            validateNonEmptyString(panValue, "panValue")
+            validateNonEmptyString(expiryDateValue, "expiryDateValue")
+            validateNonEmptyString(cvcValue, "cvcValue")
 
             return GenerateSessionsConfig(
                 baseUrl = baseUrl!!,
@@ -33,10 +34,11 @@ class GenerateSessionsConfigConverter {
                 panValue = panValue!!,
                 expiryDateValue = expiryDateValue!!,
                 cvcValue = cvcValue!!,
-                sessionTypes = sessionTypesList
+                sessionTypes = sessionTypesList,
+                reactNativeSdkVersion = reactNativeSdkVersion!!
             )
         } else {
-            validateNotNull(cvcValue, "cvcValue")
+            validateNonEmptyString(cvcValue, "cvcValue")
 
             return GenerateSessionsConfig(
                 baseUrl = baseUrl!!,
@@ -44,7 +46,8 @@ class GenerateSessionsConfigConverter {
                 panValue = "",
                 expiryDateValue = "",
                 cvcValue = cvcValue!!,
-                sessionTypes = sessionTypesList
+                sessionTypes = sessionTypesList,
+                reactNativeSdkVersion = reactNativeSdkVersion!!
             )
         }
     }
@@ -83,6 +86,22 @@ class GenerateSessionsConfigConverter {
     private fun validateNotNull(property: Any?, propertyKey: String) {
         if (property == null) {
             throw IllegalArgumentException("Expected $propertyKey to be provided but was not")
+        }
+    }
+
+    private fun validateNonEmptyString(property: String?, propertyKey: String) {
+        if (property == null) {
+            throw IllegalArgumentException("Expected $propertyKey to be provided but was not")
+        } else if (property.isEmpty()) {
+            throw IllegalArgumentException("Expected $propertyKey to be a non-empty String but was not")
+        }
+    }
+
+    private fun extractString(fromMap: ReadableMap, forKey: String): String? {
+        try {
+            return fromMap.getString(forKey)
+        } catch (e: ClassCastException) {
+            throw IllegalArgumentException("Expected $forKey to be a String but was not")
         }
     }
 }

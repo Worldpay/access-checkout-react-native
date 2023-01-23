@@ -24,6 +24,7 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
         const val bridgeFieldExpiryDateId = "expiryDateValue"
         const val bridgeFieldCvcId = "cvcValue"
         const val bridgeFieldSessionTypes = "sessionTypes"
+        const val bridgeFieldReactNativeSdkVersion = "reactNativeSdkVersion"
     }
 
     var sessions: MutableMap<String, String> = HashMap()
@@ -42,8 +43,12 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
         arguments.putString(bridgeFieldExpiryDateId, SessionsTestFixture.expiryDate())
         arguments.putString(bridgeFieldCvcId, SessionsTestFixture.cvc())
         arguments.putArray(
-                bridgeFieldSessionTypes,
-                JavaOnlyArray.from(SessionsTestFixture.sessionsTypes())
+            bridgeFieldSessionTypes,
+            JavaOnlyArray.from(SessionsTestFixture.sessionsTypes())
+        )
+        arguments.putString(
+            bridgeFieldReactNativeSdkVersion,
+            SessionsTestFixture.reactNativeSdkVersion()
         )
 
         val module = AccessCheckoutReactNativeModule(mockReactApplicationContext(this))
@@ -66,15 +71,15 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
     }
 
     private suspend fun generateSessions(
-            module: AccessCheckoutReactNativeModule,
-            arguments: JavaOnlyMap
+        module: AccessCheckoutReactNativeModule,
+        arguments: JavaOnlyMap
     ): ReadableMap =
-            suspendCoroutine { continuation ->
-                val promise = PromiseImpl(
-                        SuccessCallback(continuation),
-                        FailureCallback(continuation)
-                )
+        suspendCoroutine { continuation ->
+            val promise = PromiseImpl(
+                SuccessCallback(continuation),
+                FailureCallback(continuation)
+            )
 
-                module.generateSessions(arguments, promise)
-            }
+            module.generateSessions(arguments, promise)
+        }
 }
