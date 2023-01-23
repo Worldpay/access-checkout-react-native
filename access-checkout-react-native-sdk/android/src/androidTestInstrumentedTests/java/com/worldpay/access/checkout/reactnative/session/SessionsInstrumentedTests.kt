@@ -47,6 +47,7 @@ class SessionsInstrumentedTests {
             .expiryDate("12/34")
             .cvc("123")
             .sessionsTypes(listOf(CARD))
+            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -63,6 +64,7 @@ class SessionsInstrumentedTests {
             .expiryDate("12/34")
             .cvc("123")
             .sessionsTypes(listOf(CARD, CVC))
+            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -80,6 +82,7 @@ class SessionsInstrumentedTests {
         sessionsTextFixture()
             .cvc("123")
             .sessionsTypes(listOf(CVC))
+            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -103,6 +106,7 @@ class SessionsInstrumentedTests {
             .expiryDate("12/34")
             .cvc("123")
             .sessionsTypes(listOf(CARD, CVC))
+            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -116,6 +120,7 @@ class SessionsInstrumentedTests {
         sessionsTextFixture()
             .cvc(null)
             .sessionsTypes(listOf(CVC))
+            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
