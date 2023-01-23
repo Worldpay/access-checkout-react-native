@@ -22,6 +22,7 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
             "expiryDateValue": "12/30",
             "cvcValue": "123",
             "sessionTypes": ["card"],
+            "reactNativeSdkVersion": "1.2.3"
         ]
 
         accessCheckoutReactNative.generateSessions(config: dictionary) { sessions in
@@ -48,6 +49,7 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
             "merchantId": "identity",
             "cvcValue": "123",
             "sessionTypes": ["cvc"],
+            "reactNativeSdkVersion": "1.2.3"
         ]
 
         accessCheckoutReactNative.generateSessions(config: dictionary) { sessions in
@@ -78,6 +80,7 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
             "expiryDateValue": "12/30",
             "cvcValue": "123",
             "sessionTypes": ["card", "cvc"],
+            "reactNativeSdkVersion": "1.2.3"
         ]
 
         accessCheckoutReactNative.generateSessions(config: dictionary) { sessions in
@@ -139,6 +142,7 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
             "expiryDateValue": "12/30",
             "cvcValue": "123",
             "sessionTypes": ["card"],
+            "reactNativeSdkVersion": "1.2.3"
         ]
 
         accessCheckoutReactNative.generateSessions(config: dictionary) { _ in
