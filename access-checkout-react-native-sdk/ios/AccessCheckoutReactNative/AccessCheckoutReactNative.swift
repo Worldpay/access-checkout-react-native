@@ -3,6 +3,7 @@ import React
 
 @objc(AccessCheckoutReactNative)
 class AccessCheckoutReactNative: RCTEventEmitter {
+    private let wpSdkHeaderFormat = "access-checkout-react-native/%@"
     private let cardValidationEventName = "AccessCheckoutCardValidationEvent"
     private let cvcOnlyValidationEventName = "AccessCheckoutCvcOnlyValidationEvent"
 
@@ -23,8 +24,8 @@ class AccessCheckoutReactNative: RCTEventEmitter {
     func generateSessions(
         config: NSDictionary,
         resolve: @escaping RCTPromiseResolveBlock,
-        reject: @escaping RCTPromiseRejectBlock
-    ) {
+        reject: @escaping RCTPromiseRejectBlock)
+    {
         do {
             let cfg = try GenerateSessionConfig(dictionary: config)
 
@@ -48,9 +49,13 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     .cvc(cfg.cvcValue!)
                     .build()
             }
+
+            let wpSdkHeaderValue = String(format: wpSdkHeaderFormat, cfg.reactNativeSdkVersion!)
+            try! WpSdkHeader.overrideValue(with: wpSdkHeaderValue)
+
             try accessCheckoutClient!.generateSessions(
-                cardDetails: cardDetails, sessionTypes: cfg.sessionTypes
-            ) {
+                cardDetails: cardDetails, sessionTypes: cfg.sessionTypes)
+            {
                 result in
                 DispatchQueue.main.async {
                     switch result {
@@ -73,8 +78,8 @@ class AccessCheckoutReactNative: RCTEventEmitter {
     func initialiseCardValidation(
         config: NSDictionary,
         resolve: @escaping RCTPromiseResolveBlock,
-        reject: @escaping RCTPromiseRejectBlock
-    ) {
+        reject: @escaping RCTPromiseRejectBlock)
+    {
         DispatchQueue.main.async {
             do {
                 let config = try CardValidationConfigRN(dictionary: config)
@@ -129,8 +134,8 @@ class AccessCheckoutReactNative: RCTEventEmitter {
     func initialiseCvcOnlyValidation(
         config: NSDictionary,
         resolve: @escaping RCTPromiseResolveBlock,
-        reject: @escaping RCTPromiseRejectBlock
-    ) {
+        reject: @escaping RCTPromiseRejectBlock)
+    {
         DispatchQueue.main.async {
             do {
                 let config = try CvcOnlyValidationConfigRN(dictionary: config)
@@ -168,7 +173,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
     }
 
     @objc
-    static override func requiresMainQueueSetup() -> Bool {
+    override static func requiresMainQueueSetup() -> Bool {
         return false
     }
 }

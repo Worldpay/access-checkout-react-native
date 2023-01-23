@@ -3,10 +3,11 @@ import AccessCheckoutSDK
 struct GenerateSessionConfig {
     let baseUrl: String
     let merchantId: String
-    var panValue: String? = nil
-    var expiryDateValue: String? = nil
+    var panValue: String?
+    var expiryDateValue: String?
     let cvcValue: String?
     let sessionTypes: Set<SessionType>
+    var reactNativeSdkVersion: String?
 
     init(dictionary: NSDictionary) throws {
         self.baseUrl = dictionary["baseUrl"] as? String ?? ""
@@ -37,10 +38,6 @@ struct GenerateSessionConfig {
             }
         }
 
-        if self.cvcValue == "" {
-            throw AccessCheckoutRnIllegalArgumentError.missingCvc()
-        }
-
         let sessionTypes = dictionary["sessionTypes"] as? [AnyObject] ?? []
 
         if sessionTypes.count == 0 {
@@ -68,5 +65,28 @@ struct GenerateSessionConfig {
             }
         }
         self.sessionTypes = set
+
+        // Pan and Expiry date are required when requesting a card session
+        if self.sessionTypes.contains(SessionType.card) {
+            if self.panValue == nil || self.panValue == "" {
+                throw AccessCheckoutRnIllegalArgumentError.missingPan()
+            } else if self.expiryDateValue == nil || self.expiryDateValue == "" {
+                throw AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
+            }
+        }
+        // Cvc is always required independently on the type of session generated
+        if self.cvcValue == nil || self.cvcValue == "" {
+            throw AccessCheckoutRnIllegalArgumentError.missingCvc()
+        }
+
+        if dictionary["reactNativeSdkVersion"] == nil {
+            throw AccessCheckoutRnIllegalArgumentError.missingReactNativeSdkVersion()
+        } else {
+            if let string = dictionary["reactNativeSdkVersion"] as? String, string != "" {
+                self.reactNativeSdkVersion = string
+            } else {
+                throw AccessCheckoutRnIllegalArgumentError.missingReactNativeSdkVersion()
+            }
+        }
     }
 }
