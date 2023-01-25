@@ -1,5 +1,5 @@
 {
-  "name": "@worldpay-beta/access-worldpay-checkout-react-native-sdk-beta",
+  "name": "@worldpay/access-worldpay-checkout-react-native-sdk",
   "version": "1.0.0",
   "description": "Worldpay Access Checkout SDK for ReactNative",
   "repository": {
