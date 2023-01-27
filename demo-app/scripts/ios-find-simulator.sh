@@ -28,10 +28,23 @@ filename="simulators-list"
 xcrun xctrace list devices &> temp
 cat temp | grep -A 100 'Simulators' > $filename
 
+echo "Found the following list of simulators"
+cat $filename
+
 if [ -z "${version}"  ]; then
+  echo ""
+  echo "No version has been passed, so the first simulator will be grabbed"
   simulator=$(cat $filename | grep -m 1 '\d\d\.\d')
 else
-  simulator=$(cat $filename | grep -m 1 "${version}")
+  echo ""
+  echo "Version ${version} has been passed, so the first simulator matching this version will be grabbed"
+
+  # escapes the . character with a \ if it is present in the version string
+  if [[ "$version" == *"."* ]]; then
+    grepPattern="${version//./\.}"
+  fi
+
+  simulator=$(cat $filename | grep -m 1 "${grepPattern}")
 fi
 
 export SIMULATOR_VERSION=$(echo $simulator | grep -o '\d\d\.\d')
