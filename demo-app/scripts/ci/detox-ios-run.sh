@@ -24,7 +24,7 @@ fi
 
 
 echo "Running Detox tests for iOS"
-JEST_HTML_REPORTER_OUTPUT_PATH="./reports/e2e-tests/ios-e2e-tests.html" detox test --configuration ios-ci --cleanup --loglevel trace
+JEST_HTML_REPORTER_OUTPUT_PATH="./reports/e2e-tests/ios-e2e-tests.html" detox test --configuration ios-ci --cleanup --loglevel trace --maxWorkers 5
 status=$?
 
 ./scripts/stop-react-native-background.sh
