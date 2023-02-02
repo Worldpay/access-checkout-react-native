@@ -25,8 +25,8 @@
     "ios-ci": {
       "type": "ios.simulator",
       "device": {
-        "os": "15.0",
-        "name": "iPad\\ (9th generation)"
+        "os": "iOS 15.0",
+        "type": "iPad (9th generation)"
       }
     },
     "android": {
