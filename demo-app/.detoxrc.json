@@ -26,7 +26,7 @@
       "type": "ios.simulator",
       "device": {
         "os": "15.0",
-        "name": "iPhone 8"
+        "name": "iPad (9th generation) Simulator"
       }
     },
     "android": {
