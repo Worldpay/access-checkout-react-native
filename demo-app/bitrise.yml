@@ -73,6 +73,11 @@ workflows:
         title: "Install pods for demo-app"
         inputs:
         - source_root_path: $BITRISE_SOURCE_DIR/demo-app/ios/
+    - npm@1:
+        title: "Rebuilding detox"
+        inputs:
+          - command: rebuild detox
+          - workdir: $BITRISE_SOURCE_DIR/demo-app/
     - script@1.2:
         title: "Build app for Detox"
         inputs:
