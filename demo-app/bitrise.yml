@@ -54,7 +54,7 @@ workflows:
     - npm@1:
         title: "Install detox-cli"
         inputs:
-          - command: install -g detox-cli
+          - command: install -g detox-cli@19
     - npm@1:
         title: "Install SDK dependencies"
         inputs:
