@@ -23,7 +23,7 @@ fi
 
 
 echo "Running Detox tests for iOS"
-JEST_HTML_REPORTER_OUTPUT_PATH="./reports/e2e-tests/ios-e2e-tests.html" detox test --configuration ios-ci --loglevel trace
+JEST_HTML_REPORTER_OUTPUT_PATH="./reports/e2e-tests/ios-e2e-tests.html" detox test --configuration ios-ci --loglevel trace --artifacts-location='$BITRISE_SOURCE_DIR/demo-app/reports/e2e-tests/'
 status=$?
 
 ./scripts/stop-react-native-background.sh
