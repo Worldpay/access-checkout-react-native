@@ -3,6 +3,11 @@
 # This script must be executed from the demo-app folder
 
 set +e
+echo "Listing devices using applesimutils"
+applesimutils --list
+
+echo "Listing devices using xcrun"
+xcrun simctl list devicetypes
 
 echo "Deleting any existing test reports"
 rm -f ./reports/e2e-tests/ios-e2e-tests.html
