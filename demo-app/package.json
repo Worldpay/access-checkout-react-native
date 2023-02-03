@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.worldpay.com/access-for-ecomm/access-checkout-react-native"
+    "url": "https://github.com/Worldpay/access-checkout-react-native.git"
   },
   "author": "Worldpay",
   "license": "ISC",
