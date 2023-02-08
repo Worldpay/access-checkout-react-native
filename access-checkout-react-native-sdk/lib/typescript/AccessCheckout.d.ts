@@ -3,8 +3,9 @@ import Sessions from './session/Sessions';
 import CardValidationConfig from './validation/CardValidationConfig';
 import CvcOnlyValidationConfig from './validation/CvcOnlyValidationConfig';
 export default class AccessCheckout {
-    static CardValidationEventType: string;
-    static CvcOnlyValidationEventType: string;
+    private readonly ReactNativeSdkVersion;
+    static readonly CardValidationEventType = "AccessCheckoutCardValidationEvent";
+    static readonly CvcOnlyValidationEventType = "AccessCheckoutCvcOnlyValidationEvent";
     baseUrl: string;
     merchantId?: string;
     constructor({ baseUrl, merchantId, }: {

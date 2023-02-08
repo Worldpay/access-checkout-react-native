@@ -10,6 +10,8 @@ export default class AccessCheckout {
       merchantId
     } = _ref;
 
+    _defineProperty(this, "ReactNativeSdkVersion", '1.0.0');
+
     _defineProperty(this, "baseUrl", void 0);
 
     _defineProperty(this, "merchantId", void 0);
@@ -26,7 +28,8 @@ export default class AccessCheckout {
         panValue: cardDetails.pan,
         expiryDateValue: cardDetails.expiryDate,
         cvcValue: cardDetails.cvc,
-        sessionTypes
+        sessionTypes,
+        reactNativeSdkVersion: this.ReactNativeSdkVersion
       }) // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
       .then(bridgeSessions => {
         const sessions = {};
