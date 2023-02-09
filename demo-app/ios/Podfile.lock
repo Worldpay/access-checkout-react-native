@@ -252,7 +252,7 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - "AccessCheckoutSDK-React (from `../node_modules/@worldpay/access-checkout-react-native-sdk/ios/`)"
+  - "AccessCheckoutReactNativeSDKiOSBridge (from `../node_modules/@worldpay/access-worldpay-checkout-react-native-sdk/ios/`)"
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
@@ -289,7 +289,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   AccessCheckoutReactNativeSDKiOSBridge:
-    :path: "../node_modules/@worldpay/access-checkout-react-native-sdk/ios/"
+    :path: "../node_modules/@worldpay/access-worldpay-checkout-react-native-sdk/ios/"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -374,6 +374,6 @@ SPEC CHECKSUMS:
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: c3ccb0d87c30488cfc928e657a1df6326453915b
+PODFILE CHECKSUM: cd439bcd3d89fc493c748122fc122bc814880ff2
 
 COCOAPODS: 1.11.3

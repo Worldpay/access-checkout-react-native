@@ -22,6 +22,7 @@
   "author": "Worldpay",
   "license": "ISC",
   "dependencies": {
+    "@worldpay/access-worldpay-checkout-react-native-sdk": "^1.0.0",
     "react": "^16.13.1",
     "react-native": "^0.63.4"
   },
