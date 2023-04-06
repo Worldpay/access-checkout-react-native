@@ -9,11 +9,17 @@ It is designed to simplify the integration of the following functionality:
 
 ## Documentation
 
-The detailed documentation explaining how to integrate the SDK and how to use a session to take a payment can be found in Access Worldpay documentation at [https://developer.worldpay.com](https://developer.worldpay.com)
+The detailed documentation explaining how to integrate the SDK and how to use a session to take a payment can be found in Access Worldpay documentation at [https://developer.worldpay.com](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native)
 
 ## Compatibility
 
-The SDK is compatible with all react native versions starting from version 0.59
+- all `react-native` versions >= `0.61.5`
+- all `react` versions >= `16.9.0`
+- `Cocoapods` only for iOS dependencies
+
+## How to install
+
+Refer to the **Get our SDK section** of the [Access Worldpay documentation](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native)
 
 ## Features
 
