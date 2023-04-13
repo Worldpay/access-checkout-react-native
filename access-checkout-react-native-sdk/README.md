@@ -11,7 +11,7 @@ It is designed to simplify the integration of the following functionality in you
 
 ## Documentation
 
-The detailed documentation explaining how to integrate the SDK and how to use a session to take a payment can be found starting with the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay documentation](https://developer.worldpay.com)
+You can find the detailed documentation explaining how to integrate the SDK and how to use a session to take a payment starting with the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay documentation](https://developer.worldpay.com).
 
 ## Compatibility
 
