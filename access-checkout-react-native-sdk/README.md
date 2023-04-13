@@ -25,7 +25,7 @@ Refer to **Get our SDK** in the [React Native section](https://developer.worldpa
 
 ## Features
 
-The SDK offers you the following features
+The SDK offers you the following features:
 
 ### For card payments
 
