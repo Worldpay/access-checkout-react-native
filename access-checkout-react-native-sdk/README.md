@@ -58,7 +58,7 @@ Formats a card number as the shopper types to make it easier to enter and read a
 
 #### Card brands restriction (optional)
 
-Changes the behaviour of the validation feature to consider as valid only the card brands that you want to support.
+Changes the behavior of the validation feature to consider as valid only the card brands that you want to support.
 
 
 ### For cvc only payments
