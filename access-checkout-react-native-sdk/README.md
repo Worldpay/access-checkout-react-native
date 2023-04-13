@@ -67,7 +67,7 @@ Paying only with CVC is possible with the Access Worldpay APIs using a Verified 
 
 #### Cvc validation
 
-Validates the format of the Cvc entered by a shopper to ensure it appears valid prior to submitting it.
+Validates the format of the CVC entered by a customer to ensure it appears valid prior to submitting it.
 
 ## Hooks
 
