@@ -31,7 +31,7 @@ The SDK offers you the following features
 
 #### Card session
 
-Creates a session which you need to use to take a payment using the Access Worldpay APIs.
+Creates a session which you must use to take a payment using the Access Worldpay APIs.
 
 #### CVC session (optional)
 
