@@ -54,7 +54,7 @@ Allows you to listen to events indicating which card brand corresponds to the ca
 
 #### Card number formatting (optional) 
 
-Formats a card number as the shopper types to make it easier to enter and read a card number.
+Formats a card number as the customer types to make it easier to enter and read a card number.
 
 #### Card brands restriction (optional)
 
