@@ -33,7 +33,7 @@ Creates a session which you need to use to take a payment using the Access World
 
 #### Cvc session (optional)
 
-Creates a cvc which you may want to use for additional security as part of taking a payment using the Access Worldpay APIs.
+Creates a cvc session which you may want to use for additional security as part of taking a payment using the Access Worldpay APIs.
 
 #### Card details validation
 
@@ -66,10 +66,6 @@ Paying with a Cvc only is possible with the Access Worldpay APIs using a Verifie
 #### Cvc validation
 
 Validates the format of the Cvc entered by a shopper to ensure it appears valid prior to submitting it.
-
-so that Description of what RN SDK is and what it is used for
-Prerequisites
-Features of RN SDK - card brand restrictions, PAN formatting, hook to initialise validation, compatibility with versions
 
 ## Hooks
 
