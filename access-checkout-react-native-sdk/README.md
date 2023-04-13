@@ -33,7 +33,7 @@ The SDK offers you the following features
 
 Creates a session which you need to use to take a payment using the Access Worldpay APIs.
 
-#### Cvc session (optional)
+#### CVC session (optional)
 
 Creates a cvc session which you may want to use for additional security as part of taking a payment using the Access Worldpay APIs.
 
