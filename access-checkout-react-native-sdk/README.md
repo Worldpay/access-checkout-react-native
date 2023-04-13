@@ -35,7 +35,7 @@ Creates a session which you need to use to take a payment using the Access World
 
 #### CVC session (optional)
 
-Creates a cvc session which you may want to use for additional security as part of taking a payment using the Access Worldpay APIs.
+Creates a CVC session which you may want to use for additional security as part of taking a payment using the Access Worldpay APIs.
 
 #### Card details validation
 
