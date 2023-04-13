@@ -73,7 +73,7 @@ Validates the format of the CVC entered by a customer to ensure it appears valid
 
 #### useCardValidation()
 
-Use this hook to get a function used to initialise the validation of your card payment form.
+Use this hook to get a function used to initialize the validation of your card payment form.
 
 #### useCvcOnlyValidation()
 
