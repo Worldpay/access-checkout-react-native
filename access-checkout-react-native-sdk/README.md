@@ -4,7 +4,7 @@
 
 Take payments and still qualify for SAQ-A – the lowest PCI compliance level – with our React Native SDK. Create your own uniquely styled and branded checkout form by integrating our SDK into your native app.
 
-This SDK is the first step for integrating the Worldpay Access Payment APIs into a React Native app.
+This SDK is the first step to integrate with our Access Worldpay APIs into a React Native app.
 It is designed to simplify the integration of the following functionality in your checkout form:
 - validating the format of the card details entered by a customer
 - generating a session (short-lived token representing a customer's card details)  
