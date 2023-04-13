@@ -61,7 +61,7 @@ Formats a card number as the shopper types to make it easier to enter and read a
 Changes the behavior of the validation feature to consider as valid only the card brands that you want to support.
 
 
-### For cvc only payments
+### For CVC only payments
 
 Paying only with CVC is possible with the Access Worldpay APIs using a Verified Token. Verified tokens are long-lived tokens representing a customer's card details valid for more than a year which you would have typically saved in your database as part of a first card payment.
 
