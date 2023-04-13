@@ -43,7 +43,7 @@ Validates the format of the card details entered by a shopper to ensure that the
 
 #### Card brand detection
 
-Allows you to listen to events indicating which card brand corresponds to the card number entered by a shopper. The following major card brands are supported:
+Allows you to listen to events indicating which card brand corresponds to the card number entered by a customer. The following major card brands are supported:
 - American Express
 - Diners
 - Discover
