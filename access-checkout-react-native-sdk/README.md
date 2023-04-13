@@ -39,7 +39,7 @@ Creates a CVC session which you may want to use for additional security as part 
 
 #### Card details validation
 
-Validates the format of the card details entered by a shopper to ensure that the card number, expiry date and cvc have been entered correctly by a shopper prior to submitting them. The card number is validated using the Luhn algorithm.
+Validates the format of the card details entered by a customer to ensure that the card number, expiry date and CVC have been entered correctly by a customer prior to submitting them. The card number is validated using the Luhn algorithm.
 
 #### Card brand detection
 
