@@ -77,7 +77,7 @@ Use this hook to get a function used to initialise the validation of your card p
 
 #### useCvcOnlyValidation()
 
-Use this hook to get a function used to initialise the validation of your cvc only payment form.
+Use this hook to get a function used to initialize the validation of your CVC only payment form.
 
 
 ## Full code samples
