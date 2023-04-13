@@ -63,7 +63,7 @@ Changes the behavior of the validation feature to consider as valid only the car
 
 ### For cvc only payments
 
-Paying with a Cvc only is possible with the Access Worldpay APIs using a Verified Token. Verified tokens are long-lived tokens representing a shopper's card details valid for more than a year which you would have typically saved in your database as part of a first card payment.
+Paying only with CVC is possible with the Access Worldpay APIs using a Verified Token. Verified tokens are long-lived tokens representing a customer's card details valid for more than a year which you would have typically saved in your database as part of a first card payment.
 
 #### Cvc validation
 
