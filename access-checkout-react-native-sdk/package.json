@@ -26,7 +26,8 @@
     "lib/",
     "android/com",
     "ios/AccessCheckoutReactNative",
-    "ios/AccessCheckoutReactNativeSDKiOSBridge.podspec"
+    "ios/AccessCheckoutReactNativeSDKiOSBridge.podspec",
+    "CHANGELOG.md"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.5",
