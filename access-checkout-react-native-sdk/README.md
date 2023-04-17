@@ -11,7 +11,7 @@ It is designed to simplify the integration of the following functionality in you
 
 ## Documentation
 
-You can find the detailed documentation explaining how to integrate the SDK and how to use a session to take a payment starting with the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay documentation](https://developer.worldpay.com).
+You can find the detailed documentation explaining how to integrate the SDK and use a session to take a payment starting with the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay documentation](https://developer.worldpay.com).
 
 ## Compatibility
 
@@ -21,7 +21,7 @@ You can find the detailed documentation explaining how to integrate the SDK and 
 
 ## How to install
 
-Refer to **Get our SDK** in the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay documentation](https://developer.worldpay.com)
+Refer to [Get our SDK](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native#get-our-sdk) in the React Native section of the [Access Worldpay documentation](https://developer.worldpay.com)
 
 ## Features
 
@@ -39,7 +39,7 @@ Creates a CVC session which you may want to use for additional security as part 
 
 #### Card details validation
 
-Validates the format of the card details entered by a customer to ensure that the card number, expiry date and CVC have been entered correctly by a customer prior to submitting them. The card number is validated using the Luhn algorithm.
+Validates the format of the card details to ensure that the card number, expiry date and CVC have been entered correctly by a customer prior to submitting them. The card number is validated using the Luhn algorithm.
 
 #### Card brand detection
 
@@ -58,7 +58,7 @@ Formats a card number as the customer types to make it easier to enter and read 
 
 #### Card brands restriction (optional)
 
-Changes the behavior of the validation feature to consider as valid only the card brands that you want to support.
+Changes the behavior of the validation feature to consider only the card brands that you want to support as valid.
 
 
 ### For CVC only payments
@@ -67,7 +67,7 @@ Paying only with CVC is possible with the Access Worldpay APIs using a Verified 
 Verified tokens are long-lived tokens representing a customer's card details which are valid for 4 years. 
 You would typically save these in your database as part of a first card payment in a repeat agreement.
 
-#### Cvc validation
+#### CVC validation
 
 Validates the format of the CVC entered by a customer to ensure it appears valid prior to submitting it.
 
