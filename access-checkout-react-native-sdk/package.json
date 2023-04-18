@@ -28,7 +28,8 @@
     "ios/AccessCheckoutReactNative",
     "ios/AccessCheckoutReactNativeSDKiOSBridge.podspec",
     "CHANGELOG.md",
-    "README.md"
+    "README.md",
+    "worldpay_logo.png"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.5",
