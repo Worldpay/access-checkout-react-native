@@ -165,6 +165,15 @@ changeVersionInAndroidBridge() {
   echo "Processed file ${filepath}"
 }
 
+regenerateLibFiles() {
+  echo ""
+  echo "Regenerating lib files so they contain the new version"
+
+  cd access-checkout-react-native-sdk
+  npm run prepare
+  cd ..
+}
+
 function reinstallDemoAppPods() {
   echo ""
   echo "Re-installing pods in demo-app following to version change in SDK iOS Bridge"
@@ -193,6 +202,7 @@ commitAllChanges() {
   git add ./access-checkout-react-native-sdk/package.json
   git add ./access-checkout-react-native-sdk/src/AccessCheckout.tsx
   git add ./demo-app/ios/Podfile.lock
+  git add ./access-checkout-react-native-sdk/lib/
 
   git commit -m "$commitMessage"
 
@@ -227,6 +237,7 @@ changeVersionInTypeScriptSDK $version
 changeVersionInIosBridge $version
 changeVersionInAndroidBridge $version
 reinstallDemoAppPods
+regenerateLibFiles
 
 commitAllChanges
 checkNoPendingChangesToCommit "Some changes have been left out and not committed. This is unexpected and is an issue. Please check the script"
