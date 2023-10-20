@@ -13,7 +13,7 @@ import CardValidationConfig from './validation/CardValidationConfig';
 import CvcOnlyValidationConfig from './validation/CvcOnlyValidationConfig';
 
 export default class AccessCheckout {
-  private readonly ReactNativeSdkVersion = '1.0.1';
+  private readonly ReactNativeSdkVersion = '1.0.2';
   static readonly CardValidationEventType = 'AccessCheckoutCardValidationEvent';
   static readonly CvcOnlyValidationEventType = 'AccessCheckoutCvcOnlyValidationEvent';
 
