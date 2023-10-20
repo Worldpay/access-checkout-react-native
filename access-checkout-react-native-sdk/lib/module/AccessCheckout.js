@@ -10,7 +10,7 @@ export default class AccessCheckout {
       merchantId
     } = _ref;
 
-    _defineProperty(this, "ReactNativeSdkVersion", '1.0.1');
+    _defineProperty(this, "ReactNativeSdkVersion", '1.0.2');
 
     _defineProperty(this, "baseUrl", void 0);
 
