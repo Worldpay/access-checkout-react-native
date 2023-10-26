@@ -14,7 +14,7 @@ dependencies {
     implementation 'org.webkit:android-jsc:+'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    implementation "com.worldpay.access:access-checkout-react-native-sdk-android-bridge:1.0.1"
+    implementation "com.worldpay.access:access-checkout-react-native-sdk-android-bridge:1.0.2"
 
     androidTestImplementation('com.wix:detox:19.+')
 }
