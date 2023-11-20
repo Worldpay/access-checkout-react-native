@@ -2,51 +2,20 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "30.0.0"
+        buildToolsVersion = "33.0.0"
         minSdkVersion = 21
-        compileSdkVersion = 30
-        targetSdkVersion = 30
+        compileSdkVersion = 33
+        targetSdkVersion = 33
+
+        // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
+        ndkVersion = "23.1.7779620"
     }
     repositories {
         google()
-        jcenter()
         mavenCentral()
-        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
-        classpath('com.android.tools.build:gradle:7.0.2')
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-        maven { url("$rootDir/../node_modules/react-native/android") }
-
-        maven { url "$rootDir/../node_modules/detox/Detox-android" }
-
-        // Android JSC is installed from npm
-        maven { url("$rootDir/../node_modules/jsc-android/dist") }
-
-        maven { url 'https://www.jitpack.io' }
-
-        google()
-
-        // the excludeGroup instructions below are used to force Grade to use the version of react-native
-        // declared in ../node_modules/react-native/android
-        jcenter {
-            content {
-                excludeGroup("com.facebook.react")
-            }
-        }
-        mavenCentral {
-            content {
-                excludeGroup("com.facebook.react")
-            }
-        }
-        mavenLocal()
+        classpath("com.android.tools.build:gradle")
+        classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }
