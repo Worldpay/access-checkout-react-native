@@ -9,7 +9,8 @@
     "eslint:recommended",
     "prettier",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "@react-native"
   ],
   "ignorePatterns": [
     "node_modules/",
@@ -19,6 +20,7 @@
     "src/**/*.js"
   ],
   "rules": {
-    "prettier/prettier": 2 // Means error
+    "prettier/prettier": 2
+    // Means error
   }
 }
