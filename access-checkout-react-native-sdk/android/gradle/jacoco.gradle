@@ -34,6 +34,6 @@ task testCoverage(type: JacocoReport, dependsOn: ['testInstrumentedTestsDebugUni
     sourceDirectories.setFrom(sourceDirs)
 
     reports {
-        html.enabled true
+        html.required = true
     }
 }

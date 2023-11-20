@@ -34,7 +34,7 @@ android {
 
     flavorDimensions 'defaultFlavorDimension'
     productFlavors {
-        main {
+        core {
 
         }
 
