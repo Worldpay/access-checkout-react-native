@@ -16,7 +16,7 @@ import { isArray, isFunction } from '../test-utils';
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 let useEffectCleanUpFunction: any;
-jest.spyOn(React, 'useEffect').mockImplementation((f) => {
+jest.spyOn(React, 'useEffect').mockImplementation(f => {
   useEffectCleanUpFunction = f();
 });
 
@@ -81,7 +81,8 @@ describe('CardValidationHooks', function () {
     });
 
     it('function returned is designed to initialise the card validation', () => {
-      jest.spyOn(accessCheckout, 'initialiseCardValidation');
+      const spy = jest.spyOn(accessCheckout, 'initialiseCardValidation');
+      spy.mockResolvedValue(true);
 
       // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const hooksValues: any = useCardValidation(
