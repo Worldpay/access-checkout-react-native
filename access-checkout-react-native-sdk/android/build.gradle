@@ -6,7 +6,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath("com.android.tools.build:gradle")
+        classpath("com.facebook.react:react-native-gradle-plugin")
         classpath 'org.jacoco:org.jacoco.core:0.8.7'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
     }
@@ -16,23 +17,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 
-// the excludeGroup instructions below are used to force Grade to use the version of react-native
-// declared in ../node_modules/react-native/android
+
 repositories {
     google()
-    jcenter {
-        content {
-            excludeGroup("com.facebook.react")
-        }
-    }
-    mavenCentral {
-        content {
-            excludeGroup("com.facebook.react")
-        }
-    }
-    maven { url 'https://www.jitpack.io' }
-    maven { url("$rootDir/../node_modules/react-native/android") }
-    maven { url("$rootDir/../node_modules/jsc-android/dist") }
+    mavenCentral()
 }
 
 apply from: './gradle/android.gradle'
@@ -40,7 +28,7 @@ apply from: './gradle/jacoco.gradle'
 apply from: './gradle/publications.gradle'
 
 dependencies {
-    api 'com.facebook.react:react-native:0.+'
+    api 'com.facebook.react:react-android:0.72.0'
 
     implementation 'com.worldpay.access:access-checkout-android:2.5.2'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.21'
