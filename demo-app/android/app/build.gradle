@@ -11,7 +11,7 @@ dependencies {
 
     implementation project(':access-checkout-react-native-sdk')
 
-    androidTestImplementation('com.wix:detox:20.+')
+    androidTestImplementation('com.wix:detox:+')
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

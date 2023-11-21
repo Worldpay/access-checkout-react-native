@@ -1,1 +1,2 @@
 rootProject.name = "access-checkout-react-native-sdk-android-bridge"
+includeBuild('../node_modules/@react-native/gradle-plugin')
