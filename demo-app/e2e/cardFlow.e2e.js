@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { device, expect } = require('detox');
-const jestExpect = require('expect');
+const { expect: jestExpect } = require('expect');
 const {
   cvcSessionRegEx,
   verifiedTokensSessionRegEx,
