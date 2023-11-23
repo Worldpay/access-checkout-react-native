@@ -28,10 +28,10 @@ end
 
 target 'AccessCheckoutReactNative' do
   config = use_native_modules!
-  
+
   # Flags change depending on the env values.
   flags = get_default_flags()
-  
+
   use_react_native!(
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
@@ -47,11 +47,11 @@ target 'AccessCheckoutReactNative' do
   )
 
   pod 'AccessCheckoutSDK', '~> 2.4.1'
-  
+
   target 'AccessCheckoutReactNativeUnitTests' do
     inherit! :complete
-   
-    pod 'Mockingjay', :git => 'https://github.com/kylef/Mockingjay.git', :commit => '9e5bd2f'
+
+    pod 'Mockingjay', :git => 'https://github.com/kylef/Mockingjay.git', :commit => 'b88c9dc'
   end
 
   post_install do |installer|
@@ -65,4 +65,3 @@ target 'AccessCheckoutReactNative' do
     end
 
 end
-
