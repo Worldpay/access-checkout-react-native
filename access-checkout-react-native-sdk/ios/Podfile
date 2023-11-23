@@ -19,19 +19,22 @@ prepare_react_native_project!
 # ```
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
-end
+#linkage = ENV['USE_FRAMEWORKS']
+# linkage = ":static"
+# if linkage != nil
+#   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+#   use_frameworks! :linkage => linkage.to_sym
+# end
 
 
 target 'AccessCheckoutReactNative' do
+  use_frameworks!
+
   config = use_native_modules!
-  
+
   # Flags change depending on the env values.
   flags = get_default_flags()
-  
+
   use_react_native!(
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
@@ -41,17 +44,17 @@ target 'AccessCheckoutReactNative' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+#    :flipper_configuration => flipper_config,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
   pod 'AccessCheckoutSDK', '~> 2.4.1'
-  
+
   target 'AccessCheckoutReactNativeUnitTests' do
-    inherit! :complete
-   
-    pod 'Mockingjay', :git => 'https://github.com/kylef/Mockingjay.git', :commit => '9e5bd2f'
+  use_frameworks!
+
+    pod 'Mockingjay', :git => 'https://github.com/kylef/Mockingjay.git', :commit => 'b88c9dc'
   end
 
   post_install do |installer|
@@ -65,4 +68,3 @@ target 'AccessCheckoutReactNative' do
     end
 
 end
-

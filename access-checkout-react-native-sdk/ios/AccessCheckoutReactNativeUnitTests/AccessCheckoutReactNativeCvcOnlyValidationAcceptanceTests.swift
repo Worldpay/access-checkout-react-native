@@ -13,7 +13,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
     private var reactNativeViewLocatorMock: ReactNativeViewLocatorMock?
     private var controller: CvcOnlyValidationTestUIViewController? = nil
     private var cvcUITextField: UITextField? = nil
-    
+
     override func setUp() {
         controller =
             (storyboard.instantiateViewController(
@@ -29,7 +29,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
         let invalidConfig: NSDictionary = [:]
         let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvcId()
-        
+
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: invalidConfig) { (success) in
             XCTFail("validation initialisation should have faild but it didn't")
             expectationToFulfill.fulfill()
@@ -44,7 +44,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
     func testShouldReturnAnErrorWhenCvcTextFieldNotFound() {
         let expectationToFulfill = expectation(description: "Error should be returned")
         let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
-        
+
         reactNativeViewLocatorMock!.cvcUITextField = nil
         let expectedError = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
             cvcNativeId: "cvc")
@@ -63,7 +63,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
     func testShouldResolvePromiseWithTrueWhenSuccessfullyInitialised() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
-        
+
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { (success) in
             XCTAssertTrue(success as! Bool)
             expectationToFulfill.fulfill()
@@ -177,7 +177,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
 
     private class AccessCheckoutReactNativeTestImplementation: AccessCheckoutReactNative {
         private(set) var eventsSent: [RCTEventMock] = []
-
+        
         override func sendEvent(withName name: String!, body: Any!) {
             let eventMock = RCTEventMock(name, bodyDictionary: body as! NSDictionary)
             eventsSent.append(eventMock)
