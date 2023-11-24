@@ -48,15 +48,15 @@
     "jest-html-reporter": "^3.10.2",
     "jest-junit": "^13.0.0",
     "prettier": "^2.5.0",
-    "react": "^18.2.0",
-    "react-native": "^0.72.0",
+    "react": "^18.1.0",
+    "react-native": "^0.70.0",
     "react-native-builder-bob": "^0.18.2",
     "ts-jest": "^29.1.1",
     "typescript": "4.8.4"
   },
   "peerDependencies": {
-    "react": ">=18.2.0",
-    "react-native": ">=0.72.0"
+    "react": ">=18.1.0",
+    "react-native": ">=0.70.0"
   },
   "react-native-builder-bob": {
     "source": "src",
