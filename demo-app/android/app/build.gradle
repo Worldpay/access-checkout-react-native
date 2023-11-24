@@ -1,25 +1,23 @@
 apply plugin: "com.android.application"
-apply plugin: "com.facebook.react"
 
-apply from: "./gradle/react.gradle"
+project.ext.react = [
+    entryFile: "index.tsx",
+]
+
+apply from: "../../node_modules/react-native/react.gradle"
 apply from: "./gradle/android.gradle"
 
 dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    // The version of react-native is set by the React Native Gradle Plugin
-    implementation("com.facebook.react:react-android")
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation 'org.webkit:android-jsc:+'
 
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation project(':access-checkout-react-native-sdk')
 
-    androidTestImplementation('com.wix:detox:+')
-
-    if (hermesEnabled.toBoolean()) {
-        implementation("com.facebook.react:hermes-android")
-    } else {
-        implementation 'org.webkit:android-jsc:+'
-    }
+    androidTestImplementation('com.wix:detox:20.+')
 }
-
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
 applyNativeModulesAppBuildGradle(project)
