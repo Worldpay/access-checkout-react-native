@@ -14,8 +14,10 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
         view.addSubview(UITextFieldStub(uiTextFieldToBeFound, nativeID: "some-id"))
         controller.view = view
         RCTUtilsUIOverride.setPresentedViewController(controller)
-
-        let result = viewLocator.locateUITextField(id: "some-id")
+    
+        let locatedView = viewLocator.locateUIView(view: RCTPresentedViewController(), id: "some-id")
+        
+        let result = locateUITextFieldFromView(uiView: locatedView) 
 
         XCTAssertEqual(result, uiTextFieldToBeFound)
     }
@@ -30,7 +32,9 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
         controller.view = view
         RCTUtilsUIOverride.setPresentedViewController(controller)
 
-        let result = viewLocator.locateUITextField(id: "some-id")
+        let locatedView = viewLocator.locateUIView(view: RCTPresentedViewController(), id: "some-id")
+        
+        let result = locateUITextFieldFromView(uiView: locatedView)
 
         XCTAssertEqual(result, uiTextFieldToBeFound)
     }
@@ -66,6 +70,10 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
         let result = viewLocator.locateUITextField(id: "some-id")
 
         XCTAssertNil(result)
+    }
+    
+    private func locateUITextFieldFromView(uiView: UIView?) -> UITextField? {
+        return (uiView as? RCTSinglelineTextInputView)?.backedTextInputView as? UITextField
     }
     
     private class UITextFieldStub: RCTSinglelineTextInputView {

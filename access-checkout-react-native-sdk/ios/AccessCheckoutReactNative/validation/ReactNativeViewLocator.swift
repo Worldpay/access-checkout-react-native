@@ -25,4 +25,26 @@ class ReactNativeViewLocator {
 
         return nil
     }
+
+    func locateUIView(view: UIViewController?, id: String) -> UIView? {
+        guard let controller = view else {
+            return nil
+        }
+
+        return self.searchForViewInSubViews(subViews: controller.view!.subviews, nativeId: id)
+    }
+
+    private func searchForViewInSubViews(subViews: [UIView], nativeId: String) -> UIView? {
+        for subView in subViews {
+            if subView.nativeID == nil {
+                if let view = searchForViewInSubViews(subViews: subView.subviews, nativeId: nativeId) {
+                    return view
+                }
+            } else if subView.nativeID! == nativeId {
+                return subView
+            }
+        }
+
+        return nil
+    }
 }
