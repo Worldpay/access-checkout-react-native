@@ -1,28 +1,27 @@
-import React, { useEffect } from "react";
-import { NativeEventEmitter, requireNativeComponent, TextInputProps } from "react-native";
-import { AccessCheckoutReactNative } from "../AccessCheckoutReactNative";
+import React from 'react';
+import { requireNativeComponent, StyleProp, TextStyle } from 'react-native';
 
 /**
  * Composes `AccessCheckoutEditText`.
  *
- * - text: string
+ * - nativeID: string
+ * - testID: string
+ * - style: StyleProp
+ * - editable: boolean
+ * - placeholder: string
  */
-interface AccessCheckoutEditTextProps extends TextInputProps {
-  customOnChange: (event: any) => void;
+interface AccessCheckoutEditTextProps {
+  nativeID?: string | undefined;
+  testID: string | undefined;
+  style?: StyleProp<TextStyle>;
+  editable?: boolean | undefined;
+  placeholder?: string | undefined;
 }
 
 const RTCAccessCheckoutEditText = requireNativeComponent(
-  "AccessCheckoutEditText"
+  'AccessCheckoutEditText'
 );
 const AccessCheckoutEditText = (props: AccessCheckoutEditTextProps) => {
-  useEffect(() => {
-    const emitter = new NativeEventEmitter(AccessCheckoutReactNative);
-    emitter.addListener("AccessCheckoutEditTextChange", event => {
-      console.log("Text changed", event);
-    });
-  });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   return <RTCAccessCheckoutEditText {...props} />;
 };
 

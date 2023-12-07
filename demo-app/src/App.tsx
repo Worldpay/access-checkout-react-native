@@ -32,7 +32,7 @@ export default function App() {
           image={screens.cvc}
           selected={screen === screens.cvc}
           onPress={() => setScreen(screens.cvc)}
-        ></NavItem>
+        />
       </HView>
     </VView>
   );

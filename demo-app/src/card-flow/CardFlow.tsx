@@ -30,10 +30,6 @@ export default function CardFlow() {
   const unknownBrandLogo =
     'https://npe.access.worldpay.com/access-checkout/assets/unknown.png';
 
-  const [panValue, setPan] = useState<string>('');
-  const [expiryValue, setExpiry] = useState<string>('');
-  const [cvcValue, setCvc] = useState<string>('');
-
   const [brand, setBrand] = useState<string>('');
   const [brandLogo, setBrandLogo] = useState<string>(unknownBrandLogo);
   const [panIsValid, setPanIsValid] = useState<boolean>(false);
@@ -129,9 +125,9 @@ export default function CardFlow() {
     setSubmitBtnEnabled(false);
 
     const cardDetails: CardDetails = {
-      pan: panValue,
-      expiryDate: expiryValue,
-      cvc: cvcValue,
+      pan: 'panInput',
+      expiryDate: 'expiryDateInput',
+      cvc: 'cvcInput',
     };
 
     accessCheckout
@@ -186,7 +182,6 @@ export default function CardFlow() {
         <PanField
           testID="panInput"
           isValid={panIsValid}
-          onChange={setPan}
           isEditable={isEditable}
         />
         <CardBrandImage testID="cardBrandImage" logo={brandLogo} />
@@ -195,13 +190,11 @@ export default function CardFlow() {
         <ExpiryDateField
           testID="expiryDateInput"
           isValid={expiryIsValid}
-          onChange={setExpiry}
           isEditable={isEditable}
         />
         <CvcField
           testID="cvcInput"
           isValid={cvcIsValid}
-          onChange={setCvc}
           isEditable={isEditable}
         />
       </HView>

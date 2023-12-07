@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
-
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import AccessCheckoutEditText from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutEditText';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import commonStyles from './common-styles.js';
@@ -22,14 +22,11 @@ const styles = StyleSheet.create({
 interface CvcFieldProps extends UIComponentProps {
   isEditable: boolean;
   isValid: boolean;
-  onChange(text: string): void;
 }
 
 const CvcField = (props: CvcFieldProps) => {
-  const [cvcValue, setCvc] = useState<string>('');
-
   return (
-    <TextInput
+    <AccessCheckoutEditText
       nativeID="cvcInput"
       testID={props.testID}
       style={[
@@ -41,13 +38,7 @@ const CvcField = (props: CvcFieldProps) => {
           ? commonStyles.valid
           : commonStyles.invalid,
       ]}
-      keyboardType="numeric"
-      onChangeText={(text) => {
-        setCvc(text);
-        props.onChange(text);
-      }}
       editable={props.isEditable}
-      value={cvcValue}
       placeholder="CVC"
     />
   );
