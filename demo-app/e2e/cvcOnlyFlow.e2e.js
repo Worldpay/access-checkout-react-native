@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { device, expect } = require('detox');
 const { expect: jestExpect } = require('expect');
-const { cvcSessionRegEx } = require('./helpers/RegularExpressions');
+const { sessionRegEx } = require('./helpers/RegularExpressions');
 const { CvcOnlyFlowPO } = require('./page-objects/CvcOnlyFlowPO');
 const { CvcOnlyFlowStatesPO } = require('./page-objects/CvcOnlyFlowStatesPO');
 /* eslint-enable @typescript-eslint/no-var-requires */
@@ -72,7 +72,7 @@ describe('CVC only flow', () => {
     it('should support to generate a cvc session', async () => {
       await view.submit();
 
-      jestExpect(await cvcSession.text()).toMatch(cvcSessionRegEx);
+      jestExpect(await cvcSession.text()).toMatch(sessionRegEx);
     });
   });
 });

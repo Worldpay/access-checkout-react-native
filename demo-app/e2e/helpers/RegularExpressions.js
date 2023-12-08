@@ -1,6 +1,4 @@
-const verifiedTokensSessionRegEx =
-  /https:\/\/npe\.access\.worldpay\.com\/verifiedTokens\/sessions\/[a-zA-Z0-9-]+/;
-const cvcSessionRegEx =
+const sessionRegEx =
   /https:\/\/npe\.access\.worldpay\.com\/sessions\/[a-zA-Z0-9-]+/;
 
-module.exports = { verifiedTokensSessionRegEx, cvcSessionRegEx };
+module.exports = { sessionRegEx };

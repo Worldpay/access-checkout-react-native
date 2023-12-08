@@ -9,7 +9,6 @@ import com.worldpay.access.checkout.reactnative.services.MockServer
 import com.worldpay.access.checkout.reactnative.services.MockServer.startStubServices
 import com.worldpay.access.checkout.reactnative.services.MockServer.stopStubServices
 import com.worldpay.access.checkout.reactnative.services.SessionsStub
-import com.worldpay.access.checkout.reactnative.services.VerifiedTokensStub
 import com.worldpay.access.checkout.reactnative.session.SessionsTestFixture.Companion.CARD
 import com.worldpay.access.checkout.reactnative.session.SessionsTestFixture.Companion.CVC
 import com.worldpay.access.checkout.reactnative.session.SessionsTestFixture.Companion.sessionsTextFixture
@@ -31,7 +30,6 @@ class SessionsInstrumentedTests {
         startStubServices(context, MockServer.PORT)
 
         AccessServicesRootStub.stubRootSuccess()
-        VerifiedTokensStub.stubRootSuccess()
         SessionsStub.stubRootSuccess()
     }
 
@@ -42,7 +40,7 @@ class SessionsInstrumentedTests {
 
     @Test
     fun testShouldBeAbleToGenerateACardSession() {
-        VerifiedTokensStub.stubSessionsSuccess("my-session")
+        SessionsStub.stubSessionsCardSuccess("my-session")
         sessionsTextFixture().pan("4444333322221111")
             .expiryDate("12/34")
             .cvc("123")
@@ -57,7 +55,7 @@ class SessionsInstrumentedTests {
 
     @Test
     fun testShouldBeAbleToGenerateACardAndACvcSession() {
-        VerifiedTokensStub.stubSessionsSuccess("my-session")
+        SessionsStub.stubSessionsCardSuccess("my-session")
         SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
 
         sessionsTextFixture().pan("4444333322221111")
@@ -98,7 +96,7 @@ class SessionsInstrumentedTests {
         val errorName = "Invalid Request"
         val expectedException = RuntimeException("$errorName : $message")
 
-        VerifiedTokensStub.stubSessionsSuccess("my-session")
+        SessionsStub.stubSessionsCardSuccess("my-session")
         SessionsStub.stubSessionsPaymentsCvcFailure(errorName, message)
 
         sessionsTextFixture()
@@ -129,7 +127,7 @@ class SessionsInstrumentedTests {
 
     @Test
     fun testShouldSetNativeSdkWpSdkHeaderWithAccessCheckoutReactNativeVersion() {
-        VerifiedTokensStub.stubSessionsSuccess("my-session")
+        SessionsStub.stubSessionsCardSuccess("my-session")
         SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
 
         sessionsTextFixture().pan("4444333322221111")

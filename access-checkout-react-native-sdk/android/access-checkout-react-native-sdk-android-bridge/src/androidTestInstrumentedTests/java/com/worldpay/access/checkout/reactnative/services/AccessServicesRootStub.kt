@@ -13,14 +13,8 @@ class AccessServicesRootStub {
                             .withBody(
                                 """{
                                 "_links": {
-                                    "service:payments": {
-                                        "href": "https://localhost:8443/payments"
-                                    },
                                     "service:sessions": {
                                         "href": "https://localhost:8443/sessions"
-                                    },
-                                    "service:verifiedTokens": {
-                                        "href": "https://localhost:8443/verifiedTokens"
                                     },
                                     "curies": [
                                         {

@@ -36,7 +36,7 @@ class VerifiedTokensStub {
             )
         }
 
-        fun stubSessionsSuccess(session: String) {
+        fun stubSessionsCardSuccess(session: String) {
             stubFor(
                     post("/verifiedTokens/sessions")
                             .willReturn(

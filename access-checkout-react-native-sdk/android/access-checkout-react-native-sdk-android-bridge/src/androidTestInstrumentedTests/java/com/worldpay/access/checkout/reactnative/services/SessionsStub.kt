@@ -13,6 +13,9 @@ class SessionsStub {
                             .withBody(
                                 """{
                                     "_links": {
+                                        "sessions:card": {
+                                            "href": "https://localhost:8443/sessions/card"
+                                        },  
                                         "sessions:paymentsCvc": {
                                             "href": "https://localhost:8443/sessions/payments/cvc"
                                         },  
@@ -28,6 +31,33 @@ class SessionsStub {
                                         ]
                                     }
                                 }"""
+                            )
+                    )
+            )
+        }
+
+        fun stubSessionsCardSuccess(session: String) {
+            stubFor(
+                post("/sessions/card")
+                    .willReturn(
+                        aResponse()
+                            .withStatus(201)
+                            .withHeader("Location", "$session")
+                            .withBody(
+                                """{
+                                    "_links": {
+                                        "sessions:session": {
+                                        "href": "$session"
+                                        },
+                                        "curies": [
+                                            {
+                                                "href": "https://try.access.worldpay.com/rels/sessions/{rel}.json",
+                                                "name": "sessions",
+                                                "templated": true
+                                            }
+                                        ]
+                                    }
+                               }"""
                             )
                     )
             )
