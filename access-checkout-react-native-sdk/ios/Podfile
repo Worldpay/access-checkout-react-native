@@ -29,7 +29,7 @@ target 'AccessCheckoutReactNative' do
 
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-  pod 'AccessCheckoutSDK', '~> 2.4.1'
+  pod 'AccessCheckoutSDK', '~> 3.0.0'
 end
 
 target 'AccessCheckoutReactNativeUnitTests' do

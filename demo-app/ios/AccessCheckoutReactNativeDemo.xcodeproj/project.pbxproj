@@ -3,47 +3,28 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2ED3CE3E0393B91B26B4D717 /* libPods-AccessCheckoutReactNativeDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEC1E253FC70DB9E8A32D347 /* libPods-AccessCheckoutReactNativeDemo.a */; };
 		516A9FCE275920FE00E9B00E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516A9FCD275920FE00E9B00E /* Assets.xcassets */; };
 		516A9FD1275920FE00E9B00E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 516A9FCF275920FE00E9B00E /* LaunchScreen.storyboard */; };
 		516AA0282759265300E9B00E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 516AA0252759265200E9B00E /* main.m */; };
 		516AA0292759265300E9B00E /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 516AA0272759265200E9B00E /* AppDelegate.mm */; };
+		D66603A8477B29AF913CE40D /* libPods-AccessCheckoutReactNativeDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B734630A55155D2C8C7F91B9 /* libPods-AccessCheckoutReactNativeDemo.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		516A9FD8275920FE00E9B00E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 516A9FB9275920FA00E9B00E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 516A9FC0275920FA00E9B00E;
-			remoteInfo = AccessCheckoutReactNativeDemo;
-		};
-		516A9FE3275920FF00E9B00E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 516A9FB9275920FA00E9B00E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 516A9FC0275920FA00E9B00E;
-			remoteInfo = AccessCheckoutReactNativeDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		0DBADFBDBF445BDD52415B1A /* Pods-AccessCheckoutReactNativeDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccessCheckoutReactNativeDemo.debug.xcconfig"; path = "Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		44D41AAC3357D6A1E2F79ECF /* Pods-AccessCheckoutReactNativeDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccessCheckoutReactNativeDemo.release.xcconfig"; path = "Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo.release.xcconfig"; sourceTree = "<group>"; };
 		516A9FC1275920FA00E9B00E /* AccessCheckoutReactNativeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccessCheckoutReactNativeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		516A9FCD275920FE00E9B00E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		516A9FD0275920FE00E9B00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		516A9FD2275920FE00E9B00E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		516A9FD7275920FE00E9B00E /* AccessCheckoutReactNativeDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AccessCheckoutReactNativeDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		516A9FE2275920FF00E9B00E /* AccessCheckoutReactNativeDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AccessCheckoutReactNativeDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		516AA0252759265200E9B00E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		516AA0262759265200E9B00E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		516AA0272759265200E9B00E /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		5A20D79E60D1C3E3EA27B90E /* Pods-AccessCheckoutReactNativeDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccessCheckoutReactNativeDemo.release.xcconfig"; path = "Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo.release.xcconfig"; sourceTree = "<group>"; };
-		61BF0811CE17D23DBFF0F085 /* Pods-AccessCheckoutReactNativeDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccessCheckoutReactNativeDemo.debug.xcconfig"; path = "Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		DEC1E253FC70DB9E8A32D347 /* libPods-AccessCheckoutReactNativeDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AccessCheckoutReactNativeDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B734630A55155D2C8C7F91B9 /* libPods-AccessCheckoutReactNativeDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AccessCheckoutReactNativeDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,21 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2ED3CE3E0393B91B26B4D717 /* libPods-AccessCheckoutReactNativeDemo.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		516A9FD4275920FE00E9B00E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		516A9FDF275920FF00E9B00E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				D66603A8477B29AF913CE40D /* libPods-AccessCheckoutReactNativeDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +45,7 @@
 				516A9FC3275920FA00E9B00E /* AccessCheckoutReactNativeDemo */,
 				516A9FC2275920FA00E9B00E /* Products */,
 				6215D3A0838FFDCC830A4313 /* Pods */,
-				C610FF3608D26D851D3E7B69 /* Frameworks */,
+				784604433CB062468D68A0B1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,8 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				516A9FC1275920FA00E9B00E /* AccessCheckoutReactNativeDemo.app */,
-				516A9FD7275920FE00E9B00E /* AccessCheckoutReactNativeDemoTests.xctest */,
-				516A9FE2275920FF00E9B00E /* AccessCheckoutReactNativeDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,16 +73,16 @@
 		6215D3A0838FFDCC830A4313 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				61BF0811CE17D23DBFF0F085 /* Pods-AccessCheckoutReactNativeDemo.debug.xcconfig */,
-				5A20D79E60D1C3E3EA27B90E /* Pods-AccessCheckoutReactNativeDemo.release.xcconfig */,
+				0DBADFBDBF445BDD52415B1A /* Pods-AccessCheckoutReactNativeDemo.debug.xcconfig */,
+				44D41AAC3357D6A1E2F79ECF /* Pods-AccessCheckoutReactNativeDemo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		C610FF3608D26D851D3E7B69 /* Frameworks */ = {
+		784604433CB062468D68A0B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DEC1E253FC70DB9E8A32D347 /* libPods-AccessCheckoutReactNativeDemo.a */,
+				B734630A55155D2C8C7F91B9 /* libPods-AccessCheckoutReactNativeDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -129,12 +94,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 516A9FEB275920FF00E9B00E /* Build configuration list for PBXNativeTarget "AccessCheckoutReactNativeDemo" */;
 			buildPhases = (
-				6AC261C66657A952D6DDADD6 /* [CP] Check Pods Manifest.lock */,
+				65813C36A2407303BC61C1E7 /* [CP] Check Pods Manifest.lock */,
 				516A9FBD275920FA00E9B00E /* Sources */,
 				516A9FBE275920FA00E9B00E /* Frameworks */,
 				516A9FBF275920FA00E9B00E /* Resources */,
-				B87433C9B3CD0A243ED78A22 /* [CP] Embed Pods Frameworks */,
-				2B8523AF2681AD48CEFD5BBD /* [CP] Copy Pods Resources */,
+				ECE030C980C52F713F26662D /* [CP] Embed Pods Frameworks */,
+				F32FFFAAD2B26C3470785201 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -144,42 +109,6 @@
 			productName = AccessCheckoutReactNativeDemo;
 			productReference = 516A9FC1275920FA00E9B00E /* AccessCheckoutReactNativeDemo.app */;
 			productType = "com.apple.product-type.application";
-		};
-		516A9FD6275920FE00E9B00E /* AccessCheckoutReactNativeDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 516A9FEE275920FF00E9B00E /* Build configuration list for PBXNativeTarget "AccessCheckoutReactNativeDemoTests" */;
-			buildPhases = (
-				516A9FD3275920FE00E9B00E /* Sources */,
-				516A9FD4275920FE00E9B00E /* Frameworks */,
-				516A9FD5275920FE00E9B00E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				516A9FD9275920FE00E9B00E /* PBXTargetDependency */,
-			);
-			name = AccessCheckoutReactNativeDemoTests;
-			productName = AccessCheckoutReactNativeDemoTests;
-			productReference = 516A9FD7275920FE00E9B00E /* AccessCheckoutReactNativeDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		516A9FE1275920FF00E9B00E /* AccessCheckoutReactNativeDemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 516A9FF1275920FF00E9B00E /* Build configuration list for PBXNativeTarget "AccessCheckoutReactNativeDemoUITests" */;
-			buildPhases = (
-				516A9FDE275920FF00E9B00E /* Sources */,
-				516A9FDF275920FF00E9B00E /* Frameworks */,
-				516A9FE0275920FF00E9B00E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				516A9FE4275920FF00E9B00E /* PBXTargetDependency */,
-			);
-			name = AccessCheckoutReactNativeDemoUITests;
-			productName = AccessCheckoutReactNativeDemoUITests;
-			productReference = 516A9FE2275920FF00E9B00E /* AccessCheckoutReactNativeDemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -192,14 +121,6 @@
 				TargetAttributes = {
 					516A9FC0275920FA00E9B00E = {
 						CreatedOnToolsVersion = 12.4;
-					};
-					516A9FD6275920FE00E9B00E = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 516A9FC0275920FA00E9B00E;
-					};
-					516A9FE1275920FF00E9B00E = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 516A9FC0275920FA00E9B00E;
 					};
 				};
 			};
@@ -217,8 +138,6 @@
 			projectRoot = "";
 			targets = (
 				516A9FC0275920FA00E9B00E /* AccessCheckoutReactNativeDemo */,
-				516A9FD6275920FE00E9B00E /* AccessCheckoutReactNativeDemoTests */,
-				516A9FE1275920FF00E9B00E /* AccessCheckoutReactNativeDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -233,41 +152,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		516A9FD5275920FE00E9B00E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		516A9FE0275920FF00E9B00E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2B8523AF2681AD48CEFD5BBD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6AC261C66657A952D6DDADD6 /* [CP] Check Pods Manifest.lock */ = {
+		65813C36A2407303BC61C1E7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -289,7 +177,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B87433C9B3CD0A243ED78A22 /* [CP] Embed Pods Frameworks */ = {
+		ECE030C980C52F713F26662D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -306,6 +194,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F32FFFAAD2B26C3470785201 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeDemo/Pods-AccessCheckoutReactNativeDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -318,34 +223,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		516A9FD3275920FE00E9B00E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		516A9FDE275920FF00E9B00E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		516A9FD9275920FE00E9B00E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 516A9FC0275920FA00E9B00E /* AccessCheckoutReactNativeDemo */;
-			targetProxy = 516A9FD8275920FE00E9B00E /* PBXContainerItemProxy */;
-		};
-		516A9FE4275920FF00E9B00E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 516A9FC0275920FA00E9B00E /* AccessCheckoutReactNativeDemo */;
-			targetProxy = 516A9FE3275920FF00E9B00E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		516A9FCF275920FE00E9B00E /* LaunchScreen.storyboard */ = {
@@ -412,7 +290,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = /usr/lib/swift;
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -480,7 +358,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = /usr/lib/swift;
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -500,7 +378,7 @@
 		};
 		516A9FEC275920FF00E9B00E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 61BF0811CE17D23DBFF0F085 /* Pods-AccessCheckoutReactNativeDemo.debug.xcconfig */;
+			baseConfigurationReference = 0DBADFBDBF445BDD52415B1A /* Pods-AccessCheckoutReactNativeDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -520,7 +398,7 @@
 		};
 		516A9FED275920FF00E9B00E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A20D79E60D1C3E3EA27B90E /* Pods-AccessCheckoutReactNativeDemo.release.xcconfig */;
+			baseConfigurationReference = 44D41AAC3357D6A1E2F79ECF /* Pods-AccessCheckoutReactNativeDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -535,86 +413,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		516A9FEF275920FF00E9B00E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K4S6DW85W7;
-				INFOPLIST_FILE = AccessCheckoutReactNativeDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.worldpay.AccessCheckoutReactNativeDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AccessCheckoutReactNativeDemo.app/AccessCheckoutReactNativeDemo";
-			};
-			name = Debug;
-		};
-		516A9FF0275920FF00E9B00E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K4S6DW85W7;
-				INFOPLIST_FILE = AccessCheckoutReactNativeDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.worldpay.AccessCheckoutReactNativeDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AccessCheckoutReactNativeDemo.app/AccessCheckoutReactNativeDemo";
-			};
-			name = Release;
-		};
-		516A9FF2275920FF00E9B00E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K4S6DW85W7;
-				INFOPLIST_FILE = AccessCheckoutReactNativeDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.worldpay.AccessCheckoutReactNativeDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = AccessCheckoutReactNativeDemo;
-			};
-			name = Debug;
-		};
-		516A9FF3275920FF00E9B00E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K4S6DW85W7;
-				INFOPLIST_FILE = AccessCheckoutReactNativeDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.worldpay.AccessCheckoutReactNativeDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = AccessCheckoutReactNativeDemo;
 			};
 			name = Release;
 		};
@@ -635,24 +433,6 @@
 			buildConfigurations = (
 				516A9FEC275920FF00E9B00E /* Debug */,
 				516A9FED275920FF00E9B00E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		516A9FEE275920FF00E9B00E /* Build configuration list for PBXNativeTarget "AccessCheckoutReactNativeDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				516A9FEF275920FF00E9B00E /* Debug */,
-				516A9FF0275920FF00E9B00E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		516A9FF1275920FF00E9B00E /* Build configuration list for PBXNativeTarget "AccessCheckoutReactNativeDemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				516A9FF2275920FF00E9B00E /* Debug */,
-				516A9FF3275920FF00E9B00E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

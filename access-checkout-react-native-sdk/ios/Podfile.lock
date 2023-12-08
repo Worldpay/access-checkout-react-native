@@ -1,5 +1,5 @@
 PODS:
-  - AccessCheckoutSDK (2.4.1)
+  - AccessCheckoutSDK (3.0.0)
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.70.14)
@@ -317,7 +317,7 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - AccessCheckoutSDK (~> 2.4.1)
+  - AccessCheckoutSDK (from `../../checkout-sdks/ios/`)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -358,12 +358,13 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - AccessCheckoutSDK
     - fmt
     - libevent
     - URITemplate
 
 EXTERNAL SOURCES:
+  AccessCheckoutSDK:
+    :path: "../../checkout-sdks/ios/"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
@@ -442,7 +443,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/kylef/Mockingjay.git
 
 SPEC CHECKSUMS:
-  AccessCheckoutSDK: ae15fcbb874f2c1c824d36651e886f6fa7bee39f
+  AccessCheckoutSDK: a3eaf9feb92b2d2c9e362c395f0c8d81acc895d3
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: efad4471d02263013cfcb7a2f75de6ac7565692f
@@ -482,6 +483,6 @@ SPEC CHECKSUMS:
   URITemplate: 5f5a79f3e384884102c4e6b3325d159c20a8035a
   Yoga: 56413d530d1808044600320ced5baa883acedc44
 
-PODFILE CHECKSUM: b3015f6817def088bca2cd69c45eba861f29849b
+PODFILE CHECKSUM: 23f8b258c341a4352a522b9f205e88e1491e08c3
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.13.0

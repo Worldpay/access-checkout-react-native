@@ -808,7 +808,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F774BB62CD3FD4BE07B8E378 /* Pods-AccessCheckoutReactNativeUnitTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K4S6DW85W7;
 				INFOPLIST_FILE = AccessCheckoutReactNativeUnitTests/Info.plist;
@@ -829,7 +829,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0A05132B3D087D149DBF457C /* Pods-AccessCheckoutReactNativeUnitTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K4S6DW85W7;
 				INFOPLIST_FILE = AccessCheckoutReactNativeUnitTests/Info.plist;

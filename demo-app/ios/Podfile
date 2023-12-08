@@ -27,6 +27,7 @@ target 'AccessCheckoutReactNativeDemo' do
   )
 
   pod 'AccessCheckoutReactNativeSDKiOSBridge', :path => '../../access-checkout-react-native-sdk/ios/'
+  pod 'AccessCheckoutSDK', '~> 3.0.0'
 end
 
     post_install do |installer|
