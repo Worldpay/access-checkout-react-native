@@ -70,7 +70,7 @@ if [ $numberFilesChanged -ne 0 ]; then
 fi
 
 artifactName="access-checkout-react-native-sdk-android-bridge"
-androidBridgeVersion=$(cat android/gradle.properties | grep -m 1 'version=' | sed 's/version=//')
+androidBridgeVersion=$(cat android/access-checkout-react-native-sdk-android-bridge/gradle.properties | grep -m 1 'version=' | sed 's/version=//')
 androidBridgePublishPath=./com/worldpay/access/${artifactName}/${androidBridgeVersion}
 androidBridgePublishPathWithoutVersion=./com/worldpay/access/${artifactName}
 mavenLocalPublicationOutputPath=~/.m2/repository/com/worldpay/access/${artifactName}/${androidBridgeVersion}

@@ -28,7 +28,6 @@ open class SessionsInstrumentedTestsActivity : ComponentActivity(), CoroutineSco
     }
 
     var sessions: MutableMap<String, String> = HashMap()
-    var errorMessage: String = ""
     var exception: RuntimeException? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

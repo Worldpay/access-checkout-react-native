@@ -156,7 +156,7 @@ changeVersionInAndroidBridge() {
   echo ""
   echo "Changing version to ${version} in Android bridge"
 
-  filepath=./access-checkout-react-native-sdk/android/gradle.properties
+  filepath=./access-checkout-react-native-sdk/android/access-checkout-react-native-sdk-android-bridge/gradle.properties
   sed -i '' '/version=/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
   status=$?
   if [ $status -ne 0 ]; then
@@ -196,7 +196,7 @@ commitAllChanges() {
   echo ""
   echo "Committing changes"
 
-  git add ./access-checkout-react-native-sdk/android/gradle.properties
+  git add ./access-checkout-react-native-sdk/android/bridge/gradle.properties
   git add ./access-checkout-react-native-sdk/ios/AccessCheckoutReactNativeSDKiOSBridge.podspec
   git add ./access-checkout-react-native-sdk/package-lock.json
   git add ./access-checkout-react-native-sdk/package.json

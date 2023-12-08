@@ -16,18 +16,11 @@ workflows:
 
             cd access-checkout-react-native-sdk
 
-            # write your script here
-            echo "Installing Dependancies"
+            echo "Installing Dependencies"
             npm install
 
             echo "Running Tests"
             npm run test
-
-
-            # or run a script from your repository, like:
-            # bash ./path/to/script.sh
-            # not just bash, e.g.:
-            # ruby ./path/to/script.rb
     - deploy-to-bitrise-io@2:
         inputs:
         - is_compress: 'true'

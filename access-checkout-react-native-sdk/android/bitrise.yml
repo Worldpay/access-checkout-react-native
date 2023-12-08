@@ -27,28 +27,28 @@ workflows:
               ./gradlew testInstrumentedTestsDebugUnitTest connectedAndroidTest testCoverage
     - deploy-to-bitrise-io@2:
         inputs:
-        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testInstrumentedTestsDebugUnitTest/index.html"
+        - deploy_path: "$BITRISE_SOURCE_DIR/$ANDROID_BRIDGE_BUILD_REPORTS_DIR/tests/testInstrumentedTestsDebugUnitTest/index.html"
     - deploy-to-bitrise-io@2:
         inputs:
         - is_compress: 'true'
         - zip_name: 'unit-tests'
-        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/tests/testInstrumentedTestsDebugUnitTest/"
+        - deploy_path: "$BITRISE_SOURCE_DIR/$ANDROID_BRIDGE_BUILD_REPORTS_DIR/tests/testInstrumentedTestsDebugUnitTest/"
     - deploy-to-bitrise-io@2:
         inputs:
-        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/androidTests/connected/flavors/instrumentedTests/index.html"
+        - deploy_path: "$BITRISE_SOURCE_DIR/$ANDROID_BRIDGE_BUILD_REPORTS_DIR/androidTests/connected/flavors/instrumentedTests/index.html"
     - deploy-to-bitrise-io@2:
         inputs:
           - is_compress: 'true'
           - zip_name: 'instrumented-tests'
-          - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/androidTests/connected/flavors/instrumentedTests/"
+          - deploy_path: "$BITRISE_SOURCE_DIR/$ANDROID_BRIDGE_BUILD_REPORTS_DIR/androidTests/connected/flavors/instrumentedTests/"
     - deploy-to-bitrise-io@2:
         inputs:
-        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/testCoverage/html/index.html"
+        - deploy_path: "$BITRISE_SOURCE_DIR/$ANDROID_BRIDGE_BUILD_REPORTS_DIR/testCoverage/html/index.html"
     - deploy-to-bitrise-io@2:
         inputs:
         - is_compress: 'true'
         - zip_name: 'instrumented-tests'
-        - deploy_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/android/build/reports/testCoverage/html/"
+        - deploy_path: "$BITRISE_SOURCE_DIR/$ANDROID_BRIDGE_BUILD_REPORTS_DIR/testCoverage/html/"
 app:
   envs:
   - opts:
@@ -60,3 +60,6 @@ app:
   - opts:
       is_expand: false
     VARIANT: ''
+  - opts:
+      is_expand: false
+    ANDROID_BRIDGE_BUILD_REPORTS_DIR: access-checkout-react-native-sdk/android/access-checkout-react-native-sdk-android-bridge/build/reports

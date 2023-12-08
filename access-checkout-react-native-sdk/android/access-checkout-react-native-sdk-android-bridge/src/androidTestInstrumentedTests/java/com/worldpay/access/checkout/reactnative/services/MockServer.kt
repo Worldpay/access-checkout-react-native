@@ -6,7 +6,6 @@ import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer
-import com.google.android.gms.security.ProviderInstaller
 import com.worldpay.access.checkout.reactnative.services.ssl.client.TrustAllSSLSocketFactory
 import com.worldpay.access.checkout.reactnative.services.ssl.server.CustomHttpServerFactory
 import java.io.File

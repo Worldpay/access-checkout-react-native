@@ -1,6 +1,5 @@
 package com.worldpay.access.checkout.reactnative.validation
 
-import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 
 class CvcOnlyValidationConfigConverter {
