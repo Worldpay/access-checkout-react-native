@@ -11,8 +11,8 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
     func testShouldSupportGeneratingACardSession() {
         let stubServices = StubServices(baseUrl: "http://localhost")
             .stubServicesRootDiscovery()
-            .stubVerifiedTokensDiscovery()
-            .stubVerifiedTokensSessionSuccess(session: "my-session")
+            .stubSessionsDiscovery()
+            .stubSessionsCardSessionSuccess(session: "my-session")
 
         let expectationToFulfill = expectation(description: "Session retrieved")
         let dictionary: NSDictionary = [
@@ -29,8 +29,8 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
             let session = (sessions as! [String: String?])["card"]
             XCTAssertEqual("my-session", session)
             expectationToFulfill.fulfill()
-        } reject: { _, _, _ in
-            XCTFail("got an unexpected error back from stubs")
+        } reject: { _, message, error in
+            XCTFail("got an unexpected error back from stubs: message=[\(String(describing: message)), error=\(String(describing: error?.localizedDescription))]")
             expectationToFulfill.fulfill()
         }
 
@@ -41,7 +41,7 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
         let stubServices = StubServices(baseUrl: "http://localhost")
             .stubServicesRootDiscovery()
             .stubSessionsDiscovery()
-            .stubSessionsSessionSuccess(session: "my-cvc-session")
+            .stubSessionsCvcSessionSuccess(session: "my-cvc-session")
 
         let expectationToFulfill = expectation(description: "Session retrieved")
         let dictionary: NSDictionary = [
@@ -67,10 +67,9 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
     func testShouldSupportGeneratingACardAndACvcSession() {
         let stubServices = StubServices(baseUrl: "http://localhost")
             .stubServicesRootDiscovery()
-            .stubVerifiedTokensDiscovery()
-            .stubVerifiedTokensSessionSuccess(session: "my-session")
+            .stubSessionsCardSessionSuccess(session: "my-session")
             .stubSessionsDiscovery()
-            .stubSessionsSessionSuccess(session: "my-cvc-session")
+            .stubSessionsCvcSessionSuccess(session: "my-cvc-session")
 
         let expectationToFulfill = expectation(description: "Session retrieved")
         let dictionary: NSDictionary = [
@@ -101,7 +100,7 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
         let stubServices = StubServices(baseUrl: "http://localhost")
             .stubServicesRootDiscovery()
             .stubSessionsDiscovery()
-            .stubSessionsSessionSuccess(session: "my-cvc-session")
+            .stubSessionsCvcSessionSuccess(session: "my-cvc-session")
 
         let expectationToFulfill = expectation(description: "Session retrieved")
         let dictionary: NSDictionary = [
@@ -127,10 +126,9 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
     func testShouldReturnAnErrorWhenFailingToGenerateASession() {
         let stubServices = StubServices(baseUrl: "http://localhost")
             .stubServicesRootDiscovery()
-            .stubVerifiedTokensDiscovery()
-            .stubVerifiedTokensSessionSuccess(session: "my-session")
             .stubSessionsDiscovery()
-            .stubVerifiedTokensSessionFailure(
+            .stubSessionsCardSessionSuccess(session: "my-session")
+            .stubSessionsCardSessionFailure(
                 errorName: "unexpectedApiError",
                 errorMessage: "some error message")
 
