@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","sourcesContent":[]}
+{"version":3,"names":[],"sources":["CardDetails.tsx"],"sourcesContent":["export default interface CardDetails {\n  pan?: string;\n  expiryDate?: string;\n  cvc: string;\n}\n"],"mappings":""}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { device, expect } = require('detox');
-const jestExpect = require('expect');
+const { expect: jestExpect } = require('expect');
 const { cvcSessionRegEx } = require('./helpers/RegularExpressions');
 const { CvcOnlyFlowPO } = require('./page-objects/CvcOnlyFlowPO');
 const { CvcOnlyFlowStatesPO } = require('./page-objects/CvcOnlyFlowStatesPO');

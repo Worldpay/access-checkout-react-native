@@ -4,7 +4,6 @@ export function cvcOnlyValidationNativeEventListenerOf(delegate) {
     if (event.type === 'cvc' && delegate.onCvcValidChanged) {
       delegate.onCvcValidChanged(event.isValid);
     }
-
     if (event.type === 'all' && delegate.onValidationSuccess) {
       delegate.onValidationSuccess();
     }

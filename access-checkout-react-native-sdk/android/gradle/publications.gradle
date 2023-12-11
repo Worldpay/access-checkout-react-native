@@ -4,7 +4,7 @@ afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                from components.mainRelease
+                from components.coreRelease
 
                 version = "${project.version}"
 

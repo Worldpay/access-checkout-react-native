@@ -19,6 +19,7 @@
     "src/**/*.js"
   ],
   "rules": {
-    "prettier/prettier": 2 // Means error
+    "prettier/prettier": 2
+    // Means error
   }
 }
