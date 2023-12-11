@@ -49,7 +49,11 @@ workflows:
         - content: ./scripts/ci/detox-android-delete-emulator.sh
     - deploy-to-bitrise-io@2:
         inputs:
-        - deploy_path: $BITRISE_SOURCE_DIR/demo-app/reports/e2e-tests/
+        - deploy_path: "$BITRISE_SOURCE_DIR/demo-app/reports/e2e-tests/"
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "$BITRISE_SOURCE_DIR/demo-app/artifacts/"
+        - is_compress: true
     meta:
       bitrise.io:
         stack: linux-docker-android-20.04
@@ -95,7 +99,11 @@ workflows:
         - content: ./scripts/ci/detox-ios-run.sh
     - deploy-to-bitrise-io@2:
         inputs:
-          - deploy_path: "$BITRISE_SOURCE_DIR/demo-app/reports/e2e-tests/"
+        - deploy_path: "$BITRISE_SOURCE_DIR/demo-app/reports/e2e-tests/"
         is_always_run: false
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "$BITRISE_SOURCE_DIR/demo-app/artifacts/"
+        - is_compress: true
     - cache-push@2: {}
     envs: []
