@@ -10,7 +10,7 @@ rm -f ./reports/e2e-tests/ios-e2e-tests.html
 ./scripts/start-react-native-background.sh
 
 echo "Running Detox tests for iOS"
-JEST_HTML_REPORTER_OUTPUT_PATH="./reports/e2e-tests/ios-e2e-tests.html" detox test --configuration ios-ci --cleanup --loglevel trace --take-screenshots all --record-logs failing
+JEST_HTML_REPORTER_OUTPUT_PATH="./reports/e2e-tests/ios-e2e-tests.html" detox test --configuration ios-ci --cleanup --loglevel debug --take-screenshots all --record-logs failing
 status=$?
 
 ./scripts/stop-react-native-background.sh
