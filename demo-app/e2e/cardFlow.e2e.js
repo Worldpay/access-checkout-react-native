@@ -2,8 +2,7 @@
 const { device, expect } = require('detox');
 const { expect: jestExpect } = require('expect');
 const {
-  cvcSessionRegEx,
-  verifiedTokensSessionRegEx,
+  sessionRegEx,
 } = require('./helpers/RegularExpressions');
 const { CardFlowPO } = require('./page-objects/CardFlowPO');
 const { CardFlowStatesPO } = require('./page-objects/CardFlowStatesPO');
@@ -67,7 +66,7 @@ describe('Card flow', () => {
     it('should support to generate a card session', async () => {
       await view.submit();
 
-      jestExpect(await cardSession.text()).toMatch(verifiedTokensSessionRegEx);
+      jestExpect(await cardSession.text()).toMatch(sessionRegEx);
     });
 
     it('should support to generate a card and a cvc session', async () => {
@@ -75,8 +74,8 @@ describe('Card flow', () => {
 
       await view.submit();
 
-      jestExpect(await cardSession.text()).toMatch(verifiedTokensSessionRegEx);
-      jestExpect(await cvcSession.text()).toMatch(cvcSessionRegEx);
+      jestExpect(await cardSession.text()).toMatch(sessionRegEx);
+      jestExpect(await cvcSession.text()).toMatch(sessionRegEx);
     });
   });
 

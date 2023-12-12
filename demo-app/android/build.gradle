@@ -3,7 +3,7 @@
 buildscript {
     ext {
         buildToolsVersion = "31.0.0"
-        minSdkVersion = 21
+        minSdkVersion = 26
         compileSdkVersion = 31
         targetSdkVersion = 31
     }
@@ -46,6 +46,8 @@ allprojects {
                 excludeGroup("com.facebook.react")
             }
         }
-        mavenLocal()
+
+        //TODO: Remove once access-checkout-android 3.0.0 has been released
+        maven { url("$rootDir/../../checkout-sdks/android") }
     }
 }
