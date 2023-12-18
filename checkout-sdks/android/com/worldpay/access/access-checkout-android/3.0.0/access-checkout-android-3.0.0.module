@@ -26,11 +26,11 @@
         {
           "name": "access-checkout-android-3.0.0.aar",
           "url": "access-checkout-android-3.0.0.aar",
-          "size": 266081,
-          "sha512": "041113b3e7053318247bf4e2c41bfbb194fdb8096ba6867c3ed1cc7a235d3fd07146e726831333df5625473746c5b83117e3f8e94e8621c0eea8c402a49066aa",
-          "sha256": "2c3eedc686f92993b83ced240cb78601930719c644ee48a6c7927f2610338fa9",
-          "sha1": "8a15f9372e8142f5fc60489a07f86998c1062931",
-          "md5": "c07210d82fa70cd0bf10740ccee4c302"
+          "size": 266262,
+          "sha512": "d9d63f4eb08f0440f609e1d021b20a9278ea80ebfd391857c651ad60a6cf6fb0e381f3a7d8febdf8a7be2cf144c90f14122b7aeb6469256f2b41937502b6497e",
+          "sha256": "b30607617345c7d8c3c13bf85ca1331bbb7966951db5c30963a2043bd202cf6a",
+          "sha1": "20ff1d2c640d7c4d2bea198f68cbd2c0c84b57ec",
+          "md5": "5ddbe7c23bd8c600be34711e6c886c28"
         }
       ]
     },
@@ -90,11 +90,11 @@
         {
           "name": "access-checkout-android-3.0.0.aar",
           "url": "access-checkout-android-3.0.0.aar",
-          "size": 266081,
-          "sha512": "041113b3e7053318247bf4e2c41bfbb194fdb8096ba6867c3ed1cc7a235d3fd07146e726831333df5625473746c5b83117e3f8e94e8621c0eea8c402a49066aa",
-          "sha256": "2c3eedc686f92993b83ced240cb78601930719c644ee48a6c7927f2610338fa9",
-          "sha1": "8a15f9372e8142f5fc60489a07f86998c1062931",
-          "md5": "c07210d82fa70cd0bf10740ccee4c302"
+          "size": 266262,
+          "sha512": "d9d63f4eb08f0440f609e1d021b20a9278ea80ebfd391857c651ad60a6cf6fb0e381f3a7d8febdf8a7be2cf144c90f14122b7aeb6469256f2b41937502b6497e",
+          "sha256": "b30607617345c7d8c3c13bf85ca1331bbb7966951db5c30963a2043bd202cf6a",
+          "sha1": "20ff1d2c640d7c4d2bea198f68cbd2c0c84b57ec",
+          "md5": "5ddbe7c23bd8c600be34711e6c886c28"
         }
       ]
     }
