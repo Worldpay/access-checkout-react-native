@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1085FCBC7FCD8F0B65952C91 /* Pods_AccessCheckoutReactNative.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1A9B14B70FA26DBC56CEA54 /* Pods_AccessCheckoutReactNative.framework */; };
+		46D51A0B2B2B6D3D001A223C /* AccessCheckoutEditTextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D51A0A2B2B6D3D001A223C /* AccessCheckoutEditTextManager.m */; };
+		46D51A0D2B2B6D72001A223C /* AccessCheckoutEditTextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D51A0C2B2B6D72001A223C /* AccessCheckoutEditTextManager.swift */; };
 		515BA38C282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA38B282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift */; };
 		515BA394282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA393282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift */; };
 		515BA39C282E6F9600BA262D /* CvcValidationTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 515BA39B282E6F9600BA262D /* CvcValidationTest.storyboard */; };
@@ -65,6 +67,8 @@
 
 /* Begin PBXFileReference section */
 		0A05132B3D087D149DBF457C /* Pods-AccessCheckoutReactNativeUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccessCheckoutReactNativeUnitTests.release.xcconfig"; path = "Target Support Files/Pods-AccessCheckoutReactNativeUnitTests/Pods-AccessCheckoutReactNativeUnitTests.release.xcconfig"; sourceTree = "<group>"; };
+		46D51A0A2B2B6D3D001A223C /* AccessCheckoutEditTextManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccessCheckoutEditTextManager.m; sourceTree = "<group>"; };
+		46D51A0C2B2B6D72001A223C /* AccessCheckoutEditTextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutEditTextManager.swift; sourceTree = "<group>"; };
 		4CF9E9AFFAEFDCD0DF2D332F /* Pods-AccessCheckoutReactNative.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccessCheckoutReactNative.release.xcconfig"; path = "Target Support Files/Pods-AccessCheckoutReactNative/Pods-AccessCheckoutReactNative.release.xcconfig"; sourceTree = "<group>"; };
 		515BA38B282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift; sourceTree = "<group>"; };
 		515BA393282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CvcOnlyValidationTestUIViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 		516A9F592757D3B800E9B00E /* AccessCheckoutReactNative */ = {
 			isa = PBXGroup;
 			children = (
+				46D51A0A2B2B6D3D001A223C /* AccessCheckoutEditTextManager.m */,
+				46D51A0C2B2B6D72001A223C /* AccessCheckoutEditTextManager.swift */,
 				51D03D3927A829D8009781EB /* session */,
 				517D9E5027A4141F002B1611 /* validation */,
 				516A9FA12757D6EB00E9B00E /* AccessCheckoutReactNative.m */,
@@ -533,8 +539,10 @@
 				516A9FAA2757D6EB00E9B00E /* AccessCheckoutReactNative.m in Sources */,
 				516A9FAB2757D6EB00E9B00E /* GenerateSessionConfig.swift in Sources */,
 				5167BB3927A7FFB100F8569D /* ReactNativeViewLocator.swift in Sources */,
+				46D51A0D2B2B6D72001A223C /* AccessCheckoutEditTextManager.swift in Sources */,
 				516A9FA92757D6EB00E9B00E /* CardValidationConfigRN.swift in Sources */,
 				516A9FB02757D6EB00E9B00E /* CardValidationDelegateRN.swift in Sources */,
+				46D51A0B2B2B6D3D001A223C /* AccessCheckoutEditTextManager.m in Sources */,
 				516A9FB12757D6EB00E9B00E /* AccessCheckoutReactNative.swift in Sources */,
 				515BA3E4282E93A900BA262D /* CvcOnlyValidationDelegateRN.swift in Sources */,
 				515BA3A9282E829D00BA262D /* CvcOnlyValidationConfigRN.swift in Sources */,

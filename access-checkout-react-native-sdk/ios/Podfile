@@ -31,7 +31,8 @@ target 'AccessCheckoutReactNative' do
   )
 
   # Change to "~> 3.0.0" once that version has been released to Cocoapods
-  pod 'AccessCheckoutSDK', :git => 'git@github.com:Worldpay/access-checkout-ios.git', :tag => 'v3.0.0'
+#   pod 'AccessCheckoutSDK', :git => 'git@github.com:Worldpay/access-checkout-ios.git', :tag => 'v3.0.0'
+pod 'AccessCheckoutSDK', :path => '../../../access-checkout-ios'
 end
 
 target 'AccessCheckoutReactNativeUnitTests' do

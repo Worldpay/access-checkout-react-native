@@ -3,26 +3,39 @@ import Foundation
 import React
 
 class ReactNativeViewLocator {
+    
+    //TODO: Decide if we want to a generic view like AccessCheckoutEditTextView or generics and specific views like
+    //locateUITextField("cvcInput", PanFieldView)
     func locateUITextField(id: String) -> UITextField? {
         guard let controller: UIViewController = RCTPresentedViewController() else {
             return nil
         }
 
-        return self.searchForView(subViews: controller.view!.subviews, nativeId: id)
+        var view =  self.searchForView(subViews: controller.view!.subviews, nativeId: id)
+        let inputView = (view as? RCTSinglelineTextInputView)?.backedTextInputView
+        return inputView as? UITextField
     }
 
-    private func searchForView(subViews: [UIView], nativeId: String) -> UITextField? {
-        for subView in subViews {
-            if subView.nativeID == nil {
-                if let view = searchForView(subViews: subView.subviews, nativeId: nativeId) {
-                    return view
-                }
-            } else if subView.nativeID! == nativeId {
-                let inputView = (subView as? RCTSinglelineTextInputView)?.backedTextInputView
-                return inputView as? UITextField
-            }
+    func locateUITextFieldPOC(id: String) -> AccessCheckoutUITextField? {
+        guard let controller: UIViewController = RCTPresentedViewController() else {
+            return nil
         }
 
+        var view =  self.searchForView(subViews: controller.view!.subviews, nativeId: id)
+        return view as? AccessCheckoutUITextField
+    }
+    
+    private func searchForView(subViews: [UIView], nativeId: String) -> UIView? {
+        for subView in subViews {
+            if (subView.nativeID == nativeId) {
+                return subView;
+            } else {
+                let view = searchForView(subViews: subView.subviews, nativeId: nativeId)
+                if (view != nil){
+                    return view
+                }
+            }
+        }
         return nil
     }
 
@@ -31,20 +44,6 @@ class ReactNativeViewLocator {
             return nil
         }
 
-        return self.searchForViewInSubViews(subViews: controller.view!.subviews, nativeId: id)
-    }
-
-    private func searchForViewInSubViews(subViews: [UIView], nativeId: String) -> UIView? {
-        for subView in subViews {
-            if subView.nativeID == nil {
-                if let view = searchForViewInSubViews(subViews: subView.subviews, nativeId: nativeId) {
-                    return view
-                }
-            } else if subView.nativeID! == nativeId {
-                return subView
-            }
-        }
-
-        return nil
+        return self.searchForView(subViews: controller.view!.subviews, nativeId: id)
     }
 }

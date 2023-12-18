@@ -1,6 +1,5 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import AccessCheckoutEditText from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutEditText';
+import React, { useState } from 'react';
+import { StyleSheet, TextInput } from 'react-native';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import commonStyles from './common-styles.js';
@@ -22,11 +21,15 @@ const styles = StyleSheet.create({
 interface ExpiryDateFieldProps extends UIComponentProps {
   isEditable: boolean;
   isValid: boolean;
+
+  onChange(text: string): void;
 }
 
 const ExpiryDateField = (props: ExpiryDateFieldProps) => {
+  const [expiryValue, setExpiry] = useState<string>('');
+
   return (
-    <AccessCheckoutEditText
+    <TextInput
       nativeID="expiryDateInput"
       testID={props.testID}
       style={[
@@ -37,7 +40,13 @@ const ExpiryDateField = (props: ExpiryDateFieldProps) => {
           ? commonStyles.valid
           : commonStyles.invalid,
       ]}
+      keyboardType="numeric"
+      onChangeText={(text) => {
+        setExpiry(text);
+        props.onChange(text);
+      }}
       editable={props.isEditable}
+      value={expiryValue}
       placeholder="MM/YY"
     />
   );

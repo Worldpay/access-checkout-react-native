@@ -73,6 +73,78 @@ class AccessCheckoutReactNative: RCTEventEmitter {
             reject("", (error as! AccessCheckoutRnIllegalArgumentError).localizedDescription, error)
         }
     }
+    
+    @objc(generateSessionsPOC:withResolver:withRejecter:)
+    func generateSessionsPOC(
+        config: NSDictionary,
+        resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock)
+    {
+        do {
+            let cfg = try GenerateSessionConfig(dictionary: config)
+
+            if accessCheckoutClient == nil {
+                accessCheckoutClient = try! AccessCheckoutClientBuilder()
+                    .accessBaseUrl(cfg.baseUrl)
+                    .merchantId(cfg.merchantId)
+                    .build()
+            }
+
+            let cardDetails: CardDetails
+
+            //TODO: config should now include the ids of the fields instead of the values, Wow 100% Compliant :) !
+            //TODO: can we initialise validation and configure generateSessionsPOC nativeId reference in one shot ? making config dictionary optional ? e.g:
+            //accessCheckoutClient.configuration.panFieldId
+            //accessCheckoutClient.configuration.expiryFieldId
+            //accessCheckoutClient.configuration.cvcFieldId
+            
+            //TODO: exponse new methods to clean extract from UITextField
+            /*
+             cardDetails = try CardDetailsBuilder()
+                 .cvc(cvcInput) // extracts from UITextField.text
+                 .build()
+             */
+            if isCvcSessionOnly(sessionTypes: cfg.sessionTypes) {
+                let cvcInput = self.reactNativeViewLocator.locateUITextFieldPOC(id: cfg.cvcValue!)
+
+                cardDetails = try CardDetailsBuilder()
+                    .cvc(cvcInput!)
+                    .build()
+            } else {
+                let panInput = self.reactNativeViewLocator.locateUITextFieldPOC(id: cfg.panValue!)
+                let expiryInput = self.reactNativeViewLocator.locateUITextFieldPOC(id: cfg.expiryDateValue!)
+                let cvcInput = self.reactNativeViewLocator.locateUITextFieldPOC(id: cfg.cvcValue!)
+
+                cardDetails = try CardDetailsBuilder()
+                    .pan(panInput!)
+                    .expiryDate(expiryInput!)
+                    .cvc(cvcInput!)
+                    .build()
+            }
+
+            let wpSdkHeaderValue = String(format: wpSdkHeaderFormat, cfg.reactNativeSdkVersion!)
+            try! WpSdkHeader.overrideValue(with: wpSdkHeaderValue)
+
+            try accessCheckoutClient!.generateSessions(
+                cardDetails: cardDetails, sessionTypes: cfg.sessionTypes)
+            {
+                result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let sessions):
+                        resolve([
+                            "card": sessions[SessionType.card],
+                            "cvc": sessions[SessionType.cvc],
+                        ])
+                    case .failure(let error):
+                        reject("", error.message, error)
+                    }
+                }
+            }
+        } catch let error as NSError {
+            reject("", (error as! AccessCheckoutRnIllegalArgumentError).localizedDescription, error)
+        }
+    }
 
     @objc(initialiseCardValidation:withResolver:withRejecter:)
     func initialiseCardValidation(
@@ -129,7 +201,63 @@ class AccessCheckoutReactNative: RCTEventEmitter {
             }
         }
     }
+    
+    @objc(initialiseCardValidationPOC:withResolver:withRejecter:)
+    func initialiseCardValidationPOC(
+        config: NSDictionary,
+        resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock)
+    {
+        DispatchQueue.main.async {
+            do {
+                let config = try CardValidationConfigRN(dictionary: config)
+                let panInput = self.reactNativeViewLocator.locateUITextFieldPOC(id: config.panId)
+                let expiryInput = self.reactNativeViewLocator.locateUITextFieldPOC(
+                    id: config.expiryDateId)
+                let cvcInput = self.reactNativeViewLocator.locateUITextFieldPOC(id: config.cvcId)
 
+                if panInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.panTextFieldNotFound(
+                        panNativeId: config.panId)
+                    reject("", error.localizedDescription, error)
+                    return
+                } else if expiryInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.expiryDateTextFieldNotFound(
+                        expiryDateNativeId: config.expiryDateId)
+                    reject("", error.localizedDescription, error)
+                    return
+                } else if cvcInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
+                        cvcNativeId: config.cvcId)
+                    reject("", error.localizedDescription, error)
+                    return
+                }
+
+                let validationDelegate = CardValidationDelegateRN(
+                    eventEmitter: self, eventName: self.cardValidationEventName)
+
+                var builder = CardValidationConfig.builder()
+                    .pan(panInput!)
+                    .expiryDate(expiryInput!)
+                    .cvc(cvcInput!)
+                    .accessBaseUrl(config.baseUrl)
+                    .validationDelegate(validationDelegate)
+                    .acceptedCardBrands(config.acceptedCardBrands)
+
+                if config.enablePanFormatting {
+                    builder = builder.enablePanFormatting()
+                }
+
+                let validationConfig = try! builder.build()
+
+                AccessCheckoutValidationInitialiser().initialise(validationConfig)
+                resolve(true)
+            } catch {
+                reject("", "invalid validation config found", error)
+            }
+        }
+    }
+    
     @objc(initialiseCvcOnlyValidation:withResolver:withRejecter:)
     func initialiseCvcOnlyValidation(
         config: NSDictionary,
@@ -140,6 +268,40 @@ class AccessCheckoutReactNative: RCTEventEmitter {
             do {
                 let config = try CvcOnlyValidationConfigRN(dictionary: config)
                 let cvcInput = self.reactNativeViewLocator.locateUITextField(id: config.cvcId)
+
+                if cvcInput == nil {
+                    let error = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
+                        cvcNativeId: config.cvcId)
+                    reject("", error.localizedDescription, error)
+                    return
+                }
+
+                let validationDelegate = CvcOnlyValidationDelegateRN(
+                    eventEmitter: self, eventName: self.cvcOnlyValidationEventName)
+
+                let validationConfig = try! CvcOnlyValidationConfig.builder()
+                    .cvc(cvcInput!)
+                    .validationDelegate(validationDelegate)
+                    .build()
+
+                AccessCheckoutValidationInitialiser().initialise(validationConfig)
+                resolve(true)
+            } catch {
+                reject("", "invalid validation config found", error)
+            }
+        }
+    }
+    
+    @objc(initialiseCvcOnlyValidationPOC:withResolver:withRejecter:)
+    func initialiseCvcOnlyValidationPOC(
+        config: NSDictionary,
+        resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock)
+    {
+        DispatchQueue.main.async {
+            do {
+                let config = try CvcOnlyValidationConfigRN(dictionary: config)
+                let cvcInput = self.reactNativeViewLocator.locateUITextFieldPOC(id: config.cvcId)
 
                 if cvcInput == nil {
                     let error = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(

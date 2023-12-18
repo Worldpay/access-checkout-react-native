@@ -1,5 +1,10 @@
 import React from 'react';
-import { requireNativeComponent, StyleProp, TextStyle } from 'react-native';
+import {
+  requireNativeComponent,
+  StyleProp,
+  TextStyle,
+  type ViewProps,
+} from 'react-native';
 
 /**
  * Composes `AccessCheckoutEditText`.
@@ -10,17 +15,15 @@ import { requireNativeComponent, StyleProp, TextStyle } from 'react-native';
  * - editable: boolean
  * - placeholder: string
  */
-interface AccessCheckoutEditTextProps {
-  nativeID?: string | undefined;
+interface AccessCheckoutEditTextProps extends ViewProps {
   testID: string | undefined;
   style?: StyleProp<TextStyle>;
   editable?: boolean | undefined;
   placeholder?: string | undefined;
 }
 
-const RTCAccessCheckoutEditText = requireNativeComponent(
-  'AccessCheckoutEditText'
-);
+const RTCAccessCheckoutEditText =
+  requireNativeComponent<AccessCheckoutEditTextProps>('AccessCheckoutEditText');
 const AccessCheckoutEditText = (props: AccessCheckoutEditTextProps) => {
   return <RTCAccessCheckoutEditText {...props} />;
 };

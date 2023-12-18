@@ -65,11 +65,65 @@ export default class AccessCheckout {
     });
   }
 
+  generateSessionsPOC(
+    cardDetails: CardDetails,
+    sessionTypes: string[]
+  ): Promise<Sessions> {
+    return new Promise((resolve, reject) => {
+      AccessCheckoutReactNative.generateSessionsPOC({
+        baseUrl: this.baseUrl,
+        merchantId: this.merchantId,
+        panValue: cardDetails.pan,
+        expiryDateValue: cardDetails.expiryDate,
+        cvcValue: cardDetails.cvc,
+        sessionTypes,
+        reactNativeSdkVersion: this.ReactNativeSdkVersion,
+      })
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
+        .then((bridgeSessions: any) => {
+          const sessions: Sessions = {};
+          if (bridgeSessions.card) {
+            sessions.card = bridgeSessions.card;
+          }
+          if (bridgeSessions.cvc) {
+            sessions.cvc = bridgeSessions.cvc;
+          }
+
+          resolve(sessions);
+        })
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+
   initialiseCardValidation(
     validationConfig: CardValidationConfig
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCardValidation({
+        baseUrl: this.baseUrl,
+        panId: validationConfig.panId,
+        expiryDateId: validationConfig.expiryDateId,
+        cvcId: validationConfig.cvcId,
+        enablePanFormatting: validationConfig.enablePanFormatting,
+        acceptedCardBrands: validationConfig.acceptedCardBrands,
+      })
+        .then(() => {
+          resolve(true);
+        })
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+  initialiseCardValidationPoc(
+    validationConfig: CardValidationConfig
+  ): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      AccessCheckoutReactNative.initialiseCardValidationPOC({
         baseUrl: this.baseUrl,
         panId: validationConfig.panId,
         expiryDateId: validationConfig.expiryDateId,
@@ -92,6 +146,23 @@ export default class AccessCheckout {
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCvcOnlyValidation({
+        cvcId: validationConfig.cvcId,
+      })
+        .then(() => {
+          resolve(true);
+        })
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  }
+
+  initialiseCvcOnlyValidationPoc(
+    validationConfig: CvcOnlyValidationConfig
+  ): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      AccessCheckoutReactNative.initialiseCvcOnlyValidationPOC({
         cvcId: validationConfig.cvcId,
       })
         .then(() => {

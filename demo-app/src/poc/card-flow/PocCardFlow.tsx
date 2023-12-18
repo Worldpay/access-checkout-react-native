@@ -10,29 +10,26 @@ import {
   CVC,
   Sessions,
   useCardValidation,
-} from '../../../access-checkout-react-native-sdk/src/index';
-import CardBrandImage from '../common/CardBrandImage';
-import CvcField from '../common/CvcField';
-import ExpiryDateField from '../common/ExpiryDateField';
-import HView from '../common/HView';
-import PanField from '../common/PanField';
-import SessionLabel from '../common/SessionLabel';
-import Spinner from '../common/Spinner';
-import SubmitButton from '../common/SubmitButton';
-import Toggle from '../common/Toggle';
-import VView from '../common/VView';
+} from '../../../../access-checkout-react-native-sdk/src/index';
+import CardBrandImage from '../../common/CardBrandImage';
+// import CvcField from '../../common/CvcField';
+// import ExpiryDateField from '../../common/ExpiryDateField';
+import HView from '../../common/HView';
+// import PanField from '../../common/PanField';
+import SessionLabel from '../../common/SessionLabel';
+import Spinner from '../../common/Spinner';
+import SubmitButton from '../../common/SubmitButton';
+import Toggle from '../../common/Toggle';
+import VView from '../../common/VView';
 import CardFlowE2eStates from './CardFlow.e2e.states';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import styles from './style.js';
+import AccessCheckoutEditText from '../../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutEditText';
 
 export default function CardFlow() {
   const unknownBrandLogo =
     'https://npe.access.worldpay.com/access-checkout/assets/unknown.png';
-
-  const [panValue, setPan] = useState<string>('');
-  const [expiryValue, setExpiry] = useState<string>('');
-  const [cvcValue, setCvc] = useState<string>('');
 
   const [brand, setBrand] = useState<string>('');
   const [brandLogo, setBrandLogo] = useState<string>(unknownBrandLogo);
@@ -43,7 +40,7 @@ export default function CardFlow() {
   const [submitBtnEnabled, setSubmitBtnEnabled] = useState<boolean>(false);
   const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
-  const [isEditable, setIsEditable] = useState<boolean>(true);
+  // const [isEditable, setIsEditable] = useState<boolean>(true);
 
   const [generateCardAndCvcSessions, setGenerateCardAndCvcSessions] =
     useState(false);
@@ -105,14 +102,14 @@ export default function CardFlow() {
     },
   };
 
-  const { initialiseCardValidation } = useCardValidation(
+  const { initialiseCardValidationPoc } = useCardValidation(
     accessCheckout,
     validationConfig,
     validationEventListener
   );
 
   const onLayout = () => {
-    initialiseCardValidation()
+    initialiseCardValidationPoc()
       .then(() => {
         console.info('Card Validation successfully initialised');
       })
@@ -125,17 +122,17 @@ export default function CardFlow() {
     const sessionTypes = generateCardAndCvcSessions ? [CARD, CVC] : [CARD];
 
     setShowSpinner(true);
-    setIsEditable(false);
+    // setIsEditable(false);
     setSubmitBtnEnabled(false);
 
     const cardDetails: CardDetails = {
-      pan: panValue,
-      expiryDate: expiryValue,
-      cvc: cvcValue,
+      pan: 'panInput',
+      expiryDate: 'expiryDateInput',
+      cvc: 'cvcInput',
     };
 
     accessCheckout
-      .generateSessions(cardDetails, sessionTypes)
+      .generateSessionsPOC(cardDetails, sessionTypes)
       .then((sessions: Sessions) => {
         console.info(`Successfully generated session(s)`);
 
@@ -152,7 +149,7 @@ export default function CardFlow() {
       .finally(() => {
         setShowSpinner(false);
         setSubmitBtnEnabled(true);
-        setIsEditable(true);
+        // setIsEditable(true);
       });
   }
 
@@ -178,31 +175,32 @@ export default function CardFlow() {
       />
     );
   }
-
   return (
     <VView style={styles.cardFlow} onLayout={onLayout}>
       <Spinner testID="spinner" show={showSpinner} />
       <HView>
-        <PanField
+        <AccessCheckoutEditText
+          nativeID="panInput"
           testID="panInput"
-          isValid={panIsValid}
-          onChange={setPan}
-          isEditable={isEditable}
+          placeholder="Card Number"
+          style={styles.pan}
         />
         <CardBrandImage testID="cardBrandImage" logo={brandLogo} />
       </HView>
       <HView>
-        <ExpiryDateField
+        <AccessCheckoutEditText
+          nativeID="expiryDateInput"
           testID="expiryDateInput"
-          isValid={expiryIsValid}
-          onChange={setExpiry}
-          isEditable={isEditable}
+          placeholder="MM/YY"
+          style={styles.expiry}
         />
-        <CvcField
+        <AccessCheckoutEditText
+          nativeID="cvcInput"
           testID="cvcInput"
-          isValid={cvcIsValid}
-          onChange={setCvc}
-          isEditable={isEditable}
+          placeholder="CVC"
+          style={styles.cvc}
+          // isValid={cvcIsValid}
+          // isEditable={isEditable}
         />
       </HView>
       <HView>

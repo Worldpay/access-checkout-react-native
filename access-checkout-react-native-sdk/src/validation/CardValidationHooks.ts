@@ -43,6 +43,9 @@ export function useCardValidation(
   const initialiseCardValidation = () => {
     return accessCheckout.initialiseCardValidation(cardValidationConfig);
   };
+  const initialiseCardValidationPoc = () => {
+    return accessCheckout.initialiseCardValidationPoc(cardValidationConfig);
+  };
 
-  return { initialiseCardValidation };
+  return { initialiseCardValidation, initialiseCardValidationPoc };
 }
