@@ -31,8 +31,7 @@ export default function PocCvcOnly() {
   const [cvcSession, setCvcSession] = useState('');
 
   const accessCheckout = new AccessCheckout({
-    baseUrl: 'http://localhost:3001',
-    // baseUrl: 'https://npe.access.worldpay.com',
+    baseUrl: 'https://npe.access.worldpay.com',
     merchantId: 'identity',
   });
 
