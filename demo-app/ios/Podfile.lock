@@ -1,5 +1,5 @@
 PODS:
-  - AccessCheckoutReactNativeSDKiOSBridge (1.0.2):
+  - AccessCheckoutReactNativeSDKiOSBridge (2.0.0):
     - AccessCheckoutSDK (~> 3.0.0)
     - React-Core
   - AccessCheckoutSDK (3.0.0)
@@ -437,7 +437,7 @@ CHECKOUT OPTIONS:
     :tag: v3.0.0
 
 SPEC CHECKSUMS:
-  AccessCheckoutReactNativeSDKiOSBridge: 7c8541ac7f0b1b4c69a613e61dbde14bd62b4e4e
+  AccessCheckoutReactNativeSDKiOSBridge: 2ac6eacb67930ed5dc92d286467d47e914db87eb
   AccessCheckoutSDK: a3eaf9feb92b2d2c9e362c395f0c8d81acc895d3
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -476,6 +476,6 @@ SPEC CHECKSUMS:
   ReactCommon: dce64235f8548b6e4758647310145f5356c8d0cb
   Yoga: 56413d530d1808044600320ced5baa883acedc44
 
-PODFILE CHECKSUM: 514c63ef40d3f5fdf67431f9670a6dfb20a57652
+PODFILE CHECKSUM: e0184a468d9cb21c3391042cbabb4ec293b8bd1b
 
 COCOAPODS: 1.13.0
