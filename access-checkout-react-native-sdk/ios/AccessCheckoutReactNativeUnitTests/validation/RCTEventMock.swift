@@ -29,10 +29,10 @@ struct RCTEventMock {
         var images: [Image]?
 
         init(_ dictionary: NSDictionary) {
-            name = dictionary["name"] as? String
+            self.name = dictionary["name"] as? String
 
             if let imagesDictionary = dictionary["images"] as? [NSDictionary] {
-                images = []
+                self.images = []
                 for imageDictionary in imagesDictionary {
                     images!.append(Image(imageDictionary))
                 }

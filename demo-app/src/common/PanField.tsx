@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import AccessCheckoutEditText from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutEditText';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import commonStyles from './common-styles.js';
@@ -22,14 +23,11 @@ const styles = StyleSheet.create({
 interface PanFieldProps extends UIComponentProps {
   isEditable: boolean;
   isValid: boolean;
-  onChange(text: string): void;
 }
 
 const PanField = (props: PanFieldProps) => {
-  const [panValue, setPan] = useState<string>('');
-
   return (
-    <TextInput
+    <AccessCheckoutEditText
       nativeID="panInput"
       testID={props.testID}
       style={[
@@ -41,12 +39,7 @@ const PanField = (props: PanFieldProps) => {
           : commonStyles.invalid,
       ]}
       keyboardType="numeric"
-      onChangeText={(text) => {
-        setPan(text);
-        props.onChange(text);
-      }}
       editable={props.isEditable}
-      value={panValue}
       placeholder="Card Number"
     />
   );

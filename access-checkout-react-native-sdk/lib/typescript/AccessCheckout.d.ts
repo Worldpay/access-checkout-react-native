@@ -13,6 +13,9 @@ export default class AccessCheckout {
         merchantId?: string;
     });
     generateSessions(cardDetails: CardDetails, sessionTypes: string[]): Promise<Sessions>;
+    generateSessionsPOC(cardDetails: CardDetails, sessionTypes: string[]): Promise<Sessions>;
     initialiseCardValidation(validationConfig: CardValidationConfig): Promise<boolean>;
+    initialiseCardValidationPoc(validationConfig: CardValidationConfig): Promise<boolean>;
     initialiseCvcOnlyValidation(validationConfig: CvcOnlyValidationConfig): Promise<boolean>;
+    initialiseCvcOnlyValidationPoc(validationConfig: CvcOnlyValidationConfig): Promise<boolean>;
 }

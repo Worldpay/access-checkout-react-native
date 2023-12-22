@@ -41,11 +41,5 @@ export function useCvcOnlyValidation(
     return accessCheckout.initialiseCvcOnlyValidation(cvcOnlyValidationConfig);
   };
 
-  const initialiseCvcOnlyValidationPoc = () => {
-    return accessCheckout.initialiseCvcOnlyValidationPoc(
-      cvcOnlyValidationConfig
-    );
-  };
-
-  return { initialiseCvcOnlyValidation, initialiseCvcOnlyValidationPoc };
+  return { initialiseCvcOnlyValidation };
 }

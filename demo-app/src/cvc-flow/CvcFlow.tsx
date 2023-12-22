@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   AccessCheckout,
-  CardDetails,
   CVC,
   CvcOnlyValidationConfig,
   CvcOnlyValidationEventListener,
@@ -19,9 +18,9 @@ import styles from '../card-flow/style.js';
 import { Alert, Text } from 'react-native';
 import SessionLabel from '../common/SessionLabel';
 import CvcOnlyFlowE2eStates from '../cvc-flow/CvcOnlyFlow.e2e.states';
+import type SessionGenerationConfig from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
 
 export default function CvcFlow() {
-  const [cvcValue, setCvc] = useState<string>('');
   const [cvcIsValid, setCvcIsValid] = useState<boolean>(false);
 
   const [submitBtnEnabled, setSubmitBtnEnabled] = useState<boolean>(false);
@@ -74,12 +73,14 @@ export default function CvcFlow() {
     setShowSpinner(true);
     setIsEditable(false);
 
-    const cardDetails: CardDetails = {
-      cvc: cvcValue,
+    const sessionGenerationConfig: SessionGenerationConfig = {
+      panId: 'panInput',
+      expiryDateId: 'expiryDateInput',
+      cvcId: 'cvcInput',
     };
 
     accessCheckout
-      .generateSessions(cardDetails, sessionTypes)
+      .generateSessions(sessionGenerationConfig, sessionTypes)
       .then((sessions: Sessions) => {
         console.info(`Successfully generated session(s)`);
 
@@ -119,7 +120,6 @@ export default function CvcFlow() {
           testID="cvcInput"
           isEditable={isEditable}
           isValid={cvcIsValid}
-          onChange={setCvc}
         />
       </HView>
       <VView style={{ marginTop: '8%' }}>

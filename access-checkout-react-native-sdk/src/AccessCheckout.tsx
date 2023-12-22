@@ -1,7 +1,7 @@
 import { AccessCheckoutReactNative } from './AccessCheckoutReactNative';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import CardDetails from './session/CardDetails';
+import SessionGenerationConfig from './session/SessionGenerationConfig';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Sessions from './session/Sessions';
@@ -33,49 +33,16 @@ export default class AccessCheckout {
   }
 
   generateSessions(
-    cardDetails: CardDetails,
+    sessionGenerationConfig: SessionGenerationConfig,
     sessionTypes: string[]
   ): Promise<Sessions> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.generateSessions({
         baseUrl: this.baseUrl,
         merchantId: this.merchantId,
-        panValue: cardDetails.pan,
-        expiryDateValue: cardDetails.expiryDate,
-        cvcValue: cardDetails.cvc,
-        sessionTypes,
-        reactNativeSdkVersion: this.ReactNativeSdkVersion,
-      })
-        // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
-        .then((bridgeSessions: any) => {
-          const sessions: Sessions = {};
-          if (bridgeSessions.card) {
-            sessions.card = bridgeSessions.card;
-          }
-          if (bridgeSessions.cvc) {
-            sessions.cvc = bridgeSessions.cvc;
-          }
-
-          resolve(sessions);
-        })
-        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-        .catch((error: any) => {
-          reject(error);
-        });
-    });
-  }
-
-  generateSessionsPOC(
-    cardDetails: CardDetails,
-    sessionTypes: string[]
-  ): Promise<Sessions> {
-    return new Promise((resolve, reject) => {
-      AccessCheckoutReactNative.generateSessionsPOC({
-        baseUrl: this.baseUrl,
-        merchantId: this.merchantId,
-        panValue: cardDetails.pan,
-        expiryDateValue: cardDetails.expiryDate,
-        cvcValue: cardDetails.cvc,
+        panId: sessionGenerationConfig.panId,
+        expiryDateId: sessionGenerationConfig.expiryDateId,
+        cvcId: sessionGenerationConfig.cvcId,
         sessionTypes,
         reactNativeSdkVersion: this.ReactNativeSdkVersion,
       })
@@ -119,50 +86,12 @@ export default class AccessCheckout {
         });
     });
   }
-  initialiseCardValidationPoc(
-    validationConfig: CardValidationConfig
-  ): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      AccessCheckoutReactNative.initialiseCardValidationPOC({
-        baseUrl: this.baseUrl,
-        panId: validationConfig.panId,
-        expiryDateId: validationConfig.expiryDateId,
-        cvcId: validationConfig.cvcId,
-        enablePanFormatting: validationConfig.enablePanFormatting,
-        acceptedCardBrands: validationConfig.acceptedCardBrands,
-      })
-        .then(() => {
-          resolve(true);
-        })
-        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-        .catch((error: any) => {
-          reject(error);
-        });
-    });
-  }
 
   initialiseCvcOnlyValidation(
     validationConfig: CvcOnlyValidationConfig
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCvcOnlyValidation({
-        cvcId: validationConfig.cvcId,
-      })
-        .then(() => {
-          resolve(true);
-        })
-        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-        .catch((error: any) => {
-          reject(error);
-        });
-    });
-  }
-
-  initialiseCvcOnlyValidationPoc(
-    validationConfig: CvcOnlyValidationConfig
-  ): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      AccessCheckoutReactNative.initialiseCvcOnlyValidationPOC({
         cvcId: validationConfig.cvcId,
       })
         .then(() => {

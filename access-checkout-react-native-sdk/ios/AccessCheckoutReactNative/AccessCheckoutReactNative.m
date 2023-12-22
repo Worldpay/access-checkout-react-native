@@ -18,19 +18,4 @@ RCT_EXTERN_METHOD(initialiseCvcOnlyValidation:(NSDictionary *) config
                   withResolver:(RCTPromiseResolveBlock *) resolve
                   withRejecter:(RCTPromiseRejectBlock *) reject)
 
-
-// externalises the generateSessions method signature that is defined in AccessCheckoutReactNative.swift
-RCT_EXTERN_METHOD(generateSessionsPOC:(NSDictionary *) config
-                  withResolver:(RCTPromiseResolveBlock *) resolve
-                  withRejecter:(RCTPromiseRejectBlock *) reject)
-
-// externalises the initialiseCardValidation method signature that is defined in AccessCheckoutReactNative.swift
-RCT_EXTERN_METHOD(initialiseCardValidationPOC:(NSDictionary *) config
-                  withResolver:(RCTPromiseResolveBlock *) resolve
-                  withRejecter:(RCTPromiseRejectBlock *) reject)
-
-// externalises the initialiseCvcOnlyValidation method signature that is defined in AccessCheckoutReactNative.swift
-RCT_EXTERN_METHOD(initialiseCvcOnlyValidationPOC:(NSDictionary *) config
-                  withResolver:(RCTPromiseResolveBlock *) resolve
-                  withRejecter:(RCTPromiseRejectBlock *) reject)
 @end

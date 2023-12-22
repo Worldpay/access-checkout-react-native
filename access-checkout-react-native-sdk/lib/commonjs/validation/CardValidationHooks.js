@@ -32,8 +32,12 @@ function useCardValidation(accessCheckout, cardValidationConfig, merchantListene
   const initialiseCardValidation = () => {
     return accessCheckout.initialiseCardValidation(cardValidationConfig);
   };
+  const initialiseCardValidationPoc = () => {
+    return accessCheckout.initialiseCardValidationPoc(cardValidationConfig);
+  };
   return {
-    initialiseCardValidation
+    initialiseCardValidation,
+    initialiseCardValidationPoc
   };
 }
 //# sourceMappingURL=CardValidationHooks.js.map

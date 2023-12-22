@@ -49,6 +49,34 @@ export default class AccessCheckout {
       });
     });
   }
+  generateSessionsPOC(cardDetails, sessionTypes) {
+    return new Promise((resolve, reject) => {
+      AccessCheckoutReactNative.generateSessionsPOC({
+        baseUrl: this.baseUrl,
+        merchantId: this.merchantId,
+        panValue: cardDetails.pan,
+        expiryDateValue: cardDetails.expiryDate,
+        cvcValue: cardDetails.cvc,
+        sessionTypes,
+        reactNativeSdkVersion: this.ReactNativeSdkVersion
+      })
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
+      .then(bridgeSessions => {
+        const sessions = {};
+        if (bridgeSessions.card) {
+          sessions.card = bridgeSessions.card;
+        }
+        if (bridgeSessions.cvc) {
+          sessions.cvc = bridgeSessions.cvc;
+        }
+        resolve(sessions);
+      })
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      .catch(error => {
+        reject(error);
+      });
+    });
+  }
   initialiseCardValidation(validationConfig) {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCardValidation({
@@ -67,9 +95,40 @@ export default class AccessCheckout {
       });
     });
   }
+  initialiseCardValidationPoc(validationConfig) {
+    return new Promise((resolve, reject) => {
+      AccessCheckoutReactNative.initialiseCardValidationPOC({
+        baseUrl: this.baseUrl,
+        panId: validationConfig.panId,
+        expiryDateId: validationConfig.expiryDateId,
+        cvcId: validationConfig.cvcId,
+        enablePanFormatting: validationConfig.enablePanFormatting,
+        acceptedCardBrands: validationConfig.acceptedCardBrands
+      }).then(() => {
+        resolve(true);
+      })
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      .catch(error => {
+        reject(error);
+      });
+    });
+  }
   initialiseCvcOnlyValidation(validationConfig) {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCvcOnlyValidation({
+        cvcId: validationConfig.cvcId
+      }).then(() => {
+        resolve(true);
+      })
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      .catch(error => {
+        reject(error);
+      });
+    });
+  }
+  initialiseCvcOnlyValidationPoc(validationConfig) {
+    return new Promise((resolve, reject) => {
+      AccessCheckoutReactNative.initialiseCvcOnlyValidationPOC({
         cvcId: validationConfig.cvcId
       }).then(() => {
         resolve(true);

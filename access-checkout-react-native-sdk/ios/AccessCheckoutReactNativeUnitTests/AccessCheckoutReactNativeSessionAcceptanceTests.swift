@@ -5,8 +5,35 @@ import XCTest
 @testable import AccessCheckoutSDK
 
 class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
-    let accessCheckoutReactNative = AccessCheckoutReactNative()
-    let stubServices = StubServices(baseUrl: "http://localhost")
+    private let stubServices = StubServices(baseUrl: "http://localhost")
+
+    private let storyboard = UIStoryboard(name: "SessionGenerationTest", bundle: nil)
+    private var reactNativeViewLocatorMock: ReactNativeViewLocatorMock?
+    private var controller: SessionGenerationTestUIViewController? = nil
+    private var accessCheckoutReactNative: AccessCheckoutReactNative? = nil
+
+    private var panUITextField: AccessCheckoutUITextField? = nil
+    private var expiryDateUITextField: AccessCheckoutUITextField? = nil
+    private var cvcUITextField: AccessCheckoutUITextField? = nil
+
+    override func setUp() {
+        controller =
+            (storyboard.instantiateViewController(
+                withIdentifier: "SessionGenerationTestUIViewController")
+                as! SessionGenerationTestUIViewController)
+        controller!.loadViewIfNeeded()
+
+        panUITextField = controller!.panTextField
+        expiryDateUITextField = controller!.expiryDateTextField
+        cvcUITextField = controller!.cvcTextField
+
+        reactNativeViewLocatorMock = ReactNativeViewLocatorMock(
+            panUITextField: panUITextField!,
+            expiryDateUITextField: expiryDateUITextField!,
+            cvcUITextField: cvcUITextField!)
+
+        accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+    }
 
     func testShouldSupportGeneratingACardSession() {
         let stubServices = StubServices(baseUrl: "http://localhost")
@@ -18,14 +45,18 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": stubServices.baseUrl,
             "merchantId": "identity",
-            "panValue": "4444333322221111",
-            "expiryDateValue": "12/30",
-            "cvcValue": "123",
+            "panId": "pan",
+            "expiryDateId": "expiryDate",
+            "cvcId": "cvc",
             "sessionTypes": ["card"],
             "reactNativeSdkVersion": "1.2.3"
         ]
 
-        accessCheckoutReactNative.generateSessions(config: dictionary) { sessions in
+        panUITextField!.text = "4444333322221111"
+        expiryDateUITextField!.text = "12/34"
+        cvcUITextField!.text = "123"
+
+        accessCheckoutReactNative!.generateSessions(config: dictionary) { sessions in
             let session = (sessions as! [String: String?])["card"]
             XCTAssertEqual("my-session", session)
             expectationToFulfill.fulfill()
@@ -47,12 +78,12 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": stubServices.baseUrl,
             "merchantId": "identity",
-            "cvcValue": "123",
+            "cvcId": "cvc",
             "sessionTypes": ["cvc"],
             "reactNativeSdkVersion": "1.2.3"
         ]
 
-        accessCheckoutReactNative.generateSessions(config: dictionary) { sessions in
+        accessCheckoutReactNative!.generateSessions(config: dictionary) { sessions in
             let cvcSession = (sessions as! [String: String?])["cvc"]
             XCTAssertEqual("my-cvc-session", cvcSession)
             expectationToFulfill.fulfill()
@@ -75,21 +106,25 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": stubServices.baseUrl,
             "merchantId": "identity",
-            "panValue": "4444333322221111",
-            "expiryDateValue": "12/30",
-            "cvcValue": "123",
+            "cvcId": "cvc",
+            "panId": "pan",
+            "expiryDateId": "expiryDate",
             "sessionTypes": ["card", "cvc"],
             "reactNativeSdkVersion": "1.2.3"
         ]
 
-        accessCheckoutReactNative.generateSessions(config: dictionary) { sessions in
+        panUITextField!.text = "4444333322221111"
+        expiryDateUITextField!.text = "12/34"
+        cvcUITextField!.text = "123"
+
+        accessCheckoutReactNative!.generateSessions(config: dictionary) { sessions in
             let session = (sessions as! [String: String?])["card"]
             let cvcSession = (sessions as! [String: String?])["cvc"]
             XCTAssertEqual("my-session", session)
             XCTAssertEqual("my-cvc-session", cvcSession)
             expectationToFulfill.fulfill()
-        } reject: { _, _, _ in
-            XCTFail("got an unexpected error back from stubs")
+        } reject: { _, message, _ in
+            XCTFail("got an unexpected error back from stubs: " + message!)
             expectationToFulfill.fulfill()
         }
 
@@ -106,12 +141,12 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": stubServices.baseUrl,
             "merchantId": "identity",
-            "cvcValue": "123",
+            "cvcId": "cvc",
             "sessionTypes": ["cvc"],
-            "reactNativeSdkVersion": "1.2.3",
+            "reactNativeSdkVersion": "1.2.3"
         ]
 
-        accessCheckoutReactNative.generateSessions(config: dictionary) { _ in
+        accessCheckoutReactNative!.generateSessions(config: dictionary) { _ in
             XCTAssertEqual("access-checkout-react-native/1.2.3", WpSdkHeader.value)
 
             expectationToFulfill.fulfill()
@@ -136,15 +171,19 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
         let dictionary: NSDictionary = [
             "baseUrl": stubServices.baseUrl,
             "merchantId": "identity",
-            "panValue": "4444333322221111",
-            "expiryDateValue": "12/30",
-            "cvcValue": "123",
+            "panId": "pan",
+            "expiryDateId": "expiryDate",
+            "cvcId": "cvc",
             "sessionTypes": ["card"],
             "reactNativeSdkVersion": "1.2.3"
         ]
 
-        accessCheckoutReactNative.generateSessions(config: dictionary) { _ in
-            XCTFail("generating sessions should have faild but it didn't")
+        panUITextField!.text = "4444333322221111"
+        expiryDateUITextField!.text = "12/34"
+        cvcUITextField!.text = "123"
+
+        accessCheckoutReactNative!.generateSessions(config: dictionary) { _ in
+            XCTFail("generating sessions should have failed but it didn't")
             expectationToFulfill.fulfill()
         } reject: { _, _, error in
             let expectedError = AccessCheckoutError.unexpectedApiError(
@@ -160,8 +199,8 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
         let expectationToFulfill = expectation(description: "Error should be returned")
         let invalidConfig: NSDictionary = [:]
 
-        accessCheckoutReactNative.generateSessions(config: invalidConfig) { _ in
-            XCTFail("generating sessions should have faild but it didn't")
+        accessCheckoutReactNative!.generateSessions(config: invalidConfig) { _ in
+            XCTFail("generating sessions should have failed but it didn't")
             expectationToFulfill.fulfill()
         } reject: { _, _, error in
             let expectedError = AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
@@ -177,11 +216,11 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
         let invalidConfig: NSDictionary = [
             "baseUrl": stubServices.baseUrl,
             "merchantId": "identity",
-            "sessionTypes": ["cvc"],
+            "sessionTypes": ["cvc"]
         ]
 
-        accessCheckoutReactNative.generateSessions(config: invalidConfig) { _ in
-            XCTFail("generating sessions should have faild but it didn't")
+        accessCheckoutReactNative!.generateSessions(config: invalidConfig) { _ in
+            XCTFail("generating sessions should have failed but it didn't")
             expectationToFulfill.fulfill()
         } reject: { _, _, error in
             let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()

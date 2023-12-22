@@ -20,6 +20,8 @@ interface AccessCheckoutEditTextProps extends ViewProps {
   style?: StyleProp<TextStyle>;
   editable?: boolean | undefined;
   placeholder?: string | undefined;
+  isValid?: boolean;
+  keyboardType?: string;
 }
 
 const RTCAccessCheckoutEditText =

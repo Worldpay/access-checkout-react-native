@@ -5,34 +5,19 @@ import HView from './common/HView';
 import VView from './common/VView';
 import CvcOnly from './cvc-flow/CvcFlow';
 import NavItem from './navigation/NavItem';
-import { PocToggle } from './poc/PocToggle';
-import PocCardFlow from './poc/card-flow/PocCardFlow';
-import PocCvcOnly from './poc/views/PocCvcView';
-
 export default function App() {
   const screens = {
     card: 'card',
     cvc: 'cvc',
   };
 
-  //TODO: Revert default states
-  const [screen, setScreen] = useState(screens.cvc);
-  const [pocMode, setPocMode] = useState(false);
+  const [screen, setScreen] = useState(screens.card);
 
-  let currentScreen;
-
-  if (pocMode) {
-    currentScreen = screen === screens.card ? <PocCardFlow /> : <PocCvcOnly />;
-  } else {
-    currentScreen = screen === screens.card ? <CardFlow /> : <CvcOnly />;
-  }
+  const currentScreen = screen === screens.card ? <CardFlow /> : <CvcOnly />;
 
   return (
     <VView style={styles.app}>
-      <VView style={styles.main}>
-        <PocToggle onChange={() => setPocMode(!pocMode)} />
-        {currentScreen}
-      </VView>
+      <VView style={styles.main}>{currentScreen}</VView>
       <HView style={styles.nav}>
         <NavItem
           title="Card Flow"
