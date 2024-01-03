@@ -13,7 +13,7 @@ class AccessCheckoutInputTextManager(private val callerContext: ReactApplication
     override fun getName() = REACT_CLASS
 
     companion object {
-        const val REACT_CLASS = "AccessCheckoutEditText"
+        const val REACT_CLASS = "AccessCheckoutInputText"
     }
 
     override fun createViewInstance(context: ThemedReactContext) = AccessCheckoutEditText(context)
