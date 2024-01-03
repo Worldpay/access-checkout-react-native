@@ -1,7 +1,7 @@
 import AccessCheckoutReactNative from './AccessCheckoutReactNative';
 export default AccessCheckoutReactNative;
 export { default as AccessCheckout } from './AccessCheckout';
-export { default as CardDetails } from './session/SessionGenerationConfig';
+export { default as SessionGenerationConfig } from './session/SessionGenerationConfig';
 export { default as SessionType, CARD, CVC } from './session/SessionType';
 export { default as Sessions } from './session/Sessions';
 export { default as CardValidationConfig } from './validation/CardValidationConfig';

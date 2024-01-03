@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 /**
- * Composes `AccessCheckoutEditText`.
+ * Composes `AccessCheckoutInputText`.
  *
  * - nativeID: string
  * - testID: string
@@ -15,7 +15,7 @@ import {
  * - editable: boolean
  * - placeholder: string
  */
-interface AccessCheckoutEditTextProps extends ViewProps {
+interface AccessCheckoutInputTextProps extends ViewProps {
   testID: string | undefined;
   style?: StyleProp<TextStyle>;
   editable?: boolean | undefined;
@@ -24,10 +24,12 @@ interface AccessCheckoutEditTextProps extends ViewProps {
   keyboardType?: string;
 }
 
-const RTCAccessCheckoutEditText =
-  requireNativeComponent<AccessCheckoutEditTextProps>('AccessCheckoutEditText');
-const AccessCheckoutEditText = (props: AccessCheckoutEditTextProps) => {
-  return <RTCAccessCheckoutEditText {...props} />;
+const RTCAccessCheckoutInputText =
+  requireNativeComponent<AccessCheckoutInputTextProps>(
+    'AccessCheckoutInputText'
+  );
+const AccessCheckoutInputText = (props: AccessCheckoutInputTextProps) => {
+  return <RTCAccessCheckoutInputText {...props} />;
 };
 
-export default AccessCheckoutEditText;
+export default AccessCheckoutInputText;

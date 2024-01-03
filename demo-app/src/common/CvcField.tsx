@@ -7,7 +7,7 @@ import commonStyles from './common-styles.js';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import UIComponentProps from './UIComponentProps';
-import AccessCheckoutEditText from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutEditText';
+import AccessCheckoutInputText from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutInputText';
 
 const styles = StyleSheet.create({
   cvc: {
@@ -27,7 +27,7 @@ interface CvcFieldProps extends UIComponentProps {
 
 const CvcField = (props: CvcFieldProps) => {
   return (
-    <AccessCheckoutEditText
+    <AccessCheckoutInputText
       nativeID="cvcInput"
       testID={props.testID}
       style={[

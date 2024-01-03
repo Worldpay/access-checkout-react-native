@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, TextStyle, type ViewProps } from 'react-native';
 /**
- * Composes `AccessCheckoutEditText`.
+ * Composes `AccessCheckoutInputText`.
  *
  * - nativeID: string
  * - testID: string
@@ -9,7 +9,7 @@ import { StyleProp, TextStyle, type ViewProps } from 'react-native';
  * - editable: boolean
  * - placeholder: string
  */
-interface AccessCheckoutEditTextProps extends ViewProps {
+interface AccessCheckoutInputTextProps extends ViewProps {
     testID: string | undefined;
     style?: StyleProp<TextStyle>;
     editable?: boolean | undefined;
@@ -17,5 +17,5 @@ interface AccessCheckoutEditTextProps extends ViewProps {
     isValid?: boolean;
     keyboardType?: string;
 }
-declare const AccessCheckoutEditText: (props: AccessCheckoutEditTextProps) => React.JSX.Element;
-export default AccessCheckoutEditText;
+declare const AccessCheckoutInputText: (props: AccessCheckoutInputTextProps) => React.JSX.Element;
+export default AccessCheckoutInputText;

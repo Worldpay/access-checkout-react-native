@@ -1,10 +1,10 @@
-import AccessCheckoutSDK
-import Mockingjay
-import React
-import XCTest
 
 @testable import AccessCheckoutReactNative
 @testable import AccessCheckoutReactNativeUnitTestsApp
+@testable import AccessCheckoutSDK
+import Mockingjay
+import React
+import XCTest
 
 class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
     private let stubServices = StubServices(baseUrl: "http://localhost")
@@ -13,7 +13,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
     private let storyboard = UIStoryboard(name: "CvcValidationTest", bundle: nil)
     private var reactNativeViewLocatorMock: ReactNativeViewLocatorMock?
     private var controller: CvcOnlyValidationTestUIViewController? = nil
-    private var cvcUITextField: AccessCheckoutUITextField? = nil
+    private var cvcACUITextField: AccessCheckoutUITextField? = nil
 
     override func setUp() {
         controller =
@@ -21,8 +21,8 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
                 withIdentifier: "CvcOnlyValidationTestUIViewController")
                 as! CvcOnlyValidationTestUIViewController)
         controller!.loadViewIfNeeded()
-        cvcUITextField = controller!.cvcTextField
-        reactNativeViewLocatorMock = ReactNativeViewLocatorMock(cvcUITextField: cvcUITextField!)
+        cvcACUITextField = controller!.cvcTextField
+        reactNativeViewLocatorMock = ReactNativeViewLocatorMock(cvcView: cvcACUITextField!)
     }
 
     func testShouldReturnAnErrorWhenConfigurationProvidedIsInvalid() {
@@ -46,7 +46,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
         let expectationToFulfill = expectation(description: "Error should be returned")
         let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
 
-        reactNativeViewLocatorMock!.cvcUITextField = nil
+        reactNativeViewLocatorMock!.cvcView = nil
         let expectedError = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
             cvcNativeId: "cvc")
 
@@ -86,7 +86,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { success in
             XCTAssertEqual(true, (success as! Bool))
 
-            let field = self.cvcUITextField!.viewWithTag(AccessCheckoutUIFieldIdentifier.UITextField) as! UITextField
+            let field = self.cvcACUITextField!.uiTextField
             field.insertText("123")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
@@ -115,7 +115,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
 
-            let field = self.cvcUITextField!.viewWithTag(AccessCheckoutUIFieldIdentifier.UITextField) as! UITextField
+            let field = self.cvcACUITextField!.uiTextField
             field.insertText("123")
             field.deleteBackward()
             XCTAssertEqual(field.text, "12")
@@ -146,7 +146,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
 
-            let field = self.cvcUITextField!.viewWithTag(AccessCheckoutUIFieldIdentifier.UITextField) as! UITextField
+            let field = self.cvcACUITextField!.uiTextField
             field.insertText("123")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
@@ -178,6 +178,4 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
         let exp = XCTestCase().expectation(description: "Waiting for \(timeoutInSeconds)")
         _ = XCTWaiter.wait(for: [exp], timeout: timeoutInSeconds)
     }
-    
-    
 }

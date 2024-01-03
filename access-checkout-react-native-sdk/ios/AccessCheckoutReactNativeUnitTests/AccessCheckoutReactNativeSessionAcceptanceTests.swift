@@ -12,9 +12,9 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
     private var controller: SessionGenerationTestUIViewController? = nil
     private var accessCheckoutReactNative: AccessCheckoutReactNative? = nil
 
-    private var panUITextField: AccessCheckoutUITextField? = nil
-    private var expiryDateUITextField: AccessCheckoutUITextField? = nil
-    private var cvcUITextField: AccessCheckoutUITextField? = nil
+    private var panACUITextField: AccessCheckoutUITextField? = nil
+    private var expiryDateACUITextField: AccessCheckoutUITextField? = nil
+    private var cvcACUITextField: AccessCheckoutUITextField? = nil
 
     override func setUp() {
         controller =
@@ -23,14 +23,14 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
                 as! SessionGenerationTestUIViewController)
         controller!.loadViewIfNeeded()
 
-        panUITextField = controller!.panTextField
-        expiryDateUITextField = controller!.expiryDateTextField
-        cvcUITextField = controller!.cvcTextField
+        panACUITextField = controller!.panTextField
+        expiryDateACUITextField = controller!.expiryDateTextField
+        cvcACUITextField = controller!.cvcTextField
 
         reactNativeViewLocatorMock = ReactNativeViewLocatorMock(
-            panUITextField: panUITextField!,
-            expiryDateUITextField: expiryDateUITextField!,
-            cvcUITextField: cvcUITextField!)
+            panView: panACUITextField!,
+            expiryDateView: expiryDateACUITextField!,
+            cvcView: cvcACUITextField!)
 
         accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
     }
@@ -52,9 +52,9 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
             "reactNativeSdkVersion": "1.2.3"
         ]
 
-        panUITextField!.text = "4444333322221111"
-        expiryDateUITextField!.text = "12/34"
-        cvcUITextField!.text = "123"
+        panACUITextField!.text = "4444333322221111"
+        expiryDateACUITextField!.text = "12/34"
+        cvcACUITextField!.text = "123"
 
         accessCheckoutReactNative!.generateSessions(config: dictionary) { sessions in
             let session = (sessions as! [String: String?])["card"]
@@ -113,9 +113,9 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
             "reactNativeSdkVersion": "1.2.3"
         ]
 
-        panUITextField!.text = "4444333322221111"
-        expiryDateUITextField!.text = "12/34"
-        cvcUITextField!.text = "123"
+        panACUITextField!.text = "4444333322221111"
+        expiryDateACUITextField!.text = "12/34"
+        cvcACUITextField!.text = "123"
 
         accessCheckoutReactNative!.generateSessions(config: dictionary) { sessions in
             let session = (sessions as! [String: String?])["card"]
@@ -178,9 +178,9 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
             "reactNativeSdkVersion": "1.2.3"
         ]
 
-        panUITextField!.text = "4444333322221111"
-        expiryDateUITextField!.text = "12/34"
-        cvcUITextField!.text = "123"
+        panACUITextField!.text = "4444333322221111"
+        expiryDateACUITextField!.text = "12/34"
+        cvcACUITextField!.text = "123"
 
         accessCheckoutReactNative!.generateSessions(config: dictionary) { _ in
             XCTFail("generating sessions should have failed but it didn't")

@@ -74,7 +74,7 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    // MARK: Testing errors related to Pan Value
+    // MARK: Testing errors related to Pan Id
 
     func testThatErrorIsRaisedWhenSessionTypesContainsCardAndpanIdIsAbsent() {
         let dictionary = validCardConfiguration()
@@ -109,7 +109,7 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    // MARK: Testing errors related to Expiry Value
+    // MARK: Testing errors related to Expiry Date Id
 
     func testThatErrorIsRaisedWhenSessionTypesContainsCardAndexpiryDateIdIsAbsent() {
         let dictionary = validCardConfiguration()
@@ -144,7 +144,7 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    // MARK: Testing errors related to Cvc Value
+    // MARK: Testing errors related to Cvc Id
 
     func testThatErrorIsRaisedWhenSessionTypesContainsCardAndcvcIdIsAbsent() {
         let dictionary = validCardConfiguration()
@@ -314,9 +314,9 @@ class GenerateSessionUnitTests: XCTestCase {
 
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
-        XCTAssertEqual(config.panId, "some-pan")
-        XCTAssertEqual(config.expiryDateId, "some-expiry-date")
-        XCTAssertEqual(config.cvcId, "some-cvc")
+        XCTAssertEqual(config.panId, "some-pan-id")
+        XCTAssertEqual(config.expiryDateId, "some-expiry-date-id")
+        XCTAssertEqual(config.cvcId, "some-cvc-id")
         XCTAssertEqual(config.sessionTypes, [SessionType.card])
         XCTAssertEqual(config.reactNativeSdkVersion, "some-version")
     }
@@ -328,7 +328,7 @@ class GenerateSessionUnitTests: XCTestCase {
 
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
-        XCTAssertEqual(config.cvcId, "some-cvc")
+        XCTAssertEqual(config.cvcId, "some-cvc-id")
         XCTAssertEqual(config.sessionTypes, [SessionType.cvc])
         XCTAssertEqual(config.reactNativeSdkVersion, "some-version")
     }
@@ -341,9 +341,9 @@ class GenerateSessionUnitTests: XCTestCase {
 
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
-        XCTAssertEqual(config.panId, "some-pan")
-        XCTAssertEqual(config.expiryDateId, "some-expiry-date")
-        XCTAssertEqual(config.cvcId, "some-cvc")
+        XCTAssertEqual(config.panId, "some-pan-id")
+        XCTAssertEqual(config.expiryDateId, "some-expiry-date-id")
+        XCTAssertEqual(config.cvcId, "some-cvc-id")
         XCTAssertEqual(config.sessionTypes, [SessionType.card, SessionType.cvc])
         XCTAssertEqual(config.reactNativeSdkVersion, "some-version")
     }
@@ -356,9 +356,9 @@ class GenerateSessionUnitTests: XCTestCase {
 
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
-        XCTAssertEqual(config.panId, "some-pan")
-        XCTAssertEqual(config.expiryDateId, "some-expiry-date")
-        XCTAssertEqual(config.cvcId, "some-cvc")
+        XCTAssertEqual(config.panId, "some-pan-id")
+        XCTAssertEqual(config.expiryDateId, "some-expiry-date-id")
+        XCTAssertEqual(config.cvcId, "some-cvc-id")
         XCTAssertEqual(config.sessionTypes, [SessionType.card, SessionType.cvc])
         XCTAssertEqual(config.reactNativeSdkVersion, "some-version")
     }
@@ -367,9 +367,9 @@ class GenerateSessionUnitTests: XCTestCase {
         let dictionary: NSMutableDictionary = [
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
-            "panId": "some-pan",
-            "expiryDateId": "some-expiry-date",
-            "cvcId": "some-cvc",
+            "panId": "some-pan-id",
+            "expiryDateId": "some-expiry-date-id",
+            "cvcId": "some-cvc-id",
             "sessionTypes": ["card"],
             "reactNativeSdkVersion": "some-version"
         ]
@@ -380,7 +380,7 @@ class GenerateSessionUnitTests: XCTestCase {
         let dictionary: NSMutableDictionary = [
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
-            "cvcId": "some-cvc",
+            "cvcId": "some-cvc-id",
             "sessionTypes": ["cvc"],
             "reactNativeSdkVersion": "some-version"
         ]

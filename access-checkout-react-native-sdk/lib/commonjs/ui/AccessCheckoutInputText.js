@@ -8,7 +8,7 @@ var _react = _interopRequireDefault(require("react"));
 var _reactNative = require("react-native");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * Composes `AccessCheckoutEditText`.
+ * Composes `AccessCheckoutInputText`.
  *
  * - nativeID: string
  * - testID: string
@@ -17,9 +17,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - placeholder: string
  */
 
-const RTCAccessCheckoutEditText = (0, _reactNative.requireNativeComponent)('AccessCheckoutEditText');
-const AccessCheckoutEditText = props => {
-  return /*#__PURE__*/_react.default.createElement(RTCAccessCheckoutEditText, props);
+const RTCAccessCheckoutInputText = (0, _reactNative.requireNativeComponent)('AccessCheckoutInputText');
+const AccessCheckoutInputText = props => {
+  return /*#__PURE__*/_react.default.createElement(RTCAccessCheckoutInputText, props);
 };
-var _default = exports.default = AccessCheckoutEditText;
-//# sourceMappingURL=AccessCheckoutEditText.js.map
+var _default = exports.default = AccessCheckoutInputText;
+//# sourceMappingURL=AccessCheckoutInputText.js.map

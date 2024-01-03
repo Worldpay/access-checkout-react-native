@@ -7,7 +7,7 @@ import com.facebook.react.uimanager.ViewProps
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.worldpay.access.checkout.ui.AccessCheckoutEditText
 
-class AccessCheckoutEditTextManager(private val callerContext: ReactApplicationContext) :
+class AccessCheckoutInputTextManager(private val callerContext: ReactApplicationContext) :
     SimpleViewManager<AccessCheckoutEditText>() {
 
     override fun getName() = REACT_CLASS

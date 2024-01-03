@@ -33,12 +33,6 @@ Object.defineProperty(exports, "CVC", {
     return _SessionType.CVC;
   }
 });
-Object.defineProperty(exports, "CardDetails", {
-  enumerable: true,
-  get: function () {
-    return _SessionGenerationConfig.default;
-  }
-});
 Object.defineProperty(exports, "CardValidationConfig", {
   enumerable: true,
   get: function () {
@@ -61,6 +55,12 @@ Object.defineProperty(exports, "CvcOnlyValidationEventListener", {
   enumerable: true,
   get: function () {
     return _CvcOnlyValidationEventListener.CvcOnlyValidationEventListener;
+  }
+});
+Object.defineProperty(exports, "SessionGenerationConfig", {
+  enumerable: true,
+  get: function () {
+    return _SessionGenerationConfig.default;
   }
 });
 Object.defineProperty(exports, "SessionType", {

@@ -6,7 +6,7 @@ import commonStyles from './common-styles.js';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import UIComponentProps from './UIComponentProps';
-import AccessCheckoutEditText from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutEditText';
+import AccessCheckoutInputText from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutInputText';
 
 const styles = StyleSheet.create({
   expiry: {
@@ -26,7 +26,7 @@ interface ExpiryDateFieldProps extends UIComponentProps {
 
 const ExpiryDateField = (props: ExpiryDateFieldProps) => {
   return (
-    <AccessCheckoutEditText
+    <AccessCheckoutInputText
       nativeID="expiryDateInput"
       testID={props.testID}
       keyboardType="numeric"
