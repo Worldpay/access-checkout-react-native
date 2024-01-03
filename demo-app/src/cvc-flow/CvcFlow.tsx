@@ -74,8 +74,6 @@ export default function CvcFlow() {
     setIsEditable(false);
 
     const sessionGenerationConfig: SessionGenerationConfig = {
-      panId: 'panInput',
-      expiryDateId: 'expiryDateInput',
       cvcId: 'cvcInput',
     };
 
