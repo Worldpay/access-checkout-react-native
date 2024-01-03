@@ -8,9 +8,11 @@ import com.worldpay.access.checkout.reactnative.react.EventMock
 import com.worldpay.access.checkout.reactnative.services.MockServer
 import com.worldpay.access.checkout.reactnative.services.MockServer.startStubServices
 import com.worldpay.access.checkout.reactnative.services.MockServer.stopStubServices
-import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationTestFixture.Companion.cvcOnlyValidationTestFixture
 import org.awaitility.Awaitility.await
-import org.junit.*
+import org.junit.After
+import org.junit.AfterClass
+import org.junit.BeforeClass
+import org.junit.Test
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
@@ -34,15 +36,6 @@ class CvcOnlyValidationInstrumentedTests {
     }
 
 
-    @Before
-    fun setUp() {
-        cvcOnlyValidationTestFixture()
-            .clear()
-            .cvcId(CvcOnlyValidationInstrumentedTestsActivity.cvcId)
-
-        CvcOnlyValidationInstrumentedTestsActivity.clearActions()
-    }
-
     @After
     fun tearDown() {
         WireMock.reset()
@@ -51,7 +44,7 @@ class CvcOnlyValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenCvcBecomesValid() {
         startActivity().use { scenario ->
-            CvcOnlyValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setCvc("123")
             }
 
@@ -67,7 +60,7 @@ class CvcOnlyValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenCvcBecomesInvalid() {
         startActivity().use { scenario ->
-            CvcOnlyValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setCvc("123")
                 activity.setCvc("12")
             }
@@ -88,7 +81,7 @@ class CvcOnlyValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenAllFieldsBecomeValid() {
         startActivity().use { scenario ->
-            CvcOnlyValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setCvc("123")
             }
 
