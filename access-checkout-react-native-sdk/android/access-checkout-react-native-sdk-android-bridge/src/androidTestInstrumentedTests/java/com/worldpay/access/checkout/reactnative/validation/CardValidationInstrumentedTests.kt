@@ -10,9 +10,14 @@ import com.worldpay.access.checkout.reactnative.services.CardBrandsStub.Companio
 import com.worldpay.access.checkout.reactnative.services.MockServer
 import com.worldpay.access.checkout.reactnative.services.MockServer.startStubServices
 import com.worldpay.access.checkout.reactnative.services.MockServer.stopStubServices
-import com.worldpay.access.checkout.reactnative.validation.CardValidationTestFixture.Companion.validationTestFixture
+import com.worldpay.access.checkout.reactnative.utils.TestFixture
+import com.worldpay.access.checkout.reactnative.utils.TestFixture.Companion.testFixture
 import org.awaitility.Awaitility.await
-import org.junit.*
+import org.junit.After
+import org.junit.AfterClass
+import org.junit.Before
+import org.junit.BeforeClass
+import org.junit.Test
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
@@ -38,13 +43,7 @@ class CardValidationInstrumentedTests {
 
     @Before
     fun setUp() {
-        validationTestFixture()
-            .clear()
-            .panId(CardValidationInstrumentedTestsActivity.panId)
-            .expiryDateId(CardValidationInstrumentedTestsActivity.expiryDateId)
-            .cvcId(CardValidationInstrumentedTestsActivity.cvcId)
-
-        CardValidationInstrumentedTestsActivity.clearActions()
+        TestFixture().clear()
     }
 
     @After
@@ -55,7 +54,7 @@ class CardValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenPanBecomesValid() {
         startActivity().use { scenario ->
-            CardValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setPan("4444333322221111")
             }
 
@@ -71,7 +70,7 @@ class CardValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenPanBecomesInvalid() {
         startActivity().use { scenario ->
-            CardValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setPan("4444333322221111")
                 activity.setPan("4")
             }
@@ -92,7 +91,7 @@ class CardValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenExpiryDateBecomesValid() {
         startActivity().use { scenario ->
-            CardValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setExpiryDate("12/30")
             }
 
@@ -108,7 +107,7 @@ class CardValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenExpiryDateBecomesInvalid() {
         startActivity().use { scenario ->
-            CardValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setExpiryDate("12/30")
                 activity.setExpiryDate("12/3")
             }
@@ -129,7 +128,7 @@ class CardValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenCvcBecomesValid() {
         startActivity().use { scenario ->
-            CardValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setCvc("123")
             }
 
@@ -145,7 +144,7 @@ class CardValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenCvcBecomesInvalid() {
         startActivity().use { scenario ->
-            CardValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setCvc("123")
                 activity.setCvc("12")
             }
@@ -166,7 +165,7 @@ class CardValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenAllFieldsBecomeValid() {
         startActivity().use { scenario ->
-            CardValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setPan("4444333322221111")
                 activity.setExpiryDate("12/30")
                 activity.setCvc("123")
@@ -184,7 +183,7 @@ class CardValidationInstrumentedTests {
     @Test
     fun shouldRaiseEventWhenRecognisingCardBrand() {
         startActivityWithCardBrandRules().use { scenario ->
-            CardValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setPan("4")
             }
 
@@ -211,10 +210,10 @@ class CardValidationInstrumentedTests {
 
     @Test
     fun shouldRaiseAnInvalidPanEventWhenCardBrandIsNotAcceptedByMerchant() {
-        validationTestFixture().acceptedCardBrands(listOf("jcb"))
+        testFixture().acceptedCardBrands(listOf("jcb"))
 
         startActivityWithCardBrandRules().use { scenario ->
-            CardValidationInstrumentedTestsActivity.run { activity ->
+            scenario.onActivity { activity ->
                 activity.setPan("4")
             }
 

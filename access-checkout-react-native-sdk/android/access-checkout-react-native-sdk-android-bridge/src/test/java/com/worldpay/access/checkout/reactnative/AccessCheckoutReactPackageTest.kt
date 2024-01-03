@@ -22,7 +22,7 @@ internal class AccessCheckoutReactPackageTest {
     }
 
     @Test
-    fun `createViewManagers() should not create view managers`() {
+    fun `createViewManagers() should return a list with a single instance of AccessCheckoutEditTextManager`() {
         val viewManagers = acoReactPackage.createViewManagers(reactApplicationContext())
 
         assertThat(viewManagers).hasSize(1)
