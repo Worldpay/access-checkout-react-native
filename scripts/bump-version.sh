@@ -196,7 +196,7 @@ commitAllChanges() {
   echo ""
   echo "Committing changes"
 
-  git add ./access-checkout-react-native-sdk/android/bridge/gradle.properties
+  git add ./access-checkout-react-native-sdk/android/access-checkout-react-native-sdk-android-bridge/gradle.properties
   git add ./access-checkout-react-native-sdk/ios/AccessCheckoutReactNativeSDKiOSBridge.podspec
   git add ./access-checkout-react-native-sdk/package-lock.json
   git add ./access-checkout-react-native-sdk/package.json
