@@ -1,4 +1,4 @@
-import CardDetails from './session/CardDetails';
+import SessionGenerationConfig from './session/SessionGenerationConfig';
 import Sessions from './session/Sessions';
 import CardValidationConfig from './validation/CardValidationConfig';
 import CvcOnlyValidationConfig from './validation/CvcOnlyValidationConfig';
@@ -12,10 +12,7 @@ export default class AccessCheckout {
         baseUrl: string;
         merchantId?: string;
     });
-    generateSessions(cardDetails: CardDetails, sessionTypes: string[]): Promise<Sessions>;
-    generateSessionsPOC(cardDetails: CardDetails, sessionTypes: string[]): Promise<Sessions>;
+    generateSessions(sessionGenerationConfig: SessionGenerationConfig, sessionTypes: string[]): Promise<Sessions>;
     initialiseCardValidation(validationConfig: CardValidationConfig): Promise<boolean>;
-    initialiseCardValidationPoc(validationConfig: CardValidationConfig): Promise<boolean>;
     initialiseCvcOnlyValidation(validationConfig: CvcOnlyValidationConfig): Promise<boolean>;
-    initialiseCvcOnlyValidationPoc(validationConfig: CvcOnlyValidationConfig): Promise<boolean>;
 }

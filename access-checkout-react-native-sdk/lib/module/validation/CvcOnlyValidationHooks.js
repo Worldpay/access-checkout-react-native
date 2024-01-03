@@ -18,12 +18,8 @@ export function useCvcOnlyValidation(accessCheckout, cvcOnlyValidationConfig, me
   const initialiseCvcOnlyValidation = () => {
     return accessCheckout.initialiseCvcOnlyValidation(cvcOnlyValidationConfig);
   };
-  const initialiseCvcOnlyValidationPoc = () => {
-    return accessCheckout.initialiseCvcOnlyValidationPoc(cvcOnlyValidationConfig);
-  };
   return {
-    initialiseCvcOnlyValidation,
-    initialiseCvcOnlyValidationPoc
+    initialiseCvcOnlyValidation
   };
 }
 //# sourceMappingURL=CvcOnlyValidationHooks.js.map

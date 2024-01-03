@@ -1,0 +1,1 @@
+{"version":3,"names":[],"sources":["SessionGenerationConfig.tsx"],"sourcesContent":["export default interface SessionGenerationConfig {\n  panId?: string;\n  expiryDateId?: string;\n  cvcId: string;\n}\n"],"mappings":""}

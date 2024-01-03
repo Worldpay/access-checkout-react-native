@@ -36,7 +36,7 @@ Object.defineProperty(exports, "CVC", {
 Object.defineProperty(exports, "CardDetails", {
   enumerable: true,
   get: function () {
-    return _CardDetails.default;
+    return _SessionGenerationConfig.default;
   }
 });
 Object.defineProperty(exports, "CardValidationConfig", {
@@ -102,7 +102,7 @@ Object.defineProperty(exports, "useCvcOnlyValidation", {
 });
 var _AccessCheckoutReactNative = _interopRequireDefault(require("./AccessCheckoutReactNative"));
 var _AccessCheckout = _interopRequireDefault(require("./AccessCheckout"));
-var _CardDetails = _interopRequireDefault(require("./session/CardDetails"));
+var _SessionGenerationConfig = _interopRequireDefault(require("./session/SessionGenerationConfig"));
 var _SessionType = _interopRequireWildcard(require("./session/SessionType"));
 var _Sessions = _interopRequireDefault(require("./session/Sessions"));
 var _CardValidationConfig = _interopRequireDefault(require("./validation/CardValidationConfig"));

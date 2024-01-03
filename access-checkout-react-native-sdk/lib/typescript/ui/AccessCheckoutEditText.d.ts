@@ -14,6 +14,8 @@ interface AccessCheckoutEditTextProps extends ViewProps {
     style?: StyleProp<TextStyle>;
     editable?: boolean | undefined;
     placeholder?: string | undefined;
+    isValid?: boolean;
+    keyboardType?: string;
 }
 declare const AccessCheckoutEditText: (props: AccessCheckoutEditTextProps) => React.JSX.Element;
 export default AccessCheckoutEditText;
