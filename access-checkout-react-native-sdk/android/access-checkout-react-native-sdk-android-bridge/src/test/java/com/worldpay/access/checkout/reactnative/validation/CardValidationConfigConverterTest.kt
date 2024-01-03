@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test
 
-class CardCardCardValidationConfigConverterTest {
+class CardValidationConfigConverterTest {
     private val converter = CardValidationConfigConverter()
 
     @Test
