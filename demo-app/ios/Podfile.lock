@@ -1,4 +1,4 @@
-cdPODS:
+PODS:
   - AccessCheckoutReactNativeSDKiOSBridge (1.0.2):
     - AccessCheckoutSDK (~> 3.0.0)
     - React-Core

@@ -76,16 +76,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                 }
             }
         } catch let error as NSError {
-            var errorMessage = ""
-            if let err = error as? AccessCheckoutRnIllegalArgumentError {
-                errorMessage = err.localizedDescription
-            } else if let err = error as? AccessCheckoutIllegalArgumentError {
-                errorMessage = err.localizedDescription
-            } else if let err = error as? AccessCheckoutError {
-                errorMessage = err.localizedDescription
-            }
-
-            reject("", errorMessage, error)
+            reject("", (error as! AccessCheckoutRnIllegalArgumentError).localizedDescription, error)
         }
     }
 
