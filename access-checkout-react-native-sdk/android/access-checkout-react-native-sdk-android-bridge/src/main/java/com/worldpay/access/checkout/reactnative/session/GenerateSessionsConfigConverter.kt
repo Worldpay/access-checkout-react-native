@@ -11,9 +11,9 @@ class GenerateSessionsConfigConverter {
     fun fromReadableMap(map: ReadableMap): GenerateSessionsConfig {
         val baseUrl = extractString(fromMap = map, forKey = "baseUrl")
         val merchantId = extractString(fromMap = map, forKey = "merchantId")
-        val panValue = extractString(fromMap = map, forKey = "panValue")
-        val expiryDateValue = extractString(fromMap = map, forKey = "expiryDateValue")
-        val cvcValue = extractString(fromMap = map, forKey = "cvcValue")
+        val panId = extractString(fromMap = map, forKey = "panId")
+        val expiryDateId = extractString(fromMap = map, forKey = "expiryDateId")
+        val cvcId = extractString(fromMap = map, forKey = "cvcId")
         val sessionTypes = map.getArray("sessionTypes")
         val reactNativeSdkVersion = extractString(fromMap = map, forKey = "reactNativeSdkVersion")
 
@@ -24,28 +24,28 @@ class GenerateSessionsConfigConverter {
         val sessionTypesList = toSessionTypesList(sessionTypes)
 
         if (sessionTypesList.contains(CARD)) {
-            validateNonEmptyString(panValue, "panValue")
-            validateNonEmptyString(expiryDateValue, "expiryDateValue")
-            validateNonEmptyString(cvcValue, "cvcValue")
+            validateNonEmptyString(panId, "panId")
+            validateNonEmptyString(expiryDateId, "expiryDateId")
+            validateNonEmptyString(cvcId, "cvcId")
 
             return GenerateSessionsConfig(
                 baseUrl = baseUrl!!,
                 merchantId = merchantId!!,
-                panValue = panValue!!,
-                expiryDateValue = expiryDateValue!!,
-                cvcValue = cvcValue!!,
+                panId = panId!!,
+                expiryDateId = expiryDateId!!,
+                cvcId = cvcId!!,
                 sessionTypes = sessionTypesList,
                 reactNativeSdkVersion = reactNativeSdkVersion!!
             )
         } else {
-            validateNonEmptyString(cvcValue, "cvcValue")
+            validateNonEmptyString(cvcId, "cvcId")
 
             return GenerateSessionsConfig(
                 baseUrl = baseUrl!!,
                 merchantId = merchantId!!,
-                panValue = "",
-                expiryDateValue = "",
-                cvcValue = cvcValue!!,
+                panId = "",
+                expiryDateId = "",
+                cvcId = cvcId!!,
                 sessionTypes = sessionTypesList,
                 reactNativeSdkVersion = reactNativeSdkVersion!!
             )
