@@ -5,11 +5,12 @@ const { expect, element, by, device } = require('detox');
 
 class AccessCheckoutTextInputPO extends UIComponentPO {
   component() {
-    const textInputSelectorId =
+    const selector =
       device.getPlatform() === 'ios'
-        ? `${this.id}-UITextField`
-        : `${this.id}-EditText`;
-    return element(by.id(textInputSelectorId).withAncestor(by.id(this.id)));
+        ? by.type('UITextField')
+        : by.type('android.widget.EditText');
+
+    return element(selector.withAncestor(by.id(this.id)));
   }
 
   async type(text, expectedText = '') {
