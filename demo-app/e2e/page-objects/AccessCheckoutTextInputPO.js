@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { UIComponentPO } = require('./UIComponentPO');
-const { expect, element, by } = require('detox');
+const { expect, element, by, device } = require('detox');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 class AccessCheckoutTextInputPO extends UIComponentPO {
   component() {
-    return element(by.id(/.*/).withAncestor(by.id(this.id)));
+    const textInputSelectorId =
+      device.getPlatform() === 'ios'
+        ? `${this.id}-UITextField`
+        : `${this.id}-EditText`;
+    return element(by.id(textInputSelectorId).withAncestor(by.id(this.id)));
   }
 
   async type(text, expectedText = '') {
