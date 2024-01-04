@@ -5,7 +5,7 @@ const { expect, element, by } = require('detox');
 
 class AccessCheckoutTextInputPO extends UIComponentPO {
   component() {
-    return element(by.id('.*').withAncestor(by.id(this.id)));
+    return element(by.id(/.*/).withAncestor(by.id(this.id)));
   }
 
   async type(text, expectedText = '') {
