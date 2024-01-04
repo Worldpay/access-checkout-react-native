@@ -2,7 +2,7 @@ import React from 'react';
 import { requireNativeComponent } from 'react-native';
 
 /**
- * Composes `AccessCheckoutInputText`.
+ * Composes `AccessCheckoutTextInput`.
  *
  * - nativeID: string
  * - testID: string

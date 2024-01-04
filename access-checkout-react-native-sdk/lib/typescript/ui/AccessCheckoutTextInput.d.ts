@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, TextStyle, type ViewProps } from 'react-native';
 /**
- * Composes `AccessCheckoutInputText`.
+ * Composes `AccessCheckoutTextInput`.
  *
  * - nativeID: string
  * - testID: string
