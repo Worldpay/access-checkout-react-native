@@ -86,8 +86,8 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { success in
             XCTAssertEqual(true, (success as! Bool))
 
-            let field = self.cvcACUITextField!.uiTextField
-            field.insertText("123")
+            let field = self.cvcACUITextField?.uiTextField
+            field!.insertText("123")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
@@ -115,10 +115,10 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
 
-            let field = self.cvcACUITextField!.uiTextField
-            field.insertText("123")
-            field.deleteBackward()
-            XCTAssertEqual(field.text, "12")
+            let field = self.cvcACUITextField?.uiTextField
+            field!.insertText("123")
+            field!.deleteBackward()
+            XCTAssertEqual(field!.text, "12")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 3)
 
@@ -146,8 +146,8 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
 
-            let field = self.cvcACUITextField!.uiTextField
-            field.insertText("123")
+            let field = self.cvcACUITextField?.uiTextField
+            field!.insertText("123")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 

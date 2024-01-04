@@ -135,8 +135,8 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertEqual(true, (success as! Bool))
 
-            let field = self.panACUITextField!.uiTextField
-            field.insertText("4444333322221111")
+            let field = self.panACUITextField?.uiTextField
+            field!.insertText("4444333322221111")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
@@ -164,11 +164,11 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
 
-            let field = self.panACUITextField!.uiTextField
-            field.insertText("4444333322221111")
-            field.deleteBackward()
+            let field = self.panACUITextField?.uiTextField
+            field!.insertText("4444333322221111")
+            field!.deleteBackward()
 
-            XCTAssertEqual(field.text, "444433332222111")
+            XCTAssertEqual(field!.text, "444433332222111")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
@@ -196,8 +196,8 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertEqual(true, (success as! Bool))
 
-            let field = self.cvcACUITextField!.uiTextField
-            field.insertText("123")
+            let field = self.cvcACUITextField?.uiTextField
+            field!.insertText("123")
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
             let event = accessCheckoutReactNative.eventsSent[0]
@@ -224,10 +224,10 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
 
-            let field = self.cvcACUITextField!.uiTextField
-            field.insertText("123")
-            field.deleteBackward()
-            XCTAssertEqual(field.text, "12")
+            let field = self.cvcACUITextField?.uiTextField
+            field!.insertText("123")
+            field!.deleteBackward()
+            XCTAssertEqual(field!.text, "12")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
@@ -255,8 +255,8 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertEqual(true, (success as! Bool))
 
-            let field = self.expiryDateACUITextField!.uiTextField
-            field.insertText("10/34")
+            let field = self.expiryDateACUITextField?.uiTextField
+            field!.insertText("10/34")
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
             let event = accessCheckoutReactNative.eventsSent[0]
@@ -283,10 +283,10 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
 
-            let field = self.expiryDateACUITextField!.uiTextField
-            field.insertText("10/34")
-            field.deleteBackward()
-            XCTAssertEqual(field.text, "10/3")
+            let field = self.expiryDateACUITextField?.uiTextField
+            field!.insertText("10/34")
+            field!.deleteBackward()
+            XCTAssertEqual(field!.text, "10/3")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
@@ -318,8 +318,8 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             // Waiting for configuration to have successfully loaded
             self.wait(0.5)
 
-            let field = self.panACUITextField!.uiTextField
-            field.insertText("4")
+            let field = self.panACUITextField?.uiTextField
+            field!.insertText("4")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
@@ -356,9 +356,9 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             // Waiting for configuration to have successfully loaded
             self.wait(0.5)
 
-            let field = self.panACUITextField!.uiTextField
-            field.insertText("4")
-            field.deleteBackward()
+            let field = self.panACUITextField?.uiTextField
+            field!.insertText("4")
+            field!.deleteBackward()
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 2)
 
@@ -386,12 +386,12 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
 
-            let panField = self.panACUITextField!.uiTextField
-            panField.insertText("4444333322221111")
-            let expiryField = self.expiryDateACUITextField!.uiTextField
-            expiryField.insertText("12/34")
-            let cvcField = self.cvcACUITextField!.uiTextField
-            cvcField.insertText("123")
+            let panField = self.panACUITextField?.uiTextField
+            panField!.insertText("4444333322221111")
+            let expiryField = self.expiryDateACUITextField?.uiTextField
+            expiryField!.insertText("12/34")
+            let cvcField = self.cvcACUITextField?.uiTextField
+            cvcField!.insertText("123")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 4)
 
@@ -431,8 +431,8 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             // Waiting for configuration to have successfully loaded
             self.wait(0.5)
 
-            let panField = self.panACUITextField!.uiTextField
-            panField.insertText("4444333322221111")
+            let panField = self.panACUITextField?.uiTextField
+            panField!.insertText("4444333322221111")
 
             XCTAssertEqual(accessCheckoutReactNative.eventsSent.count, 1)
 
@@ -465,11 +465,12 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
-            let panField = self.panACUITextField!.uiTextField
-            panField.insertText("44443333")
-            self.triggerTextFieldDelegate(panField)
+            let panField = self.panACUITextField?.uiTextField
 
-            XCTAssertEqual(panField.text, "4444 3333")
+            panField!.insertText("44443333")
+            self.triggerTextFieldDelegate(panField!)
+
+            XCTAssertEqual(panField!.text, "4444 3333")
 
             expectationToFulfill.fulfill()
         } reject: { _, _, error in
