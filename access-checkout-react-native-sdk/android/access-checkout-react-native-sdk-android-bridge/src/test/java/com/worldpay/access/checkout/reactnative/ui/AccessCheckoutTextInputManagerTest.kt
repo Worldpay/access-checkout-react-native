@@ -13,13 +13,13 @@ import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-internal class AccessCheckoutInputTextManagerTest {
-    private val manager = AccessCheckoutInputTextManager(reactApplicationContext())
+internal class AccessCheckoutTextInputManagerTest {
+    private val manager = AccessCheckoutTextInputManager(reactApplicationContext())
     private val accessCheckoutEditTextMock = mock(AccessCheckoutEditText::class.java)
 
     @Test
     fun `getName() should return the name of the react class`() {
-        val expectedName = "AccessCheckoutInputText"
+        val expectedName = "AccessCheckoutTextInput"
 
         assertThat(manager.name).isEqualTo(expectedName)
     }

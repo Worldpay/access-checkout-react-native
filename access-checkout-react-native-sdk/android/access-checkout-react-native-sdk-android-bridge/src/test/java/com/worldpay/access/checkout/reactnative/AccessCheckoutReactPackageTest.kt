@@ -3,7 +3,7 @@ package com.worldpay.access.checkout.reactnative
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.facebook.react.bridge.ReactApplicationContext
-import com.worldpay.access.checkout.reactnative.ui.AccessCheckoutInputTextManager
+import com.worldpay.access.checkout.reactnative.ui.AccessCheckoutTextInputManager
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,7 +26,7 @@ internal class AccessCheckoutReactPackageTest {
         val viewManagers = acoReactPackage.createViewManagers(reactApplicationContext())
 
         assertThat(viewManagers).hasSize(1)
-        assertThat(viewManagers[0]).isInstanceOf(AccessCheckoutInputTextManager::class.java)
+        assertThat(viewManagers[0]).isInstanceOf(AccessCheckoutTextInputManager::class.java)
     }
 
     private fun reactApplicationContext(): ReactApplicationContext {

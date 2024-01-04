@@ -15,7 +15,7 @@ import {
  * - editable: boolean
  * - placeholder: string
  */
-interface AccessCheckoutInputTextProps extends ViewProps {
+interface AccessCheckoutTextInputProps extends ViewProps {
   testID: string | undefined;
   style?: StyleProp<TextStyle>;
   editable?: boolean | undefined;
@@ -24,12 +24,12 @@ interface AccessCheckoutInputTextProps extends ViewProps {
   keyboardType?: string;
 }
 
-const RTCAccessCheckoutInputText =
-  requireNativeComponent<AccessCheckoutInputTextProps>(
-    'AccessCheckoutInputText'
+const RTCAccessCheckoutTextInput =
+  requireNativeComponent<AccessCheckoutTextInputProps>(
+    'AccessCheckoutTextInput'
   );
-const AccessCheckoutInputText = (props: AccessCheckoutInputTextProps) => {
-  return <RTCAccessCheckoutInputText {...props} />;
+const AccessCheckoutTextInput = (props: AccessCheckoutTextInputProps) => {
+  return <RTCAccessCheckoutTextInput {...props} />;
 };
 
-export default AccessCheckoutInputText;
+export default AccessCheckoutTextInput;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import AccessCheckoutInputText from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutInputText';
+import AccessCheckoutTextInput from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutTextInput';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import commonStyles from './common-styles.js';
@@ -27,7 +27,7 @@ interface PanFieldProps extends UIComponentProps {
 
 const PanField = (props: PanFieldProps) => {
   return (
-    <AccessCheckoutInputText
+    <AccessCheckoutTextInput
       nativeID="panInput"
       testID={props.testID}
       style={[

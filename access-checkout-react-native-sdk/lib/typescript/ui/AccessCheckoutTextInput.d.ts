@@ -9,7 +9,7 @@ import { StyleProp, TextStyle, type ViewProps } from 'react-native';
  * - editable: boolean
  * - placeholder: string
  */
-interface AccessCheckoutInputTextProps extends ViewProps {
+interface AccessCheckoutTextInputProps extends ViewProps {
     testID: string | undefined;
     style?: StyleProp<TextStyle>;
     editable?: boolean | undefined;
@@ -17,5 +17,5 @@ interface AccessCheckoutInputTextProps extends ViewProps {
     isValid?: boolean;
     keyboardType?: string;
 }
-declare const AccessCheckoutInputText: (props: AccessCheckoutInputTextProps) => React.JSX.Element;
-export default AccessCheckoutInputText;
+declare const AccessCheckoutTextInput: (props: AccessCheckoutTextInputProps) => React.JSX.Element;
+export default AccessCheckoutTextInput;

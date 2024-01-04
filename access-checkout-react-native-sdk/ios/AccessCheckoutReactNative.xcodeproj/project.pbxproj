@@ -10,8 +10,8 @@
 		46D3A9632B3447AE0056016D /* SessionGenerationTestUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3A9622B3447AE0056016D /* SessionGenerationTestUIViewController.swift */; };
 		46D3A9652B34494B0056016D /* SessionGenerationTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46D3A9642B34494B0056016D /* SessionGenerationTest.storyboard */; };
 		46D3A9682B3461030056016D /* AccessCheckoutReactNativeTestImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3A9672B3461030056016D /* AccessCheckoutReactNativeTestImplementation.swift */; };
-		46D51A0B2B2B6D3D001A223C /* AccessCheckoutInputTextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D51A0A2B2B6D3D001A223C /* AccessCheckoutInputTextManager.m */; };
-		46D51A0D2B2B6D72001A223C /* AccessCheckoutInputTextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D51A0C2B2B6D72001A223C /* AccessCheckoutInputTextManager.swift */; };
+		46D51A0B2B2B6D3D001A223C /* AccessCheckoutTextInputManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D51A0A2B2B6D3D001A223C /* AccessCheckoutTextInputManager.m */; };
+		46D51A0D2B2B6D72001A223C /* AccessCheckoutTextInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D51A0C2B2B6D72001A223C /* AccessCheckoutTextInputManager.swift */; };
 		515BA38C282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA38B282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift */; };
 		515BA394282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA393282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift */; };
 		515BA39C282E6F9600BA262D /* CvcValidationTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 515BA39B282E6F9600BA262D /* CvcValidationTest.storyboard */; };
@@ -76,8 +76,8 @@
 		46D3A9622B3447AE0056016D /* SessionGenerationTestUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionGenerationTestUIViewController.swift; sourceTree = "<group>"; };
 		46D3A9642B34494B0056016D /* SessionGenerationTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SessionGenerationTest.storyboard; sourceTree = "<group>"; };
 		46D3A9672B3461030056016D /* AccessCheckoutReactNativeTestImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeTestImplementation.swift; sourceTree = "<group>"; };
-		46D51A0A2B2B6D3D001A223C /* AccessCheckoutInputTextManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccessCheckoutInputTextManager.m; sourceTree = "<group>"; };
-		46D51A0C2B2B6D72001A223C /* AccessCheckoutInputTextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutInputTextManager.swift; sourceTree = "<group>"; };
+		46D51A0A2B2B6D3D001A223C /* AccessCheckoutTextInputManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccessCheckoutTextInputManager.m; sourceTree = "<group>"; };
+		46D51A0C2B2B6D72001A223C /* AccessCheckoutTextInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutTextInputManager.swift; sourceTree = "<group>"; };
 		515BA38B282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift; sourceTree = "<group>"; };
 		515BA393282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CvcOnlyValidationTestUIViewController.swift; sourceTree = "<group>"; };
 		515BA39B282E6F9600BA262D /* CvcValidationTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CvcValidationTest.storyboard; sourceTree = "<group>"; };
@@ -195,8 +195,8 @@
 		516A9F592757D3B800E9B00E /* AccessCheckoutReactNative */ = {
 			isa = PBXGroup;
 			children = (
-				46D51A0A2B2B6D3D001A223C /* AccessCheckoutInputTextManager.m */,
-				46D51A0C2B2B6D72001A223C /* AccessCheckoutInputTextManager.swift */,
+				46D51A0A2B2B6D3D001A223C /* AccessCheckoutTextInputManager.m */,
+				46D51A0C2B2B6D72001A223C /* AccessCheckoutTextInputManager.swift */,
 				51D03D3927A829D8009781EB /* session */,
 				517D9E5027A4141F002B1611 /* validation */,
 				516A9FA12757D6EB00E9B00E /* AccessCheckoutReactNative.m */,
@@ -557,10 +557,10 @@
 				516A9FAA2757D6EB00E9B00E /* AccessCheckoutReactNative.m in Sources */,
 				516A9FAB2757D6EB00E9B00E /* GenerateSessionConfig.swift in Sources */,
 				5167BB3927A7FFB100F8569D /* ReactNativeViewLocator.swift in Sources */,
-				46D51A0D2B2B6D72001A223C /* AccessCheckoutInputTextManager.swift in Sources */,
+				46D51A0D2B2B6D72001A223C /* AccessCheckoutTextInputManager.swift in Sources */,
 				516A9FA92757D6EB00E9B00E /* CardValidationConfigRN.swift in Sources */,
 				516A9FB02757D6EB00E9B00E /* CardValidationDelegateRN.swift in Sources */,
-				46D51A0B2B2B6D3D001A223C /* AccessCheckoutInputTextManager.m in Sources */,
+				46D51A0B2B2B6D3D001A223C /* AccessCheckoutTextInputManager.m in Sources */,
 				516A9FB12757D6EB00E9B00E /* AccessCheckoutReactNative.swift in Sources */,
 				515BA3E4282E93A900BA262D /* CvcOnlyValidationDelegateRN.swift in Sources */,
 				515BA3A9282E829D00BA262D /* CvcOnlyValidationConfigRN.swift in Sources */,

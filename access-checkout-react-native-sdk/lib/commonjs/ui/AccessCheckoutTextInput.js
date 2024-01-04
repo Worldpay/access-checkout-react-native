@@ -17,9 +17,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - placeholder: string
  */
 
-const RTCAccessCheckoutInputText = (0, _reactNative.requireNativeComponent)('AccessCheckoutInputText');
-const AccessCheckoutInputText = props => {
-  return /*#__PURE__*/_react.default.createElement(RTCAccessCheckoutInputText, props);
+const RTCAccessCheckoutTextInput = (0, _reactNative.requireNativeComponent)('AccessCheckoutTextInput');
+const AccessCheckoutTextInput = props => {
+  return /*#__PURE__*/_react.default.createElement(RTCAccessCheckoutTextInput, props);
 };
-var _default = exports.default = AccessCheckoutInputText;
-//# sourceMappingURL=AccessCheckoutInputText.js.map
+var _default = exports.default = AccessCheckoutTextInput;
+//# sourceMappingURL=AccessCheckoutTextInput.js.map
