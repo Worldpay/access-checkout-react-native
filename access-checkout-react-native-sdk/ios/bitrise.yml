@@ -17,7 +17,7 @@ workflows:
     - recreate-user-schemes@1:
         inputs:
         - project_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/AccessCheckoutReactNative.xcodeproj"
-    - xcode-test@4:
+    - xcode-test@5:
         inputs:
         - scheme: AccessCheckoutReactNative
         - project_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/AccessCheckoutReactNative.xcworkspace"
