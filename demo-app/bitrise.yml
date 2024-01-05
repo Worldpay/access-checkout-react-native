@@ -36,7 +36,7 @@ workflows:
     - wait-for-android-emulator@1:
         title: Wait for Android emulator to boot
         inputs:
-        - boot_timeout: 600
+        - boot_timeout: 450
     - script@1.2:
         title: "Run Detox e2e tests for Android"
         inputs:
