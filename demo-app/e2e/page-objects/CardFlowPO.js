@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { SessionLabelPO } = require('./SessionLabelPO');
-const { TextInputPO } = require('./TextInputPO');
 const { TogglePO } = require('./TogglePO');
 const { UIComponentPO } = require('./UIComponentPO');
+const { AccessCheckoutTextInputPO } = require('./AccessCheckoutTextInputPO');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 class CardFlowPO {
   constructor() {
-    this.pan = new TextInputPO('panInput');
-    this.expiryDate = new TextInputPO('expiryDateInput');
-    this.cvc = new TextInputPO('cvcInput');
+    this.pan = new AccessCheckoutTextInputPO('panInput');
+    this.expiryDate = new AccessCheckoutTextInputPO('expiryDateInput');
+    this.cvc = new AccessCheckoutTextInputPO('cvcInput');
     this.submitButton = new UIComponentPO('submitButton');
     this.cardAndCvcSessionsToggle = new TogglePO('cardAndCvcSessionsToggle');
     this.cardSession = new SessionLabelPO('cardSession');

@@ -4,7 +4,6 @@ import {
   AccessCheckout,
   Brand,
   CARD,
-  CardDetails,
   CardValidationConfig,
   CardValidationEventListener,
   CVC,
@@ -25,14 +24,11 @@ import CardFlowE2eStates from './CardFlow.e2e.states';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import styles from './style.js';
+import type SessionGenerationConfig from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
 
 export default function CardFlow() {
   const unknownBrandLogo =
     'https://npe.access.worldpay.com/access-checkout/assets/unknown.png';
-
-  const [panValue, setPan] = useState<string>('');
-  const [expiryValue, setExpiry] = useState<string>('');
-  const [cvcValue, setCvc] = useState<string>('');
 
   const [brand, setBrand] = useState<string>('');
   const [brandLogo, setBrandLogo] = useState<string>(unknownBrandLogo);
@@ -128,14 +124,14 @@ export default function CardFlow() {
     setIsEditable(false);
     setSubmitBtnEnabled(false);
 
-    const cardDetails: CardDetails = {
-      pan: panValue,
-      expiryDate: expiryValue,
-      cvc: cvcValue,
+    const sessionGenerationConfig: SessionGenerationConfig = {
+      panId: 'panInput',
+      expiryDateId: 'expiryDateInput',
+      cvcId: 'cvcInput',
     };
 
     accessCheckout
-      .generateSessions(cardDetails, sessionTypes)
+      .generateSessions(sessionGenerationConfig, sessionTypes)
       .then((sessions: Sessions) => {
         console.info(`Successfully generated session(s)`);
 
@@ -186,7 +182,6 @@ export default function CardFlow() {
         <PanField
           testID="panInput"
           isValid={panIsValid}
-          onChange={setPan}
           isEditable={isEditable}
         />
         <CardBrandImage testID="cardBrandImage" logo={brandLogo} />
@@ -195,13 +190,11 @@ export default function CardFlow() {
         <ExpiryDateField
           testID="expiryDateInput"
           isValid={expiryIsValid}
-          onChange={setExpiry}
           isEditable={isEditable}
         />
         <CvcField
           testID="cvcInput"
           isValid={cvcIsValid}
-          onChange={setCvc}
           isEditable={isEditable}
         />
       </HView>

@@ -74,11 +74,11 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    // MARK: Testing errors related to Pan Value
+    // MARK: Testing errors related to Pan Id
 
-    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndPanValueIsAbsent() {
+    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndpanIdIsAbsent() {
         let dictionary = validCardConfiguration()
-        dictionary.removeObject(forKey: "panValue")
+        dictionary.removeObject(forKey: "panId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingPan()
 
@@ -87,9 +87,9 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndPanValueIsAnEmptyString() {
+    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndpanIdIsAnEmptyString() {
         let dictionary = validCardConfiguration()
-        dictionary.setValue("", forKey: "panValue")
+        dictionary.setValue("", forKey: "panId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingPan()
 
@@ -98,9 +98,9 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndPanValueIsNotAString() {
+    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndpanIdIsNotAString() {
         let dictionary = validCardConfiguration()
-        dictionary.setValue(1, forKey: "panValue")
+        dictionary.setValue(1, forKey: "panId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingPan()
 
@@ -109,11 +109,11 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    // MARK: Testing errors related to Expiry Value
+    // MARK: Testing errors related to Expiry Date Id
 
-    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndExpiryDateValueIsAbsent() {
+    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndexpiryDateIdIsAbsent() {
         let dictionary = validCardConfiguration()
-        dictionary.removeObject(forKey: "expiryDateValue")
+        dictionary.removeObject(forKey: "expiryDateId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
 
@@ -122,9 +122,9 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndExpiryDateValueIsAnEmptyString() {
+    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndexpiryDateIdIsAnEmptyString() {
         let dictionary = validCardConfiguration()
-        dictionary.setValue("", forKey: "expiryDateValue")
+        dictionary.setValue("", forKey: "expiryDateId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
 
@@ -133,9 +133,9 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndExpiryDateValueIsNotAString() {
+    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndexpiryDateIdIsNotAString() {
         let dictionary = validCardConfiguration()
-        dictionary.setValue(1, forKey: "expiryDateValue")
+        dictionary.setValue(1, forKey: "expiryDateId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingExpiryDate()
 
@@ -144,11 +144,11 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    // MARK: Testing errors related to Cvc Value
+    // MARK: Testing errors related to Cvc Id
 
-    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndCvcValueIsAbsent() {
+    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndcvcIdIsAbsent() {
         let dictionary = validCardConfiguration()
-        dictionary.removeObject(forKey: "cvcValue")
+        dictionary.removeObject(forKey: "cvcId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()
 
@@ -157,9 +157,9 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndCvcValueIsAnEmptyString() {
+    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndcvcIdIsAnEmptyString() {
         let dictionary = validCardConfiguration()
-        dictionary.setValue("", forKey: "cvcValue")
+        dictionary.setValue("", forKey: "cvcId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()
 
@@ -168,9 +168,9 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndCvcValueIsNotAString() {
+    func testThatErrorIsRaisedWhenSessionTypesContainsCardAndcvcIdIsNotAString() {
         let dictionary = validCardConfiguration()
-        dictionary.setValue(1, forKey: "cvcValue")
+        dictionary.setValue(1, forKey: "cvcId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()
 
@@ -179,9 +179,9 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    func testThatErrorIsRaisedWhenSessionTypesIsOnlyCvcAndCvcValueIsAbsent() {
+    func testThatErrorIsRaisedWhenSessionTypesIsOnlyCvcAndcvcIdIsAbsent() {
         let dictionary = validCvcOnlyConfiguration()
-        dictionary.removeObject(forKey: "cvcValue")
+        dictionary.removeObject(forKey: "cvcId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()
 
@@ -190,9 +190,9 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    func testThatErrorIsRaisedWhenSessionTypesIsOnlyCvcAndCvcValueIsAnEmptyString() {
+    func testThatErrorIsRaisedWhenSessionTypesIsOnlyCvcAndcvcIdIsAnEmptyString() {
         let dictionary = validCvcOnlyConfiguration()
-        dictionary.setValue("", forKey: "cvcValue")
+        dictionary.setValue("", forKey: "cvcId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()
 
@@ -201,9 +201,9 @@ class GenerateSessionUnitTests: XCTestCase {
         }
     }
 
-    func testThatErrorIsRaisedWhenSessionTypesOnlyCvcAndCvcValueIsNotAString() {
+    func testThatErrorIsRaisedWhenSessionTypesOnlyCvcAndcvcIdIsNotAString() {
         let dictionary = validCvcOnlyConfiguration()
-        dictionary.setValue(1, forKey: "cvcValue")
+        dictionary.setValue(1, forKey: "cvcId")
 
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvc()
 
@@ -314,9 +314,9 @@ class GenerateSessionUnitTests: XCTestCase {
 
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
-        XCTAssertEqual(config.panValue, "some-pan")
-        XCTAssertEqual(config.expiryDateValue, "some-expiry-date")
-        XCTAssertEqual(config.cvcValue, "some-cvc")
+        XCTAssertEqual(config.panId, "some-pan-id")
+        XCTAssertEqual(config.expiryDateId, "some-expiry-date-id")
+        XCTAssertEqual(config.cvcId, "some-cvc-id")
         XCTAssertEqual(config.sessionTypes, [SessionType.card])
         XCTAssertEqual(config.reactNativeSdkVersion, "some-version")
     }
@@ -328,7 +328,7 @@ class GenerateSessionUnitTests: XCTestCase {
 
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
-        XCTAssertEqual(config.cvcValue, "some-cvc")
+        XCTAssertEqual(config.cvcId, "some-cvc-id")
         XCTAssertEqual(config.sessionTypes, [SessionType.cvc])
         XCTAssertEqual(config.reactNativeSdkVersion, "some-version")
     }
@@ -341,9 +341,9 @@ class GenerateSessionUnitTests: XCTestCase {
 
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
-        XCTAssertEqual(config.panValue, "some-pan")
-        XCTAssertEqual(config.expiryDateValue, "some-expiry-date")
-        XCTAssertEqual(config.cvcValue, "some-cvc")
+        XCTAssertEqual(config.panId, "some-pan-id")
+        XCTAssertEqual(config.expiryDateId, "some-expiry-date-id")
+        XCTAssertEqual(config.cvcId, "some-cvc-id")
         XCTAssertEqual(config.sessionTypes, [SessionType.card, SessionType.cvc])
         XCTAssertEqual(config.reactNativeSdkVersion, "some-version")
     }
@@ -356,9 +356,9 @@ class GenerateSessionUnitTests: XCTestCase {
 
         XCTAssertEqual(config.baseUrl, "some-url")
         XCTAssertEqual(config.merchantId, "some-merchant-id")
-        XCTAssertEqual(config.panValue, "some-pan")
-        XCTAssertEqual(config.expiryDateValue, "some-expiry-date")
-        XCTAssertEqual(config.cvcValue, "some-cvc")
+        XCTAssertEqual(config.panId, "some-pan-id")
+        XCTAssertEqual(config.expiryDateId, "some-expiry-date-id")
+        XCTAssertEqual(config.cvcId, "some-cvc-id")
         XCTAssertEqual(config.sessionTypes, [SessionType.card, SessionType.cvc])
         XCTAssertEqual(config.reactNativeSdkVersion, "some-version")
     }
@@ -367,9 +367,9 @@ class GenerateSessionUnitTests: XCTestCase {
         let dictionary: NSMutableDictionary = [
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
-            "panValue": "some-pan",
-            "expiryDateValue": "some-expiry-date",
-            "cvcValue": "some-cvc",
+            "panId": "some-pan-id",
+            "expiryDateId": "some-expiry-date-id",
+            "cvcId": "some-cvc-id",
             "sessionTypes": ["card"],
             "reactNativeSdkVersion": "some-version"
         ]
@@ -380,7 +380,7 @@ class GenerateSessionUnitTests: XCTestCase {
         let dictionary: NSMutableDictionary = [
             "baseUrl": "some-url",
             "merchantId": "some-merchant-id",
-            "cvcValue": "some-cvc",
+            "cvcId": "some-cvc-id",
             "sessionTypes": ["cvc"],
             "reactNativeSdkVersion": "some-version"
         ]

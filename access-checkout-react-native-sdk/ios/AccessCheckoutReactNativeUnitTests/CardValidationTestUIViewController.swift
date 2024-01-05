@@ -1,7 +1,8 @@
+import AccessCheckoutSDK
 import UIKit
 
 class CardValidationTestUIViewController: UIViewController {
-    @IBOutlet weak var panTextField: UITextField!
-    @IBOutlet weak var expiryDateTextField: UITextField!
-    @IBOutlet weak var cvcTextField: UITextField!
+    @IBOutlet var panTextField: AccessCheckoutUITextField!
+    @IBOutlet var expiryDateTextField: AccessCheckoutUITextField!
+    @IBOutlet var cvcTextField: AccessCheckoutUITextField!
 }

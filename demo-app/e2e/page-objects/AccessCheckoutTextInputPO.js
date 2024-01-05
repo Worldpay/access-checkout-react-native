@@ -1,9 +1,18 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { UIComponentPO } = require('./UIComponentPO');
-const { expect } = require('detox');
+const { expect, element, by, device } = require('detox');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
-class TextInputPO extends UIComponentPO {
+class AccessCheckoutTextInputPO extends UIComponentPO {
+  component() {
+    const selector =
+      device.getPlatform() === 'ios'
+        ? by.type('UITextField')
+        : by.type('android.widget.EditText');
+
+    return element(selector.withAncestor(by.id(this.id)));
+  }
+
   async type(text, expectedText = '') {
     await this.component().typeText(text);
 
@@ -18,4 +27,4 @@ class TextInputPO extends UIComponentPO {
   }
 }
 
-module.exports = { TextInputPO };
+module.exports = { AccessCheckoutTextInputPO };
