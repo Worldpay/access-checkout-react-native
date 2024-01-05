@@ -18,9 +18,9 @@ class GenerateSessionsConfigConverterTest {
 
         assertThat(config.baseUrl).isEqualTo("some-base-url")
         assertThat(config.merchantId).isEqualTo("some-merchant-id")
-        assertThat(config.panValue).isEqualTo("some-pan-value")
-        assertThat(config.expiryDateValue).isEqualTo("some-expiry-date-value")
-        assertThat(config.cvcValue).isEqualTo("some-cvc-value")
+        assertThat(config.panId).isEqualTo("some-pan-value")
+        assertThat(config.expiryDateId).isEqualTo("some-expiry-date-value")
+        assertThat(config.cvcId).isEqualTo("some-cvc-value")
         assertThat(config.sessionTypes).isEqualTo(listOf(SessionType.CARD))
         assertThat(config.reactNativeSdkVersion).isEqualTo("1.2.3")
     }
@@ -86,93 +86,93 @@ class GenerateSessionsConfigConverterTest {
     }
 
     @Test
-    fun `should throw exception when session types contains card and panValue is null`() {
+    fun `should throw exception when session types contains card and panId is null`() {
         val map = mapWithCardSessionTypesAndValidEntries()
-        map.putString("panValue", null)
+        map.putString("panId", null)
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected panValue to be provided but was not")
+            .withMessage("Expected panId to be provided but was not")
     }
 
     @Test
-    fun `should throw exception when session types contains card and panValue is not a String`() {
+    fun `should throw exception when session types contains card and panId is not a String`() {
         val map = mapWithCardSessionTypesAndValidEntries()
-        map.putInt("panValue", 1)
+        map.putInt("panId", 1)
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected panValue to be a String but was not")
+            .withMessage("Expected panId to be a String but was not")
     }
 
     @Test
-    fun `should throw exception when session types contains card and panValue is an empty String`() {
+    fun `should throw exception when session types contains card and panId is an empty String`() {
         val map = mapWithCardSessionTypesAndValidEntries()
-        map.putString("panValue", "")
+        map.putString("panId", "")
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected panValue to be a non-empty String but was not")
+            .withMessage("Expected panId to be a non-empty String but was not")
     }
 
     @Test
     fun `should throw exception when session types contains card and expiryDate is null`() {
         val map = mapWithCardSessionTypesAndValidEntries()
-        map.putString("expiryDateValue", null)
+        map.putString("expiryDateId", null)
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected expiryDateValue to be provided but was not")
+            .withMessage("Expected expiryDateId to be provided but was not")
     }
 
     @Test
-    fun `should throw exception when session types contains card and expiryDateValue is not a String`() {
+    fun `should throw exception when session types contains card and expiryDateId is not a String`() {
         val map = mapWithCardSessionTypesAndValidEntries()
-        map.putInt("expiryDateValue", 1)
+        map.putInt("expiryDateId", 1)
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected expiryDateValue to be a String but was not")
+            .withMessage("Expected expiryDateId to be a String but was not")
     }
 
     @Test
-    fun `should throw exception when session types contains card and expiryDateValue is an empty String`() {
+    fun `should throw exception when session types contains card and expiryDateId is an empty String`() {
         val map = mapWithCardSessionTypesAndValidEntries()
-        map.putString("expiryDateValue", "")
+        map.putString("expiryDateId", "")
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected expiryDateValue to be a non-empty String but was not")
+            .withMessage("Expected expiryDateId to be a non-empty String but was not")
     }
 
     @Test
-    fun `should throw exception when session types contains card and cvcValue is null`() {
+    fun `should throw exception when session types contains card and cvcId is null`() {
         val map = mapWithCardSessionTypesAndValidEntries()
-        map.putString("cvcValue", null)
+        map.putString("cvcId", null)
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected cvcValue to be provided but was not")
+            .withMessage("Expected cvcId to be provided but was not")
     }
 
     @Test
-    fun `should throw exception when session types contains card and cvcValue is not a String`() {
+    fun `should throw exception when session types contains card and cvcId is not a String`() {
         val map = mapWithCardSessionTypesAndValidEntries()
-        map.putInt("cvcValue", 1)
+        map.putInt("cvcId", 1)
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected cvcValue to be a String but was not")
+            .withMessage("Expected cvcId to be a String but was not")
     }
 
     @Test
-    fun `should throw exception when session types contains card and cvcValue is an empty String`() {
+    fun `should throw exception when session types contains card and cvcId is an empty String`() {
         val map = mapWithCardSessionTypesAndValidEntries()
-        map.putString("cvcValue", "")
+        map.putString("cvcId", "")
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected cvcValue to be a non-empty String but was not")
+            .withMessage("Expected cvcId to be a non-empty String but was not")
     }
 
     @Test
@@ -183,9 +183,9 @@ class GenerateSessionsConfigConverterTest {
 
         assertThat(config.baseUrl).isEqualTo("some-base-url")
         assertThat(config.merchantId).isEqualTo("some-merchant-id")
-        assertThat(config.panValue).isEqualTo("some-pan-value")
-        assertThat(config.expiryDateValue).isEqualTo("some-expiry-date-value")
-        assertThat(config.cvcValue).isEqualTo("some-cvc-value")
+        assertThat(config.panId).isEqualTo("some-pan-value")
+        assertThat(config.expiryDateId).isEqualTo("some-expiry-date-value")
+        assertThat(config.cvcId).isEqualTo("some-cvc-value")
         assertThat(config.sessionTypes).isEqualTo(listOf(SessionType.CARD))
         assertThat(config.reactNativeSdkVersion).isEqualTo("1.2.3")
     }
@@ -193,31 +193,31 @@ class GenerateSessionsConfigConverterTest {
     @Test
     fun `should throw exception when session types contains cvc and cvc is null`() {
         val map = mapWithCvcSessionTypesAndValidEntries()
-        map.putString("cvcValue", null)
+        map.putString("cvcId", null)
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected cvcValue to be provided but was not")
+            .withMessage("Expected cvcId to be provided but was not")
     }
 
     @Test
-    fun `should throw exception when session types contains cvc and cvcValue is not a String`() {
+    fun `should throw exception when session types contains cvc and cvcId is not a String`() {
         val map = mapWithCvcSessionTypesAndValidEntries()
-        map.putInt("cvcValue", 1)
+        map.putInt("cvcId", 1)
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected cvcValue to be a String but was not")
+            .withMessage("Expected cvcId to be a String but was not")
     }
 
     @Test
-    fun `should throw exception when session types contains cvc and cvcValue is an empty String`() {
+    fun `should throw exception when session types contains cvc and cvcId is an empty String`() {
         val map = mapWithCvcSessionTypesAndValidEntries()
-        map.putString("cvcValue", "")
+        map.putString("cvcId", "")
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected cvcValue to be a non-empty String but was not")
+            .withMessage("Expected cvcId to be a non-empty String but was not")
     }
 
     @Test
@@ -228,7 +228,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThat(config.baseUrl).isEqualTo("some-base-url")
         assertThat(config.merchantId).isEqualTo("some-merchant-id")
-        assertThat(config.cvcValue).isEqualTo("some-cvc-value")
+        assertThat(config.cvcId).isEqualTo("some-cvc-value")
         assertThat(config.sessionTypes).isEqualTo(listOf(SessionType.CVC))
         assertThat(config.reactNativeSdkVersion).isEqualTo("1.2.3")
     }
@@ -317,9 +317,9 @@ class GenerateSessionsConfigConverterTest {
         val map = JavaOnlyMap()
         map.putString("baseUrl", "some-base-url")
         map.putString("merchantId", "some-merchant-id")
-        map.putString("panValue", "some-pan-value")
-        map.putString("expiryDateValue", "some-expiry-date-value")
-        map.putString("cvcValue", "some-cvc-value")
+        map.putString("panId", "some-pan-value")
+        map.putString("expiryDateId", "some-expiry-date-value")
+        map.putString("cvcId", "some-cvc-value")
         map.putArray("sessionTypes", JavaOnlyArray.of("card"))
         map.putString("reactNativeSdkVersion", "1.2.3")
         return map
@@ -329,7 +329,7 @@ class GenerateSessionsConfigConverterTest {
         val map = JavaOnlyMap()
         map.putString("baseUrl", "some-base-url")
         map.putString("merchantId", "some-merchant-id")
-        map.putString("cvcValue", "some-cvc-value")
+        map.putString("cvcId", "some-cvc-value")
         map.putArray("sessionTypes", JavaOnlyArray.of("cvc"))
         map.putString("reactNativeSdkVersion", "1.2.3")
         return map
