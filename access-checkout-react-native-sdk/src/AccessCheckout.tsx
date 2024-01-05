@@ -1,7 +1,7 @@
 import { AccessCheckoutReactNative } from './AccessCheckoutReactNative';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import CardDetails from './session/CardDetails';
+import SessionGenerationConfig from './session/SessionGenerationConfig';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Sessions from './session/Sessions';
@@ -33,16 +33,16 @@ export default class AccessCheckout {
   }
 
   generateSessions(
-    cardDetails: CardDetails,
+    sessionGenerationConfig: SessionGenerationConfig,
     sessionTypes: string[]
   ): Promise<Sessions> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.generateSessions({
         baseUrl: this.baseUrl,
         merchantId: this.merchantId,
-        panValue: cardDetails.pan,
-        expiryDateValue: cardDetails.expiryDate,
-        cvcValue: cardDetails.cvc,
+        panId: sessionGenerationConfig.panId,
+        expiryDateId: sessionGenerationConfig.expiryDateId,
+        cvcId: sessionGenerationConfig.cvcId,
         sessionTypes,
         reactNativeSdkVersion: this.ReactNativeSdkVersion,
       })

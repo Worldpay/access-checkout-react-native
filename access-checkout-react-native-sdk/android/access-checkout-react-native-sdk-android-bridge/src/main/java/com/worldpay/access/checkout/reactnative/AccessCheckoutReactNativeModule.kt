@@ -3,7 +3,6 @@ package com.worldpay.access.checkout.reactnative
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.EditText
 import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.bridge.*
 import com.facebook.react.uimanager.util.ReactFindViewUtil
@@ -22,6 +21,7 @@ import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationConf
 import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationListener
 import com.worldpay.access.checkout.session.AccessCheckoutClientDisposer
 import com.worldpay.access.checkout.session.api.client.WpSdkHeader
+import com.worldpay.access.checkout.ui.AccessCheckoutEditText
 
 /**
  * Module class that implements all the functionality that is required by Javascript for the end user
@@ -77,15 +77,22 @@ class AccessCheckoutReactNativeModule constructor(
 
                 sessionResponseListener.promise = promise
 
+                val rootView = reactContext.currentActivity?.window?.decorView?.rootView
+
+                val panView = ReactFindViewUtil.findView(rootView, config.panValue!!) as AccessCheckoutEditText
+                val expiryDateView =
+                    ReactFindViewUtil.findView(rootView, config.expiryDateValue!!) as AccessCheckoutEditText
+                val cvcView = ReactFindViewUtil.findView(rootView, config.cvcValue!!) as AccessCheckoutEditText
+
                 val cardDetails: CardDetails = if (isCvcSessionOnly(config.sessionTypes)) {
                     CardDetails.Builder()
-                        .cvc(config.cvcValue!!)
+                        .cvc(cvcView)
                         .build()
                 } else {
                     CardDetails.Builder()
-                        .pan(config.panValue!!)
-                        .expiryDate(config.expiryDateValue!!)
-                        .cvc(config.cvcValue!!)
+                        .pan(panView)
+                        .expiryDate(expiryDateView)
+                        .cvc(cvcView)
                         .build()
                 }
 
@@ -111,10 +118,10 @@ class AccessCheckoutReactNativeModule constructor(
             val config = CardValidationConfigConverter().fromReadableMap(readableMap)
             val rootView = reactContext.currentActivity?.window?.decorView?.rootView
 
-            val panView = ReactFindViewUtil.findView(rootView, config.panId) as EditText
+            val panView = ReactFindViewUtil.findView(rootView, config.panId) as AccessCheckoutEditText
             val expiryDateView =
-                ReactFindViewUtil.findView(rootView, config.expiryDateId) as EditText
-            val cvcView = ReactFindViewUtil.findView(rootView, config.cvcId) as EditText
+                ReactFindViewUtil.findView(rootView, config.expiryDateId) as AccessCheckoutEditText
+            val cvcView = ReactFindViewUtil.findView(rootView, config.cvcId) as AccessCheckoutEditText
 
             val cardValidationConfigBuilder = CardValidationConfig.Builder()
                 .baseUrl(config.baseUrl)
@@ -156,7 +163,7 @@ class AccessCheckoutReactNativeModule constructor(
             val config = CvcOnlyValidationConfigConverter().fromReadableMap(readableMap)
             val rootView = reactContext.currentActivity?.window?.decorView?.rootView
 
-            val cvcView = ReactFindViewUtil.findView(rootView, config.cvcId) as EditText
+            val cvcView = ReactFindViewUtil.findView(rootView, config.cvcId) as AccessCheckoutEditText
 
             val cvcOnlyValidationConfigBuilder = CvcValidationConfig.Builder()
                 .cvc(cvcView)
@@ -208,4 +215,3 @@ class AccessCheckoutReactNativeModule constructor(
         return sessionType.count() == 1 && sessionType.first() == SessionType.CVC
     }
 }
-

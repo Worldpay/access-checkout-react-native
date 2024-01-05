@@ -3,26 +3,26 @@ import Foundation
 import React
 
 class ReactNativeViewLocator {
-    func locateUITextField(id: String) -> UITextField? {
+    func locateUITextField(id: String) -> AccessCheckoutUITextField? {
         guard let controller: UIViewController = RCTPresentedViewController() else {
             return nil
         }
 
-        return self.searchForView(subViews: controller.view!.subviews, nativeId: id)
+        let view = self.searchForView(subViews: controller.view!.subviews, nativeId: id)
+        return view as? AccessCheckoutUITextField
     }
 
-    private func searchForView(subViews: [UIView], nativeId: String) -> UITextField? {
+    private func searchForView(subViews: [UIView], nativeId: String) -> UIView? {
         for subView in subViews {
-            if subView.nativeID == nil {
-                if let view = searchForView(subViews: subView.subviews, nativeId: nativeId) {
+            if subView.nativeID == nativeId {
+                return subView
+            } else {
+                let view = self.searchForView(subViews: subView.subviews, nativeId: nativeId)
+                if view != nil {
                     return view
                 }
-            } else if subView.nativeID! == nativeId {
-                let inputView = (subView as? RCTSinglelineTextInputView)?.backedTextInputView
-                return inputView as? UITextField
             }
         }
-
         return nil
     }
 
@@ -31,20 +31,6 @@ class ReactNativeViewLocator {
             return nil
         }
 
-        return self.searchForViewInSubViews(subViews: controller.view!.subviews, nativeId: id)
-    }
-
-    private func searchForViewInSubViews(subViews: [UIView], nativeId: String) -> UIView? {
-        for subView in subViews {
-            if subView.nativeID == nil {
-                if let view = searchForViewInSubViews(subViews: subView.subviews, nativeId: nativeId) {
-                    return view
-                }
-            } else if subView.nativeID! == nativeId {
-                return subView
-            }
-        }
-
-        return nil
+        return self.searchForView(subViews: controller.view!.subviews, nativeId: id)
     }
 }

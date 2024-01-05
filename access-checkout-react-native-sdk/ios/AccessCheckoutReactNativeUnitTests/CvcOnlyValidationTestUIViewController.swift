@@ -1,5 +1,6 @@
+import AccessCheckoutSDK
 import UIKit
 
 class CvcOnlyValidationTestUIViewController: UIViewController {
-    @IBOutlet weak var cvcTextField: UITextField!
+    @IBOutlet var cvcTextField: AccessCheckoutUITextField!
 }
