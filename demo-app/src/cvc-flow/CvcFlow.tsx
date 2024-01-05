@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
+import { Text } from 'react-native';
 import {
   AccessCheckout,
-  CardDetails,
   CVC,
   CvcOnlyValidationConfig,
   CvcOnlyValidationEventListener,
   Sessions,
   useCvcOnlyValidation,
 } from '../../../access-checkout-react-native-sdk/src';
-import CvcField from '../common/CvcField';
-import HView from '../common/HView';
-import Spinner from '../common/Spinner';
-import SubmitButton from '../common/SubmitButton';
-import VView from '../common/VView';
+import type SessionGenerationConfig
+  from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import styles from '../card-flow/style.js';
-import { Text } from 'react-native';
-import SessionLabel from '../common/SessionLabel';
-import CvcOnlyFlowE2eStates from '../cvc-flow/CvcOnlyFlow.e2e.states';
+import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';
+import HView from '../common/HView';
+import SessionLabel from '../common/SessionLabel';
+import Spinner from '../common/Spinner';
+import SubmitButton from '../common/SubmitButton';
+import VView from '../common/VView';
+import CvcOnlyFlowE2eStates from '../cvc-flow/CvcOnlyFlow.e2e.states';
 
 export default function CvcFlow() {
-  const [cvcValue, setCvc] = useState<string>('');
   const [cvcIsValid, setCvcIsValid] = useState<boolean>(false);
 
   const [submitBtnEnabled, setSubmitBtnEnabled] = useState<boolean>(false);
@@ -32,7 +32,7 @@ export default function CvcFlow() {
   const [cvcSession, setCvcSession] = useState('');
 
   const [error, setError] = useState<Error>();
-  
+
   const accessCheckout = new AccessCheckout({
     baseUrl: 'https://npe.access.worldpay.com',
     merchantId: 'identity',
@@ -58,7 +58,7 @@ export default function CvcFlow() {
   const { initialiseCvcOnlyValidation } = useCvcOnlyValidation(
     accessCheckout,
     cvcOnlyValidationConfig,
-    cvcOnlyValidationEventListener
+    cvcOnlyValidationEventListener,
   );
 
   const onLayout = () => {
@@ -77,12 +77,12 @@ export default function CvcFlow() {
     setShowSpinner(true);
     setIsEditable(false);
 
-    const cardDetails: CardDetails = {
-      cvc: cvcValue,
+    const sessionGenerationConfig: SessionGenerationConfig = {
+      cvcId: 'cvcInput',
     };
 
     accessCheckout
-      .generateSessions(cardDetails, sessionTypes)
+      .generateSessions(sessionGenerationConfig, sessionTypes)
       .then((sessions: Sessions) => {
         console.info('Successfully generated session(s)');
 
@@ -116,7 +116,7 @@ export default function CvcFlow() {
   if (error) {
     errorComponent = <ErrorView error={error} />;
   }
-  
+
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return (
@@ -128,7 +128,6 @@ export default function CvcFlow() {
           testID="cvcInput"
           isEditable={isEditable}
           isValid={cvcIsValid}
-          onChange={setCvc}
         />
       </HView>
       <VView style={{ marginTop: '8%' }}>

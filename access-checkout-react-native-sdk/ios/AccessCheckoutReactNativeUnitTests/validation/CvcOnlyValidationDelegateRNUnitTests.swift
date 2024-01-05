@@ -4,7 +4,7 @@ import XCTest
 
 class CvcOnlyValidationDelegateRNUnitTests: XCTestCase {
     private let eventEmitter = RCTEventEmitterMock()
-    
+
     func testShouldEmitEventWhenCvcIsValid() {
         let delegate = CvcOnlyValidationDelegateRN(
             eventEmitter: eventEmitter, eventName: "event-name")
