@@ -18,6 +18,7 @@ import Spinner from '../common/Spinner';
 import SubmitButton from '../common/SubmitButton';
 import VView from '../common/VView';
 import CvcOnlyFlowE2eStates from '../cvc-flow/CvcOnlyFlow.e2e.states';
+import type SessionGenerationConfig from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
 
 export default function CvcFlow() {
   const [cvcIsValid, setCvcIsValid] = useState<boolean>(false);
