@@ -39,14 +39,20 @@ class AccessCheckoutReactNative: RCTEventEmitter {
             let cardDetails: CardDetails
 
             if isCvcSessionOnly(sessionTypes: cfg.sessionTypes) {
+                let cvcInput = reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
+
                 cardDetails = try CardDetailsBuilder()
-                    .cvc(cfg.cvcValue!)
+                    .cvc(cvcInput!)
                     .build()
             } else {
+                let panInput = reactNativeViewLocator.locateUITextField(id: cfg.panId!)
+                let expiryInput = reactNativeViewLocator.locateUITextField(id: cfg.expiryDateId!)
+                let cvcInput = reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
+
                 cardDetails = try CardDetailsBuilder()
-                    .pan(cfg.panValue!)
-                    .expiryDate(cfg.expiryDateValue!)
-                    .cvc(cfg.cvcValue!)
+                    .pan(panInput!)
+                    .expiryDate(expiryInput!)
+                    .cvc(cvcInput!)
                     .build()
             }
 

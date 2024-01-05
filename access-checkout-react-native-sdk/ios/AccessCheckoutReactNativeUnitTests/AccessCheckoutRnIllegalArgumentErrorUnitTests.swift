@@ -3,7 +3,6 @@ import XCTest
 @testable import AccessCheckoutReactNative
 
 class AccessCheckoutRnIllegalArgumentErrorUnitTests: XCTestCase {
-
     func testLocalizedDescriptionShouldReturnMessage() {
         let error = AccessCheckoutRnIllegalArgumentError.missingBaseUrl()
 

@@ -5,7 +5,6 @@ import HView from './common/HView';
 import VView from './common/VView';
 import CvcOnly from './cvc-flow/CvcFlow';
 import NavItem from './navigation/NavItem';
-
 export default function App() {
   const screens = {
     card: 'card',
@@ -14,11 +13,11 @@ export default function App() {
 
   const [screen, setScreen] = useState(screens.card);
 
+  const currentScreen = screen === screens.card ? <CardFlow /> : <CvcOnly />;
+
   return (
     <VView style={styles.app}>
-      <VView style={styles.main}>
-        {screen === screens.card ? <CardFlow /> : <CvcOnly />}
-      </VView>
+      <VView style={styles.main}>{currentScreen}</VView>
       <HView style={styles.nav}>
         <NavItem
           title="Card Flow"
@@ -32,7 +31,7 @@ export default function App() {
           image={screens.cvc}
           selected={screen === screens.cvc}
           onPress={() => setScreen(screens.cvc)}
-        ></NavItem>
+        />
       </HView>
     </VView>
   );

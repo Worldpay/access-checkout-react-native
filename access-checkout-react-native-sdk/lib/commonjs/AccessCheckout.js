@@ -27,14 +27,14 @@ class AccessCheckout {
     this.baseUrl = baseUrl;
     this.merchantId = merchantId;
   }
-  generateSessions(cardDetails, sessionTypes) {
+  generateSessions(sessionGenerationConfig, sessionTypes) {
     return new Promise((resolve, reject) => {
       _AccessCheckoutReactNative.AccessCheckoutReactNative.generateSessions({
         baseUrl: this.baseUrl,
         merchantId: this.merchantId,
-        panValue: cardDetails.pan,
-        expiryDateValue: cardDetails.expiryDate,
-        cvcValue: cardDetails.cvc,
+        panId: sessionGenerationConfig.panId,
+        expiryDateId: sessionGenerationConfig.expiryDateId,
+        cvcId: sessionGenerationConfig.cvcId,
         sessionTypes,
         reactNativeSdkVersion: this.ReactNativeSdkVersion
       })
