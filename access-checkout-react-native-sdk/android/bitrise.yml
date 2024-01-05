@@ -16,7 +16,10 @@ workflows:
         title: Start Android emulator
         inputs:
           - api_level: '30'
-    - wait-for-android-emulator@1: {}
+    - wait-for-android-emulator@1:
+        title: Wait for Android emulator to boot
+        inputs:
+          - boot_timeout: 450
     - script@1:
         title: Run instrumentation tests
         inputs:
