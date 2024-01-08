@@ -47,6 +47,9 @@ else
   # escapes the . character with a \ if it is present in the version string
   if [[ "$version" == *"."* ]]; then
     grepPattern="${version//./\.}"
+  # otherwise enrich regex pattern to find a simulator that has a minor version as well
+  else
+    grepPattern="${version}\.\d"
   fi
 
   simulator=$(cat $filename | grep -m 1 "${grepPattern}")
