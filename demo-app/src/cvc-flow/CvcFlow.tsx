@@ -16,9 +16,10 @@ import VView from '../common/VView';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import styles from '../card-flow/style.js';
-import { Alert, Text } from 'react-native';
+import { Text } from 'react-native';
 import SessionLabel from '../common/SessionLabel';
 import CvcOnlyFlowE2eStates from '../cvc-flow/CvcOnlyFlow.e2e.states';
+import ErrorView from '../common/ErrorView';
 
 export default function CvcFlow() {
   const [cvcValue, setCvc] = useState<string>('');
@@ -30,6 +31,8 @@ export default function CvcFlow() {
 
   const [cvcSession, setCvcSession] = useState('');
 
+  const [error, setError] = useState<Error>();
+  
   const accessCheckout = new AccessCheckout({
     baseUrl: 'https://npe.access.worldpay.com',
     merchantId: 'identity',
@@ -63,8 +66,8 @@ export default function CvcFlow() {
       .then(() => {
         console.info('Cvc Only Validation successfully initialised');
       })
-      .catch((error) => {
-        Alert.alert('Error', `${error}`, [{ text: 'OK' }]);
+      .catch((e) => {
+        setError(e);
       });
   };
 
@@ -81,14 +84,14 @@ export default function CvcFlow() {
     accessCheckout
       .generateSessions(cardDetails, sessionTypes)
       .then((sessions: Sessions) => {
-        console.info(`Successfully generated session(s)`);
+        console.info('Successfully generated session(s)');
 
         if (sessions.cvc) {
           setCvcSession(sessions.cvc);
         }
       })
-      .catch((reason) => {
-        Alert.alert('Error', `${reason}`, [{ text: 'OK' }]);
+      .catch((e) => {
+        setError(e);
       })
       .finally(() => {
         setShowSpinner(false);
@@ -98,6 +101,7 @@ export default function CvcFlow() {
   }
 
   let cvcSessionComponent;
+  let errorComponent;
 
   if (cvcSession) {
     cvcSessionComponent = (
@@ -109,11 +113,16 @@ export default function CvcFlow() {
     );
   }
 
+  if (error) {
+    errorComponent = <ErrorView error={error} />;
+  }
+  
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return (
     <VView style={styles.cardFlow} onLayout={onLayout}>
       <Spinner testID="spinner" show={showSpinner} />
+      {errorComponent}
       <HView>
         <CvcField
           testID="cvcInput"
