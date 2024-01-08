@@ -79,6 +79,11 @@ workflows:
         inputs:
           - command: ls
           - workdir: $BITRISE_SOURCE_DIR/demo-app/
+    - script@1.2:
+        title: "Patch Boost podspec"
+        inputs:
+          - working_dir: $BITRISE_SOURCE_DIR/demo-app/
+          - content: ./scripts/ci/patch-boost-podspec.sh
     - cocoapods-install@2:
         title: "Install pods for iOS Bridge SDK"
         inputs:
