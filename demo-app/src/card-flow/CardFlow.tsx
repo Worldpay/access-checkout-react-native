@@ -26,7 +26,6 @@ import CardFlowE2eStates from './CardFlow.e2e.states';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import styles from './style.js';
-import type SessionGenerationConfig from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
 
 export default function CardFlow() {
   const unknownBrandLogo =
