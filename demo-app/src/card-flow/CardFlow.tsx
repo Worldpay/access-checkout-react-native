@@ -138,7 +138,7 @@ export default function CardFlow() {
     accessCheckout
       .generateSessions(sessionGenerationConfig, sessionTypes)
       .then((sessions: Sessions) => {
-        console.info(`Successfully generated session(s)`);
+        console.info('Successfully generated session(s)');
 
         if (sessions.card) {
           setCardSession(sessions.card);
