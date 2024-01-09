@@ -14,7 +14,7 @@
     "ios": {
       "type": "ios.app",
       "binaryPath": "ios/Build/Build/Products/Debug-iphonesimulator/AccessCheckoutReactNativeDemo.app",
-      "build": "./scripts/ios-detox-build.sh -v=15.0"
+      "build": "./scripts/ios-detox-build.sh -v=15"
     },
     "android": {
       "type": "android.apk",
@@ -33,7 +33,7 @@
     "ios-ci": {
       "type": "ios.simulator",
       "device": {
-        "os": "iOS 15.0",
+        "os": "iOS 15.5",
         "type": "iPad (9th generation)"
       }
     },

@@ -3,9 +3,27 @@
 echo "Initiating Blackduck Scan..."
 cd access-checkout-react-native-sdk
 SDK_VERSION=$(sed -e 's/^"//' -e 's/"$//' <<< $(jq '.version' package.json))
-ANDROID_BRIDGE_VERSION=$(cat android/gradle.properties | grep -m 1 'version=' | sed 's/version=//')
+ANDROID_BRIDGE_VERSION=$(cat android/access-checkout-react-native-sdk-android-bridge/gradle.properties | grep -m 1 'version=' | sed 's/version=//')
 ANDROID_BRIDGE_GRADLE_CONFIGURATIONS_TO_SCAN="mainReleaseCompileClasspath,mainReleaseRuntimeClasspath"
 IOS_BRIDGE_VERSION=$(cat ios/AccessCheckoutReactNativeSDKiOSBridge.podspec | grep -m 1 's.version' | sed -e 's/\ //g' -e 's/s\.version=//' -e 's/\"//g')
+
+if [ -z "${SDK_VERSION}" ]
+then
+    echo "Cannot proceed, SDK version is empty"
+    exit 1
+fi
+
+if [ -z "${ANDROID_BRIDGE_VERSION}" ]
+then
+    echo "Cannot proceed, Android Bridge version is empty"
+    exit 1
+fi
+
+if [ -z "${IOS_BRIDGE_VERSION}" ]
+then
+    echo "Cannot proceed, iOS Bridge version is empty"
+    exit 1
+fi
 
 # This environment variable is used by the detect script to download a fixed version
 export DETECT_LATEST_RELEASE_VERSION=$BLACKDUCK_DETECT_VERSION

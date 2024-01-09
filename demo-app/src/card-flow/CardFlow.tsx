@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Text } from 'react-native';
+import { Text } from 'react-native';
 import {
   AccessCheckout,
   Brand,
@@ -13,6 +13,7 @@ import {
 } from '../../../access-checkout-react-native-sdk/src/index';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
+import ErrorView from '../common/ErrorView';
 import ExpiryDateField from '../common/ExpiryDateField';
 import HView from '../common/HView';
 import PanField from '../common/PanField';
@@ -50,6 +51,8 @@ export default function CardFlow() {
 
   const [cardSession, setCardSession] = useState('');
   const [cvcSession, setCvcSession] = useState('');
+
+  const [error, setError] = useState<Error>();
 
   const accessCheckout = new AccessCheckout({
     baseUrl: 'https://npe.access.worldpay.com',
@@ -108,7 +111,7 @@ export default function CardFlow() {
   const { initialiseCardValidation } = useCardValidation(
     accessCheckout,
     validationConfig,
-    validationEventListener
+    validationEventListener,
   );
 
   const onLayout = () => {
@@ -116,8 +119,8 @@ export default function CardFlow() {
       .then(() => {
         console.info('Card Validation successfully initialised');
       })
-      .catch((error) => {
-        Alert.alert('Error', `${error}`, [{ text: 'OK' }]);
+      .catch((e) => {
+        setError(e);
       });
   };
 
@@ -146,8 +149,8 @@ export default function CardFlow() {
           setCvcSession(sessions.cvc);
         }
       })
-      .catch((reason) => {
-        Alert.alert('Error', `${reason}`, [{ text: 'OK' }]);
+      .catch((e) => {
+        setError(e);
       })
       .finally(() => {
         setShowSpinner(false);
@@ -158,6 +161,7 @@ export default function CardFlow() {
 
   let cardSessionComponent;
   let cvcSessionComponent;
+  let errorComponent;
 
   if (cardSession) {
     cardSessionComponent = (
@@ -179,9 +183,14 @@ export default function CardFlow() {
     );
   }
 
+  if (error) {
+    errorComponent = <ErrorView error={error} />;
+  }
+
   return (
     <VView style={styles.cardFlow} onLayout={onLayout}>
       <Spinner testID="spinner" show={showSpinner} />
+      {errorComponent}
       <HView>
         <PanField
           testID="panInput"
