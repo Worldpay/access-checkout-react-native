@@ -20,6 +20,7 @@ workflows:
     - xcode-test@4:
         inputs:
         - scheme: AccessCheckoutReactNative
+        - destination: "platform=iOS Simulator,name=iPhone 12 Pro,OS=latest"
         - project_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/AccessCheckoutReactNative.xcworkspace"
         - generate_code_coverage_files: "yes"
     - xctest-html-report@1:
