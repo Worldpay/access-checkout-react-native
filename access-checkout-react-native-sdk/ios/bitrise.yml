@@ -38,6 +38,3 @@ workflows:
         - deploy_path: "${BITRISE_SOURCE_DIR}/coverage.html"
     - cache-push@2: {}
     envs: []
-meta:
-  bitrise.io:
-    stack: osx-xcode-13.0.x
