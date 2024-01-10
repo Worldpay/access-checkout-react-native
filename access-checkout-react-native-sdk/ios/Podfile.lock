@@ -317,7 +317,7 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - AccessCheckoutSDK (from `../../../access-checkout-ios`)
+  - "AccessCheckoutSDK (from `git@github.com:Worldpay/access-checkout-ios.git`, tag `v3.0.0`)"
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -364,7 +364,8 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   AccessCheckoutSDK:
-    :path: "../../../access-checkout-ios"
+    :git: "git@github.com:Worldpay/access-checkout-ios.git"
+    :tag: v3.0.0
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
@@ -438,6 +439,9 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 CHECKOUT OPTIONS:
+  AccessCheckoutSDK:
+    :git: "git@github.com:Worldpay/access-checkout-ios.git"
+    :tag: v3.0.0
   Mockingjay:
     :commit: b88c9dc
     :git: https://github.com/kylef/Mockingjay.git
@@ -483,6 +487,6 @@ SPEC CHECKSUMS:
   URITemplate: 5f5a79f3e384884102c4e6b3325d159c20a8035a
   Yoga: 56413d530d1808044600320ced5baa883acedc44
 
-PODFILE CHECKSUM: 6c7e44d951ee18f0bdbe85cbd9681fd38baa18a1
+PODFILE CHECKSUM: c76ad913e2cb96a2ba8e3f47954f69a45f05a82c
 
 COCOAPODS: 1.14.3
