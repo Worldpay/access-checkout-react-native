@@ -22,9 +22,7 @@ interface CvcFieldProps extends UIComponentProps {
 
 const CvcField = (props: CvcFieldProps) => {
   const validationColours = props.isValid ? 'green' : 'red';
-  const validationColourStyle = !props.isEditable
-    ? 'silver'
-    : validationColours;
+  const validationColourStyle = props.isEditable ? validationColours : 'silver';
 
   return (
     <AccessCheckoutTextInput
@@ -33,7 +31,7 @@ const CvcField = (props: CvcFieldProps) => {
       style={[
         styles.cvc,
         {
-          textColor: validationColours,
+          textColor: validationColourStyle,
           borderColor: validationColourStyle,
         },
       ]}

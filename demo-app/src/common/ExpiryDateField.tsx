@@ -23,9 +23,7 @@ const styles = StyleSheet.create({
 
 const ExpiryDateField = (props: ExpiryDateFieldProps) => {
   const validationColours = props.isValid ? 'green' : 'red';
-  const validationColourStyle = !props.isEditable
-    ? 'silver'
-    : validationColours;
+  const validationColourStyle = props.isEditable ? validationColours : 'silver';
 
   return (
     <AccessCheckoutTextInput
@@ -36,7 +34,7 @@ const ExpiryDateField = (props: ExpiryDateFieldProps) => {
       style={[
         styles.expiry,
         {
-          textColor: validationColours,
+          textColor: validationColourStyle,
           borderColor: validationColourStyle,
         },
       ]}

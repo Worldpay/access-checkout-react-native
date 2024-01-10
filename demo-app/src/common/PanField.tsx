@@ -23,9 +23,8 @@ interface PanFieldProps extends UIComponentProps {
 
 const PanField = (props: PanFieldProps) => {
   const validationColours = props.isValid ? 'green' : 'red';
-  const validationColourStyle = !props.isEditable
-    ? 'silver'
-    : validationColours;
+  const validationColourStyle = props.isEditable ? validationColours : 'silver';
+
   return (
     <AccessCheckoutTextInput
       nativeID="panInput"
@@ -33,7 +32,7 @@ const PanField = (props: PanFieldProps) => {
       style={[
         styles.pan,
         {
-          textColor: validationColours,
+          textColor: validationColourStyle,
           borderColor: validationColourStyle,
         },
       ]}
