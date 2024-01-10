@@ -2,6 +2,7 @@ import React from 'react';
 import {
   requireNativeComponent,
   type StyleProp,
+  StyleSheet,
   type TextStyle,
   View,
   type ViewStyle,
@@ -13,19 +14,64 @@ import type { ColorValue } from 'react-native/Libraries/StyleSheet/StyleSheet';
  *
  * - nativeID: string
  * - testID: string
- * - style: StyleProp
- * - editable: boolean
+ * - style: StyleProp<AccessCheckoutTextInputStyle>;
  * - placeholder: string
+ * - editable: boolean
  */
 interface AccessCheckoutTextInputProps {
   nativeID: string;
   testID?: string;
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<AccessCheckoutTextInputStyle>;
   placeholder?: string;
-  keyboardType?: string;
-  textColor?: ColorValue;
-  font?: string;
   editable?: boolean;
+}
+
+/**
+ * Note: Not all properties apply styling to placeholder text and input text.
+ *   textColor: only applies to input text.
+ *   fontFamily: applies to both placeholder text and input text.
+ *   fontSize:applies to both placeholder text and input text.
+ *   fontStyle:applies to both placeholder text and input text.
+ *   fontWeight:applies to both placeholder text and input text.
+ */
+interface AccessCheckoutTextInputStyle extends ViewStyle {
+  textColor?: ColorValue;
+  fontFamily?: string;
+  fontSize?: number;
+  fontStyle?: 'normal' | 'italic';
+  fontWeight?:
+    | 'normal'
+    | 'bold'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900';
+}
+
+/**
+ * Font Changes apply to placeholder text and input text
+ */
+interface RTCAccessCheckoutTextInputFontProps {
+  fontFamily?: string;
+  fontSize?: number;
+  fontStyle?: 'normal' | 'italic';
+  fontWeight?:
+    | 'normal'
+    | 'bold'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900';
 }
 
 interface RTCAccessCheckoutTextInputProps {
@@ -33,9 +79,8 @@ interface RTCAccessCheckoutTextInputProps {
   testID?: string;
   style?: StyleProp<TextStyle>;
   placeholder?: string;
-  keyboardType?: string; //maybe remove?
   textColor?: ColorValue;
-  font?: string;
+  font?: RTCAccessCheckoutTextInputFontProps;
   editable?: boolean;
 }
 
@@ -44,25 +89,28 @@ const RTCAccessCheckoutTextInput =
     'AccessCheckoutTextInput'
   );
 const AccessCheckoutTextInput = (props: AccessCheckoutTextInputProps) => {
+  const { nativeID, testID, style, placeholder, editable } = props;
   const {
-    nativeID,
-    testID,
-    style,
-    placeholder,
-    keyboardType,
     textColor,
-    editable,
-  } = props;
-
-  console.log(placeholder);
+    fontFamily,
+    fontSize,
+    fontWeight,
+    fontStyle,
+    ...otherStyles
+  } = StyleSheet.flatten([style]);
   return (
-    <View style={[style]}>
+    <View style={[otherStyles]}>
       <RTCAccessCheckoutTextInput
         nativeID={nativeID}
         testID={testID}
         style={[{ flex: 1 }]}
         placeholder={placeholder}
-        keyboardType={keyboardType}
+        font={{
+          fontFamily,
+          fontSize,
+          fontWeight,
+          fontStyle,
+        }}
         textColor={textColor}
         editable={editable}
       />

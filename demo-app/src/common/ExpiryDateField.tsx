@@ -31,10 +31,15 @@ const ExpiryDateField = (props: ExpiryDateFieldProps) => {
     <AccessCheckoutTextInput
       nativeID="expiryDateInput"
       testID={props.testID}
-      keyboardType="numeric"
       editable={props.isEditable}
       placeholder="MM/YY"
-      style={[styles.expiry, { borderColor: validationColourStyle }]}
+      style={[
+        styles.expiry,
+        {
+          textColor: validationColours,
+          borderColor: validationColourStyle,
+        },
+      ]}
     />
   );
 };

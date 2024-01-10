@@ -29,8 +29,8 @@ target 'AccessCheckoutReactNativeDemo' do
   pod 'AccessCheckoutReactNativeSDKiOSBridge', :path => '../../access-checkout-react-native-sdk/ios/'
 
   # Remove once version 3.0.0 of the AccessCheckoutSDK has been released to Cocoapods
-  pod 'AccessCheckoutSDK', :git => 'git@github.com:Worldpay/access-checkout-ios.git', :tag => 'v3.0.0'
-
+#   pod 'AccessCheckoutSDK', :git => 'git@github.com:Worldpay/access-checkout-ios.git', :tag => 'v3.0.0'
+  pod 'AccessCheckoutSDK', :path => '../../../access-checkout-ios'
 
 end
 

@@ -30,8 +30,13 @@ const CvcField = (props: CvcFieldProps) => {
     <AccessCheckoutTextInput
       nativeID="cvcInput"
       testID={props.testID}
-      style={[styles.cvc, { borderColor: validationColourStyle }]}
-      keyboardType="numeric"
+      style={[
+        styles.cvc,
+        {
+          textColor: validationColours,
+          borderColor: validationColourStyle,
+        },
+      ]}
       editable={props.isEditable}
       placeholder="CVC"
     />

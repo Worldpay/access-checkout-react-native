@@ -30,8 +30,13 @@ const PanField = (props: PanFieldProps) => {
     <AccessCheckoutTextInput
       nativeID="panInput"
       testID={props.testID}
-      style={[styles.pan, { borderColor: validationColourStyle }]}
-      keyboardType="numeric"
+      style={[
+        styles.pan,
+        {
+          textColor: validationColours,
+          borderColor: validationColourStyle,
+        },
+      ]}
       editable={props.isEditable}
       placeholder="Card Number"
     />
