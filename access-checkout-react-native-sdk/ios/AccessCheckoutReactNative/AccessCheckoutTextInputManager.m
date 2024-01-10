@@ -12,6 +12,6 @@ RCT_REMAP_VIEW_PROPERTY(editable, enabled, BOOL)
 // The following properties use RCTConvert behind the scenes to convert to appropriate types
 RCT_REMAP_VIEW_PROPERTY(textColor, textColor, UIColor)
 RCT_REMAP_VIEW_PROPERTY(font, font, UIFont)
-RCT_REMAP_VIEW_PROPERTY(keyboardType, keyboardType, UIKeyboardType)
+//RCT_REMAP_VIEW_PROPERTY(keyboardType, keyboardType, UIKeyboardType)
 
 @end
