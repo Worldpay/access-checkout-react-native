@@ -1,6 +1,7 @@
 package com.worldpay.access.checkout.reactnative.ui
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.test.core.app.ApplicationProvider
 import com.facebook.react.bridge.ReactApplicationContext
@@ -44,6 +45,39 @@ internal class AccessCheckoutTextInputManagerTest {
 
         verify(accessCheckoutEditTextMock).isEnabled = true
     }
+
+    @Test
+    fun `setRTCPlaceholderTextColor() should call hintTextColor on AccessEditText`() {
+        val parsedColor = Color.parseColor("blue")
+
+        manager.setRTCPlaceholderTextColor(accessCheckoutEditTextMock, "blue")
+
+        verify(accessCheckoutEditTextMock).setHintTextColor(parsedColor)
+    }
+
+    @Test
+    fun `setRTCFontSize() should call textSize on AccessEditText`() {
+        manager.setRTCFontSize(accessCheckoutEditTextMock, 12.5)
+
+        verify(accessCheckoutEditTextMock).textSize = 12.5F
+    }
+
+    @Test
+    fun `setRTCBorderColor() should call setTint on AccessEditText`() {
+        manager.setRTCBorderColor(accessCheckoutEditTextMock, Color.BLUE)
+
+        verify(accessCheckoutEditTextMock).background?.setTint(Color.BLUE)
+    }
+
+    @Test
+    fun `setRTCBorderColor() should call setTint on AccessEditText when the color passed is a string`() {
+        val parsedColor = Color.parseColor("blue")
+
+        manager.setRTCBorderColor(accessCheckoutEditTextMock, "blue")
+
+        verify(accessCheckoutEditTextMock).background?.setTint(parsedColor)
+    }
+
 
 
     private fun reactApplicationContext(): ReactApplicationContext {
