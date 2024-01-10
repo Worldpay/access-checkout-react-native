@@ -38,19 +38,6 @@ interface AccessCheckoutTextInputStyle extends ViewStyle {
   textColor?: ColorValue;
   fontFamily?: string;
   fontSize?: number;
-  fontStyle?: 'normal' | 'italic';
-  fontWeight?:
-    | 'normal'
-    | 'bold'
-    | '100'
-    | '200'
-    | '300'
-    | '400'
-    | '500'
-    | '600'
-    | '700'
-    | '800'
-    | '900';
 }
 
 /**
@@ -59,19 +46,6 @@ interface AccessCheckoutTextInputStyle extends ViewStyle {
 interface RTCAccessCheckoutTextInputFontProps {
   fontFamily?: string;
   fontSize?: number;
-  fontStyle?: 'normal' | 'italic';
-  fontWeight?:
-    | 'normal'
-    | 'bold'
-    | '100'
-    | '200'
-    | '300'
-    | '400'
-    | '500'
-    | '600'
-    | '700'
-    | '800'
-    | '900';
 }
 
 interface RTCAccessCheckoutTextInputProps {
@@ -90,14 +64,8 @@ const RTCAccessCheckoutTextInput =
   );
 const AccessCheckoutTextInput = (props: AccessCheckoutTextInputProps) => {
   const { nativeID, testID, style, placeholder, editable } = props;
-  const {
-    textColor,
-    fontFamily,
-    fontSize,
-    fontWeight,
-    fontStyle,
-    ...otherStyles
-  } = StyleSheet.flatten([style]);
+  const { textColor, fontFamily, fontSize, ...otherStyles } =
+    StyleSheet.flatten([style]);
   return (
     <View style={[otherStyles]}>
       <RTCAccessCheckoutTextInput
@@ -108,8 +76,6 @@ const AccessCheckoutTextInput = (props: AccessCheckoutTextInputProps) => {
         font={{
           fontFamily,
           fontSize,
-          fontWeight,
-          fontStyle,
         }}
         textColor={textColor}
         editable={editable}
