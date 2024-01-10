@@ -38,6 +38,9 @@ const PanField = (props: PanFieldProps) => {
       ]}
       editable={props.isEditable}
       placeholder="Card Number"
+      placeholderTextColor="blue"
+      fontSize={10}
+      borderColor="purple"
     />
   );
 };
