@@ -1,10 +1,10 @@
 package com.worldpay.access.checkout.reactnative.ui
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Typeface
 import androidx.test.core.app.ApplicationProvider
-import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.*
 import com.worldpay.access.checkout.ui.AccessCheckoutEditText
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
 import org.junit.Test
@@ -47,38 +47,18 @@ internal class AccessCheckoutTextInputManagerTest {
     }
 
     @Test
-    fun `setRTCPlaceholderTextColor() should call hintTextColor on AccessEditText`() {
-        val parsedColor = Color.parseColor("blue")
+    fun `setRTCFont() should call textSize and typeface on AccessEditText`() {
+        val fontMap = JavaOnlyMap()
+        fontMap.putDouble("fontSize", 12.1)
+        fontMap.putString("fontFamily", "sans-serif")
 
-        manager.setRTCPlaceholderTextColor(accessCheckoutEditTextMock, "blue")
+        val typeface = Typeface.create("sans-serif", Typeface.NORMAL)
 
-        verify(accessCheckoutEditTextMock).setHintTextColor(parsedColor)
+        manager.setRTCFont(accessCheckoutEditTextMock, fontMap)
+
+        verify(accessCheckoutEditTextMock).textSize = 12.1F
+        verify(accessCheckoutEditTextMock).typeface = typeface
     }
-
-    @Test
-    fun `setRTCFontSize() should call textSize on AccessEditText`() {
-        manager.setRTCFontSize(accessCheckoutEditTextMock, 12.5)
-
-        verify(accessCheckoutEditTextMock).textSize = 12.5F
-    }
-
-    @Test
-    fun `setRTCBorderColor() should call setTint on AccessEditText`() {
-        manager.setRTCBorderColor(accessCheckoutEditTextMock, Color.BLUE)
-
-        verify(accessCheckoutEditTextMock).background?.setTint(Color.BLUE)
-    }
-
-    @Test
-    fun `setRTCBorderColor() should call setTint on AccessEditText when the color passed is a string`() {
-        val parsedColor = Color.parseColor("blue")
-
-        manager.setRTCBorderColor(accessCheckoutEditTextMock, "blue")
-
-        verify(accessCheckoutEditTextMock).background?.setTint(parsedColor)
-    }
-
-
 
     private fun reactApplicationContext(): ReactApplicationContext {
         val applicationContext: Context = ApplicationProvider.getApplicationContext()
