@@ -10,8 +10,7 @@ import {
   Sessions,
   useCardValidation,
 } from '../../../access-checkout-react-native-sdk/src/index';
-import type SessionGenerationConfig
-  from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
+import type SessionGenerationConfig from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';
@@ -27,7 +26,6 @@ import CardFlowE2eStates from './CardFlow.e2e.states';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import styles from './style.js';
-import type SessionGenerationConfig from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
 
 export default function CardFlow() {
   const unknownBrandLogo =
@@ -109,7 +107,7 @@ export default function CardFlow() {
   const { initialiseCardValidation } = useCardValidation(
     accessCheckout,
     validationConfig,
-    validationEventListener,
+    validationEventListener
   );
 
   const onLayout = () => {
