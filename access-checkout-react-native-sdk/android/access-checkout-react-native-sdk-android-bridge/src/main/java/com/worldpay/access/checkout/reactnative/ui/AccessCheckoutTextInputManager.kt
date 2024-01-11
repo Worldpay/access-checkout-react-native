@@ -1,13 +1,8 @@
 package com.worldpay.access.checkout.reactnative.ui
 
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.view.Gravity
-import com.facebook.common.logging.FLog
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.SimpleViewManager
-import com.facebook.react.uimanager.Spacing
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewProps
 import com.facebook.react.uimanager.annotations.ReactProp
