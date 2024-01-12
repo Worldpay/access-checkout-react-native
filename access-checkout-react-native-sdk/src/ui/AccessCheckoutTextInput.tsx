@@ -33,7 +33,7 @@ interface AccessCheckoutTextInputProps {
  *   fontSize:applies to both placeholder text and input text.
  */
 interface AccessCheckoutTextInputStyle extends ViewStyle {
-  textColor?: ColorValue;
+  color?: ColorValue;
   fontFamily?: string;
   fontSize?: number;
 }
@@ -51,9 +51,9 @@ interface RTCAccessCheckoutTextInputProps {
   testID?: string;
   style?: StyleProp<TextStyle>;
   placeholder?: string;
-  textColor?: ColorValue;
   font?: RTCAccessCheckoutTextInputFontProps;
   editable?: boolean;
+  color?: ColorValue;
 }
 
 const RTCAccessCheckoutTextInput =
@@ -62,8 +62,9 @@ const RTCAccessCheckoutTextInput =
   );
 const AccessCheckoutTextInput = (props: AccessCheckoutTextInputProps) => {
   const { nativeID, testID, style, placeholder, editable } = props;
-  const { textColor, fontFamily, fontSize, ...otherStyles } =
-    StyleSheet.flatten([style]);
+  const { color, fontFamily, fontSize, ...otherStyles } = StyleSheet.flatten([
+    style,
+  ]);
   return (
     <View style={[otherStyles]}>
       <RTCAccessCheckoutTextInput
@@ -75,7 +76,7 @@ const AccessCheckoutTextInput = (props: AccessCheckoutTextInputProps) => {
           fontFamily,
           fontSize,
         }}
-        textColor={textColor}
+        color={color}
         editable={editable}
       />
     </View>

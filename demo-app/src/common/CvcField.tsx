@@ -31,7 +31,7 @@ const CvcField = (props: CvcFieldProps) => {
       style={[
         styles.cvc,
         {
-          textColor: validationColourStyle,
+          color: validationColourStyle,
           borderColor: validationColourStyle,
         },
       ]}

@@ -32,7 +32,7 @@ const PanField = (props: PanFieldProps) => {
       style={[
         styles.pan,
         {
-          textColor: validationColourStyle,
+          color: validationColourStyle,
           borderColor: validationColourStyle,
         },
       ]}

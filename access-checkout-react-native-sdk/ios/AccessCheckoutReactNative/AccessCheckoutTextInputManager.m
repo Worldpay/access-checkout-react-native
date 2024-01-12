@@ -7,9 +7,9 @@
 //RCT_REMAP_VIEW_PROPERTY(RN property name, ios property name, type)
 
 RCT_REMAP_VIEW_PROPERTY(placeholder, placeholder, NSString)
-RCT_REMAP_VIEW_PROPERTY(editable, enabled, BOOL)
+RCT_REMAP_VIEW_PROPERTY(editable, isEnabled, BOOL)
 
-RCT_REMAP_VIEW_PROPERTY(textColor, textColor, UIColor)
+RCT_REMAP_VIEW_PROPERTY(color, textColor, UIColor)
 RCT_REMAP_VIEW_PROPERTY(font, font, UIFont)
 
 @end

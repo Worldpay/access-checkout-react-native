@@ -34,7 +34,7 @@ const ExpiryDateField = (props: ExpiryDateFieldProps) => {
       style={[
         styles.expiry,
         {
-          textColor: validationColourStyle,
+          color: validationColourStyle,
           borderColor: validationColourStyle,
         },
       ]}
