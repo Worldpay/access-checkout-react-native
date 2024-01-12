@@ -3,7 +3,6 @@ import {
   requireNativeComponent,
   type StyleProp,
   StyleSheet,
-  type TextStyle,
   View,
   type ViewStyle,
 } from 'react-native';
@@ -49,7 +48,7 @@ interface RTCAccessCheckoutTextInputFontProps {
 interface RTCAccessCheckoutTextInputProps {
   nativeID: string;
   testID?: string;
-  style?: StyleProp<TextStyle>;
+  style?: StyleProp<ViewStyle>;
   placeholder?: string;
   font?: RTCAccessCheckoutTextInputFontProps;
   editable?: boolean;
