@@ -3,6 +3,7 @@ import {
   AccessCheckout,
   CvcOnlyConfig,
   CvcOnlyValidationEventListener,
+  CvcValidationConfig,
 } from '../../src';
 import {
   useCvcOnlyValidation,
@@ -13,7 +14,6 @@ import {
   nativeEventSubscriptionMock,
 } from '../__mocks__/react-native';
 import { isArray, isFunction } from '../test-utils';
-import { CvcValidationConfig } from '../../src/validation/CvcValidationConfig'; // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 let useEffectCleanUpFunction: any;

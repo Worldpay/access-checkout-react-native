@@ -3,6 +3,7 @@ import {
   AccessCheckout,
   CardConfig,
   CardValidationEventListener,
+  CardValidationConfig,
 } from '../../src';
 import {
   useCardValidationEventListener,
@@ -13,7 +14,6 @@ import {
   nativeEventSubscriptionMock,
 } from '../__mocks__/react-native';
 import { isArray, isFunction } from '../test-utils';
-import { CardValidationConfig } from '../../src/validation/CardValidationConfig';
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 let useEffectCleanUpFunction: any;

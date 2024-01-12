@@ -10,10 +10,10 @@ import {
   CVC,
   CvcOnlyConfig,
   type CvcOnlyValidationEventListener,
+  CvcValidationConfig,
+  CardValidationConfig,
 } from '../../src';
 import { isArray, isFunction } from '../test-utils';
-import { CardValidationConfig } from '../../src/validation/CardValidationConfig';
-import { CvcValidationConfig } from '../../src/validation/CvcValidationConfig';
 import {
   renderHook,
   type RenderHookResult,
