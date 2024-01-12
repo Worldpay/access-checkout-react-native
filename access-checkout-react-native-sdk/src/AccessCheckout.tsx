@@ -1,17 +1,17 @@
 import { AccessCheckoutReactNative } from './AccessCheckoutReactNative';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import SessionGenerationConfig from './session/SessionGenerationConfig';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import Sessions from './session/Sessions';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import CardValidationConfig from './validation/CardValidationConfig';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import CvcOnlyValidationConfig from './validation/CvcOnlyValidationConfig';
+import type SessionGenerationConfig from './session/SessionGenerationConfig';
+import type Sessions from './session/Sessions';
 
+interface InitialiseCardValidationConfig {
+  panId: string;
+  expiryDateId: string;
+  cvcId: string;
+  enablePanFormatting?: boolean;
+  acceptedCardBrands?: string[];
+}
+interface InitialiseCvcOnlyValidationConfig {
+  cvcId: string;
+}
 export default class AccessCheckout {
   private readonly ReactNativeSdkVersion = '2.0.1';
   static readonly CardValidationEventType = 'AccessCheckoutCardValidationEvent';
@@ -46,7 +46,7 @@ export default class AccessCheckout {
         sessionTypes,
         reactNativeSdkVersion: this.ReactNativeSdkVersion,
       })
-        // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
         .then((bridgeSessions: any) => {
           const sessions: Sessions = {};
           if (bridgeSessions.card) {
@@ -66,7 +66,7 @@ export default class AccessCheckout {
   }
 
   initialiseCardValidation(
-    validationConfig: CardValidationConfig
+    validationConfig: InitialiseCardValidationConfig
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCardValidation({
@@ -88,7 +88,7 @@ export default class AccessCheckout {
   }
 
   initialiseCvcOnlyValidation(
-    validationConfig: CvcOnlyValidationConfig
+    validationConfig: InitialiseCvcOnlyValidationConfig
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCvcOnlyValidation({

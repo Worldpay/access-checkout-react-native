@@ -10,23 +10,19 @@ export { default as SessionType, CARD, CVC } from './session/SessionType';
 
 export { default as Sessions } from './session/Sessions';
 
-export { default as CardValidationConfig } from './validation/CardValidationConfig';
-
-export { default as CvcOnlyValidationConfig } from './validation/CvcOnlyValidationConfig';
-
 export { default as Brand } from './validation/Brand';
 
 export { default as BrandImage } from './validation/BrandImage';
+export { default as CardConfig } from './config/CardConfig';
+export { default as CvcOnlyConfig } from './config/CvcOnlyConfig';
 
+export { CardValidationEventListener } from './validation/CardValidationEventListener';
+export { CvcOnlyValidationEventListener } from './validation/CvcOnlyValidationEventListener';
+
+export { CvcValidationConfig } from './validation/CvcValidationConfig';
+export { CardValidationConfig } from './validation/CardValidationConfig';
 export {
-  CardValidationEventListener,
-  cardValidationNativeEventListenerOf,
-} from './validation/CardValidationEventListener';
-
-export {
-  CvcOnlyValidationEventListener,
-  cvcOnlyValidationNativeEventListenerOf,
-} from './validation/CvcOnlyValidationEventListener';
-
-export { useCardValidation } from './validation/CardValidationHooks';
-export { useCvcOnlyValidation } from './validation/CvcOnlyValidationHooks';
+  useAccessCheckout,
+  UseAccessCheckout,
+  UseAccessCheckoutExports,
+} from './hooks/useAccessCheckout';
