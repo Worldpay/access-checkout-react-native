@@ -1,29 +1,17 @@
-export default class CardValidationConfig {
-  panId: string;
-  expiryDateId: string;
-  cvcId: string;
-  enablePanFormatting = false;
-  acceptedCardBrands: string[] = [];
+import type { CardValidationEventListener } from '../index';
+
+export class CardValidationConfig {
+  enablePanFormatting?: boolean;
+  acceptedCardBrands?: string[];
+  validationListener?: CardValidationEventListener;
 
   constructor({
-    panId,
-    expiryDateId,
-    cvcId,
-    enablePanFormatting,
-    acceptedCardBrands,
-  }: {
-    panId: string;
-    expiryDateId: string;
-    cvcId: string;
-    enablePanFormatting?: boolean;
-    acceptedCardBrands?: string[];
-  }) {
-    this.panId = panId;
-    this.expiryDateId = expiryDateId;
-    this.cvcId = cvcId;
-    this.enablePanFormatting = enablePanFormatting
-      ? enablePanFormatting
-      : false;
-    this.acceptedCardBrands = acceptedCardBrands ? acceptedCardBrands : [];
+    validationListener,
+    enablePanFormatting = false,
+    acceptedCardBrands = [],
+  }: CardValidationConfig) {
+    this.enablePanFormatting = enablePanFormatting;
+    this.validationListener = validationListener;
+    this.acceptedCardBrands = acceptedCardBrands;
   }
 }

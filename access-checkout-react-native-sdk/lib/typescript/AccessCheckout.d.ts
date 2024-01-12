@@ -1,7 +1,15 @@
-import SessionGenerationConfig from './session/SessionGenerationConfig';
-import Sessions from './session/Sessions';
-import CardValidationConfig from './validation/CardValidationConfig';
-import CvcOnlyValidationConfig from './validation/CvcOnlyValidationConfig';
+import type SessionGenerationConfig from './session/SessionGenerationConfig';
+import type Sessions from './session/Sessions';
+interface InitialiseCardValidationConfig {
+    panId: string;
+    expiryDateId: string;
+    cvcId: string;
+    enablePanFormatting?: boolean;
+    acceptedCardBrands?: string[];
+}
+interface InitialiseCvcOnlyValidationConfig {
+    cvcId: string;
+}
 export default class AccessCheckout {
     private readonly ReactNativeSdkVersion;
     static readonly CardValidationEventType = "AccessCheckoutCardValidationEvent";
@@ -13,6 +21,7 @@ export default class AccessCheckout {
         merchantId?: string;
     });
     generateSessions(sessionGenerationConfig: SessionGenerationConfig, sessionTypes: string[]): Promise<Sessions>;
-    initialiseCardValidation(validationConfig: CardValidationConfig): Promise<boolean>;
-    initialiseCvcOnlyValidation(validationConfig: CvcOnlyValidationConfig): Promise<boolean>;
+    initialiseCardValidation(validationConfig: InitialiseCardValidationConfig): Promise<boolean>;
+    initialiseCvcOnlyValidation(validationConfig: InitialiseCvcOnlyValidationConfig): Promise<boolean>;
 }
+export {};

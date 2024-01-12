@@ -1,12 +1,10 @@
 import * as fs from 'fs';
 import { NativeModules } from 'react-native';
-import CvcOnlyValidationConfig from '../src/validation/CvcOnlyValidationConfig';
 import { AccessCheckout, CVC } from '../src/';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Sessions from '../src/session/Sessions';
 import SessionType from '../src/session/SessionType';
-import CardValidationConfig from '../src/validation/CardValidationConfig';
 import {
   givenGenerateSessionsBridgeFailsWith,
   givenGenerateSessionsBridgeReturns,
@@ -16,6 +14,7 @@ import {
   givenCvcOnlyValidationBridgeReturns,
   hasProperty,
 } from './test-utils';
+import { CardConfig, CvcOnlyConfig } from '../src';
 
 const baseUrl = 'https://access.worldpay.com';
 const merchantId = '123';
@@ -57,7 +56,7 @@ describe('AccessCheckout', () => {
     const checkout = new AccessCheckout({ baseUrl, merchantId });
 
     describe('independently of the type of session', () => {
-      const sessionGenerationConfig = new CardValidationConfig({
+      const sessionGenerationConfig = new CardConfig({
         panId,
         expiryDateId,
         cvcId,
@@ -93,7 +92,7 @@ describe('AccessCheckout', () => {
     });
 
     describe('for card only', () => {
-      const sessionGenerationConfig = new CardValidationConfig({
+      const sessionGenerationConfig = new CardConfig({
         panId,
         expiryDateId,
         cvcId,
@@ -118,7 +117,7 @@ describe('AccessCheckout', () => {
     });
 
     describe('for card and cvc', () => {
-      const sessionGenerationConfig = new CardValidationConfig({
+      const sessionGenerationConfig = new CardConfig({
         panId,
         expiryDateId,
         cvcId,
@@ -165,7 +164,7 @@ describe('AccessCheckout', () => {
     });
 
     describe('for cvc only', () => {
-      const sessionGenerationConfig = new CvcOnlyValidationConfig({
+      const sessionGenerationConfig = new CvcOnlyConfig({
         cvcId,
       });
       const sessionType = [CVC];
@@ -210,7 +209,7 @@ describe('AccessCheckout', () => {
 
   describe('Card validation feature', () => {
     const checkout = new AccessCheckout({ baseUrl, merchantId });
-    const validationConfig = new CardValidationConfig({
+    const validationConfig = new CardConfig({
       panId,
       expiryDateId,
       cvcId,
@@ -236,7 +235,7 @@ describe('AccessCheckout', () => {
 
   describe('Cvc validation feature', () => {
     const checkout = new AccessCheckout({ baseUrl, merchantId });
-    const validationConfig = new CvcOnlyValidationConfig({
+    const validationConfig = new CvcOnlyConfig({
       cvcId,
     });
 

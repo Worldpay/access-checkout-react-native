@@ -1,14 +1,7 @@
-export default class CardValidationConfig {
-    panId: string;
-    expiryDateId: string;
-    cvcId: string;
-    enablePanFormatting: boolean;
-    acceptedCardBrands: string[];
-    constructor({ panId, expiryDateId, cvcId, enablePanFormatting, acceptedCardBrands, }: {
-        panId: string;
-        expiryDateId: string;
-        cvcId: string;
-        enablePanFormatting?: boolean;
-        acceptedCardBrands?: string[];
-    });
+import type { CardValidationEventListener } from '../index';
+export declare class CardValidationConfig {
+    enablePanFormatting?: boolean;
+    acceptedCardBrands?: string[];
+    validationListener?: CardValidationEventListener;
+    constructor({ validationListener, enablePanFormatting, acceptedCardBrands, }: CardValidationConfig);
 }

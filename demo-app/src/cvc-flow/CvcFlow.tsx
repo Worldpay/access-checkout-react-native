@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native';
 import {
-  AccessCheckout,
   CVC,
-  CvcOnlyValidationConfig,
+  CvcOnlyConfig,
   CvcOnlyValidationEventListener,
   Sessions,
-  useCvcOnlyValidation,
+  useAccessCheckout,
+  CvcValidationConfig,
 } from '../../../access-checkout-react-native-sdk/src';
-import type SessionGenerationConfig from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
 import styles from '../card-flow/style.js';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';
@@ -30,15 +29,6 @@ export default function CvcFlow() {
 
   const [error, setError] = useState<Error>();
 
-  const accessCheckout = new AccessCheckout({
-    baseUrl: 'https://npe.access.worldpay.com',
-    merchantId: 'identity',
-  });
-
-  const cvcOnlyValidationConfig = new CvcOnlyValidationConfig({
-    cvcId: 'cvcInput',
-  });
-
   const cvcOnlyValidationEventListener: CvcOnlyValidationEventListener = {
     onCvcValidChanged(isValid: boolean): void {
       setCvcIsValid(isValid);
@@ -52,14 +42,23 @@ export default function CvcFlow() {
     },
   };
 
-  const { initialiseCvcOnlyValidation } = useCvcOnlyValidation(
-    accessCheckout,
-    cvcOnlyValidationConfig,
-    cvcOnlyValidationEventListener
-  );
+  const validationConfig = new CvcValidationConfig({
+    validationListener: cvcOnlyValidationEventListener,
+  });
+
+  const cvcValidationConfig = new CvcOnlyConfig({
+    cvcId: 'cvcInput',
+    validationConfig: validationConfig,
+  });
+
+  const { initialiseValidation, generateSessions } = useAccessCheckout({
+    baseUrl: 'https://npe.access.worldpay.com',
+    checkoutId: 'identity',
+    config: cvcValidationConfig,
+  });
 
   const onLayout = () => {
-    initialiseCvcOnlyValidation()
+    initialiseValidation()
       .then(() => {
         console.info('Cvc Only Validation successfully initialised');
       })
@@ -68,18 +67,11 @@ export default function CvcFlow() {
       });
   };
 
-  function generateSession() {
-    const sessionTypes = [CVC];
-
+  function createSession() {
     setShowSpinner(true);
     setIsEditable(false);
 
-    const sessionGenerationConfig: SessionGenerationConfig = {
-      cvcId: 'cvcInput',
-    };
-
-    accessCheckout
-      .generateSessions(sessionGenerationConfig, sessionTypes)
+    generateSessions([CVC])
       .then((sessions: Sessions) => {
         console.info('Successfully generated session(s)');
 
@@ -130,7 +122,7 @@ export default function CvcFlow() {
       <VView style={{ marginTop: '8%' }}>
         <SubmitButton
           testID="submitButton"
-          onPress={generateSession}
+          onPress={createSession}
           enabled={submitBtnEnabled}
         />
       </VView>
