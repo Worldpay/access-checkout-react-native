@@ -1,22 +1,17 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import commonStyles from './common-styles.js';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import UIComponentProps from './UIComponentProps';
+import type UIComponentProps from './UIComponentProps';
 import AccessCheckoutTextInput from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutTextInput';
 
 const styles = StyleSheet.create({
   cvc: {
     flex: 1,
+    flexDirection: 'row',
     margin: 12,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 10,
     height: 40,
+    paddingHorizontal: 10,
   },
 });
 
@@ -26,20 +21,20 @@ interface CvcFieldProps extends UIComponentProps {
 }
 
 const CvcField = (props: CvcFieldProps) => {
+  const validationColours = props.isValid ? 'green' : 'red';
+  const validationColourStyle = props.isEditable ? validationColours : 'silver';
+
   return (
     <AccessCheckoutTextInput
       nativeID="cvcInput"
       testID={props.testID}
       style={[
         styles.cvc,
-        props.isValid ? commonStyles.valid : commonStyles.invalid,
-        !props.isEditable
-          ? commonStyles.greyedOut
-          : props.isValid
-          ? commonStyles.valid
-          : commonStyles.invalid,
+        {
+          color: validationColourStyle,
+          borderColor: validationColourStyle,
+        },
       ]}
-      keyboardType="numeric"
       editable={props.isEditable}
       placeholder="CVC"
     />

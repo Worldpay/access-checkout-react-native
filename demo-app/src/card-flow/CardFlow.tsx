@@ -10,8 +10,7 @@ import {
   Sessions,
   useCardValidation,
 } from '../../../access-checkout-react-native-sdk/src/index';
-import type SessionGenerationConfig
-  from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
+import type SessionGenerationConfig from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';
@@ -108,7 +107,7 @@ export default function CardFlow() {
   const { initialiseCardValidation } = useCardValidation(
     accessCheckout,
     validationConfig,
-    validationEventListener,
+    validationEventListener
   );
 
   const onLayout = () => {
@@ -137,7 +136,7 @@ export default function CardFlow() {
     accessCheckout
       .generateSessions(sessionGenerationConfig, sessionTypes)
       .then((sessions: Sessions) => {
-        console.info(`Successfully generated session(s)`);
+        console.info('Successfully generated session(s)');
 
         if (sessions.card) {
           setCardSession(sessions.card);

@@ -14,6 +14,7 @@ workflows:
     - cocoapods-install@2:
         inputs:
         - source_root_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios"
+        - command: update
     - recreate-user-schemes@1:
         inputs:
         - project_path: "$BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/AccessCheckoutReactNative.xcodeproj"
