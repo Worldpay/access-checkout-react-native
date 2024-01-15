@@ -22,11 +22,9 @@ interface AccessCheckoutTextInputProps {
  *   textColor: only applies to input text.
  *   fontFamily: applies to both placeholder text and input text.
  *   fontSize:applies to both placeholder text and input text.
- *   fontStyle:applies to both placeholder text and input text.
- *   fontWeight:applies to both placeholder text and input text.
  */
 interface AccessCheckoutTextInputStyle extends ViewStyle {
-    textColor?: ColorValue;
+    color?: ColorValue;
     fontFamily?: string;
     fontSize?: number;
 }

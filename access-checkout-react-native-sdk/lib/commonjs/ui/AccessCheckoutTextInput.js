@@ -22,8 +22,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *   textColor: only applies to input text.
  *   fontFamily: applies to both placeholder text and input text.
  *   fontSize:applies to both placeholder text and input text.
- *   fontStyle:applies to both placeholder text and input text.
- *   fontWeight:applies to both placeholder text and input text.
  */
 
 /**
@@ -40,7 +38,7 @@ const AccessCheckoutTextInput = props => {
     editable
   } = props;
   const {
-    textColor,
+    color,
     fontFamily,
     fontSize,
     ...otherStyles
@@ -58,7 +56,7 @@ const AccessCheckoutTextInput = props => {
       fontFamily,
       fontSize
     },
-    textColor: textColor,
+    color: color,
     editable: editable
   }));
 };
