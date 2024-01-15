@@ -31,7 +31,6 @@ target 'AccessCheckoutReactNativeDemo' do
   # Remove once version 3.0.0 of the AccessCheckoutSDK has been released to Cocoapods
   pod 'AccessCheckoutSDK', :git => 'git@github.com:Worldpay/access-checkout-ios.git', :tag => 'v3.0.0'
 
-
 end
 
     post_install do |installer|

@@ -8,10 +8,7 @@ import {
   Sessions,
   useCvcOnlyValidation,
 } from '../../../access-checkout-react-native-sdk/src';
-import type SessionGenerationConfig
-  from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+import type SessionGenerationConfig from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
 import styles from '../card-flow/style.js';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';
@@ -58,7 +55,7 @@ export default function CvcFlow() {
   const { initialiseCvcOnlyValidation } = useCvcOnlyValidation(
     accessCheckout,
     cvcOnlyValidationConfig,
-    cvcOnlyValidationEventListener,
+    cvcOnlyValidationEventListener
   );
 
   const onLayout = () => {
