@@ -36,7 +36,7 @@ class AccessCheckoutTextInputManager(private val callerContext: ReactApplication
     /**
      * Properties
      */
-    @ReactProp(name = ViewProps.COLOR)
+    @ReactProp(name = ViewProps.COLOR, customType = "Color")
     fun setRTCTextColor(accessCheckoutEditText: AccessCheckoutEditText, color: Int) {
         accessCheckoutEditText.setTextColor(color)
     }
