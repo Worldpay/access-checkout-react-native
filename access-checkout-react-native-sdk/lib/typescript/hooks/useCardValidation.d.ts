@@ -1,6 +1,6 @@
 import AccessCheckout from '../AccessCheckout';
 import { CardValidationEventListener } from '../validation/CardValidationEventListener';
-export declare function useCardValidationEventListener(merchantListener: CardValidationEventListener): void;
+export declare function useCardValidationEventListener(validationListener: CardValidationEventListener): void;
 interface UseCardValidationHook {
     accessCheckout: AccessCheckout;
     cardValidationConfig: {
@@ -10,9 +10,9 @@ interface UseCardValidationHook {
         enablePanFormatting?: boolean;
         acceptedCardBrands?: string[];
     };
-    merchantListener: CardValidationEventListener;
+    validationListener: CardValidationEventListener;
 }
-export declare function useCardValidation({ accessCheckout, cardValidationConfig, merchantListener, }: UseCardValidationHook): {
+export declare function useCardValidation({ accessCheckout, cardValidationConfig, validationListener, }: UseCardValidationHook): {
     initialiseCardValidation: () => Promise<boolean>;
 };
 export {};

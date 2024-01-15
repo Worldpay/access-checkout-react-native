@@ -30,7 +30,7 @@ export const useAccessCheckout = ({
         enablePanFormatting: (_config$validationCon = config.validationConfig) === null || _config$validationCon === void 0 ? void 0 : _config$validationCon.enablePanFormatting,
         acceptedCardBrands: (_config$validationCon2 = config.validationConfig) === null || _config$validationCon2 === void 0 ? void 0 : _config$validationCon2.acceptedCardBrands
       },
-      merchantListener: (_config$validationCon3 = config.validationConfig) === null || _config$validationCon3 === void 0 ? void 0 : _config$validationCon3.validationListener
+      validationListener: (_config$validationCon3 = config.validationConfig) === null || _config$validationCon3 === void 0 ? void 0 : _config$validationCon3.validationListener
     });
     const generateSessions = sessionTypes => accessCheckout.generateSessions({
       panId: config.panId,
@@ -50,7 +50,7 @@ export const useAccessCheckout = ({
       cvcOnlyValidationConfig: {
         cvcId: config.cvcId
       },
-      merchantListener: (_config$validationCon4 = config.validationConfig) === null || _config$validationCon4 === void 0 ? void 0 : _config$validationCon4.validationListener
+      validationListener: (_config$validationCon4 = config.validationConfig) === null || _config$validationCon4 === void 0 ? void 0 : _config$validationCon4.validationListener
     });
     const generateCvcOnlySession = sessionTypes => accessCheckout.generateSessions({
       cvcId: config.cvcId

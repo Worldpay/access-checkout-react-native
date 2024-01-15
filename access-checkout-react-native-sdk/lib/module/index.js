@@ -12,5 +12,7 @@ export { CardValidationEventListener } from './validation/CardValidationEventLis
 export { CvcOnlyValidationEventListener } from './validation/CvcOnlyValidationEventListener';
 export { CvcValidationConfig } from './validation/CvcValidationConfig';
 export { CardValidationConfig } from './validation/CardValidationConfig';
+export { useCardConfig, UseCardConfig } from './hooks/useCardConfig';
+export { useCvcOnlyConfig, UseCvcOnlyConfig } from './hooks/useCvcOnlyConfig';
 export { useAccessCheckout, UseAccessCheckout, UseAccessCheckoutExports } from './hooks/useAccessCheckout';
 //# sourceMappingURL=index.js.map

@@ -8,10 +8,10 @@ import {
   type UseAccessCheckout,
   CARD,
   CVC,
-  CvcOnlyConfig,
   type CvcOnlyValidationEventListener,
-  CvcValidationConfig,
   CardValidationConfig,
+  useCvcOnlyConfig,
+  useCardConfig,
 } from '../../src';
 import { isArray, isFunction } from '../test-utils';
 import {
@@ -42,12 +42,26 @@ describe('useAccessCheckout', () => {
   describe('using cvc only configuration', () => {
     const merchantListener: CvcOnlyValidationEventListener = {};
 
-    const cardValidationConfig = new CvcValidationConfig({
-      validationListener: merchantListener,
-    });
-    const cardConfig = new CvcOnlyConfig({
-      cvcId: 'cvcInput',
-      validationConfig: cardValidationConfig,
+    it('should error when trying to use initialiseValidation when no validationConfig was provided', async () => {
+      const {
+        result,
+      }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
+        renderHook(() =>
+          useAccessCheckout({
+            baseUrl: '',
+            checkoutId: '',
+            config: useCvcOnlyConfig({
+              cvcId: 'cvcInput',
+            }),
+          })
+        );
+
+      const functionReturned = result.current.initialiseValidation;
+
+      expect(() => functionReturned()).toThrowError(
+        `Validation listener was undefined. When using validation methods such as 'initialiseValidation' a validation listener needs to be provided.`
+      );
+      expect(mockInitialiseCvcOnlyValidation).not.toHaveBeenCalled();
     });
 
     describe('initialiseCardValidation', () => {
@@ -59,7 +73,12 @@ describe('useAccessCheckout', () => {
             useAccessCheckout({
               baseUrl: '',
               checkoutId: '',
-              config: cardConfig,
+              config: useCvcOnlyConfig({
+                cvcId: 'cvcInput',
+                validationConfig: {
+                  validationListener: merchantListener,
+                },
+              }),
             })
           );
 
@@ -75,59 +94,75 @@ describe('useAccessCheckout', () => {
             useAccessCheckout({
               baseUrl: '',
               checkoutId: '',
-              config: cardConfig,
+              config: useCvcOnlyConfig({
+                cvcId: 'cvcInput',
+                validationConfig: {
+                  validationListener: merchantListener,
+                },
+              }),
             })
           );
 
         const functionReturned = result.current.initialiseValidation;
 
+        expect(functionReturned).toBeDefined();
         functionReturned();
 
         expect(mockInitialiseCvcOnlyValidation).toHaveBeenCalledWith({
           cvcId: 'cvcInput',
         });
       });
-    });
 
-    describe('generateSessions', () => {
-      it('returns an object with a generateSessions property which is a function', () => {
-        const {
-          result,
-        }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-          renderHook(() =>
-            useAccessCheckout({
-              baseUrl: '',
-              checkoutId: '',
-              config: cardConfig,
-            })
+      describe('generateSessions', () => {
+        it('returns an object with a generateSessions property which is a function', () => {
+          const {
+            result,
+          }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
+            renderHook(() =>
+              useAccessCheckout({
+                baseUrl: '',
+                checkoutId: '',
+                config: useCvcOnlyConfig({
+                  cvcId: 'cvcInput',
+                  validationConfig: {
+                    validationListener: merchantListener,
+                  },
+                }),
+              })
+            );
+
+          expect(isArray(result.current)).toEqual(false);
+          expect(isFunction(result.current.generateSessions)).toEqual(true);
+        });
+
+        it('function returned is designed to generate sessions', () => {
+          const {
+            result,
+          }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
+            renderHook(() =>
+              useAccessCheckout({
+                baseUrl: '',
+                checkoutId: '',
+                config: useCvcOnlyConfig({
+                  cvcId: 'cvcInput',
+                  validationConfig: {
+                    validationListener: merchantListener,
+                  },
+                }),
+              })
+            );
+
+          const functionReturned = result.current.generateSessions;
+
+          functionReturned([CVC]);
+
+          expect(mockGenerateSessions).toHaveBeenCalledWith(
+            {
+              cvcId: 'cvcInput',
+            },
+            ['CVC']
           );
-
-        expect(isArray(result.current)).toEqual(false);
-        expect(isFunction(result.current.generateSessions)).toEqual(true);
-      });
-
-      it('function returned is designed to generate sessions', () => {
-        const {
-          result,
-        }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-          renderHook(() =>
-            useAccessCheckout({
-              baseUrl: '',
-              checkoutId: '',
-              config: cardConfig,
-            })
-          );
-
-        const functionReturned = result.current.generateSessions;
-
-        functionReturned([CVC]);
-
-        expect(mockGenerateSessions).toHaveBeenCalledWith(
-          {
-            cvcId: 'cvcInput',
-          },
-          ['CVC']
-        );
+        });
       });
     });
   });
@@ -143,6 +178,31 @@ describe('useAccessCheckout', () => {
       expiryDateId: 'expiryDateInput',
       cvcId: 'cvcInput',
       validationConfig: cardValidationConfig,
+    });
+
+    it('should error when trying to use initialiseValidation when no validationConfig was provided', async () => {
+      const {
+        result,
+      }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
+        renderHook(() =>
+          useAccessCheckout({
+            baseUrl: '',
+            checkoutId: '',
+            config: useCardConfig({
+              cvcId: 'cvcInput',
+              panId: 'panId',
+              expiryDateId: 'expiryDateId',
+            }),
+          })
+        );
+
+      const functionReturned = result.current.initialiseValidation;
+
+      expect(() => functionReturned()).toThrowError(
+        `Validation listener was undefined. When using validation methods such as 'initialiseValidation' a validation listener needs to be provided.`
+      );
+
+      expect(mockInitialiseCardValidation).not.toHaveBeenCalled();
     });
 
     describe('initialiseCardValidation', () => {

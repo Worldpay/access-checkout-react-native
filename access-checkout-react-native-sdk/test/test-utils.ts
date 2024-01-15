@@ -11,7 +11,7 @@ export function givenGenerateSessionsBridgeReturns({
 
   const mock = NativeModules.AccessCheckoutReactNative.generateSessions;
   mock.mockReturnValueOnce(
-    new Promise(resolve => {
+    new Promise((resolve) => {
       resolve(sessions);
     })
   );
@@ -31,7 +31,7 @@ export function givenGenerateSessionsBridgeFailsWith(error: Error) {
 export function givenCardValidationBridgeReturns(returnValue: boolean) {
   const mock = NativeModules.AccessCheckoutReactNative.initialiseCardValidation;
   mock.mockReturnValueOnce(
-    new Promise(resolve => {
+    new Promise((resolve) => {
       resolve(returnValue);
     })
   );
@@ -52,7 +52,7 @@ export function givenCvcOnlyValidationBridgeReturns(returnValue: boolean) {
   const mock =
     NativeModules.AccessCheckoutReactNative.initialiseCvcOnlyValidation;
   mock.mockReturnValueOnce(
-    new Promise(resolve => {
+    new Promise((resolve) => {
       resolve(returnValue);
     })
   );
@@ -72,7 +72,6 @@ export function givenCvcOnlyValidationBridgeFailsWith(error: Error) {
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 export function isArray(variable: any) {
-  console.log(Object.prototype.toString.call(variable));
   return Object.prototype.toString.call(variable) === '[object Array]';
 }
 

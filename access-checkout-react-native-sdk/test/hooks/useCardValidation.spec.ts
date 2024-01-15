@@ -26,13 +26,13 @@ describe('useCardValidation', () => {
     it('registers a NativeEvent listener for "AccessCheckoutCardValidationEvent" event', () => {
       // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       let panValid: any = undefined;
-      const merchantListener: CardValidationEventListener = {
+      const validationListener: CardValidationEventListener = {
         onPanValidChanged(isValid: boolean): void {
           panValid = isValid;
         },
       };
 
-      useCardValidationEventListener(merchantListener);
+      useCardValidationEventListener(validationListener);
 
       // Emitting a fake native event using the mock in order to check listener is correctly registered
       emitNativeEvent('AccessCheckoutCardValidationEvent', {
@@ -46,8 +46,8 @@ describe('useCardValidation', () => {
     });
 
     it('registers the NativeEvent listener so that it is removed when useEffect cleans up', () => {
-      const merchantListener: CardValidationEventListener = {};
-      useCardValidationEventListener(merchantListener);
+      const validationListener: CardValidationEventListener = {};
+      useCardValidationEventListener(validationListener);
 
       // manually calling clean up function returned by useEffect in implementation
       useEffectCleanUpFunction();
@@ -57,14 +57,14 @@ describe('useCardValidation', () => {
   });
 
   describe('useCardValidation', () => {
-    const merchantListener: CardValidationEventListener = {};
+    const validationListener: CardValidationEventListener = {};
 
     const accessCheckout = new AccessCheckout({
       baseUrl: '',
       merchantId: '',
     });
     const cardValidationConfig = new CardValidationConfig({
-      validationListener: merchantListener,
+      validationListener: validationListener,
     });
     const cardConfig = new CardConfig({
       panId: 'panInput',
@@ -78,7 +78,7 @@ describe('useCardValidation', () => {
       const hooksValues: any = useCardValidation({
         accessCheckout,
         cardValidationConfig: cardConfig,
-        merchantListener,
+        validationListener: validationListener,
       });
 
       expect(isArray(hooksValues)).toEqual(false);
@@ -93,7 +93,7 @@ describe('useCardValidation', () => {
       const hooksValues: any = useCardValidation({
         accessCheckout,
         cardValidationConfig: cardConfig,
-        merchantListener,
+        validationListener: validationListener,
       });
       const functionReturned = hooksValues.initialiseCardValidation;
 

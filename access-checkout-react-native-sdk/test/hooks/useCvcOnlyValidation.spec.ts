@@ -26,13 +26,13 @@ describe('useCvcOnlyValidation', () => {
     it('registers a NativeEvent listener for "AccessCheckoutCvcOnlyValidationEvent" event', () => {
       // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       let cvcValid: any = undefined;
-      const merchantListener: CvcOnlyValidationEventListener = {
+      const validationListener: CvcOnlyValidationEventListener = {
         onCvcValidChanged(isValid: boolean): void {
           cvcValid = isValid;
         },
       };
 
-      useCvcOnlyValidationEventListener(merchantListener);
+      useCvcOnlyValidationEventListener(validationListener);
 
       // Emitting a fake native event using the mock in order to check listener is correctly registered
       emitNativeEvent('AccessCheckoutCvcOnlyValidationEvent', {
@@ -46,8 +46,8 @@ describe('useCvcOnlyValidation', () => {
     });
 
     it('registers the NativeEvent listener so that it is removed when useEffect cleans up', () => {
-      const merchantListener: CvcOnlyValidationEventListener = {};
-      useCvcOnlyValidationEventListener(merchantListener);
+      const validationListener: CvcOnlyValidationEventListener = {};
+      useCvcOnlyValidationEventListener(validationListener);
 
       // manually calling clean up function returned by useEffect in implementation
       useEffectCleanUpFunction();
@@ -57,14 +57,14 @@ describe('useCvcOnlyValidation', () => {
   });
 
   describe('useCvcOnlyValidation', () => {
-    const merchantListener: CvcOnlyValidationEventListener = {};
+    const validationListener: CvcOnlyValidationEventListener = {};
 
     const accessCheckout = new AccessCheckout({
       baseUrl: '',
       merchantId: '',
     });
     const cvcOnlyValidationConfig = new CvcValidationConfig({
-      validationListener: merchantListener,
+      validationListener: validationListener,
     });
     const cvcOnlyConfig = new CvcOnlyConfig({
       cvcId: 'cvcInput',
@@ -76,7 +76,7 @@ describe('useCvcOnlyValidation', () => {
       const hooksValues: any = useCvcOnlyValidation({
         accessCheckout,
         cvcOnlyValidationConfig: cvcOnlyConfig,
-        merchantListener,
+        validationListener: validationListener,
       });
 
       expect(isArray(hooksValues)).toEqual(false);
@@ -91,7 +91,7 @@ describe('useCvcOnlyValidation', () => {
       const hooksValues: any = useCvcOnlyValidation({
         accessCheckout,
         cvcOnlyValidationConfig: cvcOnlyConfig,
-        merchantListener,
+        validationListener: validationListener,
       });
       const functionReturned = hooksValues.initialiseCvcOnlyValidation;
 

@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { Text } from 'react-native';
 import {
   CVC,
-  CvcOnlyConfig,
   CvcOnlyValidationEventListener,
   Sessions,
   useAccessCheckout,
-  CvcValidationConfig,
+  useCvcOnlyConfig,
 } from '../../../access-checkout-react-native-sdk/src';
 import styles from '../card-flow/style.js';
 import CvcField from '../common/CvcField';
@@ -29,6 +28,8 @@ export default function CvcFlow() {
 
   const [error, setError] = useState<Error>();
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const cvcOnlyValidationEventListener: CvcOnlyValidationEventListener = {
     onCvcValidChanged(isValid: boolean): void {
       setCvcIsValid(isValid);
@@ -42,19 +43,15 @@ export default function CvcFlow() {
     },
   };
 
-  const validationConfig = new CvcValidationConfig({
-    validationListener: cvcOnlyValidationEventListener,
-  });
-
-  const cvcValidationConfig = new CvcOnlyConfig({
-    cvcId: 'cvcInput',
-    validationConfig: validationConfig,
-  });
-
   const { initialiseValidation, generateSessions } = useAccessCheckout({
     baseUrl: 'https://npe.access.worldpay.com',
     checkoutId: 'identity',
-    config: cvcValidationConfig,
+    config: useCvcOnlyConfig({
+      cvcId: 'cvcInput',
+      validationConfig: {
+        validationListener: cvcOnlyValidationEventListener,
+      },
+    }),
   });
 
   const onLayout = () => {

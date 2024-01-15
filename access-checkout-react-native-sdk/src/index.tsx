@@ -21,6 +21,10 @@ export { CvcOnlyValidationEventListener } from './validation/CvcOnlyValidationEv
 
 export { CvcValidationConfig } from './validation/CvcValidationConfig';
 export { CardValidationConfig } from './validation/CardValidationConfig';
+
+export { useCardConfig, UseCardConfig } from './hooks/useCardConfig';
+export { useCvcOnlyConfig, UseCvcOnlyConfig } from './hooks/useCvcOnlyConfig';
+
 export {
   useAccessCheckout,
   UseAccessCheckout,
