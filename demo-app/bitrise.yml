@@ -87,10 +87,12 @@ workflows:
     - cocoapods-install@2:
         title: "Install pods for iOS Bridge SDK"
         inputs:
+        - command: update
         - source_root_path: $BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/
     - cocoapods-install@2:
         title: "Install pods for demo-app"
         inputs:
+        - command: update
         - source_root_path: $BITRISE_SOURCE_DIR/demo-app/ios/
     - script@1.2:
         title: "Build app for Detox"
