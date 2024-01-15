@@ -3,12 +3,11 @@ import { Text } from 'react-native';
 import {
   Brand,
   CARD,
-  CardConfig,
-  CardValidationConfig,
   CardValidationEventListener,
   CVC,
   Sessions,
   useAccessCheckout,
+  useCardConfig,
 } from '../../../access-checkout-react-native-sdk/src';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
@@ -91,22 +90,18 @@ export default function CardFlow() {
     },
   };
 
-  const cardValidationConfig = new CardValidationConfig({
-    enablePanFormatting: true,
-    validationListener: validationEventListener,
-  });
-
-  const cardConfig = new CardConfig({
-    panId: 'panInput',
-    expiryDateId: 'expiryDateInput',
-    cvcId: 'cvcInput',
-    validationConfig: cardValidationConfig,
-  });
-
   const { initialiseValidation, generateSessions } = useAccessCheckout({
     baseUrl: 'https://npe.access.worldpay.com',
     checkoutId: 'identity',
-    config: cardConfig,
+    config: useCardConfig({
+      panId: 'panInput',
+      expiryDateId: 'expiryDateInput',
+      cvcId: 'cvcInput',
+      validationConfig: {
+        enablePanFormatting: true,
+        validationListener: validationEventListener,
+      },
+    }),
   });
 
   const onLayout = () => {

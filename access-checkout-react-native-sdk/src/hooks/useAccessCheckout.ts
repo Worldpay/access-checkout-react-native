@@ -46,7 +46,7 @@ export const useAccessCheckout = ({
         enablePanFormatting: config.validationConfig?.enablePanFormatting,
         acceptedCardBrands: config.validationConfig?.acceptedCardBrands,
       },
-      merchantListener: config.validationConfig
+      validationListener: config.validationConfig
         ?.validationListener as CardValidationEventListener,
     });
 
@@ -68,7 +68,7 @@ export const useAccessCheckout = ({
     const { initialiseCvcOnlyValidation } = useCvcOnlyValidation({
       accessCheckout,
       cvcOnlyValidationConfig: { cvcId: config.cvcId },
-      merchantListener: config.validationConfig
+      validationListener: config.validationConfig
         ?.validationListener as CvcOnlyValidationEventListener,
     });
 
