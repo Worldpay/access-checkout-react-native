@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { device, expect } = require('detox');
 const { expect: jestExpect } = require('expect');
-const {
-  sessionRegEx,
-} = require('./helpers/RegularExpressions');
+const { sessionRegEx } = require('./helpers/RegularExpressions');
 const { CardFlowPO } = require('./page-objects/CardFlowPO');
 const { CardFlowStatesPO } = require('./page-objects/CardFlowStatesPO');
 /* eslint-enable @typescript-eslint/no-var-requires */
