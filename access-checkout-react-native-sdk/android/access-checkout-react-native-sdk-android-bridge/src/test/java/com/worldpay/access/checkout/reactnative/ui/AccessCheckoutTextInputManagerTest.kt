@@ -2,8 +2,9 @@ package com.worldpay.access.checkout.reactnative.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import androidx.test.core.app.ApplicationProvider
-import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.*
 import com.worldpay.access.checkout.ui.AccessCheckoutEditText
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
 import org.junit.Test
@@ -45,6 +46,19 @@ internal class AccessCheckoutTextInputManagerTest {
         verify(accessCheckoutEditTextMock).isEnabled = true
     }
 
+    @Test
+    fun `setRTCFont() should call textSize and typeface on AccessEditText`() {
+        val fontMap = JavaOnlyMap()
+        fontMap.putDouble("fontSize", 12.1)
+        fontMap.putString("fontFamily", "sans-serif")
+
+        val typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+
+        manager.setRTCFont(accessCheckoutEditTextMock, fontMap)
+
+        verify(accessCheckoutEditTextMock).textSize = 12.1F
+        verify(accessCheckoutEditTextMock).typeface = typeface
+    }
 
     private fun reactApplicationContext(): ReactApplicationContext {
         val applicationContext: Context = ApplicationProvider.getApplicationContext()
