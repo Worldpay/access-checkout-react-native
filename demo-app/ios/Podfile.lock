@@ -313,7 +313,6 @@ PODS:
 
 DEPENDENCIES:
   - AccessCheckoutReactNativeSDKiOSBridge (from `../../access-checkout-react-native-sdk/ios/`)
-  - "AccessCheckoutSDK (from `git@github.com:Worldpay/access-checkout-ios.git`, tag `v3.0.0`)"
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -353,15 +352,13 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AccessCheckoutSDK
     - fmt
     - libevent
 
 EXTERNAL SOURCES:
   AccessCheckoutReactNativeSDKiOSBridge:
     :path: "../../access-checkout-react-native-sdk/ios/"
-  AccessCheckoutSDK:
-    :git: "git@github.com:Worldpay/access-checkout-ios.git"
-    :tag: v3.0.0
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
@@ -431,11 +428,6 @@ EXTERNAL SOURCES:
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
-CHECKOUT OPTIONS:
-  AccessCheckoutSDK:
-    :git: "git@github.com:Worldpay/access-checkout-ios.git"
-    :tag: v3.0.0
-
 SPEC CHECKSUMS:
   AccessCheckoutReactNativeSDKiOSBridge: 2ac6eacb67930ed5dc92d286467d47e914db87eb
   AccessCheckoutSDK: a3eaf9feb92b2d2c9e362c395f0c8d81acc895d3
@@ -476,6 +468,6 @@ SPEC CHECKSUMS:
   ReactCommon: dce64235f8548b6e4758647310145f5356c8d0cb
   Yoga: 56413d530d1808044600320ced5baa883acedc44
 
-PODFILE CHECKSUM: e0184a468d9cb21c3391042cbabb4ec293b8bd1b
+PODFILE CHECKSUM: 7704a74c59018e6b7f65f007d4dcc9ff22a062ec
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.14.3
