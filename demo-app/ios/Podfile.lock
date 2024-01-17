@@ -313,7 +313,6 @@ PODS:
 
 DEPENDENCIES:
   - AccessCheckoutReactNativeSDKiOSBridge (from `../../access-checkout-react-native-sdk/ios/`)
-  - AccessCheckoutSDK (= 3.0.0)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -469,6 +468,6 @@ SPEC CHECKSUMS:
   ReactCommon: dce64235f8548b6e4758647310145f5356c8d0cb
   Yoga: 56413d530d1808044600320ced5baa883acedc44
 
-PODFILE CHECKSUM: cbeb80f82e27933de3eb2fd6c33b8d1f73585708
+PODFILE CHECKSUM: 7704a74c59018e6b7f65f007d4dcc9ff22a062ec
 
 COCOAPODS: 1.14.3
