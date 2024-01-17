@@ -115,36 +115,32 @@ class AccessCheckoutReactNativeModule constructor(
      */
     @ReactMethod
     fun initialiseCardValidation(readableMap: ReadableMap, promise: Promise) {
-        try {
-            val config = CardValidationConfigConverter().fromReadableMap(readableMap)
+        Handler(Looper.getMainLooper()).post {
+            try {
+                val config = CardValidationConfigConverter().fromReadableMap(readableMap)
 
-            val panView = findView<AccessCheckoutEditText>(config.panId)
-            val expiryDateView = findView<AccessCheckoutEditText>(config.expiryDateId)
-            val cvcView = findView<AccessCheckoutEditText>(config.cvcId)
+                val panView = findView<AccessCheckoutEditText>(config.panId)
+                val expiryDateView = findView<AccessCheckoutEditText>(config.expiryDateId)
+                val cvcView = findView<AccessCheckoutEditText>(config.cvcId)
 
-            val cardValidationConfigBuilder = CardValidationConfig.Builder()
-                .baseUrl(config.baseUrl)
-                .pan(panView)
-                .expiryDate(expiryDateView)
-                .cvc(cvcView)
-                .validationListener(CardValidationListener(reactContext))
-                .lifecycleOwner(getLifecycleOwner())
-                .acceptedCardBrands(config.acceptedCardBrands)
+                val cardValidationConfigBuilder = CardValidationConfig.Builder()
+                    .baseUrl(config.baseUrl)
+                    .pan(panView)
+                    .expiryDate(expiryDateView)
+                    .cvc(cvcView)
+                    .validationListener(CardValidationListener(reactContext))
+                    .lifecycleOwner(getLifecycleOwner())
+                    .acceptedCardBrands(config.acceptedCardBrands)
 
-            if (config.enablePanFormatting) {
-                cardValidationConfigBuilder.enablePanFormatting()
-            }
-
-            Handler(Looper.getMainLooper()).post {
-                try {
-                    AccessCheckoutValidationInitialiser.initialise(cardValidationConfigBuilder.build())
-                    promise.resolve(true)
-                } catch (ex: Exception) {
-                    promise.reject(ex)
+                if (config.enablePanFormatting) {
+                    cardValidationConfigBuilder.enablePanFormatting()
                 }
+
+                AccessCheckoutValidationInitialiser.initialise(cardValidationConfigBuilder.build())
+                promise.resolve(true)
+            } catch (ex: Exception) {
+                promise.reject(ex)
             }
-        } catch (ex: Exception) {
-            promise.reject(ex)
         }
     }
 
@@ -158,26 +154,26 @@ class AccessCheckoutReactNativeModule constructor(
      */
     @ReactMethod
     fun initialiseCvcOnlyValidation(readableMap: ReadableMap, promise: Promise) {
-        try {
-            val config = CvcOnlyValidationConfigConverter().fromReadableMap(readableMap)
+        Handler(Looper.getMainLooper()).post {
+            try {
+                val config = CvcOnlyValidationConfigConverter().fromReadableMap(readableMap)
 
-            val cvcView = findView<AccessCheckoutEditText>(config.cvcId)
+                val cvcView = findView<AccessCheckoutEditText>(config.cvcId)
 
-            val cvcOnlyValidationConfigBuilder = CvcValidationConfig.Builder()
-                .cvc(cvcView)
-                .validationListener(CvcOnlyValidationListener(reactContext))
-                .lifecycleOwner(getLifecycleOwner())
+                val cvcOnlyValidationConfigBuilder = CvcValidationConfig.Builder()
+                    .cvc(cvcView)
+                    .validationListener(CvcOnlyValidationListener(reactContext))
+                    .lifecycleOwner(getLifecycleOwner())
 
-            Handler(Looper.getMainLooper()).post {
                 try {
                     AccessCheckoutValidationInitialiser.initialise(cvcOnlyValidationConfigBuilder.build())
                     promise.resolve(true)
                 } catch (ex: Exception) {
                     promise.reject(ex)
                 }
+            } catch (ex: Exception) {
+                promise.reject(ex)
             }
-        } catch (ex: Exception) {
-            promise.reject(ex)
         }
     }
 
