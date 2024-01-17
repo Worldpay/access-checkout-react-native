@@ -4,6 +4,12 @@ env:
   secrets-manager:
     hydra_aco_blackduck_token: hydra_aco_blackduck:hydra_aco_blackduck_token
 phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+  pre_build:
+    commands:
+      - cd access-checkout-react-native-sdk && npm install && cd ..
   build:
     commands:
       - ./scripts/blackduck/run_scan.sh
