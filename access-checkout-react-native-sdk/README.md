@@ -19,6 +19,15 @@ You can find the detailed documentation explaining how to integrate the SDK and 
 - all `react` versions >= `16.9.0`
 - `Cocoapods` only for iOS dependencies
 
+## SAQ-A Compliance
+
+AccessCheckoutTextInput is the name of the new component created to provide SAQ-A compliance when using our React Native SDK.
+It has been designed so that it does not expose any methods or properties to retrieve the text entered by the end user to ensure our merchants meet SAQ-A compliancy.
+
+## AccessCheckoutTextInput
+
+You can find detailed documentation explaining about our new component [AccessCheckoutTextInput](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native/access-checkout-text-input) within the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay documentation](https://developer.worldpay.com).
+
 ## How to install
 
 Refer to [Get our SDK](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native#get-our-sdk) in the React Native section of the [Access Worldpay documentation](https://developer.worldpay.com)
