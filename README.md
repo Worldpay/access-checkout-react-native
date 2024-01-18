@@ -15,7 +15,7 @@
 
 ## React & React Native Compatibility
 
-Our SDK is compatible with `React 16.13.1` and `React Native 0.63.4`
+Find the versions compatible with our SDK in the [package.json](access-checkout-react-native-sdk/package.json).
 
 ## Getting Started
 
