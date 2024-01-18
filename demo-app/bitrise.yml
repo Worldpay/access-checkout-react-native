@@ -10,11 +10,6 @@ workflows:
         inputs:
         - command: install -g detox-cli
     - npm@1:
-        title: "Install SDK dependencies"
-        inputs:
-        - command: install
-        - workdir: $BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/
-    - npm@1:
         title: "Install demo-app dependencies"
         inputs:
         - command: install
@@ -65,11 +60,6 @@ workflows:
         inputs:
           - command: install -g detox-cli@20
     - npm@1:
-        title: "Install SDK dependencies"
-        inputs:
-        - command: install
-        - workdir: $BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/
-    - npm@1:
         title: "Install demo-app dependencies"
         inputs:
         - command: install
@@ -79,10 +69,6 @@ workflows:
         inputs:
           - command: ls
           - workdir: $BITRISE_SOURCE_DIR/demo-app/
-    - cocoapods-install@2:
-        title: "Install pods for iOS Bridge SDK"
-        inputs:
-        - source_root_path: $BITRISE_SOURCE_DIR/access-checkout-react-native-sdk/ios/
     - cocoapods-install@2:
         title: "Install pods for demo-app"
         inputs:

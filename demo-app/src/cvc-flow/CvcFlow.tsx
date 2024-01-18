@@ -7,7 +7,7 @@ import {
   CvcOnlyValidationEventListener,
   Sessions,
   useCvcOnlyValidation,
-} from '../../../access-checkout-react-native-sdk/src';
+} from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import CvcField from '../common/CvcField';
 import HView from '../common/HView';
 import Spinner from '../common/Spinner';
@@ -66,7 +66,7 @@ export default function CvcFlow() {
       .then(() => {
         console.info('Cvc Only Validation successfully initialised');
       })
-      .catch((e) => {
+      .catch((e:any) => {
         setError(e);
       });
   };
@@ -90,7 +90,7 @@ export default function CvcFlow() {
           setCvcSession(sessions.cvc);
         }
       })
-      .catch((e) => {
+      .catch((e:any) => {
         setError(e);
       })
       .finally(() => {
