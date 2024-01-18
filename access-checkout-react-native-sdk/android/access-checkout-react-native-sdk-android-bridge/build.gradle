@@ -39,7 +39,7 @@ apply from: './gradle/jacoco.gradle'
 apply from: './gradle/publications.gradle'
 
 dependencies {
-    api 'com.facebook.react:react-native:0.+'
+    implementation 'com.facebook.react:react-native:0.+'
 
     implementation 'com.worldpay.access:access-checkout-android:3.0.0'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.21'
