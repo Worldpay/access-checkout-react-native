@@ -26,7 +26,7 @@ target 'AccessCheckoutReactNativeDemo' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pod 'AccessCheckoutReactNativeSDKiOSBridge', :path => '../../access-checkout-react-native-sdk/ios/'
+  pod 'AccessCheckoutReactNativeSDKiOSBridge', :path => '../node_modules/@worldpay/access-worldpay-checkout-react-native-sdk/ios/'
 end
 
     post_install do |installer|
