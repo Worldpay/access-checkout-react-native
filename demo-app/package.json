@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "android": "npm run build:typescript && react-native run-android",
-    "ios": "npm run build:typescript && react-native run-ios --simulator=\"iphone8-14\"",
+    "ios": "npm run clean:ios && npm run build:typescript && react-native run-ios",
+    "clean:ios": "rm -rf ./ios/build",
     "start": "react-native start",
     "build:typescript": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
