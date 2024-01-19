@@ -15,8 +15,8 @@ You can find the detailed documentation explaining how to integrate the SDK and 
 
 ## Compatibility
 
-- all `react-native` versions >= `0.61.5`
-- all `react` versions >= `16.9.0`
+- `React Native` version `>= 0.70.0`
+- `React` version `>= 18.1.0`
 - `Cocoapods` only for iOS dependencies
 
 ## How to install
