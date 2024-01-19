@@ -1,22 +1,6 @@
 android {
-    ndkVersion rootProject.ext.ndkVersion
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
+
     namespace "com.worldpay.access.checkout.reactnative.demo"
-    defaultConfig {
-        applicationId "com.worldpay.access.checkout.reactnative.demo"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
 
-        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-
-        missingDimensionStrategy "defaultFlavorDimension", "core"
-    }
 }

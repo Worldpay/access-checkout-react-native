@@ -1,14 +1,30 @@
 apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 react {
     entryFile = file("index.tsx")
 }
 
-apply from: "./gradle/android.gradle"
+//apply from: "./gradle/android.gradle"
 
 android {
     namespace "com.worldpay.access.checkout.reactnative.demo"
+    ndkVersion rootProject.ext.ndkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.worldpay.access.checkout.reactnative.demo"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        missingDimensionStrategy "defaultFlavorDimension", "core"
+    }
 }
 
 dependencies {
@@ -16,6 +32,7 @@ dependencies {
 
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation("com.facebook.react:flipper-integration")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
 
