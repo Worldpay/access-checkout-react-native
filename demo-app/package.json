@@ -23,8 +23,8 @@
   "license": "ISC",
   "dependencies": {
     "@worldpay/access-worldpay-checkout-react-native-sdk": "^2.0.0",
-    "react": "^18.1.0",
-    "react-native": "^0.70.0"
+    "react": "18.2.0",
+    "react-native": "0.71.15"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -1,15 +1,16 @@
 android {
-    compileSdkVersion 31
+    ndkVersion rootProject.ext.ndkVersion
 
+    compileSdkVersion rootProject.ext.compileSdkVersion
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
-
+    namespace "com.worldpay.access.checkout.reactnative.demo"
     defaultConfig {
         applicationId "com.worldpay.access.checkout.reactnative.demo"
-        minSdkVersion 26
-        targetSdkVersion 30
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
 

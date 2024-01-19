@@ -2,7 +2,6 @@ package com.worldpay.access.checkout.reactnative.demo;
 
 import com.wix.detox.Detox;
 import com.wix.detox.config.DetoxConfig;
-import com.worldpay.access.checkout.reactnative.demo.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

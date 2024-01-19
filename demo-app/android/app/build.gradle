@@ -1,23 +1,35 @@
 apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
 
-project.ext.react = [
-    entryFile: "index.tsx",
-]
+react {
+    entryFile = file("index.tsx")
+}
 
-apply from: "../../node_modules/react-native/react.gradle"
+//apply from: "../../node_modules/react-native/react.gradle"
 apply from: "./gradle/android.gradle"
+
+android {
+    namespace "com.worldpay.access.checkout.reactnative.demo"
+}
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation 'org.webkit:android-jsc:+'
+    // The version of react-native is set by the React Native Gradle Plugin
+    implementation("com.facebook.react:react-android")
 
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
+
+    if (hermesEnabled.toBoolean()) {
+        implementation("com.facebook.react:hermes-android")
+    } else {
+        implementation jscFlavor
+    }
+
     implementation "com.worldpay.access:access-checkout-react-native-sdk-android-bridge:2.0.0"
 
     androidTestImplementation('com.wix:detox:20.+')
 }
 
-apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle");
 applyNativeModulesAppBuildGradle(project)
