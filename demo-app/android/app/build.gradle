@@ -5,7 +5,6 @@ react {
     entryFile = file("index.tsx")
 }
 
-//apply from: "../../node_modules/react-native/react.gradle"
 apply from: "./gradle/android.gradle"
 
 android {
