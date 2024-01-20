@@ -52,6 +52,56 @@ function validateArguments() {
   fi
 }
 
+checkVersionsOfReactAndReactNativeMatch() {
+  # Extracting versions of react-native and react from the SDK's package.json file
+  reactNativeVersion=$(grep -m 1 '"react-native".*\d' ./access-checkout-react-native-sdk/package.json | grep -o '\d\+\.\d\+\.\d\+')
+  reactVersion=$(grep -m 1 '"react"' ./access-checkout-react-native-sdk/package.json | grep -o '\d\+\.\d\+\.\d\+')
+
+  if [ -z "${reactNativeVersion}" ]; then
+    echo "React Native version could not be found in package.json"
+    exit 1
+  elif [ -z "${reactVersion}" ]; then
+    echo "React version could not be found in package.json"
+    exit 1
+  fi
+
+  echo "Versions found in package.json: react=${reactVersion}, react-native=${reactNativeVersion}"
+
+  # checking that versions in README.md file match up with versions supported by our SDK
+  filepath=./README.md
+  result=$(grep -o "React Native ${reactNativeVersion}" $filepath)
+  if [ -z "${result}" ]; then
+    echo "React Native version supported by our SDK  (${reactNativeVersion}) could not be found in ${filepath}. Please update the file so the version specified is the same as the one specified in the SDK package.json file"
+    exit 1
+  fi
+
+  result=$(grep -o "React ${reactVersion}" $filepath)
+  if [ -z "${result}" ]; then
+    echo "React version specified in package.json (${reactVersion}) could not be found in ${filepath}. Please update the file so the version specified is the same as the one specified in the SDK package.json file"
+    exit 1
+  fi
+
+  echo "√ React Native & React versions specified in ${filepath} match versions supported by the SDK"
+
+  # checking that versions in ./access-checkout-react-native-sdk/README.md file match up with versions supported by our SDK
+  # ./access-checkout-react-native-sdk/README.md is the content that merchants can see on the NPM page of our SDK so it is
+  # critical that the version is correctly specified
+  filepath=./access-checkout-react-native-sdk/README.md
+  result=$(grep -o "React Native ${reactNativeVersion}" $filepath)
+  if [ -z "${result}" ]; then
+    echo "React Native version supported by our SDK  (${reactNativeVersion}) could not be found in ${filepath}. Please update the file so the version specified is the same as the one specified in the SDK package.json file"
+    exit 1
+  fi
+
+  result=$(grep -o "React ${reactVersion}" $filepath)
+  if [ -z "${result}" ]; then
+    echo "React version specified in package.json (${reactVersion}) could not be found in ${filepath}. Please update the file so the version specified is the same as the one specified in the SDK package.json file"
+    exit 1
+  fi
+
+  echo "√ React Native & React versions specified in ${filepath} match versions supported by the SDK"
+}
+
 checkNoPendingChangesToCommit() {
   local errorMessage=$1
 
@@ -235,6 +285,7 @@ pushChanges() {
 trimVersion
 trimTicketNumber
 validateArguments
+checkVersionsOfReactAndReactNativeMatch
 checkNoPendingChangesToCommit "Please run git reset --hard HEAD to clean your working directory and staging area"
 pullLatestChangesFromMaster
 createBranchOffMaster
