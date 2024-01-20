@@ -171,6 +171,12 @@ regenerateLibFiles() {
 
   cd access-checkout-react-native-sdk
   npm run prepare
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to regenerate lib files"
+    exit $status
+  fi
+
   cd ..
 }
 
