@@ -26,7 +26,7 @@ It has been designed so that it does not expose any methods or properties to ret
 
 ## AccessCheckoutTextInput
 
-You can find detailed documentation about our new component [AccessCheckoutTextInput](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native/access-checkout-text-input) within the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay Checkout documentation](https://developer.worldpay.com).
+You can find detailed documentation about our new component [AccessCheckoutTextInput](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native/optional-configuration) within the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay Checkout documentation](https://developer.worldpay.com).
 
 ## How to install
 
