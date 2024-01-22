@@ -6,9 +6,9 @@ import {
   CardValidationEventListener,
   CVC,
   Sessions,
-  useAccessCheckout,
   useCardConfig,
-} from '../../../access-checkout-react-native-sdk/src';
+  useAccessCheckout,
+} from '../../../access-checkout-react-native-sdk';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';

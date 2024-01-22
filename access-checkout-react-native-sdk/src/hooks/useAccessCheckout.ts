@@ -20,11 +20,7 @@ export interface UseAccessCheckout {
   config: CardConfig | CvcOnlyConfig;
 }
 
-export const useAccessCheckout = ({
-  baseUrl,
-  checkoutId,
-  config,
-}: UseAccessCheckout): UseAccessCheckoutExports => {
+export const useAccessCheckout = ({ baseUrl, checkoutId, config }: UseAccessCheckout): UseAccessCheckoutExports => {
   const accessCheckout = new AccessCheckout({
     baseUrl: baseUrl,
     merchantId: checkoutId,
@@ -46,8 +42,7 @@ export const useAccessCheckout = ({
         enablePanFormatting: config.validationConfig?.enablePanFormatting,
         acceptedCardBrands: config.validationConfig?.acceptedCardBrands,
       },
-      validationListener: config.validationConfig
-        ?.validationListener as CardValidationEventListener,
+      validationListener: config.validationConfig?.validationListener as CardValidationEventListener,
     });
 
     const generateSessions = (sessionTypes: string[]) =>
@@ -68,8 +63,7 @@ export const useAccessCheckout = ({
     const { initialiseCvcOnlyValidation } = useCvcOnlyValidation({
       accessCheckout,
       cvcOnlyValidationConfig: { cvcId: config.cvcId },
-      validationListener: config.validationConfig
-        ?.validationListener as CvcOnlyValidationEventListener,
+      validationListener: config.validationConfig?.validationListener as CvcOnlyValidationEventListener,
     });
 
     const generateCvcOnlySession = (sessionTypes: string[]) =>

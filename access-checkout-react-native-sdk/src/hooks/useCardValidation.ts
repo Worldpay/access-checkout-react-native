@@ -8,20 +8,15 @@ import {
 } from '../validation/CardValidationEventListener';
 import { ValidationListenerException } from '../validation/ValidationListenerException';
 
-export function useCardValidationEventListener(
-  validationListener: CardValidationEventListener
-) {
+export function useCardValidationEventListener(validationListener: CardValidationEventListener) {
   useEffect(() => {
     //Safe-guard in the case where no validation listener was configured we avoid registering the native listener
     if (!validationListener) {
       return;
     }
 
-    const nativeEventListener =
-      cardValidationNativeEventListenerOf(validationListener);
-    const nativeEventEmitter = new NativeEventEmitter(
-      AccessCheckoutReactNative
-    );
+    const nativeEventListener = cardValidationNativeEventListenerOf(validationListener);
+    const nativeEventEmitter = new NativeEventEmitter(AccessCheckoutReactNative);
 
     const eventSubscription = nativeEventEmitter.addListener(
       AccessCheckout.CardValidationEventType,
@@ -46,14 +41,10 @@ interface UseCardValidationHook {
   validationListener: CardValidationEventListener;
 }
 
-export function useCardValidation({
-  accessCheckout,
-  cardValidationConfig,
-  validationListener,
-}: UseCardValidationHook) {
+export function useCardValidation({ accessCheckout, cardValidationConfig, validationListener }: UseCardValidationHook) {
   /*
   Implementation Note: To allow the hook to render and use hooks correctly:
-  `useCardValidationEventListener` has a safe-guard inside it's useEffect to check if a validationListener
+  `useCardValidationEventListener` has a safe-guard inside its useEffect to check if a validationListener
   was provided in order to register the native event.
   */
   useCardValidationEventListener(validationListener);

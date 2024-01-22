@@ -1,18 +1,7 @@
 import React from 'react';
-import {
-  AccessCheckout,
-  CardConfig,
-  CardValidationEventListener,
-  CardValidationConfig,
-} from '../../src';
-import {
-  useCardValidationEventListener,
-  useCardValidation,
-} from '../../src/hooks/useCardValidation';
-import {
-  emitNativeEvent,
-  nativeEventSubscriptionMock,
-} from '../__mocks__/react-native';
+import { AccessCheckout, CardConfig, CardValidationEventListener, MerchantCardValidationConfig } from '../../src';
+import { useCardValidationEventListener, useCardValidation } from '../../src/hooks/useCardValidation';
+import { emitNativeEvent, nativeEventSubscriptionMock } from '../__mocks__/react-native';
 import { isArray, isFunction } from '../test-utils';
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
@@ -63,7 +52,7 @@ describe('useCardValidation', () => {
       baseUrl: '',
       merchantId: '',
     });
-    const cardValidationConfig = new CardValidationConfig({
+    const cardValidationConfig = new MerchantCardValidationConfig({
       validationListener: validationListener,
     });
     const cardConfig = new CardConfig({
@@ -99,9 +88,7 @@ describe('useCardValidation', () => {
 
       functionReturned();
 
-      expect(accessCheckout.initialiseCardValidation).toHaveBeenCalledWith(
-        cardConfig
-      );
+      expect(accessCheckout.initialiseCardValidation).toHaveBeenCalledWith(cardConfig);
     });
   });
 });

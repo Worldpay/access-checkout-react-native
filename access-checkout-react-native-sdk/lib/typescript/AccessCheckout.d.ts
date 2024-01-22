@@ -16,7 +16,7 @@ export default class AccessCheckout {
     static readonly CvcOnlyValidationEventType = "AccessCheckoutCvcOnlyValidationEvent";
     baseUrl: string;
     merchantId?: string;
-    constructor({ baseUrl, merchantId, }: {
+    constructor({ baseUrl, merchantId }: {
         baseUrl: string;
         merchantId?: string;
     });

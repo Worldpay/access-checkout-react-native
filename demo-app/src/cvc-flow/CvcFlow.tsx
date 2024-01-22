@@ -6,7 +6,7 @@ import {
   Sessions,
   useAccessCheckout,
   useCvcOnlyConfig,
-} from '../../../access-checkout-react-native-sdk/src';
+} from '../../../access-checkout-react-native-sdk';
 import styles from '../card-flow/style.js';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';

@@ -36,13 +36,13 @@ Object.defineProperty(exports, "CVC", {
 Object.defineProperty(exports, "CardConfig", {
   enumerable: true,
   get: function () {
-    return _CardConfig.default;
+    return _MerchantCardConfig.default;
   }
 });
 Object.defineProperty(exports, "CardValidationConfig", {
   enumerable: true,
   get: function () {
-    return _CardValidationConfig.CardValidationConfig;
+    return _useCardConfig.CardValidationConfig;
   }
 });
 Object.defineProperty(exports, "CardValidationEventListener", {
@@ -54,7 +54,13 @@ Object.defineProperty(exports, "CardValidationEventListener", {
 Object.defineProperty(exports, "CvcOnlyConfig", {
   enumerable: true,
   get: function () {
-    return _CvcOnlyConfig.default;
+    return _MerchantCvcOnlyConfig.default;
+  }
+});
+Object.defineProperty(exports, "CvcOnlyValidationConfig", {
+  enumerable: true,
+  get: function () {
+    return _useCvcOnlyConfig.CvcOnlyValidationConfig;
   }
 });
 Object.defineProperty(exports, "CvcOnlyValidationEventListener", {
@@ -63,10 +69,16 @@ Object.defineProperty(exports, "CvcOnlyValidationEventListener", {
     return _CvcOnlyValidationEventListener.CvcOnlyValidationEventListener;
   }
 });
-Object.defineProperty(exports, "CvcValidationConfig", {
+Object.defineProperty(exports, "MerchantCardValidationConfig", {
   enumerable: true,
   get: function () {
-    return _CvcValidationConfig.CvcValidationConfig;
+    return _MerchantCardValidationConfig.MerchantCardValidationConfig;
+  }
+});
+Object.defineProperty(exports, "MerchantCvcOnlyValidationConfig", {
+  enumerable: true,
+  get: function () {
+    return _MerchantCvcOnlyValidationConfig.MerchantCvcOnlyValidationConfig;
   }
 });
 Object.defineProperty(exports, "SessionGenerationConfig", {
@@ -137,12 +149,12 @@ var _SessionType = _interopRequireWildcard(require("./session/SessionType"));
 var _Sessions = _interopRequireDefault(require("./session/Sessions"));
 var _Brand = _interopRequireDefault(require("./validation/Brand"));
 var _BrandImage = _interopRequireDefault(require("./validation/BrandImage"));
-var _CardConfig = _interopRequireDefault(require("./config/CardConfig"));
-var _CvcOnlyConfig = _interopRequireDefault(require("./config/CvcOnlyConfig"));
+var _MerchantCardConfig = _interopRequireDefault(require("./config/MerchantCardConfig"));
+var _MerchantCvcOnlyConfig = _interopRequireDefault(require("./config/MerchantCvcOnlyConfig"));
 var _CardValidationEventListener = require("./validation/CardValidationEventListener");
 var _CvcOnlyValidationEventListener = require("./validation/CvcOnlyValidationEventListener");
-var _CvcValidationConfig = require("./validation/CvcValidationConfig");
-var _CardValidationConfig = require("./validation/CardValidationConfig");
+var _MerchantCvcOnlyValidationConfig = require("./validation/MerchantCvcOnlyValidationConfig");
+var _MerchantCardValidationConfig = require("./validation/MerchantCardValidationConfig");
 var _useCardConfig = require("./hooks/useCardConfig");
 var _useCvcOnlyConfig = require("./hooks/useCvcOnlyConfig");
 var _useAccessCheckout = require("./hooks/useAccessCheckout");

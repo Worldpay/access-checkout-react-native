@@ -14,9 +14,7 @@ export interface CardValidationEventListener {
   onValidationSuccess?(): void;
 }
 
-export function cardValidationNativeEventListenerOf(
-  delegate: CardValidationEventListener
-) {
+export function cardValidationNativeEventListenerOf(delegate: CardValidationEventListener) {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   return function (event: any) {
     if (event.type === 'brand' && delegate.onCardBrandChanged) {

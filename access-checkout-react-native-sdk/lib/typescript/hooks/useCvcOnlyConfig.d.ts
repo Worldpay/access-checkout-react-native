@@ -1,9 +1,10 @@
 import type { CardValidationEventListener } from '../validation/CardValidationEventListener';
-import CvcOnlyConfig from '../config/CvcOnlyConfig';
+import MerchantCvcOnlyConfig from '../config/MerchantCvcOnlyConfig';
+export interface CvcOnlyValidationConfig {
+    validationListener: CardValidationEventListener;
+}
 export interface UseCvcOnlyConfig {
     cvcId: string;
-    validationConfig?: {
-        validationListener: CardValidationEventListener;
-    };
+    validationConfig?: CvcOnlyValidationConfig;
 }
-export declare function useCvcOnlyConfig({ cvcId, validationConfig, }: UseCvcOnlyConfig): CvcOnlyConfig;
+export declare function useCvcOnlyConfig({ cvcId, validationConfig }: UseCvcOnlyConfig): MerchantCvcOnlyConfig;
