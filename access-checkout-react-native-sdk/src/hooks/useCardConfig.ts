@@ -11,7 +11,7 @@ export interface UseCardConfig {
   panId: string;
   expiryDateId: string;
   cvcId: string;
-  validationConfig?: MerchantCardValidationConfig;
+  validationConfig?: CardValidationConfig;
 }
 
 export const useCardConfig = (props: UseCardConfig): MerchantCardConfig => {
