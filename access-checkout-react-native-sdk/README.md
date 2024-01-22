@@ -21,8 +21,8 @@ You can find the detailed documentation explaining how to integrate the SDK and 
 
 ## SAQ-A Compliance
 
-AccessCheckoutTextInput is the name of the new component created to provide SAQ-A compliance when using our React Native SDK.
-It has been designed so that it does not expose any methods or properties to retrieve the text entered by the end user to ensure our merchants applications are SAQ-A compliant.
+To support SAQ-A compliance when using our React Native SDK, we have created a new component called AccessCheckoutTextInput, created to provide SAQ-A compliance when using our React Native SDK.
+It has been designed so that it does not expose any methods or properties to retrieve the text entered by the end user to ensure our merchants applications do not have direct access to card details and are SAQ-A compliant.
 
 ## AccessCheckoutTextInput
 
