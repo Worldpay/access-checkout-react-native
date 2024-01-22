@@ -43,16 +43,36 @@ class AccessCheckoutTextInputManager(private val callerContext: ReactApplication
 
     @ReactProp(name = "font")
     fun setRTCFont(accessCheckoutEditText: AccessCheckoutEditText, font: ReadableMap) {
+        println("---> Setting font for ${accessCheckoutEditText.id}")
+        println("---> [${accessCheckoutEditText.id}] $font")
+
         if (font.hasKey(ViewProps.FONT_SIZE)) {
-            val fontSize = font.getDouble(ViewProps.FONT_SIZE)
-            accessCheckoutEditText.textSize = fontSize.toFloat()
+            println("---> [${accessCheckoutEditText.id}] Found Font size")
+            val fontSize: Float = font.getDouble(ViewProps.FONT_SIZE).toFloat()
+            println("---> [${accessCheckoutEditText.id}] $fontSize")
+            accessCheckoutEditText.textSize = fontSize
         }
 
-        if (font.hasKey(ViewProps.FONT_FAMILY)) {
-            val fontSize = font.getString(ViewProps.FONT_FAMILY)
-            val typeface = Typeface.create(fontSize, Typeface.NORMAL)
-            accessCheckoutEditText.typeface = typeface
+        val isBold =
+            font.hasKey(ViewProps.FONT_WEIGHT) && "bold" == font.getString(ViewProps.FONT_WEIGHT)
+        val isItalic =
+            font.hasKey(ViewProps.FONT_STYLE) && "italic" == font.getString(ViewProps.FONT_STYLE)
+        println("---> [${accessCheckoutEditText.id}] Font Style")
+        println("---> [${accessCheckoutEditText.id}] isBold: $isBold")
+        println("---> [${accessCheckoutEditText.id}] isItalic: $isItalic")
+
+        val fontStyle: Int = when {
+            isBold && isItalic -> Typeface.BOLD_ITALIC
+            isBold -> Typeface.BOLD
+            isItalic -> Typeface.ITALIC
+            else -> Typeface.NORMAL
         }
+        println("---> [${accessCheckoutEditText.id}] result: $fontStyle")
+        println("---> [${accessCheckoutEditText.id}] fontFamily: ${font.getString(ViewProps.FONT_FAMILY)}")
+
+        // If the font family is null or unsupported, a default one will be used
+        accessCheckoutEditText.typeface =
+            Typeface.create(font.getString(ViewProps.FONT_FAMILY), fontStyle)
     }
 
     @ReactProp(name = "placeholder")
