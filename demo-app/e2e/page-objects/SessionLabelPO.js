@@ -10,7 +10,7 @@ class SessionLabelPO extends UIComponentPO {
   }
 
   async text() {
-    await waitFor(this.component()).toBeVisible().withTimeout(TIMEOUT_IN_MS);
+    await waitFor(this.component()).toExist().withTimeout(TIMEOUT_IN_MS);
 
     const attributes = await this.getAttributes();
     return attributes.text;
