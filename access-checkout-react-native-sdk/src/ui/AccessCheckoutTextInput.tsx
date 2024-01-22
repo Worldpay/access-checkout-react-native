@@ -29,7 +29,6 @@ interface AccessCheckoutTextInputProps {
  */
 interface AccessCheckoutTextInputStyle extends ViewStyle {
   color?: ColorValue;
-  //If the font is not found a default font is chosen.
   fontFamily?: string;
   fontSize?: number;
   fontStyle?: 'normal' | 'italic';
@@ -39,13 +38,16 @@ interface AccessCheckoutTextInputStyle extends ViewStyle {
 
 /**
  * Font Changes apply to placeholder text and input text
+ *
+ * ## What
+ * - Rewrites font support for android
+ * - Adds font weight support for android <28 only 'normal' and 'bold' supported
+ * - Adds font weight support as units for android >28
  */
 interface RTCAccessCheckoutTextInputFontProps {
-  //If the font is not found a default font is chosen.
   fontFamily?: string;
   fontSize?: number;
   fontStyle?: 'normal' | 'italic';
-  // Specifies font weight. The values 'normal' and 'bold' are supported for most fonts. Not all fonts have a variant for each of the numeric values, in that case the closest one is chosen.
   fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
 }
 

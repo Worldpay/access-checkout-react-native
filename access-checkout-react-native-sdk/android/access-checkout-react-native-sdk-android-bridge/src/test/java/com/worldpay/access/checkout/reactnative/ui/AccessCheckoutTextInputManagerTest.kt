@@ -60,6 +60,98 @@ internal class AccessCheckoutTextInputManagerTest {
         verify(accessCheckoutEditTextMock).typeface = typeface
     }
 
+    @Test
+    fun `setRTCFont() should use a default typeface on AccessEditText`() {
+        val fontMap = JavaOnlyMap()
+        manager.setRTCFont(accessCheckoutEditTextMock, fontMap)
+        verify(accessCheckoutEditTextMock).typeface = Typeface.DEFAULT
+    }
+
+
+    @Test
+    fun `setRTCFont() should call textSize on AccessEditText`() {
+        val fontMap = JavaOnlyMap()
+        fontMap.putDouble("fontSize", 12.1)
+
+        manager.setRTCFont(accessCheckoutEditTextMock, fontMap)
+
+        verify(accessCheckoutEditTextMock).textSize = 12.1F
+    }
+
+    @Test
+    fun `setRTCFont() should change the font family on AccessEditText`() {
+        val fontMap = JavaOnlyMap()
+        fontMap.putString("fontFamily", "Rubik")
+
+        manager.setRTCFont(accessCheckoutEditTextMock, fontMap)
+
+        verify(accessCheckoutEditTextMock).typeface = Typeface.create("Rubik", Typeface.NORMAL)
+    }
+
+
+    @Test
+    fun `setRTCFont() should change the font to italic on AccessEditText`() {
+        val fontMap = JavaOnlyMap()
+        fontMap.putString("fontFamily", "Rubik")
+        fontMap.putString("fontStyle", "italic")
+
+        manager.setRTCFont(accessCheckoutEditTextMock, fontMap)
+
+        verify(accessCheckoutEditTextMock).typeface = Typeface.create("Rubik", Typeface.ITALIC)
+    }
+
+
+    @Test
+    fun `setRTCFont() should change the font to bold on AccessEditText`() {
+        val fontMap = JavaOnlyMap()
+        fontMap.putString("fontFamily", "Rubik")
+        fontMap.putString("fontWeight", "bold")
+
+        manager.setRTCFont(accessCheckoutEditTextMock, fontMap)
+
+        verify(accessCheckoutEditTextMock).typeface = Typeface.create("Rubik", Typeface.BOLD)
+    }
+
+    @Test
+    fun `setRTCFont() should change the font italic bold on AccessEditText`() {
+        val fontMap = JavaOnlyMap()
+        fontMap.putString("fontFamily", "Rubik")
+        fontMap.putString("fontStyle", "italic")
+        fontMap.putString("fontWeight", "bold")
+
+        manager.setRTCFont(accessCheckoutEditTextMock, fontMap)
+
+        verify(accessCheckoutEditTextMock).typeface = Typeface.create("Rubik", Typeface.BOLD_ITALIC)
+    }
+
+
+    @Test
+    fun `setRTCFont() should change the font weight on AccessEditText`() {
+        val fontMap = JavaOnlyMap()
+        fontMap.putString("fontFamily", "Rubik")
+        fontMap.putString("fontWeight", "100")
+
+        manager.setRTCFont(accessCheckoutEditTextMock, fontMap)
+
+        val expectedTypeface =  Typeface.create("Rubik", Typeface.NORMAL);
+        verify(accessCheckoutEditTextMock).typeface = Typeface.create(expectedTypeface, 100, false)
+    }
+
+
+    @Test
+    fun `setRTCFont() should change the font weight and italic on AccessEditText`() {
+        val fontMap = JavaOnlyMap()
+        fontMap.putString("fontFamily", "Rubik")
+        fontMap.putString("fontStyle", "italic")
+        fontMap.putString("fontWeight", "100")
+
+        manager.setRTCFont(accessCheckoutEditTextMock, fontMap)
+
+        val expectedTypeface =  Typeface.create("Rubik", Typeface.NORMAL);
+        verify(accessCheckoutEditTextMock).typeface = Typeface.create(expectedTypeface, 100, true)
+    }
+
+
     private fun reactApplicationContext(): ReactApplicationContext {
         val applicationContext: Context = ApplicationProvider.getApplicationContext()
         return ReactApplicationContext(applicationContext)
