@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native';
 import {
-  AccessCheckout,
   Brand,
   CARD,
-  CardValidationConfig,
   CardValidationEventListener,
   CVC,
   Sessions,
-  useCardValidation,
-} from '../../../access-checkout-react-native-sdk/src/index';
-import type SessionGenerationConfig from '../../../access-checkout-react-native-sdk/src/session/SessionGenerationConfig';
+  useCardConfig,
+  useAccessCheckout,
+} from '../../../access-checkout-react-native-sdk';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';
@@ -49,18 +47,6 @@ export default function CardFlow() {
   const [cvcSession, setCvcSession] = useState('');
 
   const [error, setError] = useState<Error>();
-
-  const accessCheckout = new AccessCheckout({
-    baseUrl: 'https://npe.access.worldpay.com',
-    merchantId: 'identity',
-  });
-
-  const validationConfig = new CardValidationConfig({
-    panId: 'panInput',
-    expiryDateId: 'expiryDateInput',
-    cvcId: 'cvcInput',
-    enablePanFormatting: true,
-  });
 
   const validationEventListener: CardValidationEventListener = {
     onCardBrandChanged(brand?: Brand): void {
@@ -104,14 +90,22 @@ export default function CardFlow() {
     },
   };
 
-  const { initialiseCardValidation } = useCardValidation(
-    accessCheckout,
-    validationConfig,
-    validationEventListener
-  );
+  const { initialiseValidation, generateSessions } = useAccessCheckout({
+    baseUrl: 'https://npe.access.worldpay.com',
+    checkoutId: 'identity',
+    config: useCardConfig({
+      panId: 'panInput',
+      expiryDateId: 'expiryDateInput',
+      cvcId: 'cvcInput',
+      validationConfig: {
+        enablePanFormatting: true,
+        validationListener: validationEventListener,
+      },
+    }),
+  });
 
   const onLayout = () => {
-    initialiseCardValidation()
+    initialiseValidation()
       .then(() => {
         console.info('Card Validation successfully initialised');
       })
@@ -120,21 +114,14 @@ export default function CardFlow() {
       });
   };
 
-  function generateSession() {
+  function createSession() {
     const sessionTypes = generateCardAndCvcSessions ? [CARD, CVC] : [CARD];
 
     setShowSpinner(true);
     setIsEditable(false);
     setSubmitBtnEnabled(false);
 
-    const sessionGenerationConfig: SessionGenerationConfig = {
-      panId: 'panInput',
-      expiryDateId: 'expiryDateInput',
-      cvcId: 'cvcInput',
-    };
-
-    accessCheckout
-      .generateSessions(sessionGenerationConfig, sessionTypes)
+    generateSessions(sessionTypes)
       .then((sessions: Sessions) => {
         console.info('Successfully generated session(s)');
 
@@ -219,7 +206,7 @@ export default function CardFlow() {
       <VView style={{ marginTop: '8%' }}>
         <SubmitButton
           testID="submitButton"
-          onPress={generateSession}
+          onPress={createSession}
           enabled={submitBtnEnabled}
         />
       </VView>

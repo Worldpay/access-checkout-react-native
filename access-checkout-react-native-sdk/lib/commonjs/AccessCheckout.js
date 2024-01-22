@@ -6,22 +6,14 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _AccessCheckoutReactNative = require("./AccessCheckoutReactNative");
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == typeof i ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != typeof i) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 class AccessCheckout {
   constructor({
     baseUrl,
     merchantId
   }) {
-    _defineProperty(this, "ReactNativeSdkVersion", '2.0.0');
+    _defineProperty(this, "ReactNativeSdkVersion", '2.0.1');
     _defineProperty(this, "baseUrl", void 0);
     _defineProperty(this, "merchantId", void 0);
     this.baseUrl = baseUrl;
@@ -38,7 +30,7 @@ class AccessCheckout {
         sessionTypes,
         reactNativeSdkVersion: this.ReactNativeSdkVersion
       })
-      // eslint-disable-next-line  @typescript-eslint/no-explicit-any, prettier/prettier
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       .then(bridgeSessions => {
         const sessions = {};
         if (bridgeSessions.card) {

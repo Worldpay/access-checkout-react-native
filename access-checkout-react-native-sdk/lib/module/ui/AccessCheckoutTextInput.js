@@ -1,19 +1,58 @@
 import React from 'react';
-import { requireNativeComponent } from 'react-native';
+import { requireNativeComponent, StyleSheet, View } from 'react-native';
 
 /**
  * Composes `AccessCheckoutTextInput`.
  *
  * - nativeID: string
  * - testID: string
- * - style: StyleProp
- * - editable: boolean
+ * - style: StyleProp<AccessCheckoutTextInputStyle>;
  * - placeholder: string
+ * - editable: boolean
+ */
+
+/**
+ * Note: Not all properties apply styling to placeholder text and input text.
+ *   textColor: only applies to input text.
+ *   fontFamily: applies to both placeholder text and input text.
+ *   fontSize:applies to both placeholder text and input text.
+ */
+
+/**
+ * Font Changes apply to placeholder text and input text
  */
 
 const RTCAccessCheckoutTextInput = requireNativeComponent('AccessCheckoutTextInput');
 const AccessCheckoutTextInput = props => {
-  return /*#__PURE__*/React.createElement(RTCAccessCheckoutTextInput, props);
+  const {
+    nativeID,
+    testID,
+    style,
+    placeholder,
+    editable
+  } = props;
+  const {
+    color,
+    fontFamily,
+    fontSize,
+    ...otherStyles
+  } = StyleSheet.flatten([style]);
+  return /*#__PURE__*/React.createElement(View, {
+    style: [otherStyles]
+  }, /*#__PURE__*/React.createElement(RTCAccessCheckoutTextInput, {
+    nativeID: nativeID,
+    testID: testID,
+    style: [{
+      flex: 1
+    }],
+    placeholder: placeholder,
+    font: {
+      fontFamily,
+      fontSize
+    },
+    color: color,
+    editable: editable
+  }));
 };
 export default AccessCheckoutTextInput;
 //# sourceMappingURL=AccessCheckoutTextInput.js.map

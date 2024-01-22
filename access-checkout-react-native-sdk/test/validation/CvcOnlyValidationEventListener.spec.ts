@@ -1,7 +1,5 @@
-import {
-  CvcOnlyValidationEventListener,
-  cvcOnlyValidationNativeEventListenerOf,
-} from '../../src';
+import type { CvcOnlyValidationEventListener } from '../../src';
+import { cvcOnlyValidationNativeEventListenerOf } from '../../src/validation/CvcOnlyValidationEventListener';
 
 describe('CvcOnlyValidationEventListener', () => {
   describe('can be instantiated', () => {
