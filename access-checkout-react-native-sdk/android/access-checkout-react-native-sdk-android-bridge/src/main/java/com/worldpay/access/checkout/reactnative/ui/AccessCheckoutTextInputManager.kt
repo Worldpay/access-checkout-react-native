@@ -79,7 +79,7 @@ class AccessCheckoutTextInputManager(private val callerContext: ReactApplication
             val fontAsString = font.getString(ViewProps.FONT_WEIGHT)
             // Note: This default should never happen as we use fontWeightProvidedAsUnit as a check
             // but to avoid a compilation false positive we default to 400 which should be the regular for fonts.
-            // Also: using font.getInt() seems to not work
+            // Also: Using font.getInt() seems to cause a casting issue where it casts tries to cast a String to a Double, which makes the app crash.
             val fontWeightNumber = fontAsString?.toInt() ?: 400
             customTypeface = Typeface.create(customTypeface, fontWeightNumber, italic)
         }
