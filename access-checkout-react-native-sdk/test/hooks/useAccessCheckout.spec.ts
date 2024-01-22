@@ -9,15 +9,12 @@ import {
   CARD,
   CVC,
   type CvcOnlyValidationEventListener,
-  CardValidationConfig,
+  MerchantCardValidationConfig,
   useCvcOnlyConfig,
   useCardConfig,
 } from '../../src';
 import { isArray, isFunction } from '../test-utils';
-import {
-  renderHook,
-  type RenderHookResult,
-} from '@testing-library/react-native';
+import { renderHook, type RenderHookResult } from '@testing-library/react-native';
 describe('useAccessCheckout', () => {
   const mockInitialiseCvcOnlyValidation = jest.fn() as () => Promise<boolean>;
   const mockInitialiseCardValidation = jest.fn() as () => Promise<boolean>;
@@ -27,12 +24,8 @@ describe('useAccessCheckout', () => {
     jest
       .spyOn(AccessCheckout.prototype, 'initialiseCvcOnlyValidation')
       .mockImplementation(mockInitialiseCvcOnlyValidation);
-    jest
-      .spyOn(AccessCheckout.prototype, 'initialiseCardValidation')
-      .mockImplementation(mockInitialiseCardValidation);
-    jest
-      .spyOn(AccessCheckout.prototype, 'generateSessions')
-      .mockImplementation(mockGenerateSessions);
+    jest.spyOn(AccessCheckout.prototype, 'initialiseCardValidation').mockImplementation(mockInitialiseCardValidation);
+    jest.spyOn(AccessCheckout.prototype, 'generateSessions').mockImplementation(mockGenerateSessions);
   });
 
   afterAll(() => {
@@ -43,18 +36,15 @@ describe('useAccessCheckout', () => {
     const merchantListener: CvcOnlyValidationEventListener = {};
 
     it('should error when trying to use initialiseValidation when no validationConfig was provided', async () => {
-      const {
-        result,
-      }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-        renderHook(() =>
-          useAccessCheckout({
-            baseUrl: '',
-            checkoutId: '',
-            config: useCvcOnlyConfig({
-              cvcId: 'cvcInput',
-            }),
-          })
-        );
+      const { result }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> = renderHook(() =>
+        useAccessCheckout({
+          baseUrl: '',
+          checkoutId: '',
+          config: useCvcOnlyConfig({
+            cvcId: 'cvcInput',
+          }),
+        })
+      );
 
       const functionReturned = result.current.initialiseValidation;
 
@@ -66,42 +56,36 @@ describe('useAccessCheckout', () => {
 
     describe('initialiseCardValidation', () => {
       it('returns an object with a initialiseValidation property which is a function', () => {
-        const {
-          result,
-        }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-          renderHook(() =>
-            useAccessCheckout({
-              baseUrl: '',
-              checkoutId: '',
-              config: useCvcOnlyConfig({
-                cvcId: 'cvcInput',
-                validationConfig: {
-                  validationListener: merchantListener,
-                },
-              }),
-            })
-          );
+        const { result }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> = renderHook(() =>
+          useAccessCheckout({
+            baseUrl: '',
+            checkoutId: '',
+            config: useCvcOnlyConfig({
+              cvcId: 'cvcInput',
+              validationConfig: {
+                validationListener: merchantListener,
+              },
+            }),
+          })
+        );
 
         expect(isArray(result.current)).toEqual(false);
         expect(isFunction(result.current.initialiseValidation)).toEqual(true);
       });
 
       it('function returned is designed to initialise the card validation', () => {
-        const {
-          result,
-        }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-          renderHook(() =>
-            useAccessCheckout({
-              baseUrl: '',
-              checkoutId: '',
-              config: useCvcOnlyConfig({
-                cvcId: 'cvcInput',
-                validationConfig: {
-                  validationListener: merchantListener,
-                },
-              }),
-            })
-          );
+        const { result }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> = renderHook(() =>
+          useAccessCheckout({
+            baseUrl: '',
+            checkoutId: '',
+            config: useCvcOnlyConfig({
+              cvcId: 'cvcInput',
+              validationConfig: {
+                validationListener: merchantListener,
+              },
+            }),
+          })
+        );
 
         const functionReturned = result.current.initialiseValidation;
 
@@ -115,42 +99,36 @@ describe('useAccessCheckout', () => {
 
       describe('generateSessions', () => {
         it('returns an object with a generateSessions property which is a function', () => {
-          const {
-            result,
-          }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-            renderHook(() =>
-              useAccessCheckout({
-                baseUrl: '',
-                checkoutId: '',
-                config: useCvcOnlyConfig({
-                  cvcId: 'cvcInput',
-                  validationConfig: {
-                    validationListener: merchantListener,
-                  },
-                }),
-              })
-            );
+          const { result }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> = renderHook(() =>
+            useAccessCheckout({
+              baseUrl: '',
+              checkoutId: '',
+              config: useCvcOnlyConfig({
+                cvcId: 'cvcInput',
+                validationConfig: {
+                  validationListener: merchantListener,
+                },
+              }),
+            })
+          );
 
           expect(isArray(result.current)).toEqual(false);
           expect(isFunction(result.current.generateSessions)).toEqual(true);
         });
 
         it('function returned is designed to generate sessions', () => {
-          const {
-            result,
-          }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-            renderHook(() =>
-              useAccessCheckout({
-                baseUrl: '',
-                checkoutId: '',
-                config: useCvcOnlyConfig({
-                  cvcId: 'cvcInput',
-                  validationConfig: {
-                    validationListener: merchantListener,
-                  },
-                }),
-              })
-            );
+          const { result }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> = renderHook(() =>
+            useAccessCheckout({
+              baseUrl: '',
+              checkoutId: '',
+              config: useCvcOnlyConfig({
+                cvcId: 'cvcInput',
+                validationConfig: {
+                  validationListener: merchantListener,
+                },
+              }),
+            })
+          );
 
           const functionReturned = result.current.generateSessions;
 
@@ -170,7 +148,7 @@ describe('useAccessCheckout', () => {
   describe('using card configuration', () => {
     const merchantListener: CardValidationEventListener = {};
 
-    const cardValidationConfig = new CardValidationConfig({
+    const cardValidationConfig = new MerchantCardValidationConfig({
       validationListener: merchantListener,
     });
     const cardConfig = new CardConfig({
@@ -181,20 +159,17 @@ describe('useAccessCheckout', () => {
     });
 
     it('should error when trying to use initialiseValidation when no validationConfig was provided', async () => {
-      const {
-        result,
-      }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-        renderHook(() =>
-          useAccessCheckout({
-            baseUrl: '',
-            checkoutId: '',
-            config: useCardConfig({
-              cvcId: 'cvcInput',
-              panId: 'panId',
-              expiryDateId: 'expiryDateId',
-            }),
-          })
-        );
+      const { result }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> = renderHook(() =>
+        useAccessCheckout({
+          baseUrl: '',
+          checkoutId: '',
+          config: useCardConfig({
+            cvcId: 'cvcInput',
+            panId: 'panId',
+            expiryDateId: 'expiryDateId',
+          }),
+        })
+      );
 
       const functionReturned = result.current.initialiseValidation;
 
@@ -207,32 +182,26 @@ describe('useAccessCheckout', () => {
 
     describe('initialiseCardValidation', () => {
       it('returns an object with a initialiseValidation property which is a function', () => {
-        const {
-          result,
-        }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-          renderHook(() =>
-            useAccessCheckout({
-              baseUrl: '',
-              checkoutId: '',
-              config: cardConfig,
-            })
-          );
+        const { result }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> = renderHook(() =>
+          useAccessCheckout({
+            baseUrl: '',
+            checkoutId: '',
+            config: cardConfig,
+          })
+        );
 
         expect(isArray(result.current)).toEqual(false);
         expect(isFunction(result.current.initialiseValidation)).toEqual(true);
       });
 
       it('function returned is designed to initialise the card validation', () => {
-        const {
-          result,
-        }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-          renderHook(() =>
-            useAccessCheckout({
-              baseUrl: '',
-              checkoutId: '',
-              config: cardConfig,
-            })
-          );
+        const { result }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> = renderHook(() =>
+          useAccessCheckout({
+            baseUrl: '',
+            checkoutId: '',
+            config: cardConfig,
+          })
+        );
 
         const functionReturned = result.current.initialiseValidation;
 
@@ -250,32 +219,26 @@ describe('useAccessCheckout', () => {
 
     describe('generateSessions', () => {
       it('returns an object with a generateSessions property which is a function', () => {
-        const {
-          result,
-        }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-          renderHook(() =>
-            useAccessCheckout({
-              baseUrl: '',
-              checkoutId: '',
-              config: cardConfig,
-            })
-          );
+        const { result }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> = renderHook(() =>
+          useAccessCheckout({
+            baseUrl: '',
+            checkoutId: '',
+            config: cardConfig,
+          })
+        );
 
         expect(isArray(result.current)).toEqual(false);
         expect(isFunction(result.current.generateSessions)).toEqual(true);
       });
 
       it('function returned is designed to generate sessions', () => {
-        const {
-          result,
-        }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> =
-          renderHook(() =>
-            useAccessCheckout({
-              baseUrl: '',
-              checkoutId: '',
-              config: cardConfig,
-            })
-          );
+        const { result }: RenderHookResult<UseAccessCheckoutExports, UseAccessCheckout> = renderHook(() =>
+          useAccessCheckout({
+            baseUrl: '',
+            checkoutId: '',
+            config: cardConfig,
+          })
+        );
 
         const functionReturned = result.current.generateSessions;
 

@@ -1,7 +1,7 @@
 import type { CardValidationEventListener } from '../index';
-export declare class CardValidationConfig {
+export declare class MerchantCardValidationConfig {
     enablePanFormatting?: boolean;
     acceptedCardBrands?: string[];
     validationListener?: CardValidationEventListener;
-    constructor({ validationListener, enablePanFormatting, acceptedCardBrands, }: CardValidationConfig);
+    constructor({ validationListener, enablePanFormatting, acceptedCardBrands, }: MerchantCardValidationConfig);
 }

@@ -1,27 +1,28 @@
 import type { CardValidationEventListener } from '../validation/CardValidationEventListener';
-import { CardValidationConfig } from '../validation/CardValidationConfig';
-import CardConfig from '../config/CardConfig';
+import { MerchantCardValidationConfig } from '../validation/MerchantCardValidationConfig';
+import MerchantCardConfig from '../config/MerchantCardConfig';
 
+export interface CardValidationConfig {
+  acceptedCardBrands?: string[];
+  enablePanFormatting?: boolean;
+  validationListener: CardValidationEventListener;
+}
 export interface UseCardConfig {
   panId: string;
   expiryDateId: string;
   cvcId: string;
-  validationConfig?: {
-    acceptedCardBrands?: string[];
-    enablePanFormatting?: boolean;
-    validationListener: CardValidationEventListener;
-  };
+  validationConfig?: MerchantCardValidationConfig;
 }
 
-export const useCardConfig = (props: UseCardConfig): CardConfig => {
-  const cardConfig = new CardConfig({
+export const useCardConfig = (props: UseCardConfig): MerchantCardConfig => {
+  const cardConfig = new MerchantCardConfig({
     panId: props.panId,
     expiryDateId: props.expiryDateId,
     cvcId: props.cvcId,
   });
 
   if (props.validationConfig) {
-    cardConfig.validationConfig = new CardValidationConfig({
+    cardConfig.validationConfig = new MerchantCardValidationConfig({
       acceptedCardBrands: props.validationConfig.acceptedCardBrands,
       enablePanFormatting: props.validationConfig.enablePanFormatting,
       validationListener: props.validationConfig.validationListener,

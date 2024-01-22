@@ -1,14 +1,14 @@
-import CvcOnlyConfig from '../config/CvcOnlyConfig';
-import { CvcValidationConfig } from '../validation/CvcValidationConfig';
+import MerchantCvcOnlyConfig from '../config/MerchantCvcOnlyConfig';
+import { MerchantCvcOnlyValidationConfig } from '../validation/MerchantCvcOnlyValidationConfig';
 export function useCvcOnlyConfig({
   cvcId,
   validationConfig
 }) {
-  const cardConfig = new CvcOnlyConfig({
+  const cardConfig = new MerchantCvcOnlyConfig({
     cvcId
   });
   if (validationConfig) {
-    cardConfig.validationConfig = new CvcValidationConfig({
+    cardConfig.validationConfig = new MerchantCvcOnlyValidationConfig({
       validationListener: validationConfig.validationListener
     });
   }

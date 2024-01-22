@@ -1,5 +1,5 @@
-import CvcOnlyConfig from '../../src/config/CvcOnlyConfig';
-import { CvcValidationConfig } from '../../src/validation/CvcValidationConfig';
+import MerchantCvcOnlyConfig from '../../src/config/MerchantCvcOnlyConfig';
+import { MerchantCvcOnlyValidationConfig } from '../../src/validation/MerchantCvcOnlyValidationConfig';
 import type { CardValidationEventListener } from '../../src';
 
 const cvcId = '123';
@@ -7,7 +7,7 @@ const cvcId = '123';
 describe('CvcOnlyConfig', () => {
   describe('can be constructed', () => {
     it('with only a cvcId', () => {
-      const config: CvcOnlyConfig = new CvcOnlyConfig({
+      const config: MerchantCvcOnlyConfig = new MerchantCvcOnlyConfig({
         cvcId,
       });
 
@@ -16,7 +16,7 @@ describe('CvcOnlyConfig', () => {
     });
 
     it('with an empty validation config object', () => {
-      const config: CvcOnlyConfig = new CvcOnlyConfig({
+      const config: MerchantCvcOnlyConfig = new MerchantCvcOnlyConfig({
         cvcId,
         validationConfig: {},
       });
@@ -29,15 +29,13 @@ describe('CvcOnlyConfig', () => {
     describe('using a validation config object', () => {
       it('with an optional validation listener', () => {
         const validationListenerMock = jest.fn() as CardValidationEventListener;
-        const config: CvcOnlyConfig = new CvcOnlyConfig({
+        const config: MerchantCvcOnlyConfig = new MerchantCvcOnlyConfig({
           cvcId,
           validationConfig: { validationListener: validationListenerMock },
         });
 
         expect(config.cvcId).toEqual(cvcId);
-        expect(config.validationConfig?.validationListener).toEqual(
-          validationListenerMock
-        );
+        expect(config.validationConfig?.validationListener).toEqual(validationListenerMock);
       });
     });
   });
@@ -45,25 +43,23 @@ describe('CvcOnlyConfig', () => {
   describe('using a validation config class (includes defaults)', () => {
     it('with an optional validation listener', () => {
       const validationListenerMock = jest.fn() as CardValidationEventListener;
-      const validationConfig = new CvcValidationConfig({
+      const validationConfig = new MerchantCvcOnlyValidationConfig({
         validationListener: validationListenerMock,
       });
 
-      const config: CvcOnlyConfig = new CvcOnlyConfig({
+      const config: MerchantCvcOnlyConfig = new MerchantCvcOnlyConfig({
         cvcId,
         validationConfig,
       });
 
       expect(config.cvcId).toEqual(cvcId);
-      expect(config.validationConfig?.validationListener).toEqual(
-        validationListenerMock
-      );
+      expect(config.validationConfig?.validationListener).toEqual(validationListenerMock);
     });
   });
 
   describe('by default', () => {
     it('has no validation configuration', () => {
-      const config: CvcOnlyConfig = new CvcOnlyConfig({
+      const config: MerchantCvcOnlyConfig = new MerchantCvcOnlyConfig({
         cvcId,
       });
 

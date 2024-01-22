@@ -12,7 +12,7 @@ interface UseCardValidationHook {
     };
     validationListener: CardValidationEventListener;
 }
-export declare function useCardValidation({ accessCheckout, cardValidationConfig, validationListener, }: UseCardValidationHook): {
+export declare function useCardValidation({ accessCheckout, cardValidationConfig, validationListener }: UseCardValidationHook): {
     initialiseCardValidation: () => Promise<boolean>;
 };
 export {};

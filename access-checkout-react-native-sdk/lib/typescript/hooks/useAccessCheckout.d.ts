@@ -8,4 +8,4 @@ export interface UseAccessCheckout {
     checkoutId: string;
     config: CardConfig | CvcOnlyConfig;
 }
-export declare const useAccessCheckout: ({ baseUrl, checkoutId, config, }: UseAccessCheckout) => UseAccessCheckoutExports;
+export declare const useAccessCheckout: ({ baseUrl, checkoutId, config }: UseAccessCheckout) => UseAccessCheckoutExports;

@@ -15,27 +15,17 @@ interface InitialiseCvcOnlyValidationConfig {
 export default class AccessCheckout {
   private readonly ReactNativeSdkVersion = '2.0.1';
   static readonly CardValidationEventType = 'AccessCheckoutCardValidationEvent';
-  static readonly CvcOnlyValidationEventType =
-    'AccessCheckoutCvcOnlyValidationEvent';
+  static readonly CvcOnlyValidationEventType = 'AccessCheckoutCvcOnlyValidationEvent';
 
   baseUrl: string;
   merchantId?: string;
 
-  constructor({
-    baseUrl,
-    merchantId,
-  }: {
-    baseUrl: string;
-    merchantId?: string;
-  }) {
+  constructor({ baseUrl, merchantId }: { baseUrl: string; merchantId?: string }) {
     this.baseUrl = baseUrl;
     this.merchantId = merchantId;
   }
 
-  generateSessions(
-    sessionGenerationConfig: SessionGenerationConfig,
-    sessionTypes: string[]
-  ): Promise<Sessions> {
+  generateSessions(sessionGenerationConfig: SessionGenerationConfig, sessionTypes: string[]): Promise<Sessions> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.generateSessions({
         baseUrl: this.baseUrl,
@@ -65,9 +55,7 @@ export default class AccessCheckout {
     });
   }
 
-  initialiseCardValidation(
-    validationConfig: InitialiseCardValidationConfig
-  ): Promise<boolean> {
+  initialiseCardValidation(validationConfig: InitialiseCardValidationConfig): Promise<boolean> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCardValidation({
         baseUrl: this.baseUrl,
@@ -87,9 +75,7 @@ export default class AccessCheckout {
     });
   }
 
-  initialiseCvcOnlyValidation(
-    validationConfig: InitialiseCvcOnlyValidationConfig
-  ): Promise<boolean> {
+  initialiseCvcOnlyValidation(validationConfig: InitialiseCvcOnlyValidationConfig): Promise<boolean> {
     return new Promise((resolve, reject) => {
       AccessCheckoutReactNative.initialiseCvcOnlyValidation({
         cvcId: validationConfig.cvcId,

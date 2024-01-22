@@ -3,16 +3,10 @@ import {
   AccessCheckout,
   CvcOnlyConfig,
   CvcOnlyValidationEventListener,
-  CvcValidationConfig,
+  MerchantCvcOnlyValidationConfig,
 } from '../../src';
-import {
-  useCvcOnlyValidation,
-  useCvcOnlyValidationEventListener,
-} from '../../src/hooks/useCvcOnlyValidation';
-import {
-  emitNativeEvent,
-  nativeEventSubscriptionMock,
-} from '../__mocks__/react-native';
+import { useCvcOnlyValidation, useCvcOnlyValidationEventListener } from '../../src/hooks/useCvcOnlyValidation';
+import { emitNativeEvent, nativeEventSubscriptionMock } from '../__mocks__/react-native';
 import { isArray, isFunction } from '../test-utils';
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
@@ -63,7 +57,7 @@ describe('useCvcOnlyValidation', () => {
       baseUrl: '',
       merchantId: '',
     });
-    const cvcOnlyValidationConfig = new CvcValidationConfig({
+    const cvcOnlyValidationConfig = new MerchantCvcOnlyValidationConfig({
       validationListener: validationListener,
     });
     const cvcOnlyConfig = new CvcOnlyConfig({
@@ -97,9 +91,7 @@ describe('useCvcOnlyValidation', () => {
 
       functionReturned();
 
-      expect(accessCheckout.initialiseCvcOnlyValidation).toHaveBeenCalledWith(
-        cvcOnlyConfig
-      );
+      expect(accessCheckout.initialiseCvcOnlyValidation).toHaveBeenCalledWith(cvcOnlyConfig);
     });
   });
 });

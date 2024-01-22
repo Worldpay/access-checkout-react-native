@@ -1,27 +1,19 @@
 import { useEffect } from 'react';
 import { NativeEventEmitter } from 'react-native';
-import AccessCheckoutReactNative, {
-  AccessCheckout,
-  CardValidationEventListener,
-} from '../index';
+import AccessCheckoutReactNative, { AccessCheckout, CardValidationEventListener } from '../index';
 import type { CvcOnlyValidationEventListener } from '../validation/CvcOnlyValidationEventListener';
 import { cvcOnlyValidationNativeEventListenerOf } from '../validation/CvcOnlyValidationEventListener';
 import { ValidationListenerException } from '../validation/ValidationListenerException';
 
-export const useCvcOnlyValidationEventListener = (
-  validationListener: CvcOnlyValidationEventListener
-) => {
+export const useCvcOnlyValidationEventListener = (validationListener: CvcOnlyValidationEventListener) => {
   useEffect(() => {
     //Safe-guard in the case where no validation listener was configured we avoid registering the native listener
     if (!validationListener) {
       return;
     }
 
-    const nativeEventListener =
-      cvcOnlyValidationNativeEventListenerOf(validationListener);
-    const nativeEventEmitter = new NativeEventEmitter(
-      AccessCheckoutReactNative
-    );
+    const nativeEventListener = cvcOnlyValidationNativeEventListenerOf(validationListener);
+    const nativeEventEmitter = new NativeEventEmitter(AccessCheckoutReactNative);
 
     const eventSubscription = nativeEventEmitter.addListener(
       AccessCheckout.CvcOnlyValidationEventType,
@@ -49,7 +41,7 @@ export const useCvcOnlyValidation = ({
 }: UseCvcOnlyValidationHook) => {
   /*
   Implementation Note: To allow the hook to render and use hooks correctly:
-  `useCvcOnlyValidationEventListener` has a safe-guard inside it's useEffect to check if a validationListener
+  `useCvcOnlyValidationEventListener` has a safe-guard inside its useEffect to check if a validationListener
   was provided in order to register the native event.
   */
   useCvcOnlyValidationEventListener(validationListener);

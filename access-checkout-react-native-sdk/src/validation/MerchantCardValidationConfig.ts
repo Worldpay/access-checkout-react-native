@@ -1,6 +1,6 @@
 import type { CardValidationEventListener } from '../index';
 
-export class CardValidationConfig {
+export class MerchantCardValidationConfig {
   enablePanFormatting?: boolean;
   acceptedCardBrands?: string[];
   validationListener?: CardValidationEventListener;
@@ -9,7 +9,7 @@ export class CardValidationConfig {
     validationListener,
     enablePanFormatting = false,
     acceptedCardBrands = [],
-  }: CardValidationConfig) {
+  }: MerchantCardValidationConfig) {
     this.enablePanFormatting = enablePanFormatting;
     this.validationListener = validationListener;
     this.acceptedCardBrands = acceptedCardBrands;

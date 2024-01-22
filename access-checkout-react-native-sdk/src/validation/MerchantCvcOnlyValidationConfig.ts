@@ -1,9 +1,9 @@
 import type { CardValidationEventListener } from '../index';
 
-export class CvcValidationConfig {
+export class MerchantCvcOnlyValidationConfig {
   validationListener?: CardValidationEventListener;
 
-  constructor({ validationListener }: CvcValidationConfig) {
+  constructor({ validationListener }: MerchantCvcOnlyValidationConfig) {
     this.validationListener = validationListener;
   }
 }

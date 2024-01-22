@@ -24,7 +24,7 @@ export const useCvcOnlyValidation = ({
 }) => {
   /*
   Implementation Note: To allow the hook to render and use hooks correctly:
-  `useCvcOnlyValidationEventListener` has a safe-guard inside it's useEffect to check if a validationListener
+  `useCvcOnlyValidationEventListener` has a safe-guard inside its useEffect to check if a validationListener
   was provided in order to register the native event.
   */
   useCvcOnlyValidationEventListener(validationListener);
