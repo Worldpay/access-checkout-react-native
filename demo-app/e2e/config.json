@@ -1,4 +1,5 @@
 {
+  "setupFilesAfterEnv": ["<rootDir>/e2e/jest.setup.js"],
   "globalSetup": "detox/runners/jest/globalSetup",
   "globalTeardown": "detox/runners/jest/globalTeardown",
   "maxWorkers": 1,
