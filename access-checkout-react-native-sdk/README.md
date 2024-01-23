@@ -7,17 +7,26 @@ Create your own uniquely styled and branded checkout form by integrating our Rea
 This SDK is the first step to integrate with our Access Worldpay APIs into a React Native app.
 It is designed to simplify the integration of the following functionality in your checkout form:
 - validating the format of the card details entered by a customer
-- generating a session (short-lived token representing a customer's card details)  
+- generating a session (short-lived token representing a customer's card details)
 
 ## Documentation
 
-You can find the detailed documentation explaining how to integrate the SDK and use a session to take a payment starting with the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay documentation](https://developer.worldpay.com).
+You can find the detailed documentation explaining how to integrate the SDK and use a session to take a payment starting with the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay Checkout documentation](https://developer.worldpay.com).
 
 ## Compatibility
 
 - `React Native` version `>= 0.70.0`
 - `React` version `>= 18.1.0`
 - `Cocoapods` only for iOS dependencies
+
+## SAQ-A Compliance
+
+To support SAQ-A compliance when using our React Native SDK, we have created a new component called AccessCheckoutTextInput:
+It has been designed so that it does not expose any methods or properties to retrieve the text entered by the end user to ensure our merchants applications do not have direct access to card details and are SAQ-A compliant.
+
+## AccessCheckoutTextInput
+
+You can find detailed documentation about our new component [AccessCheckoutTextInput](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native/optional-configuration) within the [React Native section](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native) of the [Access Worldpay Checkout documentation](https://developer.worldpay.com).
 
 ## How to install
 
