@@ -57,6 +57,8 @@ checkVersionsOfReactAndReactNativeMatch() {
   reactNativeVersion=$(grep -m 1 '"react-native".*\d' ./access-checkout-react-native-sdk/package.json | grep -o '\d\+\.\d\+\.\d\+')
   reactVersion=$(grep -m 1 '"react"' ./access-checkout-react-native-sdk/package.json | grep -o '\d\+\.\d\+\.\d\+')
 
+  echo ""
+
   if [ -z "${reactNativeVersion}" ]; then
     echo "React Native version could not be found in package.json"
     exit 1
@@ -259,6 +261,8 @@ commitAllChanges() {
   git add ./access-checkout-react-native-sdk/src/AccessCheckout.tsx
   git add ./demo-app/ios/Podfile.lock
   git add ./access-checkout-react-native-sdk/lib/
+  git add ./README.md
+  git add ./access-checkout-react-native-sdk/README.md
 
   git commit -m "$commitMessage"
 
@@ -282,6 +286,17 @@ pushChanges() {
   fi
 }
 
+changeVersionInReadme() {
+  echo ""
+
+  sh ./update-libraries-versions-in-docs.sh
+
+    if [[ $? -ne 0 ]]; then
+      echo "Failed to change version in readme files"
+      exit 1
+    fi
+}
+
 trimVersion
 trimTicketNumber
 validateArguments
@@ -293,6 +308,7 @@ createBranchOffMaster
 changeVersionInTypeScriptSDK $version
 changeVersionInIosBridge $version
 changeVersionInAndroidBridge $version
+changeVersionInReadme
 reinstallDemoAppPods
 regenerateLibFiles
 
