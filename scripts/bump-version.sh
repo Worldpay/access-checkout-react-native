@@ -234,8 +234,12 @@ regenerateLibFiles() {
 
 function reinstallDemoAppPods() {
   echo ""
+  echo "Install npm packages to generate node_modules folder"
+  cd demo-app
+  npm install
+  echo ""
   echo "Re-installing pods in demo-app following to version change in SDK iOS Bridge"
-  cd demo-app/ios
+  cd ios
   pod install
 
   status=$?
