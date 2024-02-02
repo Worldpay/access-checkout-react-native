@@ -11,13 +11,9 @@ on:
         required: true
 jobs:
   run-bump-version-script:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
-      - run: pwd  
-      - run: ls  
-      - run: cat ./access-checkout-react-native-sdk/package.json
-      - run: grep -m 1 '"react-native".*[0-9]' ./access-checkout-react-native-sdk/package.json | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+'
       - name: Run bump version script
         run: ./scripts/bump-version.sh -v=${{inputs.version}} -t=${{inputs.rally_ticket_number}}
