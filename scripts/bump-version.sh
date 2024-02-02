@@ -289,12 +289,12 @@ pushChanges() {
 changeVersionInReadme() {
   echo ""
 
-  sh ./update-libraries-versions-in-docs.sh
+  sh .scripts/update-libraries-versions-in-docs.sh
 
-    if [[ $? -ne 0 ]]; then
-      echo "Failed to change version in readme files"
-      exit 1
-    fi
+  if [[ $? -ne 0 ]]; then
+    echo "Failed to change version in readme files"
+    exit 1
+  fi
 }
 
 trimVersion
