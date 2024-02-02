@@ -1,4 +1,4 @@
-# Access Checkout React Native SDK 
+# Access Checkout React Native SDK
 
 **Build Status**: ![](https://app.bitrise.io/app/7c9d34547d2631cb/status.svg?token=d4DIyXeuCdqvXY8oOOBkZA&branch=master)
 
@@ -11,11 +11,13 @@
 - pod (Cocoapods)
 - watchman (used as part of building Android app)
 
-2. Create a custom device in Simulator for `iPhone 8` and `iOS 14` and name it `iphone8-14` 
+2. Create a custom device in Simulator for `iPhone 8` and `iOS 14` and name it `iphone8-14`
 
 ## React & React Native Compatibility
 
-Our SDK is compatible with `React Native >= 0.70.0` and `React >= 18.1.0` 
+Our SDK is compatible with:
+- `React Native 0.70.0` and above
+- `React 18.1.0` and above
 
 ## Getting Started
 
@@ -91,13 +93,13 @@ npm run android
 ## Developing in this repo
 
 ### Android
-* Open up `demo-app/android/build.gradle` in android studio - this will show you the android module as 
-well as the demo-app module
+* Open up `demo-app/android/build.gradle` in android studio - this will show you the android module as
+  well as the demo-app module
 
 ### IOS
 * To work on the react native module, open `ios/AccessCheckoutReactNative.xcworkspace` in XCode.
 * To run the demo application, open `demo-app/ios/AccessCheckoutReactNativeDemo.xcworkspace` in XCode.
-   * Use this application to debug the code, you can find the module code in `Pods/Development Pods/AccessCheckoutSDK-React`
+  * Use this application to debug the code, you can find the module code in `Pods/Development Pods/AccessCheckoutSDK-React`
 
 ### ReactNative
 * To work on the ReactNative part of the demo application, open the root directory in Intellij and you can work in `demo-app/src`
