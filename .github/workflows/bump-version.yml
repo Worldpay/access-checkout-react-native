@@ -15,5 +15,6 @@ jobs:
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
+      - run: pwd  
       - name: Run bump version script
         run: ./scripts/bump-version.sh -v=${{inputs.version}} -t=${{inputs.rally_ticket_number}}
