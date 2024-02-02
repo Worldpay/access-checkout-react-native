@@ -222,6 +222,7 @@ regenerateLibFiles() {
   echo "Regenerating lib files so they contain the new version"
 
   cd access-checkout-react-native-sdk
+  npm install
   npm run prepare
 
   if [ $? -ne 0 ]; then
@@ -235,7 +236,9 @@ regenerateLibFiles() {
 function reinstallDemoAppPods() {
   echo ""
   echo "Re-installing pods in demo-app following to version change in SDK iOS Bridge"
-  cd demo-app/ios
+  cd demo-app
+  npm install
+  cd ios
   pod install
 
   status=$?
@@ -289,10 +292,23 @@ pushChanges() {
 changeVersionInReadme() {
   echo ""
 
-  sh .scripts/update-libraries-versions-in-docs.sh
+  sh ./scripts/update-libraries-versions-in-docs.sh
 
   if [[ $? -ne 0 ]]; then
     echo "Failed to change version in readme files"
+    exit 1
+  fi
+}
+
+removeNonessentialPendingChanges() {
+  echo ""
+
+  echo "Removing unessential pending changes"
+
+  git restore demo-app/ios/AccessCheckoutReactNativeDemo.xcodeproj/project.pbxproj
+
+  if [[ $? -ne 0 ]]; then
+    echo "Failed to remove changes from staging area"
     exit 1
   fi
 }
@@ -313,5 +329,6 @@ reinstallDemoAppPods
 regenerateLibFiles
 
 commitAllChanges
+removeNonessentialPendingChanges
 checkNoPendingChangesToCommit "Some changes have been left out and not committed. This is unexpected and is an issue. Please check the script"
 pushChanges
