@@ -17,5 +17,9 @@ jobs:
         uses: actions/checkout@v4
       - run: pwd  
       - run: ls  
+      - run: cd access-checkout-react-native-sdk
+      - run: ls
+      - run: cat package.json
+      - run: cd ..
       - name: Run bump version script
         run: ./scripts/bump-version.sh -v=${{inputs.version}} -t=${{inputs.rally_ticket_number}}
