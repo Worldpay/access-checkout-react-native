@@ -164,7 +164,7 @@ changeVersionInTypeScriptSDK() {
   echo "Changing version to ${version} in TypeScript SDK"
 
   filepath=./access-checkout-react-native-sdk/package.json
-  sed -i '' "/\"version"/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/$newVersion/" "$filepath"
+  sed -i '' "/\"version\"/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/$newVersion/" "$filepath"
   status=$?
   if [ $status -ne 0 ]; then
     exit $status
