@@ -11,7 +11,7 @@ on:
         required: true
 jobs:
   run-bump-version-script:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4

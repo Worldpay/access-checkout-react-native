@@ -54,8 +54,8 @@ function validateArguments() {
 
 checkVersionsOfReactAndReactNativeMatch() {
   # Extracting versions of react-native and react from the SDK's package.json file
-  reactNativeVersion=$(grep -m 1 '"react-native".*\d' ./access-checkout-react-native-sdk/package.json | grep -o '\d\+\.\d\+\.\d\+')
-  reactVersion=$(grep -m 1 '"react"' ./access-checkout-react-native-sdk/package.json | grep -o '\d\+\.\d\+\.\d\+')
+  reactNativeVersion=$(grep -m 1 '"react-native".*[0-9]' ./access-checkout-react-native-sdk/package.json | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')
+  reactVersion=$(grep -m 1 '"react"' ./access-checkout-react-native-sdk/package.json | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')
 
   echo ""
 
@@ -163,7 +163,7 @@ changeVersionInTypeScriptSDK() {
   echo "Changing version to ${version} in TypeScript SDK"
 
   filepath=./access-checkout-react-native-sdk/package.json
-  sed -i '' '/"version"/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
+  sed -i '/"version"/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
   status=$?
   if [ $status -ne 0 ]; then
     exit $status
@@ -171,7 +171,7 @@ changeVersionInTypeScriptSDK() {
   echo "Processed file ${filepath}"
 
   filepath=./access-checkout-react-native-sdk/package-lock.json
-  sed -i '' '/access-worldpay-checkout-react-native-sdk/,/"version"/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
+  sed -i '/access-worldpay-checkout-react-native-sdk/,/"version"/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
   status=$?
   if [ $status -ne 0 ]; then
     exit $status
@@ -179,7 +179,7 @@ changeVersionInTypeScriptSDK() {
   echo "Processed file ${filepath}"
 
   filepath=./access-checkout-react-native-sdk/src/AccessCheckout.tsx
-  sed -i '' '/ReactNativeSdkVersion/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
+  sed -i '/ReactNativeSdkVersion/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
   status=$?
   if [ $status -ne 0 ]; then
     exit $status
@@ -194,7 +194,7 @@ changeVersionInIosBridge() {
   echo "Changing version to ${version} in iOS Bridge"
 
   filepath=./access-checkout-react-native-sdk/ios/AccessCheckoutReactNativeSDKiOSBridge.podspec
-  sed -i '' '/s.version/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
+  sed -i '/s.version/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
   status=$?
   if [ $status -ne 0 ]; then
     exit $status
@@ -209,7 +209,7 @@ changeVersionInAndroidBridge() {
   echo "Changing version to ${version} in Android bridge"
 
   filepath=./access-checkout-react-native-sdk/android/access-checkout-react-native-sdk-android-bridge/gradle.properties
-  sed -i '' '/version=/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
+  sed -i '/version=/s/[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}/'"$newVersion"'/' $filepath
   status=$?
   if [ $status -ne 0 ]; then
     exit $status
@@ -222,7 +222,6 @@ regenerateLibFiles() {
   echo "Regenerating lib files so they contain the new version"
 
   cd access-checkout-react-native-sdk
-  npm install
   npm run prepare
 
   if [ $? -ne 0 ]; then
@@ -235,12 +234,8 @@ regenerateLibFiles() {
 
 function reinstallDemoAppPods() {
   echo ""
-  echo "Install npm packages to generate node_modules folder"
-  cd demo-app
-  npm install
-  echo ""
   echo "Re-installing pods in demo-app following to version change in SDK iOS Bridge"
-  cd ios
+  cd demo-app/ios
   pod install
 
   status=$?

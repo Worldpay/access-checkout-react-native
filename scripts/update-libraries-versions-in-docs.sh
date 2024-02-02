@@ -5,8 +5,8 @@ Usage: update-libraries-versions-in-docs.sh
 "
 
   # Extracting versions of react-native and react from the SDK's package.json file
-  reactNativeVersion=$(grep -m 1 '"react-native".*\d' ./access-checkout-react-native-sdk/package.json | grep -o '\d\+\.\d\+\.\d\+')
-  reactVersion=$(grep -m 1 '"react"' ./access-checkout-react-native-sdk/package.json | grep -o '\d\+\.\d\+\.\d\+')
+  reactNativeVersion=$(grep -m 1 '"react-native".*[0-9]' ./access-checkout-react-native-sdk/package.json | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')
+  reactVersion=$(grep -m 1 '"react"' ./access-checkout-react-native-sdk/package.json | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')
 
 if [ -z "${reactNativeVersion}" ]; then
   echo "React Native version could not be found in package.json"
