@@ -7,7 +7,7 @@ Create your own uniquely styled and branded checkout form by integrating our Rea
 This SDK is the first step to integrate with our Access Worldpay APIs into a React Native app.
 It is designed to simplify the integration of the following functionality in your checkout form:
 - validating the format of the card details entered by a customer
-- generating a session (short-lived token representing a customer's card details)  
+- generating a session (short-lived token representing a customer's card details)
 
 ## Documentation
 
@@ -15,8 +15,8 @@ You can find the detailed documentation explaining how to integrate the SDK and 
 
 ## Compatibility
 
-- `React Native` version `>= 0.70.0`
-- `React` version `>= 18.1.0`
+- `React Native 0.70.0` and above
+- `React 18.1.0` and above
 - `Cocoapods` only for iOS dependencies
 
 ## How to install
@@ -52,7 +52,7 @@ Allows you to listen to events indicating which card brand corresponds to the ca
 - Mastercard
 - Visa
 
-#### Card number formatting (optional) 
+#### Card number formatting (optional)
 
 Formats a card number as the customer types to make it easier to enter and read a card number.
 
@@ -64,7 +64,7 @@ Changes the behavior of the validation feature to consider only the card brands 
 ### For CVC only payments
 
 Paying only with CVC is possible with the Access Worldpay APIs using a Verified Token.
-Verified tokens are long-lived tokens representing a customer's card details which are valid for 4 years. 
+Verified tokens are long-lived tokens representing a customer's card details which are valid for 4 years.
 You would typically save these in your database as part of a first card payment in a repeat agreement.
 
 #### CVC validation
