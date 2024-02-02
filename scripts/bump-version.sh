@@ -222,6 +222,7 @@ regenerateLibFiles() {
   echo "Regenerating lib files so they contain the new version"
 
   cd access-checkout-react-native-sdk
+  npm install
   npm run prepare
 
   if [ $? -ne 0 ]; then
