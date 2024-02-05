@@ -12,18 +12,25 @@ import { requireNativeComponent, StyleSheet, View } from 'react-native';
  */
 
 /**
- * Note: Not all properties apply styling to placeholder text and input text.
+ * Note: Not all properties apply styling to both placeholder text and input text.
  *   textColor: only applies to input text.
  *   fontFamily: applies to both placeholder text and input text.
- *   fontSize:applies to both placeholder text and input text.
+ *   fontSize: applies to both placeholder text and input text.
+ *   fontStyle: applies to both placeholder text and input text.
+ *   fontWeight: applies to both placeholder text and input text.
  */
 
 /**
  * Font Changes apply to placeholder text and input text
+ *
+ * ## What
+ * - Rewrites font support for android
+ * - Adds font weight support for android <28 only 'normal' and 'bold' supported
+ * - Adds font weight support as units for android >28
  */
 
 const RTCAccessCheckoutTextInput = requireNativeComponent('AccessCheckoutTextInput');
-const AccessCheckoutTextInput = props => {
+export const AccessCheckoutTextInput = props => {
   const {
     nativeID,
     testID,
@@ -35,6 +42,8 @@ const AccessCheckoutTextInput = props => {
     color,
     fontFamily,
     fontSize,
+    fontStyle,
+    fontWeight,
     ...otherStyles
   } = StyleSheet.flatten([style]);
   return /*#__PURE__*/React.createElement(View, {
@@ -48,7 +57,9 @@ const AccessCheckoutTextInput = props => {
     placeholder: placeholder,
     font: {
       fontFamily,
-      fontSize
+      fontSize,
+      fontWeight,
+      fontStyle
     },
     color: color,
     editable: editable

@@ -1,6 +1,13 @@
 import React from 'react';
-import { requireNativeComponent, type StyleProp, StyleSheet, type TextStyle, View, type ViewStyle } from 'react-native';
-import type { ColorValue } from 'react-native/Libraries/StyleSheet/StyleSheet';
+import {
+  requireNativeComponent,
+  type ColorValue,
+  type StyleProp,
+  StyleSheet,
+  type TextStyle,
+  View,
+  type ViewStyle,
+} from 'react-native';
 
 /**
  * Composes `AccessCheckoutTextInput`.
@@ -11,7 +18,7 @@ import type { ColorValue } from 'react-native/Libraries/StyleSheet/StyleSheet';
  * - placeholder: string
  * - editable: boolean
  */
-interface AccessCheckoutTextInputProps {
+export interface AccessCheckoutTextInputProps {
   nativeID: string;
   testID?: string;
   style?: StyleProp<AccessCheckoutTextInputStyle>;
@@ -27,7 +34,7 @@ interface AccessCheckoutTextInputProps {
  *   fontStyle: applies to both placeholder text and input text.
  *   fontWeight: applies to both placeholder text and input text.
  */
-interface AccessCheckoutTextInputStyle extends ViewStyle {
+export interface AccessCheckoutTextInputStyle extends ViewStyle {
   color?: ColorValue;
   fontFamily?: string;
   fontSize?: number;
@@ -62,7 +69,7 @@ interface RTCAccessCheckoutTextInputProps {
 }
 
 const RTCAccessCheckoutTextInput = requireNativeComponent<RTCAccessCheckoutTextInputProps>('AccessCheckoutTextInput');
-const AccessCheckoutTextInput = (props: AccessCheckoutTextInputProps) => {
+export const AccessCheckoutTextInput = (props: AccessCheckoutTextInputProps) => {
   const { nativeID, testID, style, placeholder, editable } = props;
   const { color, fontFamily, fontSize, fontStyle, fontWeight, ...otherStyles } = StyleSheet.flatten([style]);
   return (

@@ -42,9 +42,7 @@ export const NativeEventEmitter = jest.fn(() => ({
     listener: (event: any) => void
   ): EmitterSubscription {
     // eslint-disable-next-line  prettier/prettier
-    if (
-      !Object.prototype.hasOwnProperty.call(nativeEventListeners, eventType)
-    ) {
+    if (!Object.prototype.hasOwnProperty.call(nativeEventListeners, eventType)) {
       nativeEventListeners[eventType] = [];
     }
 
@@ -56,10 +54,14 @@ export const NativeEventEmitter = jest.fn(() => ({
   },
 }));
 
+export const requireNativeComponent = jest.fn(() => {
+  return false;
+});
 export default Object.setPrototypeOf(
   {
     NativeModules,
     NativeEventEmitter,
+    requireNativeComponent,
   },
   ReactNative
 );
