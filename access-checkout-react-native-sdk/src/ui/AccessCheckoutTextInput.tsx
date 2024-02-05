@@ -1,6 +1,13 @@
 import React from 'react';
-import { requireNativeComponent, type StyleProp, StyleSheet, type TextStyle, View, type ViewStyle } from 'react-native';
-import type { ColorValue } from 'react-native/Libraries/StyleSheet/StyleSheet';
+import {
+  requireNativeComponent,
+  type ColorValue,
+  type StyleProp,
+  StyleSheet,
+  type TextStyle,
+  View,
+  type ViewStyle,
+} from 'react-native';
 
 /**
  * Composes `AccessCheckoutTextInput`.
