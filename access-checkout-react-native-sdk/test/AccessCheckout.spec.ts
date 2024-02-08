@@ -1,12 +1,10 @@
 import * as fs from 'fs';
 import { NativeModules } from 'react-native';
-import CvcOnlyValidationConfig from '../src/validation/CvcOnlyValidationConfig';
 import { AccessCheckout, CVC } from '../src/';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Sessions from '../src/session/Sessions';
 import SessionType from '../src/session/SessionType';
-import CardValidationConfig from '../src/validation/CardValidationConfig';
 import {
   givenGenerateSessionsBridgeFailsWith,
   givenGenerateSessionsBridgeReturns,
@@ -16,12 +14,10 @@ import {
   givenCvcOnlyValidationBridgeReturns,
   hasProperty,
 } from './test-utils';
+import { CardConfig, CvcOnlyConfig } from '../src';
 
 const baseUrl = 'https://access.worldpay.com';
 const merchantId = '123';
-const pan = '4444';
-const expiryDate = '12/34';
-const cvc = '123';
 
 const panId = 'panId';
 const expiryDateId = 'expiryDateId';
@@ -60,13 +56,18 @@ describe('AccessCheckout', () => {
     const checkout = new AccessCheckout({ baseUrl, merchantId });
 
     describe('independently of the type of session', () => {
-      const cardDetails = { pan, expiryDate, cvc };
+      const sessionGenerationConfig = new CardConfig({
+        panId,
+        expiryDateId,
+        cvcId,
+      });
+
       const sessionTypes = [SessionType.CARD, SessionType.CVC];
 
       it('passes the SDK version to the React Native bridge', async () => {
         givenGenerateSessionsBridgeReturns({});
 
-        await checkout.generateSessions(cardDetails, sessionTypes);
+        await checkout.generateSessions(sessionGenerationConfig, sessionTypes);
 
         const bridgeMock =
           NativeModules.AccessCheckoutReactNative.generateSessions.mock;
@@ -80,7 +81,10 @@ describe('AccessCheckout', () => {
         givenGenerateSessionsBridgeFailsWith(new Error('Failed !'));
 
         try {
-          await checkout.generateSessions(cardDetails, sessionTypes);
+          await checkout.generateSessions(
+            sessionGenerationConfig,
+            sessionTypes
+          );
         } catch (error) {
           expect(error).toEqual(new Error('Failed !'));
         }
@@ -88,7 +92,11 @@ describe('AccessCheckout', () => {
     });
 
     describe('for card only', () => {
-      const cardDetails = { pan, expiryDate, cvc };
+      const sessionGenerationConfig = new CardConfig({
+        panId,
+        expiryDateId,
+        cvcId,
+      });
       const sessionTypes = [SessionType.CARD];
 
       it('returns a resolved promise with a sessions object containing only a card session when bridge successfully generates a session', async () => {
@@ -97,7 +105,7 @@ describe('AccessCheckout', () => {
         });
 
         const result: Sessions = await checkout.generateSessions(
-          cardDetails,
+          sessionGenerationConfig,
           sessionTypes
         );
 
@@ -109,13 +117,17 @@ describe('AccessCheckout', () => {
     });
 
     describe('for card and cvc', () => {
-      const cardDetails = { pan, expiryDate, cvc };
+      const sessionGenerationConfig = new CardConfig({
+        panId,
+        expiryDateId,
+        cvcId,
+      });
       const sessionTypes = [SessionType.CARD, SessionType.CVC];
 
       it('delegates the generation of sessions to the React Native bridge', async () => {
         givenGenerateSessionsBridgeReturns({});
 
-        await checkout.generateSessions(cardDetails, sessionTypes);
+        await checkout.generateSessions(sessionGenerationConfig, sessionTypes);
 
         const bridgeMock =
           NativeModules.AccessCheckoutReactNative.generateSessions.mock;
@@ -125,9 +137,9 @@ describe('AccessCheckout', () => {
         expect(args).toEqual({
           baseUrl,
           merchantId,
-          panValue: pan,
-          expiryDateValue: expiryDate,
-          cvcValue: cvc,
+          panId: panId,
+          expiryDateId: expiryDateId,
+          cvcId: cvcId,
           sessionTypes: ['CARD', 'CVC'],
           reactNativeSdkVersion: packageDotJson.version,
         });
@@ -140,7 +152,7 @@ describe('AccessCheckout', () => {
         });
 
         const result: Sessions = await checkout.generateSessions(
-          cardDetails,
+          sessionGenerationConfig,
           sessionTypes
         );
 
@@ -152,13 +164,15 @@ describe('AccessCheckout', () => {
     });
 
     describe('for cvc only', () => {
-      const cardDetails = { cvc };
+      const sessionGenerationConfig = new CvcOnlyConfig({
+        cvcId,
+      });
       const sessionType = [CVC];
 
       it('delegates the generation of a cvc session to the React Native bridge', async () => {
         givenGenerateSessionsBridgeReturns({});
 
-        await checkout.generateSessions(cardDetails, sessionType);
+        await checkout.generateSessions(sessionGenerationConfig, sessionType);
 
         const bridgeMock =
           NativeModules.AccessCheckoutReactNative.generateSessions.mock;
@@ -169,7 +183,7 @@ describe('AccessCheckout', () => {
         expect(args).toEqual({
           baseUrl,
           merchantId,
-          cvcValue: cvc,
+          cvcId: cvcId,
           sessionTypes: ['CVC'],
           reactNativeSdkVersion: packageDotJson.version,
         });
@@ -181,7 +195,7 @@ describe('AccessCheckout', () => {
         });
 
         const result: Sessions = await checkout.generateSessions(
-          cardDetails,
+          sessionGenerationConfig,
           sessionType
         );
 
@@ -195,7 +209,7 @@ describe('AccessCheckout', () => {
 
   describe('Card validation feature', () => {
     const checkout = new AccessCheckout({ baseUrl, merchantId });
-    const validationConfig = new CardValidationConfig({
+    const validationConfig = new CardConfig({
       panId,
       expiryDateId,
       cvcId,
@@ -221,7 +235,7 @@ describe('AccessCheckout', () => {
 
   describe('Cvc validation feature', () => {
     const checkout = new AccessCheckout({ baseUrl, merchantId });
-    const validationConfig = new CvcOnlyValidationConfig({
+    const validationConfig = new CvcOnlyConfig({
       cvcId,
     });
 

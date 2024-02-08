@@ -1,28 +1,23 @@
 import React, { useState } from 'react';
+import { Text } from 'react-native';
 import {
-  AccessCheckout,
-  CardDetails,
   CVC,
-  CvcOnlyValidationConfig,
   CvcOnlyValidationEventListener,
   Sessions,
-  useCvcOnlyValidation,
-} from '../../../access-checkout-react-native-sdk/src';
+  useAccessCheckout,
+  useCvcOnlyConfig,
+} from '../../../access-checkout-react-native-sdk';
+import styles from '../card-flow/style.js';
 import CvcField from '../common/CvcField';
+import ErrorView from '../common/ErrorView';
 import HView from '../common/HView';
+import SessionLabel from '../common/SessionLabel';
 import Spinner from '../common/Spinner';
 import SubmitButton from '../common/SubmitButton';
 import VView from '../common/VView';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import styles from '../card-flow/style.js';
-import { Text } from 'react-native';
-import SessionLabel from '../common/SessionLabel';
 import CvcOnlyFlowE2eStates from '../cvc-flow/CvcOnlyFlow.e2e.states';
-import ErrorView from '../common/ErrorView';
 
 export default function CvcFlow() {
-  const [cvcValue, setCvc] = useState<string>('');
   const [cvcIsValid, setCvcIsValid] = useState<boolean>(false);
 
   const [submitBtnEnabled, setSubmitBtnEnabled] = useState<boolean>(false);
@@ -32,16 +27,9 @@ export default function CvcFlow() {
   const [cvcSession, setCvcSession] = useState('');
 
   const [error, setError] = useState<Error>();
-  
-  const accessCheckout = new AccessCheckout({
-    baseUrl: 'https://npe.access.worldpay.com',
-    merchantId: 'identity',
-  });
 
-  const cvcOnlyValidationConfig = new CvcOnlyValidationConfig({
-    cvcId: 'cvcInput',
-  });
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const cvcOnlyValidationEventListener: CvcOnlyValidationEventListener = {
     onCvcValidChanged(isValid: boolean): void {
       setCvcIsValid(isValid);
@@ -55,14 +43,19 @@ export default function CvcFlow() {
     },
   };
 
-  const { initialiseCvcOnlyValidation } = useCvcOnlyValidation(
-    accessCheckout,
-    cvcOnlyValidationConfig,
-    cvcOnlyValidationEventListener
-  );
+  const { initialiseValidation, generateSessions } = useAccessCheckout({
+    baseUrl: 'https://npe.access.worldpay.com',
+    checkoutId: 'identity',
+    config: useCvcOnlyConfig({
+      cvcId: 'cvcInput',
+      validationConfig: {
+        validationListener: cvcOnlyValidationEventListener,
+      },
+    }),
+  });
 
   const onLayout = () => {
-    initialiseCvcOnlyValidation()
+    initialiseValidation()
       .then(() => {
         console.info('Cvc Only Validation successfully initialised');
       })
@@ -71,18 +64,11 @@ export default function CvcFlow() {
       });
   };
 
-  function generateSession() {
-    const sessionTypes = [CVC];
-
+  function createSession() {
     setShowSpinner(true);
     setIsEditable(false);
 
-    const cardDetails: CardDetails = {
-      cvc: cvcValue,
-    };
-
-    accessCheckout
-      .generateSessions(cardDetails, sessionTypes)
+    generateSessions([CVC])
       .then((sessions: Sessions) => {
         console.info('Successfully generated session(s)');
 
@@ -116,7 +102,7 @@ export default function CvcFlow() {
   if (error) {
     errorComponent = <ErrorView error={error} />;
   }
-  
+
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return (
@@ -128,13 +114,12 @@ export default function CvcFlow() {
           testID="cvcInput"
           isEditable={isEditable}
           isValid={cvcIsValid}
-          onChange={setCvc}
         />
       </HView>
       <VView style={{ marginTop: '8%' }}>
         <SubmitButton
           testID="submitButton"
-          onPress={generateSession}
+          onPress={createSession}
           enabled={submitBtnEnabled}
         />
       </VView>

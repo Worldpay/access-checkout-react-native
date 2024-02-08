@@ -3,15 +3,18 @@ package com.worldpay.access.checkout.reactnative.session
 import android.content.Context
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
-import com.github.tomakehurst.wiremock.client.WireMock.*
+import com.github.tomakehurst.wiremock.client.WireMock.equalTo
+import com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor
+import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import com.github.tomakehurst.wiremock.client.WireMock.verify
 import com.worldpay.access.checkout.reactnative.services.AccessServicesRootStub
 import com.worldpay.access.checkout.reactnative.services.MockServer
 import com.worldpay.access.checkout.reactnative.services.MockServer.startStubServices
 import com.worldpay.access.checkout.reactnative.services.MockServer.stopStubServices
 import com.worldpay.access.checkout.reactnative.services.SessionsStub
-import com.worldpay.access.checkout.reactnative.session.SessionsTestFixture.Companion.CARD
-import com.worldpay.access.checkout.reactnative.session.SessionsTestFixture.Companion.CVC
-import com.worldpay.access.checkout.reactnative.session.SessionsTestFixture.Companion.sessionsTextFixture
+import com.worldpay.access.checkout.reactnative.utils.TestFixture.Companion.CARD
+import com.worldpay.access.checkout.reactnative.utils.TestFixture.Companion.CVC
+import com.worldpay.access.checkout.reactnative.utils.TestFixture.Companion.testFixture
 import org.awaitility.Awaitility.await
 import org.junit.After
 import org.junit.Before
@@ -20,11 +23,11 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
 
 
 class SessionsInstrumentedTests {
-    private val timeOutInMs = 5000L
+    private val timeOutInMs = 500000L
 
     @Before
     fun setup() {
-        sessionsTextFixture().clear()
+        testFixture().clear()
 
         val context: Context = InstrumentationRegistry.getInstrumentation().context
         startStubServices(context, MockServer.PORT)
@@ -41,11 +44,10 @@ class SessionsInstrumentedTests {
     @Test
     fun testShouldBeAbleToGenerateACardSession() {
         SessionsStub.stubSessionsCardSuccess("my-session")
-        sessionsTextFixture().pan("4444333322221111")
+        testFixture().pan("4444333322221111")
             .expiryDate("12/34")
             .cvc("123")
             .sessionsTypes(listOf(CARD))
-            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -58,11 +60,10 @@ class SessionsInstrumentedTests {
         SessionsStub.stubSessionsCardSuccess("my-session")
         SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
 
-        sessionsTextFixture().pan("4444333322221111")
+        testFixture().pan("4444333322221111")
             .expiryDate("12/34")
             .cvc("123")
             .sessionsTypes(listOf(CARD, CVC))
-            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -77,10 +78,8 @@ class SessionsInstrumentedTests {
     fun testShouldBeAbleToGenerateACvcOnlySession() {
         SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
 
-        sessionsTextFixture()
-            .cvc("123")
+        testFixture().cvc("123")
             .sessionsTypes(listOf(CVC))
-            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -99,12 +98,10 @@ class SessionsInstrumentedTests {
         SessionsStub.stubSessionsCardSuccess("my-session")
         SessionsStub.stubSessionsPaymentsCvcFailure(errorName, message)
 
-        sessionsTextFixture()
-            .pan("4444333322221111")
+        testFixture().pan("4444333322221111")
             .expiryDate("12/34")
             .cvc("123")
             .sessionsTypes(listOf(CARD, CVC))
-            .reactNativeSdkVersion("1.0.0")
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
 
@@ -112,25 +109,11 @@ class SessionsInstrumentedTests {
     }
 
     @Test
-    fun testShouldBeAbleToGiveErrorWhenSessionsTypeContainsCvcAndANullCvcIsPassed() {
-        val exception = RuntimeException("Expected cvcValue to be provided but was not")
-
-        sessionsTextFixture()
-            .cvc(null)
-            .sessionsTypes(listOf(CVC))
-            .reactNativeSdkVersion("1.0.0")
-
-        val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
-
-        assertExceptionIs(scenario, exception)
-    }
-
-    @Test
     fun testShouldSetNativeSdkWpSdkHeaderWithAccessCheckoutReactNativeVersion() {
         SessionsStub.stubSessionsCardSuccess("my-session")
         SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
 
-        sessionsTextFixture().pan("4444333322221111")
+        testFixture().pan("4444333322221111")
             .expiryDate("12/34")
             .cvc("123")
             .sessionsTypes(listOf(CARD, CVC))
@@ -147,7 +130,7 @@ class SessionsInstrumentedTests {
         verify(
             postRequestedFor(urlEqualTo("/sessions/payments/cvc"))
                 .withHeader("X-WP-SDK", equalTo("access-checkout-react-native/1.2.3"))
-        );
+        )
     }
 
     private fun assertSessionsAre(

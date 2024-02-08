@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native';
 import {
-  AccessCheckout,
   Brand,
   CARD,
-  CardDetails,
-  CardValidationConfig,
   CardValidationEventListener,
   CVC,
   Sessions,
-  useCardValidation,
-} from '../../../access-checkout-react-native-sdk/src/index';
+  useCardConfig,
+  useAccessCheckout,
+} from '../../../access-checkout-react-native-sdk';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';
@@ -31,10 +29,6 @@ export default function CardFlow() {
   const unknownBrandLogo =
     'https://npe.access.worldpay.com/access-checkout/assets/unknown.png';
 
-  const [panValue, setPan] = useState<string>('');
-  const [expiryValue, setExpiry] = useState<string>('');
-  const [cvcValue, setCvc] = useState<string>('');
-
   const [brand, setBrand] = useState<string>('');
   const [brandLogo, setBrandLogo] = useState<string>(unknownBrandLogo);
   const [panIsValid, setPanIsValid] = useState<boolean>(false);
@@ -53,18 +47,6 @@ export default function CardFlow() {
   const [cvcSession, setCvcSession] = useState('');
 
   const [error, setError] = useState<Error>();
-
-  const accessCheckout = new AccessCheckout({
-    baseUrl: 'https://npe.access.worldpay.com',
-    merchantId: 'identity',
-  });
-
-  const validationConfig = new CardValidationConfig({
-    panId: 'panInput',
-    expiryDateId: 'expiryDateInput',
-    cvcId: 'cvcInput',
-    enablePanFormatting: true,
-  });
 
   const validationEventListener: CardValidationEventListener = {
     onCardBrandChanged(brand?: Brand): void {
@@ -108,14 +90,22 @@ export default function CardFlow() {
     },
   };
 
-  const { initialiseCardValidation } = useCardValidation(
-    accessCheckout,
-    validationConfig,
-    validationEventListener,
-  );
+  const { initialiseValidation, generateSessions } = useAccessCheckout({
+    baseUrl: 'https://npe.access.worldpay.com',
+    checkoutId: 'identity',
+    config: useCardConfig({
+      panId: 'panInput',
+      expiryDateId: 'expiryDateInput',
+      cvcId: 'cvcInput',
+      validationConfig: {
+        enablePanFormatting: true,
+        validationListener: validationEventListener,
+      },
+    }),
+  });
 
   const onLayout = () => {
-    initialiseCardValidation()
+    initialiseValidation()
       .then(() => {
         console.info('Card Validation successfully initialised');
       })
@@ -124,23 +114,16 @@ export default function CardFlow() {
       });
   };
 
-  function generateSession() {
+  function createSession() {
     const sessionTypes = generateCardAndCvcSessions ? [CARD, CVC] : [CARD];
 
     setShowSpinner(true);
     setIsEditable(false);
     setSubmitBtnEnabled(false);
 
-    const cardDetails: CardDetails = {
-      pan: panValue,
-      expiryDate: expiryValue,
-      cvc: cvcValue,
-    };
-
-    accessCheckout
-      .generateSessions(cardDetails, sessionTypes)
+    generateSessions(sessionTypes)
       .then((sessions: Sessions) => {
-        console.info(`Successfully generated session(s)`);
+        console.info('Successfully generated session(s)');
 
         if (sessions.card) {
           setCardSession(sessions.card);
@@ -195,7 +178,6 @@ export default function CardFlow() {
         <PanField
           testID="panInput"
           isValid={panIsValid}
-          onChange={setPan}
           isEditable={isEditable}
         />
         <CardBrandImage testID="cardBrandImage" logo={brandLogo} />
@@ -204,13 +186,11 @@ export default function CardFlow() {
         <ExpiryDateField
           testID="expiryDateInput"
           isValid={expiryIsValid}
-          onChange={setExpiry}
           isEditable={isEditable}
         />
         <CvcField
           testID="cvcInput"
           isValid={cvcIsValid}
-          onChange={setCvc}
           isEditable={isEditable}
         />
       </HView>
@@ -226,7 +206,7 @@ export default function CardFlow() {
       <VView style={{ marginTop: '8%' }}>
         <SubmitButton
           testID="submitButton"
-          onPress={generateSession}
+          onPress={createSession}
           enabled={submitBtnEnabled}
         />
       </VView>

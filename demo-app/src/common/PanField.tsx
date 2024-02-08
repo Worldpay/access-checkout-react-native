@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import commonStyles from './common-styles.js';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import UIComponentProps from './UIComponentProps';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import AccessCheckoutTextInput from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutTextInput';
+import type UIComponentProps from './UIComponentProps';
 
 const styles = StyleSheet.create({
   pan: {
     flex: 8,
+    flexDirection: 'row',
     margin: 12,
     marginRight: 5,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 10,
+    paddingHorizontal: 10,
     height: 40,
   },
 });
@@ -22,31 +19,24 @@ const styles = StyleSheet.create({
 interface PanFieldProps extends UIComponentProps {
   isEditable: boolean;
   isValid: boolean;
-  onChange(text: string): void;
 }
 
 const PanField = (props: PanFieldProps) => {
-  const [panValue, setPan] = useState<string>('');
+  const validationColours = props.isValid ? 'green' : 'red';
+  const validationColourStyle = props.isEditable ? validationColours : 'silver';
 
   return (
-    <TextInput
+    <AccessCheckoutTextInput
       nativeID="panInput"
       testID={props.testID}
       style={[
         styles.pan,
-        !props.isEditable
-          ? commonStyles.greyedOut
-          : props.isValid
-          ? commonStyles.valid
-          : commonStyles.invalid,
+        {
+          color: validationColourStyle,
+          borderColor: validationColourStyle,
+        },
       ]}
-      keyboardType="numeric"
-      onChangeText={(text) => {
-        setPan(text);
-        props.onChange(text);
-      }}
       editable={props.isEditable}
-      value={panValue}
       placeholder="Card Number"
     />
   );

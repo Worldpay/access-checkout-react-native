@@ -1,10 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import Brand from '../../src/validation/Brand';
-import {
-  CardValidationEventListener,
-  cardValidationNativeEventListenerOf,
-} from '../../src';
+import type Brand from '../../src/validation/Brand';
+import type { CardValidationEventListener } from '../../src';
+import { cardValidationNativeEventListenerOf } from '../../src/validation/CardValidationEventListener';
 
 describe('CardValidationEventListener', () => {
   describe('can be instantiated', () => {
