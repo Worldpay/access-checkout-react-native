@@ -52,6 +52,58 @@ function validateArguments() {
   fi
 }
 
+checkVersionsOfReactAndReactNativeMatch() {
+  # Extracting versions of react-native and react from the SDK's package.json file
+  reactNativeVersion=$(grep -m 1 '"react-native".*\d' ./access-checkout-react-native-sdk/package.json | grep -o '\d\+\.\d\+\.\d\+')
+  reactVersion=$(grep -m 1 '"react"' ./access-checkout-react-native-sdk/package.json | grep -o '\d\+\.\d\+\.\d\+')
+
+  echo ""
+
+  if [ -z "${reactNativeVersion}" ]; then
+    echo "React Native version could not be found in package.json"
+    exit 1
+  elif [ -z "${reactVersion}" ]; then
+    echo "React version could not be found in package.json"
+    exit 1
+  fi
+
+  echo "Versions found in package.json: react=${reactVersion}, react-native=${reactNativeVersion}"
+
+  # checking that versions in README.md file match up with versions supported by our SDK
+  filepath=./README.md
+  result=$(grep -o "React Native ${reactNativeVersion}" $filepath)
+  if [ -z "${result}" ]; then
+    echo "React Native version supported by our SDK  (${reactNativeVersion}) could not be found in ${filepath}. Please update the file so the version specified is the same as the one specified in the SDK package.json file"
+    exit 1
+  fi
+
+  result=$(grep -o "React ${reactVersion}" $filepath)
+  if [ -z "${result}" ]; then
+    echo "React version specified in package.json (${reactVersion}) could not be found in ${filepath}. Please update the file so the version specified is the same as the one specified in the SDK package.json file"
+    exit 1
+  fi
+
+  echo "√ React Native & React versions specified in ${filepath} match versions supported by the SDK"
+
+  # checking that versions in ./access-checkout-react-native-sdk/README.md file match up with versions supported by our SDK
+  # ./access-checkout-react-native-sdk/README.md is the content that merchants can see on the NPM page of our SDK so it is
+  # critical that the version is correctly specified
+  filepath=./access-checkout-react-native-sdk/README.md
+  result=$(grep -o "React Native ${reactNativeVersion}" $filepath)
+  if [ -z "${result}" ]; then
+    echo "React Native version supported by our SDK  (${reactNativeVersion}) could not be found in ${filepath}. Please update the file so the version specified is the same as the one specified in the SDK package.json file"
+    exit 1
+  fi
+
+  result=$(grep -o "React ${reactVersion}" $filepath)
+  if [ -z "${result}" ]; then
+    echo "React version specified in package.json (${reactVersion}) could not be found in ${filepath}. Please update the file so the version specified is the same as the one specified in the SDK package.json file"
+    exit 1
+  fi
+
+  echo "√ React Native & React versions specified in ${filepath} match versions supported by the SDK"
+}
+
 checkNoPendingChangesToCommit() {
   local errorMessage=$1
 
@@ -170,14 +222,23 @@ regenerateLibFiles() {
   echo "Regenerating lib files so they contain the new version"
 
   cd access-checkout-react-native-sdk
+  npm install
   npm run prepare
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to regenerate lib files"
+    exit $status
+  fi
+
   cd ..
 }
 
 function reinstallDemoAppPods() {
   echo ""
   echo "Re-installing pods in demo-app following to version change in SDK iOS Bridge"
-  cd demo-app/ios
+  cd demo-app
+  npm install
+  cd ios
   pod install
 
   status=$?
@@ -203,6 +264,8 @@ commitAllChanges() {
   git add ./access-checkout-react-native-sdk/src/AccessCheckout.tsx
   git add ./demo-app/ios/Podfile.lock
   git add ./access-checkout-react-native-sdk/lib/
+  git add ./README.md
+  git add ./access-checkout-react-native-sdk/README.md
 
   git commit -m "$commitMessage"
 
@@ -226,9 +289,34 @@ pushChanges() {
   fi
 }
 
+changeVersionInReadme() {
+  echo ""
+
+  sh ./scripts/update-libraries-versions-in-docs.sh
+
+  if [[ $? -ne 0 ]]; then
+    echo "Failed to change version in readme files"
+    exit 1
+  fi
+}
+
+removeNonessentialPendingChanges() {
+  echo ""
+
+  echo "Removing unessential pending changes"
+
+  git restore demo-app/ios/AccessCheckoutReactNativeDemo.xcodeproj/project.pbxproj
+
+  if [[ $? -ne 0 ]]; then
+    echo "Failed to remove changes from staging area"
+    exit 1
+  fi
+}
+
 trimVersion
 trimTicketNumber
 validateArguments
+checkVersionsOfReactAndReactNativeMatch
 checkNoPendingChangesToCommit "Please run git reset --hard HEAD to clean your working directory and staging area"
 pullLatestChangesFromMaster
 createBranchOffMaster
@@ -236,9 +324,11 @@ createBranchOffMaster
 changeVersionInTypeScriptSDK $version
 changeVersionInIosBridge $version
 changeVersionInAndroidBridge $version
+changeVersionInReadme
 reinstallDemoAppPods
 regenerateLibFiles
 
 commitAllChanges
+removeNonessentialPendingChanges
 checkNoPendingChangesToCommit "Some changes have been left out and not committed. This is unexpected and is an issue. Please check the script"
 pushChanges
