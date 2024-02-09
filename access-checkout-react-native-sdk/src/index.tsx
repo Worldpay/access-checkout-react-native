@@ -22,9 +22,3 @@ export { useCardConfig, UseCardConfig, CardValidationConfig } from './hooks/useC
 export { useCvcOnlyConfig, UseCvcOnlyConfig, CvcOnlyValidationConfig } from './hooks/useCvcOnlyConfig';
 
 export { useAccessCheckout, UseAccessCheckout, UseAccessCheckoutExports } from './hooks/useAccessCheckout';
-
-export {
-  AccessCheckoutTextInput,
-  AccessCheckoutTextInputStyle,
-  AccessCheckoutTextInputProps,
-} from './ui/AccessCheckoutTextInput';

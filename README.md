@@ -15,9 +15,7 @@
 
 ## React & React Native Compatibility
 
-Our SDK is compatible with:
-- `React Native 0.70.0` and above 
-- `React 18.1.0` and above 
+Our SDK is compatible with `React Native >= 0.70.0` and `React >= 18.1.0` 
 
 ## Getting Started
 
