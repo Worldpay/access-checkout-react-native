@@ -1,0 +1,1 @@
+{"version":3,"names":[],"sources":["Brand.ts"],"sourcesContent":["import type BrandImage from './BrandImage';\n\nexport default interface Brand {\n  name: string;\n  images: BrandImage[];\n}\n"],"mappings":""}

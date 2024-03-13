@@ -1,0 +1,1 @@
+{"version":3,"names":["NativeEventEmitter","AccessCheckoutNativeEventEmitter"],"sources":["AccessCheckoutNativeEventEmitter.tsx"],"sourcesContent":["import { NativeEventEmitter } from 'react-native';\n\nexport default class AccessCheckoutNativeEventEmitter extends NativeEventEmitter {}\n"],"mappings":"AAAA,SAASA,kBAAkB,QAAQ,cAAc;AAEjD,eAAe,MAAMC,gCAAgC,SAASD,kBAAkB,CAAC"}

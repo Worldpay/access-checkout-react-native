@@ -1,0 +1,1 @@
+{"version":3,"names":[],"sources":["BrandImage.ts"],"sourcesContent":["export default interface BrandImage {\n  type: string;\n  url: string;\n}\n"],"mappings":""}
