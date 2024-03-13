@@ -1,4 +1,4 @@
-import { AccessCheckoutReactNative } from './AccessCheckoutReactNative';
+import AccessCheckoutReactNative from './../src';
 import type SessionGenerationConfig from './session/SessionGenerationConfig';
 import type Sessions from './session/Sessions';
 

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { NativeEventEmitter } from 'react-native';
 import AccessCheckout from '../AccessCheckout';
 import AccessCheckoutReactNative from '../AccessCheckoutReactNative';
 import {
@@ -7,6 +6,7 @@ import {
   cardValidationNativeEventListenerOf,
 } from '../validation/CardValidationEventListener';
 import { ValidationListenerException } from '../validation/ValidationListenerException';
+import { NativeEventEmitter } from 'react-native';
 
 export function useCardValidationEventListener(validationListener: CardValidationEventListener) {
   useEffect(() => {
@@ -16,8 +16,8 @@ export function useCardValidationEventListener(validationListener: CardValidatio
     }
 
     const nativeEventListener = cardValidationNativeEventListenerOf(validationListener);
-    const nativeEventEmitter = new NativeEventEmitter(AccessCheckoutReactNative);
 
+    const nativeEventEmitter = new NativeEventEmitter(AccessCheckoutReactNative);
     const eventSubscription = nativeEventEmitter.addListener(
       AccessCheckout.CardValidationEventType,
       nativeEventListener

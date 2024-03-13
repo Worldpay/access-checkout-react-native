@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type UIComponentProps from './UIComponentProps';
-import AccessCheckoutTextInput from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutTextInput';
+import { AccessCheckoutTextInput } from '../../../access-checkout-react-native-sdk/src';
 import { StyleSheet } from 'react-native';
 
 interface ExpiryDateFieldProps extends UIComponentProps {
@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     borderRadius: 5,
-    height: 40,
     paddingHorizontal: 10,
   },
 });
