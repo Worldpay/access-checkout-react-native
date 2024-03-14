@@ -118,8 +118,8 @@ describe('AccessCheckoutTextInput', () => {
           );
 
           //View Container
-          const accessCheckoutTextInputView = await viewContainerHasDefaultStates('my-access-checkout-text-input-view');
-          expect(accessCheckoutTextInputView).toHaveStyle({ borderColor: 'red' });
+          const accessCheckoutTextInputView = await screen.findByTestId('my-access-checkout-text-input-view');
+          expect(accessCheckoutTextInputView).toHaveStyle({ height: 40, borderColor: 'red' });
           //Native component
           await nativeComponentHasDefaultStates('my-access-checkout-text-input');
         });
@@ -134,8 +134,8 @@ describe('AccessCheckoutTextInput', () => {
           );
 
           //View Container
-          const accessCheckoutTextInputView = await viewContainerHasDefaultStates('my-access-checkout-text-input-view');
-          expect(accessCheckoutTextInputView).toHaveStyle({ backgroundColor: 'red' });
+          const accessCheckoutTextInputView = await screen.findByTestId('my-access-checkout-text-input-view');
+          expect(accessCheckoutTextInputView).toHaveStyle({ height: 40, backgroundColor: 'red' });
           //Native component
           await nativeComponentHasDefaultStates('my-access-checkout-text-input');
         });

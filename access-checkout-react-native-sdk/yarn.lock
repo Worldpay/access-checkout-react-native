@@ -5325,7 +5325,7 @@ react-native-gradle-plugin@^0.70.3:
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz"
   integrity sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A==
 
-react-native@*, react-native@>=0.59, react-native@0.70.15:
+react-native@*, react-native@^0.70.0, react-native@>=0.59:
   version "0.70.15"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.70.15.tgz"
   integrity sha512-pm2ZPpA+m0Kl0THAy2fptnp7B9+QPexpfad9fSXfqjPufrXG2alwW8kYCn2EO5ZUX6bomZjFEswz6RzdRN/p9A==
