@@ -4,11 +4,8 @@ module.exports = {
   coverageDirectory: './reports/coverage/',
   collectCoverageFrom: ['./src/**/*.{ts,tsx}'],
   preset: 'react-native',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testRegex: '/test/.*.spec\\.ts(x)?',
-  transform: {
-    '^.+\\.(ts|tsx)?$': 'ts-jest',
-    '^.+\\.(js|jsx)$': 'babel-jest',
-  },
   reporters: [
     'default',
     [

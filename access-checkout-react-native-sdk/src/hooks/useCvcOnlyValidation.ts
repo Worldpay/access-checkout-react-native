@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { NativeEventEmitter } from 'react-native';
-import AccessCheckoutReactNative, { AccessCheckout, CardValidationEventListener } from '../index';
 import type { CvcOnlyValidationEventListener } from '../validation/CvcOnlyValidationEventListener';
 import { cvcOnlyValidationNativeEventListenerOf } from '../validation/CvcOnlyValidationEventListener';
 import { ValidationListenerException } from '../validation/ValidationListenerException';
+import { AccessCheckoutReactNative } from '../AccessCheckoutReactNative';
+import AccessCheckout from '../AccessCheckout';
+import type { CardValidationEventListener } from '../validation/CardValidationEventListener';
 
 export const useCvcOnlyValidationEventListener = (validationListener: CvcOnlyValidationEventListener) => {
   useEffect(() => {

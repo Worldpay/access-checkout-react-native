@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import type UIComponentProps from './UIComponentProps';
-import AccessCheckoutTextInput from '../../../access-checkout-react-native-sdk/src/ui/AccessCheckoutTextInput';
+import { AccessCheckoutTextInput } from '../../../access-checkout-react-native-sdk/src';
 
 const styles = StyleSheet.create({
   cvc: {
@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     borderRadius: 5,
-    height: 40,
     paddingHorizontal: 10,
   },
 });

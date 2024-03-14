@@ -1,5 +1,4 @@
-import { CvcOnlyConfig, useCvcOnlyConfig } from '../../src';
-import type { CardValidationEventListener } from '../../lib/typescript';
+import { type CvcOnlyConfig, useCvcOnlyConfig, type CardValidationEventListener } from '../../src';
 
 describe('useCvcOnlyConfig', () => {
   it('creates card config with minimal configuration', () => {

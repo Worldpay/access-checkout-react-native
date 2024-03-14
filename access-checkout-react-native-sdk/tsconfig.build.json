@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig",
   "exclude": [
-    "test"
+    "test",
+    "jest.setup.ts"
   ]
 }

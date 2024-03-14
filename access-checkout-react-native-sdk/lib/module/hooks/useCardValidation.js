@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { NativeEventEmitter } from 'react-native';
 import AccessCheckout from '../AccessCheckout';
 import AccessCheckoutReactNative from '../AccessCheckoutReactNative';
 import { cardValidationNativeEventListenerOf } from '../validation/CardValidationEventListener';
 import { ValidationListenerException } from '../validation/ValidationListenerException';
+import { NativeEventEmitter } from 'react-native';
 export function useCardValidationEventListener(validationListener) {
   useEffect(() => {
     //Safe-guard in the case where no validation listener was configured we avoid registering the native listener

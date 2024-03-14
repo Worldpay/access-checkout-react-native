@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.useCardValidation = useCardValidation;
 exports.useCardValidationEventListener = useCardValidationEventListener;
 var _react = require("react");
-var _reactNative = require("react-native");
 var _AccessCheckout = _interopRequireDefault(require("../AccessCheckout"));
 var _AccessCheckoutReactNative = _interopRequireDefault(require("../AccessCheckoutReactNative"));
 var _CardValidationEventListener = require("../validation/CardValidationEventListener");
 var _ValidationListenerException = require("../validation/ValidationListenerException");
+var _reactNative = require("react-native");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function useCardValidationEventListener(validationListener) {
   (0, _react.useEffect)(() => {

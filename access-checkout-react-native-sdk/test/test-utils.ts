@@ -1,12 +1,12 @@
-import { NativeModules } from 'react-native';
+import { NativeEventEmitter, NativeModules } from 'react-native';
 
-export function givenGenerateSessionsBridgeReturns({
-  card,
-  cvc,
-}: {
-  card?: string;
-  cvc?: string;
-}) {
+export const getMockNativeEventEmitterSubscription = () => {
+  const nativeEventEmitter = new NativeEventEmitter();
+
+  expect(nativeEventEmitter.addListener).toHaveBeenCalledTimes(1);
+  return (nativeEventEmitter.addListener as jest.Mock).mock.results[0].value;
+};
+export function givenGenerateSessionsBridgeReturns({ card, cvc }: { card?: string; cvc?: string }) {
   const sessions = { card, cvc };
 
   const mock = NativeModules.AccessCheckoutReactNative.generateSessions;
@@ -49,8 +49,7 @@ export function givenCardValidationBridgeFailsWith(error: Error) {
 }
 
 export function givenCvcOnlyValidationBridgeReturns(returnValue: boolean) {
-  const mock =
-    NativeModules.AccessCheckoutReactNative.initialiseCvcOnlyValidation;
+  const mock = NativeModules.AccessCheckoutReactNative.initialiseCvcOnlyValidation;
   mock.mockReturnValueOnce(
     new Promise((resolve) => {
       resolve(returnValue);
@@ -59,8 +58,7 @@ export function givenCvcOnlyValidationBridgeReturns(returnValue: boolean) {
 }
 
 export function givenCvcOnlyValidationBridgeFailsWith(error: Error) {
-  const mock =
-    NativeModules.AccessCheckoutReactNative.initialiseCvcOnlyValidation;
+  const mock = NativeModules.AccessCheckoutReactNative.initialiseCvcOnlyValidation;
   mock.mockReturnValueOnce(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

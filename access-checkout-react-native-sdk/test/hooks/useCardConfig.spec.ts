@@ -1,5 +1,4 @@
-import { CardConfig, useCardConfig } from '../../src';
-import type { CardValidationEventListener } from '../../lib/typescript';
+import { type CardConfig, useCardConfig, type CardValidationEventListener } from '../../src';
 
 describe('useCardConfig', () => {
   it('creates card config with minimal configuration', () => {

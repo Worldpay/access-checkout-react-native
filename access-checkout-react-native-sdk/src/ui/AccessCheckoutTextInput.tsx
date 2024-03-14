@@ -1,17 +1,10 @@
 import React from 'react';
-import {
-  requireNativeComponent,
-  type ColorValue,
-  type StyleProp,
-  StyleSheet,
-  type TextStyle,
-  View,
-  type ViewStyle,
-} from 'react-native';
+import { type ColorValue, type StyleProp, StyleSheet, View, type ViewStyle } from 'react-native';
+import { RTCAccessCheckoutTextInput } from './RCTAccessCheckoutTextInput';
 
 /**
  * Composes `AccessCheckoutTextInput`.
- *
+ * Note: If no style.height is provided height is defaulted to make the component visible
  * - nativeID: string
  * - testID: string
  * - style: StyleProp<AccessCheckoutTextInputStyle>;
@@ -34,46 +27,48 @@ export interface AccessCheckoutTextInputProps {
  *   fontStyle: applies to both placeholder text and input text.
  *   fontWeight: applies to both placeholder text and input text.
  */
+export type AccessCheckoutTextInputFontStyle = 'normal' | 'italic' | undefined;
+export type AccessCheckoutTextInputFontWeight =
+  | 'normal'
+  | 'bold'
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900';
+
 export interface AccessCheckoutTextInputStyle extends ViewStyle {
   color?: ColorValue;
   fontFamily?: string;
   fontSize?: number;
-  fontStyle?: 'normal' | 'italic';
+  fontStyle?: AccessCheckoutTextInputFontStyle;
   // Specifies font weight. The values 'normal' and 'bold' are supported for most fonts. Not all fonts have a variant for each of the numeric values, in that case the closest one is chosen.
-  fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
+  fontWeight?: AccessCheckoutTextInputFontWeight;
 }
 
-/**
- * Font Changes apply to placeholder text and input text
- *
- * ## What
- * - Rewrites font support for android
- * - Adds font weight support for android <28 only 'normal' and 'bold' supported
- * - Adds font weight support as units for android >28
- */
-interface RTCAccessCheckoutTextInputFontProps {
-  fontFamily?: string;
-  fontSize?: number;
-  fontStyle?: 'normal' | 'italic';
-  fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
-}
-
-interface RTCAccessCheckoutTextInputProps {
-  nativeID: string;
-  testID?: string;
-  style?: StyleProp<TextStyle>;
-  placeholder?: string;
-  font?: RTCAccessCheckoutTextInputFontProps;
-  editable?: boolean;
-  color?: ColorValue;
-}
-
-const RTCAccessCheckoutTextInput = requireNativeComponent<RTCAccessCheckoutTextInputProps>('AccessCheckoutTextInput');
-export const AccessCheckoutTextInput = (props: AccessCheckoutTextInputProps) => {
+export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (props) => {
   const { nativeID, testID, style, placeholder, editable } = props;
-  const { color, fontFamily, fontSize, fontStyle, fontWeight, ...otherStyles } = StyleSheet.flatten([style]);
+
+  const {
+    color,
+    fontFamily,
+    fontSize,
+    fontStyle,
+    fontWeight,
+    height = 40,
+    ...otherStyles
+  } = StyleSheet.flatten([style]);
+
+  // Check if other styles are remaining before assigning it to the view container this helps to prevent passing in
+  // an empty object wo the view container
+  const viewStyles = Object.keys(otherStyles).length ? [{ height }, otherStyles] : [{ height }];
+
   return (
-    <View style={[otherStyles]}>
+    <View testID={`${testID}-view`} style={viewStyles}>
       <RTCAccessCheckoutTextInput
         nativeID={nativeID}
         testID={testID}
@@ -91,5 +86,3 @@ export const AccessCheckoutTextInput = (props: AccessCheckoutTextInputProps) => 
     </View>
   );
 };
-
-export default AccessCheckoutTextInput;

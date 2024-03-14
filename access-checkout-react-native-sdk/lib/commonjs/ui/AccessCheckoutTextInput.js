@@ -3,13 +3,14 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.AccessCheckoutTextInput = void 0;
+exports.AccessCheckoutTextInput = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _reactNative = require("react-native");
+var _RCTAccessCheckoutTextInput = require("./RCTAccessCheckoutTextInput");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
  * Composes `AccessCheckoutTextInput`.
- *
+ * Note: If no style.height is provided height is defaulted to make the component visible
  * - nativeID: string
  * - testID: string
  * - style: StyleProp<AccessCheckoutTextInputStyle>;
@@ -26,16 +27,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *   fontWeight: applies to both placeholder text and input text.
  */
 
-/**
- * Font Changes apply to placeholder text and input text
- *
- * ## What
- * - Rewrites font support for android
- * - Adds font weight support for android <28 only 'normal' and 'bold' supported
- * - Adds font weight support as units for android >28
- */
-
-const RTCAccessCheckoutTextInput = (0, _reactNative.requireNativeComponent)('AccessCheckoutTextInput');
 const AccessCheckoutTextInput = props => {
   const {
     nativeID,
@@ -50,11 +41,21 @@ const AccessCheckoutTextInput = props => {
     fontSize,
     fontStyle,
     fontWeight,
+    height = 40,
     ...otherStyles
   } = _reactNative.StyleSheet.flatten([style]);
+
+  // Check if other styles are remaining before assigning it to the view container this helps to prevent passing in
+  // an empty object wo the view container
+  const viewStyles = Object.keys(otherStyles).length ? [{
+    height
+  }, otherStyles] : [{
+    height
+  }];
   return /*#__PURE__*/_react.default.createElement(_reactNative.View, {
-    style: [otherStyles]
-  }, /*#__PURE__*/_react.default.createElement(RTCAccessCheckoutTextInput, {
+    testID: `${testID}-view`,
+    style: viewStyles
+  }, /*#__PURE__*/_react.default.createElement(_RCTAccessCheckoutTextInput.RTCAccessCheckoutTextInput, {
     nativeID: nativeID,
     testID: testID,
     style: [{
@@ -72,5 +73,4 @@ const AccessCheckoutTextInput = props => {
   }));
 };
 exports.AccessCheckoutTextInput = AccessCheckoutTextInput;
-var _default = exports.default = AccessCheckoutTextInput;
 //# sourceMappingURL=AccessCheckoutTextInput.js.map
