@@ -1,7 +1,3 @@
-import AccessCheckoutReactNative from './AccessCheckoutReactNative';
-
-export default AccessCheckoutReactNative;
-
 export { default as AccessCheckout } from './AccessCheckout';
 
 export { default as SessionGenerationConfig } from './session/SessionGenerationConfig';

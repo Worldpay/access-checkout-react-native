@@ -9,5 +9,6 @@ interface AccessCheckoutReactNativeType {
     addListener: (eventType: string) => void;
     removeListeners: (count: number) => void;
 }
+export declare const AccessCheckoutReactNative: any;
 declare const _default: AccessCheckoutReactNativeType;
 export default _default;

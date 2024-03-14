@@ -1,5 +1,5 @@
 import { NativeModules } from 'react-native';
-const {
+export const {
   AccessCheckoutReactNative
 } = NativeModules;
 export default AccessCheckoutReactNative;

@@ -4,8 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _src = _interopRequireDefault(require("./../src"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _AccessCheckoutReactNative = require("./AccessCheckoutReactNative");
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == typeof i ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != typeof i) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
@@ -22,7 +21,7 @@ class AccessCheckout {
   }
   generateSessions(sessionGenerationConfig, sessionTypes) {
     return new Promise((resolve, reject) => {
-      _src.default.generateSessions({
+      _AccessCheckoutReactNative.AccessCheckoutReactNative.generateSessions({
         baseUrl: this.baseUrl,
         merchantId: this.merchantId,
         panId: sessionGenerationConfig.panId,
@@ -50,7 +49,7 @@ class AccessCheckout {
   }
   initialiseCardValidation(validationConfig) {
     return new Promise((resolve, reject) => {
-      _src.default.initialiseCardValidation({
+      _AccessCheckoutReactNative.AccessCheckoutReactNative.initialiseCardValidation({
         baseUrl: this.baseUrl,
         panId: validationConfig.panId,
         expiryDateId: validationConfig.expiryDateId,
@@ -68,7 +67,7 @@ class AccessCheckout {
   }
   initialiseCvcOnlyValidation(validationConfig) {
     return new Promise((resolve, reject) => {
-      _src.default.initialiseCvcOnlyValidation({
+      _AccessCheckoutReactNative.AccessCheckoutReactNative.initialiseCvcOnlyValidation({
         cvcId: validationConfig.cvcId
       }).then(() => {
         resolve(true);

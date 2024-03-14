@@ -16,6 +16,6 @@ interface AccessCheckoutReactNativeType {
   removeListeners: (count: number) => void;
 }
 
-const { AccessCheckoutReactNative } = NativeModules;
+export const { AccessCheckoutReactNative } = NativeModules;
 
 export default AccessCheckoutReactNative as AccessCheckoutReactNativeType;
