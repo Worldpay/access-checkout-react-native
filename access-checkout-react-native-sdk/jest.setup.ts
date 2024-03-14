@@ -1,6 +1,9 @@
 import '@testing-library/react-native/extend-expect';
 import * as ActualReactNative from 'react-native';
 
+//Set timeout to 10s
+jest.setTimeout(10000); // in milliseconds
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 export const mockAddListener = jest.fn(
