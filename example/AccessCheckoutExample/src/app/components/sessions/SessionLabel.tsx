@@ -22,17 +22,14 @@ const SessionLabel = (props: SessionLabelProps): React.JSX.Element => {
 
 const styles = StyleSheet.create({
   sessionLabelContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
+    flexDirection: 'column',
     marginTop: '2%',
   },
   tagContainer: {
-    flex: 2,
-    alignItems: 'center',
     padding: 5,
     backgroundColor: '#dd4f50',
-    borderRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   tagText: {
     fontSize: 11,
@@ -40,7 +37,9 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   sessionValue: {
-    flex: 7,
+    borderWidth: 2,
+    borderColor: '#dd4f50',
+    padding: 5,
     fontSize: 11,
     flexWrap: 'wrap',
   },

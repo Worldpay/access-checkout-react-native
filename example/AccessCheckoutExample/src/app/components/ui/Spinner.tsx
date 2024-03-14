@@ -14,11 +14,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
 });
 
 interface SpinnerProps extends UIComponentProps {

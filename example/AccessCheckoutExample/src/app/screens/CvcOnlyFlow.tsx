@@ -6,7 +6,6 @@ import {
   CvcOnlyValidationEventListener,
   Sessions,
   useAccessCheckout,
-  useCardConfig,
   useCvcOnlyConfig,
 } from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import Spinner from '../components/ui/Spinner.tsx';
@@ -59,7 +58,7 @@ const CvcOnlyFlow = (): React.JSX.Element => {
       });
   };
 
-  function createSession() {
+  const createSession = () => {
     setShowSpinner(true);
     setIsEditable(false);
     setSubmitBtnEnabled(false);
@@ -77,12 +76,12 @@ const CvcOnlyFlow = (): React.JSX.Element => {
         setSubmitBtnEnabled(true);
         setIsEditable(true);
       });
-  }
+  };
 
-  function chooseValidationColour(
+  const chooseValidationColour = (
     isValid: undefined | boolean,
     isEditable: boolean,
-  ) {
+  ) => {
     if (!isEditable) {
       return 'grey';
     }
@@ -98,7 +97,7 @@ const CvcOnlyFlow = (): React.JSX.Element => {
         return 'grey';
       }
     }
-  }
+  };
 
   return (
     <View style={styles.cardFlow} onLayout={onLayout}>

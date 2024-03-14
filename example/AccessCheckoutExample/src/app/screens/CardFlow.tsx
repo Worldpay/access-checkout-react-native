@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import SubmitButton from '../components/ui/SubmitButton';
 import Toggle from '../components/ui/Toggle';
@@ -28,7 +28,7 @@ const CardFlow = (): React.JSX.Element => {
   const [submitBtnEnabled, setSubmitBtnEnabled] = useState<boolean>(false);
   const [showSpinner, setShowSpinner] = useState<boolean>(false);
 
-  const [isEditable, setIsEditable] = useState<boolean>(true);
+  const [editable, setEditable] = useState<boolean>(true);
 
   const [generateCardAndCvcSessions, setGenerateCardAndCvcSessions] =
     useState(false);
@@ -93,11 +93,11 @@ const CardFlow = (): React.JSX.Element => {
       });
   };
 
-  function createSession() {
+  const createSession = () => {
     const sessionTypes = generateCardAndCvcSessions ? [CARD, CVC] : [CARD];
 
     setShowSpinner(true);
-    setIsEditable(false);
+    setEditable(false);
     setSubmitBtnEnabled(false);
 
     generateSessions(sessionTypes)
@@ -113,14 +113,14 @@ const CardFlow = (): React.JSX.Element => {
       .finally(() => {
         setShowSpinner(false);
         setSubmitBtnEnabled(true);
-        setIsEditable(true);
+        setEditable(true);
       });
-  }
+  };
 
-  function chooseValidationColour(
+  const chooseValidationColour = (
     isValid: undefined | boolean,
     isEditable: boolean,
-  ) {
+  ) => {
     if (!isEditable) {
       return 'grey';
     }
@@ -136,7 +136,7 @@ const CardFlow = (): React.JSX.Element => {
         return 'grey';
       }
     }
-  }
+  };
 
   return (
     <View style={styles.cardFlow} onLayout={onLayout}>
@@ -146,13 +146,13 @@ const CardFlow = (): React.JSX.Element => {
         <AccessCheckoutTextInput
           nativeID="panInput"
           testID="panInput"
-          editable={isEditable}
+          editable={editable}
           placeholder="Card Number"
           style={[
             styles.pan,
             {
-              color: chooseValidationColour(panIsValid, isEditable),
-              borderColor: chooseValidationColour(panIsValid, isEditable),
+              color: chooseValidationColour(panIsValid, editable),
+              borderColor: chooseValidationColour(panIsValid, editable),
             },
           ]}
         />
@@ -162,26 +162,26 @@ const CardFlow = (): React.JSX.Element => {
         <AccessCheckoutTextInput
           nativeID="expiryDateInput"
           testID="expiryDateInput"
-          editable={isEditable}
+          editable={editable}
           placeholder="MM/YY"
           style={[
             styles.expiry,
             {
-              color: chooseValidationColour(expiryIsValid, isEditable),
-              borderColor: chooseValidationColour(expiryIsValid, isEditable),
+              color: chooseValidationColour(expiryIsValid, editable),
+              borderColor: chooseValidationColour(expiryIsValid, editable),
             },
           ]}
         />
         <AccessCheckoutTextInput
           nativeID="cvcInput"
           testID="cvcInput"
-          editable={isEditable}
+          editable={editable}
           placeholder="CVC"
           style={[
             styles.cvc,
             {
-              color: chooseValidationColour(cvcIsValid, isEditable),
-              borderColor: chooseValidationColour(cvcIsValid, isEditable),
+              color: chooseValidationColour(cvcIsValid, editable),
+              borderColor: chooseValidationColour(cvcIsValid, editable),
             },
           ]}
         />
