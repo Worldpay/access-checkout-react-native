@@ -7,7 +7,11 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "test:e2e:ios:build": "detox build --configuration ios",
+    "test:e2e:android:build": "detox build --configuration android",
+    "test:e2e:ios": "detox test --configuration ios",
+    "test:e2e:android": "detox test --configuration android"
   },
   "dependencies": {
     "@worldpay/access-worldpay-checkout-react-native-sdk": "^3.0.0",
@@ -22,13 +26,17 @@
     "@react-native/eslint-config": "0.73.2",
     "@react-native/metro-config": "0.73.5",
     "@react-native/typescript-config": "0.73.1",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.27",
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
+    "detox": "^20.19.1",
     "eslint": "^8.19.0",
     "jest": "^29.6.3",
     "prettier": "2.8.8",
     "react-test-renderer": "18.2.0",
+    "ts-jest": "^29.1.2",
     "typescript": "5.0.4"
   },
   "engines": {

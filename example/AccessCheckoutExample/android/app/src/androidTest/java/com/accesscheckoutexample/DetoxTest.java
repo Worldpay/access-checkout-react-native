@@ -1,4 +1,4 @@
-package com.accesscheckoutplayground;
+package com.accesscheckoutexample;
 
 import com.wix.detox.Detox;
 import com.wix.detox.config.DetoxConfig;
