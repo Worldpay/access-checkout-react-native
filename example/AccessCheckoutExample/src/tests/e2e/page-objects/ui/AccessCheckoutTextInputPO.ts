@@ -1,4 +1,4 @@
-import {UIComponentPO} from '../base/UIComponentPO.ts';
+import {UIComponentPO} from './UIComponentPO.ts';
 
 import {by, device, element, expect} from 'detox';
 

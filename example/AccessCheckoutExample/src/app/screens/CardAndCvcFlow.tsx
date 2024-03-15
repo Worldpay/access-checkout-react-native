@@ -12,13 +12,14 @@ import {
   Brand,
   CARD,
   CardValidationEventListener,
+  CVC,
   Sessions,
   useAccessCheckout,
   useCardConfig,
 } from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import {getValidationColour} from '../utils/Validation.ts';
 
-const CardFlow = (): React.JSX.Element => {
+const CardAndCvcFlow = (): React.JSX.Element => {
   const [brand, setBrand] = useState<Brand>();
   const [panIsValid, setPanIsValid] = useState<boolean>();
   const [expiryIsValid, setExpiryIsValid] = useState<boolean>();
@@ -30,6 +31,7 @@ const CardFlow = (): React.JSX.Element => {
   const [editable, setEditable] = useState<boolean>(true);
 
   const [cardSession, setCardSession] = useState<string>();
+  const [cvcSession, setCvcSession] = useState<string>();
 
   const [error, setError] = useState<Error>();
 
@@ -81,7 +83,7 @@ const CardFlow = (): React.JSX.Element => {
   const onLayout = () => {
     initialiseValidation()
       .then(() => {
-        console.info('Card Validation successfully initialised');
+        console.info('Card & Cvc Validation successfully initialised');
       })
       .catch(e => {
         setError(e);
@@ -93,13 +95,14 @@ const CardFlow = (): React.JSX.Element => {
     setEditable(false);
     setSubmitBtnEnabled(false);
 
-    const sessionTypes = [CARD];
+    const sessionTypes = [CARD, CVC];
 
     generateSessions(sessionTypes)
       .then((sessions: Sessions) => {
         console.info('Successfully generated session(s)');
 
         setCardSession(sessions.card);
+        setCvcSession(sessions.cvc);
       })
       .catch(e => {
         setError(e);
@@ -169,6 +172,7 @@ const CardFlow = (): React.JSX.Element => {
       <SessionsDisplayContainer
         testID="sessionsContainer"
         cardSession={cardSession}
+        cvcSession={cvcSession}
       />
     </View>
   );
@@ -183,6 +187,14 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#F5F5F5',
   },
+  pan: {
+    flex: 9,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    height: 40,
+    backgroundColor: 'white',
+  },
   firstLine: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -192,14 +204,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     gap: 10,
-  },
-  pan: {
-    flex: 9,
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    height: 40,
-    backgroundColor: 'white',
   },
   expiry: {
     flex: 1,
@@ -219,4 +223,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardFlow;
+export default CardAndCvcFlow;

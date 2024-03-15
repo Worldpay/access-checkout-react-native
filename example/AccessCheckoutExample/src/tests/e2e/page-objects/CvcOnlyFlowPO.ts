@@ -1,6 +1,6 @@
 import {SessionLabelPO} from './ui/SessionLabelPO.ts';
 import {AccessCheckoutTextInputPO} from './ui/AccessCheckoutTextInputPO.ts';
-import {UIComponentPO} from './base/UIComponentPO.ts';
+import {UIComponentPO} from './ui/UIComponentPO.ts';
 import {SubmitButtonPO} from './ui/SubmitButtonPO.ts';
 
 export class CvcOnlyFlowPO {

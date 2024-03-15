@@ -1,5 +1,5 @@
 import {waitFor} from 'detox';
-import {UIComponentPO} from '../base/UIComponentPO.ts';
+import {UIComponentPO} from './UIComponentPO.ts';
 import {API_CALL_TIMEOUT_IN_MS} from '../Options.ts';
 
 export class SessionLabelPO extends UIComponentPO {

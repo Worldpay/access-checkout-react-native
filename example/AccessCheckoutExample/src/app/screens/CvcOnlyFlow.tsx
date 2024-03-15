@@ -52,7 +52,7 @@ const CvcOnlyFlow = (): React.JSX.Element => {
   const onLayout = () => {
     initialiseValidation()
       .then(() => {
-        console.info('Card Validation successfully initialised');
+        console.info('Cvc Validation successfully initialised');
       })
       .catch(e => {
         setError(e);
@@ -119,11 +119,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     margin: 12,
     padding: 12,
-    ...Platform.select({
-      ios: {
-        marginTop: 50,
-      },
-    }),
     borderRadius: 12,
     backgroundColor: '#F5F5F5',
   },

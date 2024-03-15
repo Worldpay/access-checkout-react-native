@@ -13,6 +13,10 @@ const images = {
     on: require('./img/card-on.png'),
     off: require('./img/card-off.png'),
   },
+  cardAndCvc: {
+    on: require('./img/card-on.png'),
+    off: require('./img/card-off.png'),
+  },
   cvc: {
     on: require('./img/cvc-on.png'),
     off: require('./img/cvc-off.png'),

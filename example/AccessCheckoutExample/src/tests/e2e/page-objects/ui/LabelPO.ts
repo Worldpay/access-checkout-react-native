@@ -1,4 +1,4 @@
-import {UIComponentPO} from '../base/UIComponentPO.ts';
+import {UIComponentPO} from './UIComponentPO.ts';
 import {waitFor} from 'detox';
 import {TIMEOUT_IN_MS} from '../Options.ts';
 

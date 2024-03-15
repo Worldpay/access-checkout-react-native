@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   logo: {
     borderRadius: 5,
     flex: 2,
-    margin: 12,
     marginLeft: 0,
     height: 40,
     resizeMode: 'center',

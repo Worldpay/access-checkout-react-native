@@ -1,18 +1,20 @@
 import {device, expect} from 'detox';
 import {expect as jestExpect} from 'expect';
 import {sessionRegEx} from './helpers/RegularExpressions';
-import {CardFlowPO} from './page-objects/CardFlowPO';
+import {CardAndCvcFlowPO} from './page-objects/CardAndCvcFlowPO.ts';
 
-describe('Card flow', () => {
-  const view = new CardFlowPO();
+describe('Card and Cvc flow', () => {
+  const view = new CardAndCvcFlowPO();
   const pan = view.pan;
   const expiryDate = view.expiryDate;
   const cvc = view.cvc;
   const cardSession = view.cardSession;
+  const cvcSession = view.cvcSession;
   const submitButton = view.submitButton;
 
   beforeEach(async () => {
     await device.reloadReactNative();
+    await view.selectCardAndCvcOnlyFlow();
   });
 
   describe('by default', () => {
@@ -51,10 +53,11 @@ describe('Card flow', () => {
       await cvc.type('123', '123');
     });
 
-    it('should support generating a card session', async () => {
+    it('should support to generating a card and a cvc session', async () => {
       await view.submit();
 
       jestExpect(await cardSession.text()).toMatch(sessionRegEx);
+      jestExpect(await cvcSession.text()).toMatch(sessionRegEx);
     });
   });
 });

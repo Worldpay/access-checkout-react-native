@@ -11,18 +11,36 @@ import {
 import CardFlow from './screens/CardFlow';
 import CvcOnlyFlow from './screens/CvcOnlyFlow';
 import NavItem from './components/navigation/NavItem';
+import CardAndCvcFlow from './screens/CardAndCvcFlow.tsx';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const screens = {
-    card: 'card',
-    cvc: 'cvc',
+  const screens: Record<string, {id: string; title: string}> = {
+    card: {
+      id: 'card',
+      title: 'Card Only Flow',
+    },
+    cardAndCvc: {
+      id: 'cardAndCvc',
+      title: 'Card and Cvc Flow',
+    },
+    cvc: {
+      id: 'cvc',
+      title: 'Cvc Only Flow',
+    },
   };
 
-  const [screen, setScreen] = useState(screens.card);
+  const [screen, setScreen] = useState(screens.card.id);
 
-  const currentPage = screen === screens.card ? <CardFlow /> : <CvcOnlyFlow />;
+  const currentPage =
+    screen === screens.card.id ? (
+      <CardFlow />
+    ) : screen === screens.cvc.id ? (
+      <CvcOnlyFlow />
+    ) : (
+      <CardAndCvcFlow />
+    );
 
   return (
     <SafeAreaView style={styles.app}>
@@ -31,22 +49,25 @@ function App(): React.JSX.Element {
         <Text testID="app-title" style={styles.appTitle}>
           {'Example Access Checkout App'}
         </Text>
+        <Text testID="screen-title" style={styles.appTitle}>
+          {screens[screen].title}
+        </Text>
         {currentPage}
       </View>
       <View style={[styles.nav]}>
-        <NavItem
-          title="Card Flow"
-          image={screens.card}
-          selected={screen === screens.card}
-          onPress={() => setScreen(screens.card)}
-          style={{marginRight: 50}}
-        />
-        <NavItem
-          title="Cvc Only Flow"
-          image={screens.cvc}
-          selected={screen === screens.cvc}
-          onPress={() => setScreen(screens.cvc)}
-        />
+        {Object.keys(screens).map((key: any) => {
+          const scr = screens[key];
+          return (
+            <NavItem
+              key={key}
+              title={scr.title}
+              image={scr.id}
+              selected={screen === scr.id}
+              onPress={() => setScreen(scr.id)}
+              style={{flex: 1, justifyContent: 'space-between'}}
+            />
+          );
+        })}
       </View>
     </SafeAreaView>
   );
@@ -69,7 +90,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 50,
     width: '100%',
     bottom: 0,
     height: 100,

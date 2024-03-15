@@ -9,10 +9,6 @@ describe('CVC only flow', () => {
   const cvcSession = view.cvcSession;
   const submitButton = view.submitButton;
 
-  beforeAll(async () => {
-    await device.launchApp();
-  });
-
   beforeEach(async () => {
     await device.reloadReactNative();
     await view.selectCvcOnlyFlow();
@@ -23,36 +19,19 @@ describe('CVC only flow', () => {
       await expect(cvc.component()).toBeVisible();
       await expect(submitButton.component()).toBeVisible();
     });
-
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('submit button should be disabled', async () => {
-      jestExpect(await submitButton.enabled()).toBe(false);
-    });
   });
 
-  describe('when user enters invalid cvc details', () => {
-    beforeEach(async () => {
-      await cvc.type('12', '12');
-    });
+  describe('user can enter cvc details', () => {
+    it('should be able to cvc number', async () => {
+      await cvc.type('123', '123');
 
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('submit button should be disabled', async () => {
-      jestExpect(await submitButton.enabled()).toBe(false);
+      jestExpect(await cvc.text()).toMatch('123');
     });
   });
 
   describe('when user enters valid cvc details', () => {
     beforeEach(async () => {
       await cvc.type('123', '123');
-    });
-
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('submit button should be enabled', async () => {
-      jestExpect(await submitButton.enabled()).toBe(true);
-    });
-
-    it('should mark the cvc as valid', async () => {
-      jestExpect(await cvc.text()).toBe('123');
     });
 
     it('should support to generate a cvc session', async () => {
