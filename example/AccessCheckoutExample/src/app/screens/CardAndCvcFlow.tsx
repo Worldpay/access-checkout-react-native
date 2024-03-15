@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Platform, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 import SubmitButton from '../components/ui/SubmitButton';
 import Spinner from '../components/ui/Spinner';
@@ -7,116 +7,49 @@ import CardBrandImage from '../components/card/CardBrandImage';
 import SessionsDisplayContainer from '../components/sessions/SessionsDisplayContainer';
 import ErrorDisplayContainer from '../components/error/ErrorDisplayContainer';
 
-import {
-  AccessCheckoutTextInput,
-  Brand,
-  CARD,
-  CardValidationEventListener,
-  CVC,
-  Sessions,
-  useAccessCheckout,
-  useCardConfig,
-} from '@worldpay/access-worldpay-checkout-react-native-sdk';
+import {AccessCheckoutTextInput} from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import {getValidationColour} from '../utils/Validation.ts';
+import {useAccessCheckoutCardAndCvcFlow} from '../hooks/useAccessCheckoutCardAndCvcFlow.ts';
 
 const CardAndCvcFlow = (): React.JSX.Element => {
-  const [brand, setBrand] = useState<Brand>();
-  const [panIsValid, setPanIsValid] = useState<boolean>();
-  const [expiryIsValid, setExpiryIsValid] = useState<boolean>();
-  const [cvcIsValid, setCvcIsValid] = useState<boolean>();
-
-  const [submitBtnEnabled, setSubmitBtnEnabled] = useState<boolean>(false);
-  const [showSpinner, setShowSpinner] = useState<boolean>(false);
-
-  const [editable, setEditable] = useState<boolean>(true);
-
-  const [cardSession, setCardSession] = useState<string>();
-  const [cvcSession, setCvcSession] = useState<string>();
-
-  const [error, setError] = useState<Error>();
-
-  const validationEventListener: CardValidationEventListener = {
-    onCardBrandChanged(brand?: Brand): void {
-      brand ? setBrand(brand) : setBrand(undefined);
-    },
-
-    onPanValidChanged(isValid: boolean): void {
-      setPanIsValid(isValid);
-      if (!isValid) {
-        setSubmitBtnEnabled(false);
-      }
-    },
-
-    onExpiryDateValidChanged(isValid: boolean): void {
-      setExpiryIsValid(isValid);
-      if (!isValid) {
-        setSubmitBtnEnabled(false);
-      }
-    },
-
-    onCvcValidChanged(isValid: boolean): void {
-      setCvcIsValid(isValid);
-      if (!isValid) {
-        setSubmitBtnEnabled(false);
-      }
-    },
-
-    onValidationSuccess() {
-      setSubmitBtnEnabled(true);
-    },
-  };
-
-  const {initialiseValidation, generateSessions} = useAccessCheckout({
+  const {
+    initialiseValidation,
+    generateSessions,
+    cardSession,
+    cvcSession,
+    brand,
+    panIsValid,
+    expiryIsValid,
+    cvcIsValid,
+    canSubmit,
+    error,
+    isLoading,
+  } = useAccessCheckoutCardAndCvcFlow({
     baseUrl: 'https://npe.access.worldpay.com',
     checkoutId: 'identity',
-    config: useCardConfig({
+    config: {
       panId: 'panInput',
       expiryDateId: 'expiryDateInput',
       cvcId: 'cvcInput',
-      validationConfig: {
-        enablePanFormatting: true,
-        validationListener: validationEventListener,
-      },
-    }),
+      enablePanFormatting: true,
+    },
   });
 
+  const [editable, setEditable] = useState<boolean>(true);
+
   const onLayout = () => {
-    initialiseValidation()
-      .then(() => {
-        console.info('Card & Cvc Validation successfully initialised');
-      })
-      .catch(e => {
-        setError(e);
-      });
+    initialiseValidation();
   };
 
   const createSession = () => {
-    setShowSpinner(true);
     setEditable(false);
-    setSubmitBtnEnabled(false);
-
-    const sessionTypes = [CARD, CVC];
-
-    generateSessions(sessionTypes)
-      .then((sessions: Sessions) => {
-        console.info('Successfully generated session(s)');
-
-        setCardSession(sessions.card);
-        setCvcSession(sessions.cvc);
-      })
-      .catch(e => {
-        setError(e);
-      })
-      .finally(() => {
-        setShowSpinner(false);
-        setSubmitBtnEnabled(true);
-        setEditable(true);
-      });
+    generateSessions();
+    setEditable(true);
   };
 
   return (
     <View style={styles.cardFlow} onLayout={onLayout}>
-      {showSpinner && <Spinner testID="spinner" show={showSpinner} />}
+      {isLoading && <Spinner testID="spinner" show={isLoading} />}
       {error && <ErrorDisplayContainer error={error} />}
       <View style={styles.firstLine}>
         <AccessCheckoutTextInput
@@ -166,7 +99,7 @@ const CardAndCvcFlow = (): React.JSX.Element => {
         <SubmitButton
           testID="submitButton"
           onPress={createSession}
-          enabled={submitBtnEnabled}
+          enabled={canSubmit}
         />
       </View>
       <SessionsDisplayContainer

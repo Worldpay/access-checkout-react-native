@@ -1,99 +1,53 @@
 import React, {useState} from 'react';
-import {Platform, StyleSheet, View} from 'react-native';
-import {
-  AccessCheckoutTextInput,
-  CVC,
-  CvcOnlyValidationEventListener,
-  Sessions,
-  useAccessCheckout,
-  useCvcOnlyConfig,
-} from '@worldpay/access-worldpay-checkout-react-native-sdk';
+import {StyleSheet, View} from 'react-native';
+import {AccessCheckoutTextInput} from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import Spinner from '../components/ui/Spinner.tsx';
 import ErrorDisplayContainer from '../components/error/ErrorDisplayContainer.tsx';
 import SubmitButton from '../components/ui/SubmitButton.tsx';
 import SessionsDisplayContainer from '../components/sessions/SessionsDisplayContainer.tsx';
 import {getValidationColour} from '../utils/Validation.ts';
+import {useAccessCheckoutCvcOnlyFlow} from '../hooks/useAccessCheckoutCvcFlow.ts';
 
 const CvcOnlyFlow = (): React.JSX.Element => {
-  const [cvcIsValid, setCvcIsValid] = useState<boolean>();
-
-  const [submitBtnEnabled, setSubmitBtnEnabled] = useState<boolean>(false);
-  const [showSpinner, setShowSpinner] = useState<boolean>(false);
-
-  const [isEditable, setIsEditable] = useState<boolean>(true);
-  const [cvcSession, setCvcSession] = useState<string>();
-
-  const [error, setError] = useState<Error>();
-
-  const validationEventListener: CvcOnlyValidationEventListener = {
-    onCvcValidChanged(isValid: boolean): void {
-      setCvcIsValid(isValid);
-      if (!isValid) {
-        setSubmitBtnEnabled(false);
-      }
-    },
-
-    onValidationSuccess() {
-      setSubmitBtnEnabled(true);
-    },
-  };
-
-  const {initialiseValidation, generateSessions} = useAccessCheckout({
+  const {
+    initialiseValidation,
+    generateSessions,
+    cvcSession,
+    cvcIsValid,
+    canSubmit,
+    error,
+    isLoading,
+  } = useAccessCheckoutCvcOnlyFlow({
     baseUrl: 'https://npe.access.worldpay.com',
     checkoutId: 'identity',
-    config: useCvcOnlyConfig({
+    config: {
       cvcId: 'cvcInput',
-      validationConfig: {
-        validationListener: validationEventListener,
-      },
-    }),
+    },
   });
 
-  const onLayout = () => {
-    initialiseValidation()
-      .then(() => {
-        console.info('Cvc Validation successfully initialised');
-      })
-      .catch(e => {
-        setError(e);
-      });
-  };
+  const [editable, setEditable] = useState<boolean>(true);
 
   const createSession = () => {
-    setShowSpinner(true);
-    setIsEditable(false);
-    setSubmitBtnEnabled(false);
-
-    generateSessions([CVC])
-      .then((sessions: Sessions) => {
-        console.info('Successfully generated session(s)');
-        setCvcSession(sessions.cvc);
-      })
-      .catch(e => {
-        setError(e);
-      })
-      .finally(() => {
-        setShowSpinner(false);
-        setSubmitBtnEnabled(true);
-        setIsEditable(true);
-      });
+    setEditable(false);
+    generateSessions();
+    setEditable(true);
   };
 
   return (
-    <View style={styles.cardFlow} onLayout={onLayout}>
-      {showSpinner && <Spinner testID="spinner" show={showSpinner} />}
+    <View style={styles.cardFlow} onLayout={initialiseValidation}>
+      {isLoading && <Spinner testID="spinner" show={isLoading} />}
       {error && <ErrorDisplayContainer error={error} />}
       <View style={styles.firstLine}>
         <AccessCheckoutTextInput
           nativeID="cvcInput"
           testID="cvcInput"
-          editable={isEditable}
+          editable={editable}
           placeholder="CVC"
           style={[
             styles.cvc,
             {
-              color: getValidationColour(cvcIsValid, isEditable),
-              borderColor: getValidationColour(cvcIsValid, isEditable),
+              color: getValidationColour(cvcIsValid, canSubmit),
+              borderColor: getValidationColour(cvcIsValid, canSubmit),
             },
           ]}
         />
@@ -102,7 +56,7 @@ const CvcOnlyFlow = (): React.JSX.Element => {
         <SubmitButton
           testID="submitButton"
           onPress={createSession}
-          enabled={submitBtnEnabled}
+          enabled={canSubmit}
         />
       </View>
       <SessionsDisplayContainer
