@@ -37,10 +37,6 @@ const CardAndCvcFlow = (): React.JSX.Element => {
 
   const [editable, setEditable] = useState<boolean>(true);
 
-  const onLayout = () => {
-    initialiseValidation();
-  };
-
   const createSession = () => {
     setEditable(false);
     generateSessions();
@@ -48,7 +44,7 @@ const CardAndCvcFlow = (): React.JSX.Element => {
   };
 
   return (
-    <View style={styles.cardFlow} onLayout={onLayout}>
+    <View style={styles.cardFlow} onLayout={initialiseValidation}>
       {isLoading && <Spinner testID="spinner" show={isLoading} />}
       {error && <ErrorDisplayContainer error={error} />}
       <View style={styles.firstLine}>
