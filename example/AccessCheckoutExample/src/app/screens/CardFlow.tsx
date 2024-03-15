@@ -18,6 +18,7 @@ import {
   useAccessCheckout,
   useCardConfig,
 } from '@worldpay/access-worldpay-checkout-react-native-sdk';
+import {getValidationColour} from '../utils/Validation.ts';
 
 const CardFlow = (): React.JSX.Element => {
   const [brand, setBrand] = useState<Brand>();
@@ -117,27 +118,6 @@ const CardFlow = (): React.JSX.Element => {
       });
   };
 
-  const chooseValidationColour = (
-    isValid: undefined | boolean,
-    isEditable: boolean,
-  ) => {
-    if (!isEditable) {
-      return 'grey';
-    }
-
-    switch (isValid) {
-      case false: {
-        return 'red';
-      }
-      case true: {
-        return 'green';
-      }
-      case undefined: {
-        return 'grey';
-      }
-    }
-  };
-
   return (
     <View style={styles.cardFlow} onLayout={onLayout}>
       {showSpinner && <Spinner testID="spinner" show={showSpinner} />}
@@ -151,8 +131,8 @@ const CardFlow = (): React.JSX.Element => {
           style={[
             styles.pan,
             {
-              color: chooseValidationColour(panIsValid, editable),
-              borderColor: chooseValidationColour(panIsValid, editable),
+              color: getValidationColour(panIsValid, editable),
+              borderColor: getValidationColour(panIsValid, editable),
             },
           ]}
         />
@@ -167,8 +147,8 @@ const CardFlow = (): React.JSX.Element => {
           style={[
             styles.expiry,
             {
-              color: chooseValidationColour(expiryIsValid, editable),
-              borderColor: chooseValidationColour(expiryIsValid, editable),
+              color: getValidationColour(expiryIsValid, editable),
+              borderColor: getValidationColour(expiryIsValid, editable),
             },
           ]}
         />
@@ -180,8 +160,8 @@ const CardFlow = (): React.JSX.Element => {
           style={[
             styles.cvc,
             {
-              color: chooseValidationColour(cvcIsValid, editable),
-              borderColor: chooseValidationColour(cvcIsValid, editable),
+              color: getValidationColour(cvcIsValid, editable),
+              borderColor: getValidationColour(cvcIsValid, editable),
             },
           ]}
         />

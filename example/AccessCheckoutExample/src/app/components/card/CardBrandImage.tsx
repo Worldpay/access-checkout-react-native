@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Image, ImageProps} from 'react-native';
+import {StyleSheet, Image} from 'react-native';
 
 import {UIComponentProps} from '../UIComponentProps.ts';
 import {Brand} from '@worldpay/access-worldpay-checkout-react-native-sdk';

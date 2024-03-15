@@ -12,6 +12,7 @@ import Spinner from '../components/ui/Spinner.tsx';
 import ErrorDisplayContainer from '../components/error/ErrorDisplayContainer.tsx';
 import SubmitButton from '../components/ui/SubmitButton.tsx';
 import SessionsDisplayContainer from '../components/sessions/SessionsDisplayContainer.tsx';
+import {getValidationColour} from '../utils/Validation.ts';
 
 const CvcOnlyFlow = (): React.JSX.Element => {
   const [cvcIsValid, setCvcIsValid] = useState<boolean>();
@@ -78,27 +79,6 @@ const CvcOnlyFlow = (): React.JSX.Element => {
       });
   };
 
-  const chooseValidationColour = (
-    isValid: undefined | boolean,
-    isEditable: boolean,
-  ) => {
-    if (!isEditable) {
-      return 'grey';
-    }
-
-    switch (isValid) {
-      case false: {
-        return 'red';
-      }
-      case true: {
-        return 'green';
-      }
-      case undefined: {
-        return 'grey';
-      }
-    }
-  };
-
   return (
     <View style={styles.cardFlow} onLayout={onLayout}>
       {showSpinner && <Spinner testID="spinner" show={showSpinner} />}
@@ -112,8 +92,8 @@ const CvcOnlyFlow = (): React.JSX.Element => {
           style={[
             styles.cvc,
             {
-              color: chooseValidationColour(cvcIsValid, isEditable),
-              borderColor: chooseValidationColour(cvcIsValid, isEditable),
+              color: getValidationColour(cvcIsValid, isEditable),
+              borderColor: getValidationColour(cvcIsValid, isEditable),
             },
           ]}
         />

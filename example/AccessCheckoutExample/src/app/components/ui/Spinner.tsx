@@ -6,13 +6,17 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     zIndex: 100,
-    flex: 1,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    left: 0,
-    top: 0,
-    width: '100%',
-    height: '100%',
+  },
+  indicator: {
+    backgroundColor: '#1b1b1b',
+    padding: 20,
+    borderRadius: 20,
   },
 });
 
@@ -23,7 +27,9 @@ interface SpinnerProps extends UIComponentProps {
 const Spinner = (props: SpinnerProps): React.JSX.Element => {
   return (
     <View style={[styles.container]} testID={props.testID}>
-      <ActivityIndicator animating={props.show} size="large" color="red" />
+      <View style={[styles.indicator]}>
+        <ActivityIndicator animating={props.show} size="large" color="red" />
+      </View>
     </View>
   );
 };
