@@ -2,7 +2,7 @@
 
 **Build Status**: ![](https://app.bitrise.io/app/7c9d34547d2631cb/status.svg?token=d4DIyXeuCdqvXY8oOOBkZA&branch=master)
 
-## Prerequisites
+## Prerequisites test
 
 1. Install the following tools
 - node
