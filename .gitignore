@@ -26,4 +26,4 @@ e2e-test/test-report.html
 
 # Detox artifacts
 e2e-test/artifacts/**/*
-example/artifacts/**/*
+example/AccessCheckoutExample/artifacts/**/*
