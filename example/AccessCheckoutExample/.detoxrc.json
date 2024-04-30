@@ -1,0 +1,51 @@
+{
+  "testRunner": {
+    "args": {
+      "$0": "jest",
+      "config": "src/tests/e2e/detox/jest.config.json"
+    },
+    "jest": {
+      "setupTimeout": 120000
+    }
+  },
+  "apps": {
+    "ios": {
+      "type": "ios.app",
+      "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/AccessCheckoutExample.app",
+      "build": "xcodebuild -workspace ios/AccessCheckoutExample.xcworkspace -scheme AccessCheckoutExample -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build"
+    },
+    "android": {
+      "type": "android.apk",
+      "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
+      "testBinaryPath": "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "build": "cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug",
+      "reversePorts": [
+        8081
+      ]
+    }
+  },
+  "devices": {
+    "ios": {
+      "type": "ios.simulator",
+      "device": {
+        "type": "iPhone 15"
+      }
+    },
+    "android": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Pixel_2_API_30"
+      }
+    }
+  },
+  "configurations": {
+    "ios": {
+      "device": "ios",
+      "app": "ios"
+    },
+    "android": {
+      "device": "android",
+      "app": "android"
+    }
+  }
+}
