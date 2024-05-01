@@ -1,6 +1,6 @@
 # Access Checkout React Native SDK
 
-![](./worldpay_logo.png)
+![](worldpay_logo.png)
 
 Create your own uniquely styled and branded checkout form by integrating our React Native SDK into your native app.
 

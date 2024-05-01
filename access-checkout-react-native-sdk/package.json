@@ -28,6 +28,7 @@
     "ios/AccessCheckoutReactNative",
     "ios/AccessCheckoutReactNativeSDKiOSBridge.podspec",
     "CHANGELOG.md",
+    "LICENSE",
     "README.md",
     "worldpay_logo.png"
   ],
