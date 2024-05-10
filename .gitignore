@@ -19,7 +19,7 @@
 access-checkout-react-native-sdk/src/*.js
 access-checkout-react-native-sdk/android/com/**/*
 
-# Files in the e2e demo-app flder
+# Files in the e2e demo-app folder
 e2e-test/src/**/*.js
 !e2e-test/src/**/*style*.js
 e2e-test/test-report.html
