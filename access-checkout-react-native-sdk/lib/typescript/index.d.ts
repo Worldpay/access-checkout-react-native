@@ -13,4 +13,3 @@ export { MerchantCardValidationConfig } from './validation/MerchantCardValidatio
 export { useCardConfig, UseCardConfig, CardValidationConfig } from './hooks/useCardConfig';
 export { useCvcOnlyConfig, UseCvcOnlyConfig, CvcOnlyValidationConfig } from './hooks/useCvcOnlyConfig';
 export { useAccessCheckout, UseAccessCheckout, UseAccessCheckoutExports } from './hooks/useAccessCheckout';
-export { AccessCheckoutTextInput, AccessCheckoutTextInputStyle, AccessCheckoutTextInputProps, } from './ui/AccessCheckoutTextInput';

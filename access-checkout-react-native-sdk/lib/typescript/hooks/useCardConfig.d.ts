@@ -1,4 +1,5 @@
 import type { CardValidationEventListener } from '../validation/CardValidationEventListener';
+import { MerchantCardValidationConfig } from '../validation/MerchantCardValidationConfig';
 import MerchantCardConfig from '../config/MerchantCardConfig';
 export interface CardValidationConfig {
     acceptedCardBrands?: string[];
@@ -9,6 +10,6 @@ export interface UseCardConfig {
     panId: string;
     expiryDateId: string;
     cvcId: string;
-    validationConfig?: CardValidationConfig;
+    validationConfig?: MerchantCardValidationConfig;
 }
 export declare const useCardConfig: (props: UseCardConfig) => MerchantCardConfig;
