@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type UIComponentProps from './UIComponentProps';
-import { AccessCheckoutTextInput } from '../../../access-checkout-react-native-sdk/src';
+import { AccessCheckoutTextInput } from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import { StyleSheet } from 'react-native';
 
 interface ExpiryDateFieldProps extends UIComponentProps {
