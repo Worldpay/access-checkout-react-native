@@ -27,7 +27,7 @@ import styles from './style.js';
 
 export default function CardFlow() {
   const unknownBrandLogo =
-    'https://npe.access.worldpay.com/access-checkout/assets/unknown.png';
+    'https://try.access.worldpay.com/access-checkout/assets/unknown.png';
 
   const [brand, setBrand] = useState<string>('');
   const [brandLogo, setBrandLogo] = useState<string>(unknownBrandLogo);
