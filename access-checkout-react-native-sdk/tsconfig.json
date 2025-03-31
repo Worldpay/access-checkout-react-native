@@ -1,6 +1,9 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "noEmit": false
+    "noEmit": false,
+    "types": [
+      "node"
+    ]
   }
 }
