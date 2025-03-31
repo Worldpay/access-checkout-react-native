@@ -9,14 +9,6 @@ apply from: './gradle/publications.gradle'
 
 react {}
 
-//ext {
-//    buildToolsVersion = "34.0.0"
-//    minSdkVersion = 26
-//    compileSdkVersion = 34
-//    targetSdkVersion = 34
-//    ndkVersion = "25.1.8937393"
-//    kotlinVersion = "1.8.0"
-//}
 repositories {
     google()
     mavenCentral()
