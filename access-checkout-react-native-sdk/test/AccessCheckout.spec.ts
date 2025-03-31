@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import { NativeModules } from 'react-native';
 import { AccessCheckout, CVC } from '../src/';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -15,6 +14,7 @@ import {
   hasProperty,
 } from './test-utils';
 import { CardConfig, CvcOnlyConfig } from '../src';
+import * as fs from 'node:fs';
 
 const baseUrl = 'https://access.worldpay.com';
 const merchantId = '123';
@@ -24,9 +24,7 @@ const expiryDateId = 'expiryDateId';
 const cvcId = 'cvcId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const packageDotJson = JSON.parse(
-  fs.readFileSync('./package.json', { encoding: 'utf8' })
-);
+const packageDotJson = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf8' }));
 
 describe('AccessCheckout', () => {
   beforeEach(() => {
@@ -69,8 +67,7 @@ describe('AccessCheckout', () => {
 
         await checkout.generateSessions(sessionGenerationConfig, sessionTypes);
 
-        const bridgeMock =
-          NativeModules.AccessCheckoutReactNative.generateSessions.mock;
+        const bridgeMock = NativeModules.AccessCheckoutReactNative.generateSessions.mock;
         expect(bridgeMock.calls.length).toEqual(1);
 
         const args = bridgeMock.calls[0][0];
@@ -81,10 +78,7 @@ describe('AccessCheckout', () => {
         givenGenerateSessionsBridgeFailsWith(new Error('Failed !'));
 
         try {
-          await checkout.generateSessions(
-            sessionGenerationConfig,
-            sessionTypes
-          );
+          await checkout.generateSessions(sessionGenerationConfig, sessionTypes);
         } catch (error) {
           expect(error).toEqual(new Error('Failed !'));
         }
@@ -104,10 +98,7 @@ describe('AccessCheckout', () => {
           card: 'card-session',
         });
 
-        const result: Sessions = await checkout.generateSessions(
-          sessionGenerationConfig,
-          sessionTypes
-        );
+        const result: Sessions = await checkout.generateSessions(sessionGenerationConfig, sessionTypes);
 
         expect(hasProperty(result, 'cvc')).toEqual(false);
         expect(result).toEqual({
@@ -129,8 +120,7 @@ describe('AccessCheckout', () => {
 
         await checkout.generateSessions(sessionGenerationConfig, sessionTypes);
 
-        const bridgeMock =
-          NativeModules.AccessCheckoutReactNative.generateSessions.mock;
+        const bridgeMock = NativeModules.AccessCheckoutReactNative.generateSessions.mock;
         expect(bridgeMock.calls.length).toEqual(1);
 
         const args = bridgeMock.calls[0][0];
@@ -151,10 +141,7 @@ describe('AccessCheckout', () => {
           cvc: 'cvc-session',
         });
 
-        const result: Sessions = await checkout.generateSessions(
-          sessionGenerationConfig,
-          sessionTypes
-        );
+        const result: Sessions = await checkout.generateSessions(sessionGenerationConfig, sessionTypes);
 
         expect(result).toEqual({
           card: 'card-session',
@@ -174,8 +161,7 @@ describe('AccessCheckout', () => {
 
         await checkout.generateSessions(sessionGenerationConfig, sessionType);
 
-        const bridgeMock =
-          NativeModules.AccessCheckoutReactNative.generateSessions.mock;
+        const bridgeMock = NativeModules.AccessCheckoutReactNative.generateSessions.mock;
         expect(bridgeMock.calls.length).toEqual(1);
 
         const args = bridgeMock.calls[0][0];
@@ -194,10 +180,7 @@ describe('AccessCheckout', () => {
           cvc: 'cvc-session',
         });
 
-        const result: Sessions = await checkout.generateSessions(
-          sessionGenerationConfig,
-          sessionType
-        );
+        const result: Sessions = await checkout.generateSessions(sessionGenerationConfig, sessionType);
 
         expect(hasProperty(result, 'card')).toEqual(false);
         expect(result).toEqual({
@@ -241,9 +224,7 @@ describe('AccessCheckout', () => {
 
     it('returns a promise with a boolean set to true when bridge successfully wires in validation', async () => {
       givenCvcOnlyValidationBridgeReturns(true);
-      const result = await checkout.initialiseCvcOnlyValidation(
-        validationConfig
-      );
+      const result = await checkout.initialiseCvcOnlyValidation(validationConfig);
 
       expect(result).toEqual(true);
     });
