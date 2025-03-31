@@ -1,8 +1,7 @@
 # Access Checkout React Native SDK
 
-![](worldpay_logo.png)
+![](./worldpay_logo.png)
 
-Take payments and still qualify for SAQ-A – the lowest PCI compliance level – with our React Native SDK.
 Create your own uniquely styled and branded checkout form by integrating our React Native SDK into your native app.
 
 This SDK is the first step to integrate with our Access Worldpay APIs into a React Native app.
@@ -83,15 +82,17 @@ Validates the format of the CVC entered by a customer to ensure it appears valid
 
 ## Hooks
 
-#### useAccessCheckout()
+#### useCardValidation()
 
-Use this hook to get 2 functions:
-- one function used to initialize the validation of payment form
-- one function used to generate card and/or cvc session(s)
+Use this hook to get a function used to initialize the validation of your card payment form.
+
+#### useCvcOnlyValidation()
+
+Use this hook to get a function used to initialize the validation of your CVC only payment form.
+
 
 ## Full code samples
 
 - [Creating a session to pay with a card](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native/card-only#full-code-sample)
 - [Validating the card details entered by a shopper](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native/card-validator#full-code-sample)
-- [Creating a session to pay with cvc only](https://developer.worldpay.com/products/access/checkout/react-native/cvc-only/#full-code-sample)
 - [Validating the cvc entered by a shopper](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native/cvc-validator#full-code-sample)

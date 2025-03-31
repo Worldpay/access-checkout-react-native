@@ -1,30 +1,24 @@
 export { default as AccessCheckout } from './AccessCheckout';
 
-export { default as SessionGenerationConfig } from './session/SessionGenerationConfig';
+export type { default as SessionGenerationConfig } from './session/SessionGenerationConfig';
 
 export { default as SessionType, CARD, CVC } from './session/SessionType';
 
-export { default as Sessions } from './session/Sessions';
+export type { default as Sessions } from './session/Sessions';
 
-export { default as Brand } from './validation/Brand';
+export type { default as Brand } from './validation/Brand';
 
-export { default as BrandImage } from './validation/BrandImage';
+export type { default as BrandImage } from './validation/BrandImage';
 export { default as CardConfig } from './config/MerchantCardConfig';
 export { default as CvcOnlyConfig } from './config/MerchantCvcOnlyConfig';
 
-export { CardValidationEventListener } from './validation/CardValidationEventListener';
-export { CvcOnlyValidationEventListener } from './validation/CvcOnlyValidationEventListener';
+export type { CardValidationEventListener } from './validation/CardValidationEventListener';
+export type { CvcOnlyValidationEventListener } from './validation/CvcOnlyValidationEventListener';
 
 export { MerchantCvcOnlyValidationConfig } from './validation/MerchantCvcOnlyValidationConfig';
 export { MerchantCardValidationConfig } from './validation/MerchantCardValidationConfig';
 
-export { useCardConfig, UseCardConfig, CardValidationConfig } from './hooks/useCardConfig';
-export { useCvcOnlyConfig, UseCvcOnlyConfig, CvcOnlyValidationConfig } from './hooks/useCvcOnlyConfig';
+export { useCardConfig, type UseCardConfig, type CardValidationConfig } from './hooks/useCardConfig';
+export { useCvcOnlyConfig, type UseCvcOnlyConfig, type CvcOnlyValidationConfig } from './hooks/useCvcOnlyConfig';
 
-export { useAccessCheckout, UseAccessCheckout, UseAccessCheckoutExports } from './hooks/useAccessCheckout';
-
-export {
-  AccessCheckoutTextInput,
-  AccessCheckoutTextInputStyle,
-  AccessCheckoutTextInputProps,
-} from './ui/AccessCheckoutTextInput';
+export { useAccessCheckout, type UseAccessCheckout, type UseAccessCheckoutExports } from './hooks/useAccessCheckout';
