@@ -3,6 +3,7 @@ package com.worldpay.access.checkout.reactnative
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
+import com.facebook.react.R
 import com.facebook.soloader.SoLoader
 import com.worldpay.access.checkout.reactnative.react.EventMock
 import com.worldpay.access.checkout.reactnative.react.MockReactApplicationContext.Companion.mockReactApplicationContext
