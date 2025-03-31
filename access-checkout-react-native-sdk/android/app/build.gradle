@@ -66,8 +66,10 @@ android {
 
     flavorDimensions += 'defaultFlavorDimension'
     productFlavors {
-        core {}
         create("instrumentedTests") {
+            dimension = 'defaultFlavorDimension'
+        }
+        create("core") {
             dimension = 'defaultFlavorDimension'
         }
     }
