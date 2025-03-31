@@ -45,7 +45,7 @@ export default function CvcFlow() {
 
   const { initialiseValidation, generateSessions } = useAccessCheckout({
     baseUrl: 'https://try.access.worldpay.com',
-    checkoutId: 'identity',
+    checkoutId: 'dd0ea6d1-6a59-4fc2-89b3-f50296d7aec5',
     config: useCvcOnlyConfig({
       cvcId: 'cvcInput',
       validationConfig: {
