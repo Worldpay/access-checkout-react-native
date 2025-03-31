@@ -53,6 +53,16 @@ android {
             includeAndroidResources = true
         }
     }
+    flavorDimensions 'defaultFlavorDimension'
+    productFlavors {
+        core {
+
+        }
+
+        androidTest {
+            dimension = 'defaultFlavorDimension'
+        }
+    }
 }
 dependencies {
     implementation("com.facebook.react:react-android:0.73.11")
