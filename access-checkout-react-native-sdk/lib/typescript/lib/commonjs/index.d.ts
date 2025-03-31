@@ -1,5 +1,6 @@
 export const __esModule: boolean;
 export const AccessCheckout: any;
+export const AccessCheckoutTextInput: any;
 export const CARD: any;
 export const CVC: any;
 export const CardConfig: any;

@@ -6,4 +6,5 @@ export { MerchantCardValidationConfig } from "./validation/MerchantCardValidatio
 export { useCardConfig } from "./hooks/useCardConfig";
 export { useCvcOnlyConfig } from "./hooks/useCvcOnlyConfig";
 export { useAccessCheckout } from "./hooks/useAccessCheckout";
+export { AccessCheckoutTextInput } from "./ui/AccessCheckoutTextInput";
 export { default as SessionType, CARD, CVC } from "./session/SessionType";

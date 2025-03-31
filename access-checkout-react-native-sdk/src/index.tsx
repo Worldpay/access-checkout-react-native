@@ -22,3 +22,8 @@ export { useCardConfig, type UseCardConfig, type CardValidationConfig } from './
 export { useCvcOnlyConfig, type UseCvcOnlyConfig, type CvcOnlyValidationConfig } from './hooks/useCvcOnlyConfig';
 
 export { useAccessCheckout, type UseAccessCheckout, type UseAccessCheckoutExports } from './hooks/useAccessCheckout';
+export {
+  AccessCheckoutTextInput,
+  type AccessCheckoutTextInputStyle,
+  type AccessCheckoutTextInputProps,
+} from './ui/AccessCheckoutTextInput';
