@@ -86,6 +86,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:5.16.1'
 
     instrumentedTestsImplementation 'androidx.test:core:1.6.1'
+    instrumentedTestsImplementation 'junit:junit:4.13.2'
     instrumentedTestsImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
     instrumentedTestsImplementation 'org.awaitility:awaitility-kotlin:3.1.6'
     instrumentedTestsImplementation 'com.github.tomakehurst:wiremock-standalone:2.27.2'
