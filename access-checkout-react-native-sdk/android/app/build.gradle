@@ -34,7 +34,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-  signingConfigs {
+    signingConfigs {
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -43,7 +43,7 @@ android {
         }
     }
     buildTypes {
-     debug {
+        debug {
             signingConfig signingConfigs.debug
         }
         release {
@@ -66,9 +66,9 @@ android {
 
     flavorDimensions += 'defaultFlavorDimension'
     productFlavors {
+        core {}
         create("instrumentedTests") {
-        }
-        create("core") {
+            dimension = 'defaultFlavorDimension'
         }
     }
 }
