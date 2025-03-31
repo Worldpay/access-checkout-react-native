@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import { NativeModules } from 'react-native';
 import { AccessCheckout, CVC } from '../src/';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -15,6 +14,7 @@ import {
   hasProperty,
 } from './test-utils';
 import { CardConfig, CvcOnlyConfig } from '../src';
+import * as fs from "node:fs";
 
 const baseUrl = 'https://access.worldpay.com';
 const merchantId = '123';
@@ -24,9 +24,7 @@ const expiryDateId = 'expiryDateId';
 const cvcId = 'cvcId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const packageDotJson = JSON.parse(
-  fs.readFileSync('./package.json', { encoding: 'utf8' })
-);
+const packageDotJson = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf8' }));
 
 describe('AccessCheckout', () => {
   beforeEach(() => {
