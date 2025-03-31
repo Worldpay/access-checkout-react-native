@@ -35,7 +35,9 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     .merchantId(cfg.merchantId)
                     .build()
             }
-
+            
+            let wpSdkHeaderValue = String(format: wpSdkHeaderFormat, cfg.reactNativeSdkVersion!)
+            try! WpSdkHeader.overrideValue(with: wpSdkHeaderValue)
             let cardDetails: CardDetails
 
             if isCvcSessionOnly(sessionTypes: cfg.sessionTypes) {
@@ -55,9 +57,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     .cvc(cvcInput!)
                     .build()
             }
-
-            let wpSdkHeaderValue = String(format: wpSdkHeaderFormat, cfg.reactNativeSdkVersion!)
-            try! WpSdkHeader.overrideValue(with: wpSdkHeaderValue)
+            
 
             try accessCheckoutClient!.generateSessions(
                 cardDetails: cardDetails, sessionTypes: cfg.sessionTypes)
@@ -76,7 +76,12 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                 }
             }
         } catch let error as NSError {
-            reject("", (error as! AccessCheckoutRnIllegalArgumentError).localizedDescription, error)
+            if let checkoutError = error as? AccessCheckoutRnIllegalArgumentError{
+                reject("", checkoutError.localizedDescription, checkoutError)
+            } else {
+                reject("", error.localizedDescription, error)
+            } 
+
         }
     }
 
