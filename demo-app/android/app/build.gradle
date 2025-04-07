@@ -1,11 +1,33 @@
 apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+apply plugin: "com.facebook.react"
 
-project.ext.react = [
-    entryFile: "index.tsx",
-]
+//react {
+//       The entry file for bundle generation. Default is 'index.android.js' or 'index.js'
+//     entryFile = "index.tsx"
+//}
 
-apply from: "../../node_modules/react-native/react.gradle"
-apply from: "./gradle/android.gradle"
+
+android {
+    ndkVersion rootProject.ext.ndkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
+    namespace "com.worldpay.access.checkout.reactnative.demo"
+
+    defaultConfig {
+        applicationId "com.worldpay.access.checkout.reactnative.demo"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        missingDimensionStrategy "defaultFlavorDimension", "core"
+    }
+}
+
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -21,3 +43,4 @@ dependencies {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
 applyNativeModulesAppBuildGradle(project)
+
