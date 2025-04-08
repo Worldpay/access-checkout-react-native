@@ -1,7 +1,8 @@
 # Access Checkout React Native SDK
 
-![](./worldpay_logo.png)
+![](worldpay_logo.png)
 
+Take payments and still qualify for SAQ-A – the lowest PCI compliance level – with our React Native SDK.
 Create your own uniquely styled and branded checkout form by integrating our React Native SDK into your native app.
 
 This SDK is the first step to integrate with our Access Worldpay APIs into a React Native app.
@@ -61,7 +62,7 @@ Allows you to listen to events indicating which card brand corresponds to the ca
 - Mastercard
 - Visa
 
-#### Card number formatting (optional) 
+#### Card number formatting (optional)
 
 Formats a card number as the customer types to make it easier to enter and read a card number.
 
@@ -73,7 +74,7 @@ Changes the behavior of the validation feature to consider only the card brands 
 ### For CVC only payments
 
 Paying only with CVC is possible with the Access Worldpay APIs using a Verified Token.
-Verified tokens are long-lived tokens representing a customer's card details which are valid for 4 years. 
+Verified tokens are long-lived tokens representing a customer's card details which are valid for 4 years.
 You would typically save these in your database as part of a first card payment in a repeat agreement.
 
 #### CVC validation
@@ -82,17 +83,15 @@ Validates the format of the CVC entered by a customer to ensure it appears valid
 
 ## Hooks
 
-#### useCardValidation()
+#### useAccessCheckout()
 
-Use this hook to get a function used to initialize the validation of your card payment form.
-
-#### useCvcOnlyValidation()
-
-Use this hook to get a function used to initialize the validation of your CVC only payment form.
-
+Use this hook to get 2 functions:
+- one function used to initialize the validation of payment form
+- one function used to generate card and/or cvc session(s)
 
 ## Full code samples
 
 - [Creating a session to pay with a card](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native/card-only#full-code-sample)
 - [Validating the card details entered by a shopper](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native/card-validator#full-code-sample)
+- [Creating a session to pay with cvc only](https://developer.worldpay.com/products/access/checkout/react-native/cvc-only/#full-code-sample)
 - [Validating the cvc entered by a shopper](https://developer.worldpay.com/docs/access-worldpay/checkout/react-native/cvc-validator#full-code-sample)
