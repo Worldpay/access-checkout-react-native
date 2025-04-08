@@ -1,5 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
-const pkg = require('../../access-checkout-react-native/access-checkout-react-native-sdk/package.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const pkg = require('../access-checkout-react-native-sdk/package.json');
 
 module.exports = {
   project: {
