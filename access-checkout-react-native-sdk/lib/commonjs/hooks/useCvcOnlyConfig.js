@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.useCvcOnlyConfig = useCvcOnlyConfig;
 var _MerchantCvcOnlyConfig = _interopRequireDefault(require("../config/MerchantCvcOnlyConfig"));
 var _MerchantCvcOnlyValidationConfig = require("../validation/MerchantCvcOnlyValidationConfig");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function useCvcOnlyConfig({
   cvcId,
   validationConfig

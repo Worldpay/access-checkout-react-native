@@ -12,8 +12,8 @@ export type { default as BrandImage } from './validation/BrandImage';
 export { default as CardConfig } from './config/MerchantCardConfig';
 export { default as CvcOnlyConfig } from './config/MerchantCvcOnlyConfig';
 
-export type { CardValidationEventListener } from './validation/CardValidationEventListener';
-export type { CvcOnlyValidationEventListener } from './validation/CvcOnlyValidationEventListener';
+export { type CardValidationEventListener } from './validation/CardValidationEventListener';
+export { type CvcOnlyValidationEventListener } from './validation/CvcOnlyValidationEventListener';
 
 export { MerchantCvcOnlyValidationConfig } from './validation/MerchantCvcOnlyValidationConfig';
 export { MerchantCardValidationConfig } from './validation/MerchantCardValidationConfig';
@@ -22,6 +22,7 @@ export { useCardConfig, type UseCardConfig, type CardValidationConfig } from './
 export { useCvcOnlyConfig, type UseCvcOnlyConfig, type CvcOnlyValidationConfig } from './hooks/useCvcOnlyConfig';
 
 export { useAccessCheckout, type UseAccessCheckout, type UseAccessCheckoutExports } from './hooks/useAccessCheckout';
+
 export {
   AccessCheckoutTextInput,
   type AccessCheckoutTextInputStyle,

@@ -1,7 +1,4 @@
-rootProject.name = 'access-checkout-react-native-sdk-android-bridge'
+pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
 
-includeBuild("../node_modules/@react-native/gradle-plugin")
-apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
-
-include ':app'
-
+includeBuild('../node_modules/@react-native/gradle-plugin')
+include ':access-checkout-react-native-sdk-android-bridge'

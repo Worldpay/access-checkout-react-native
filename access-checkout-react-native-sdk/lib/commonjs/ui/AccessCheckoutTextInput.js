@@ -7,7 +7,8 @@ exports.AccessCheckoutTextInput = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _reactNative = require("react-native");
 var _RCTAccessCheckoutTextInput = require("./RCTAccessCheckoutTextInput");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _jsxRuntime = require("react/jsx-runtime");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Composes `AccessCheckoutTextInput`.
  * Note: If no style.height is provided height is defaulted to make the component visible
@@ -52,25 +53,26 @@ const AccessCheckoutTextInput = props => {
   }, otherStyles] : [{
     height
   }];
-  return /*#__PURE__*/_react.default.createElement(_reactNative.View, {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactNative.View, {
     testID: `${testID}-view`,
-    style: viewStyles
-  }, /*#__PURE__*/_react.default.createElement(_RCTAccessCheckoutTextInput.RTCAccessCheckoutTextInput, {
-    nativeID: nativeID,
-    testID: testID,
-    style: [{
-      flex: 1
-    }],
-    placeholder: placeholder,
-    font: {
-      fontFamily,
-      fontSize,
-      fontWeight,
-      fontStyle
-    },
-    color: color,
-    editable: editable
-  }));
+    style: viewStyles,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_RCTAccessCheckoutTextInput.RTCAccessCheckoutTextInput, {
+      nativeID: nativeID,
+      testID: testID,
+      style: [{
+        flex: 1
+      }],
+      placeholder: placeholder,
+      font: {
+        fontFamily,
+        fontSize,
+        fontWeight,
+        fontStyle
+      },
+      color: color,
+      editable: editable
+    })
+  });
 };
 exports.AccessCheckoutTextInput = AccessCheckoutTextInput;
 //# sourceMappingURL=AccessCheckoutTextInput.js.map

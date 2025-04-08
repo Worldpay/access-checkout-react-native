@@ -1,1 +1,1 @@
-{"version":3,"names":[],"sources":["Sessions.ts"],"sourcesContent":["export default interface Sessions {\n  card?: string;\n  cvc?: string;\n}\n"],"mappings":"","ignoreList":[]}
+{"version":3,"names":[],"sourceRoot":"../../../src","sources":["session/Sessions.ts"],"mappings":"","ignoreList":[]}

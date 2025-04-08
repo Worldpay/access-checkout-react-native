@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { RTCAccessCheckoutTextInput } from './RCTAccessCheckoutTextInput';
@@ -20,7 +22,7 @@ import { RTCAccessCheckoutTextInput } from './RCTAccessCheckoutTextInput';
  *   fontStyle: applies to both placeholder text and input text.
  *   fontWeight: applies to both placeholder text and input text.
  */
-
+import { jsx as _jsx } from "react/jsx-runtime";
 export const AccessCheckoutTextInput = props => {
   const {
     nativeID,
@@ -46,24 +48,25 @@ export const AccessCheckoutTextInput = props => {
   }, otherStyles] : [{
     height
   }];
-  return /*#__PURE__*/React.createElement(View, {
+  return /*#__PURE__*/_jsx(View, {
     testID: `${testID}-view`,
-    style: viewStyles
-  }, /*#__PURE__*/React.createElement(RTCAccessCheckoutTextInput, {
-    nativeID: nativeID,
-    testID: testID,
-    style: [{
-      flex: 1
-    }],
-    placeholder: placeholder,
-    font: {
-      fontFamily,
-      fontSize,
-      fontWeight,
-      fontStyle
-    },
-    color: color,
-    editable: editable
-  }));
+    style: viewStyles,
+    children: /*#__PURE__*/_jsx(RTCAccessCheckoutTextInput, {
+      nativeID: nativeID,
+      testID: testID,
+      style: [{
+        flex: 1
+      }],
+      placeholder: placeholder,
+      font: {
+        fontFamily,
+        fontSize,
+        fontWeight,
+        fontStyle
+      },
+      color: color,
+      editable: editable
+    })
+  });
 };
 //# sourceMappingURL=AccessCheckoutTextInput.js.map

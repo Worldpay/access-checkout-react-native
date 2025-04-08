@@ -16,7 +16,7 @@ const SubmitButton = (props: SubmitButtonProps) => {
       title="Submit"
       color="red"
       accessibilityLabel="Submit Card Details"
-      onPress={props.onPress}
+      onPress={() => props.onPress}
       disabled={!props.enabled}
     />
   );

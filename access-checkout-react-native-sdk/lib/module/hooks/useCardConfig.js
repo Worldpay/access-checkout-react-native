@@ -1,3 +1,5 @@
+"use strict";
+
 import { MerchantCardValidationConfig } from '../validation/MerchantCardValidationConfig';
 import MerchantCardConfig from '../config/MerchantCardConfig';
 export const useCardConfig = props => {

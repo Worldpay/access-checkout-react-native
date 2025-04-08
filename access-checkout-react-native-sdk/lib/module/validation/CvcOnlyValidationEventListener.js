@@ -1,3 +1,5 @@
+"use strict";
+
 export function cvcOnlyValidationNativeEventListenerOf(delegate) {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   return function (event) {

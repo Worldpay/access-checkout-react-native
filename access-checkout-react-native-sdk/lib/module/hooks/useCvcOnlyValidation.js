@@ -1,3 +1,5 @@
+"use strict";
+
 import { useEffect } from 'react';
 import { NativeEventEmitter } from 'react-native';
 import { cvcOnlyValidationNativeEventListenerOf } from '../validation/CvcOnlyValidationEventListener';

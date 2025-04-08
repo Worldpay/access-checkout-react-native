@@ -24,7 +24,6 @@ const useAccessCheckout = ({
    * failure if the property was to be renamed and not updated in the type guard.
    */
   if (config instanceof _index.CardConfig) {
-    var _config$validationCon, _config$validationCon2, _config$validationCon3;
     const {
       initialiseCardValidation
     } = (0, _useCardValidation.useCardValidation)({
@@ -33,10 +32,10 @@ const useAccessCheckout = ({
         panId: config.panId,
         expiryDateId: config.expiryDateId,
         cvcId: config.cvcId,
-        enablePanFormatting: (_config$validationCon = config.validationConfig) === null || _config$validationCon === void 0 ? void 0 : _config$validationCon.enablePanFormatting,
-        acceptedCardBrands: (_config$validationCon2 = config.validationConfig) === null || _config$validationCon2 === void 0 ? void 0 : _config$validationCon2.acceptedCardBrands
+        enablePanFormatting: config.validationConfig?.enablePanFormatting,
+        acceptedCardBrands: config.validationConfig?.acceptedCardBrands
       },
-      validationListener: (_config$validationCon3 = config.validationConfig) === null || _config$validationCon3 === void 0 ? void 0 : _config$validationCon3.validationListener
+      validationListener: config.validationConfig?.validationListener
     });
     const generateSessions = sessionTypes => accessCheckout.generateSessions({
       panId: config.panId,
@@ -48,7 +47,6 @@ const useAccessCheckout = ({
       generateSessions
     };
   } else {
-    var _config$validationCon4;
     const {
       initialiseCvcOnlyValidation
     } = (0, _useCvcOnlyValidation.useCvcOnlyValidation)({
@@ -56,7 +54,7 @@ const useAccessCheckout = ({
       cvcOnlyValidationConfig: {
         cvcId: config.cvcId
       },
-      validationListener: (_config$validationCon4 = config.validationConfig) === null || _config$validationCon4 === void 0 ? void 0 : _config$validationCon4.validationListener
+      validationListener: config.validationConfig?.validationListener
     });
     const generateCvcOnlySession = sessionTypes => accessCheckout.generateSessions({
       cvcId: config.cvcId

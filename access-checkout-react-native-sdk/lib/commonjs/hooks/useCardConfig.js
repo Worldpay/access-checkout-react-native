@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.useCardConfig = void 0;
 var _MerchantCardValidationConfig = require("../validation/MerchantCardValidationConfig");
 var _MerchantCardConfig = _interopRequireDefault(require("../config/MerchantCardConfig"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const useCardConfig = props => {
   const cardConfig = new _MerchantCardConfig.default({
     panId: props.panId,

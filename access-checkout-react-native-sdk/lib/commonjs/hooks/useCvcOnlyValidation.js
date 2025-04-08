@@ -10,7 +10,7 @@ var _CvcOnlyValidationEventListener = require("../validation/CvcOnlyValidationEv
 var _ValidationListenerException = require("../validation/ValidationListenerException");
 var _AccessCheckoutReactNative = require("../AccessCheckoutReactNative");
 var _AccessCheckout = _interopRequireDefault(require("../AccessCheckout"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const useCvcOnlyValidationEventListener = validationListener => {
   (0, _react.useEffect)(() => {
     //Safe-guard in the case where no validation listener was configured we avoid registering the native listener

@@ -1,3 +1,5 @@
+"use strict";
+
 import { useEffect } from 'react';
 import AccessCheckout from '../AccessCheckout';
 import AccessCheckoutReactNative from '../AccessCheckoutReactNative';

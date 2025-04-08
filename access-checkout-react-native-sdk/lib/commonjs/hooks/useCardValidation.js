@@ -11,7 +11,7 @@ var _AccessCheckoutReactNative = _interopRequireDefault(require("../AccessChecko
 var _CardValidationEventListener = require("../validation/CardValidationEventListener");
 var _ValidationListenerException = require("../validation/ValidationListenerException");
 var _reactNative = require("react-native");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function useCardValidationEventListener(validationListener) {
   (0, _react.useEffect)(() => {
     //Safe-guard in the case where no validation listener was configured we avoid registering the native listener

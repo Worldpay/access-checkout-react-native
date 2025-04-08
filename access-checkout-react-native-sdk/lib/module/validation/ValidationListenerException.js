@@ -1,3 +1,5 @@
+"use strict";
+
 export class ValidationListenerException extends Error {
   constructor() {
     super();

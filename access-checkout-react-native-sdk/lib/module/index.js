@@ -1,3 +1,5 @@
+"use strict";
+
 export { default as AccessCheckout } from './AccessCheckout';
 export { default as SessionType, CARD, CVC } from './session/SessionType';
 export { default as CardConfig } from './config/MerchantCardConfig';
