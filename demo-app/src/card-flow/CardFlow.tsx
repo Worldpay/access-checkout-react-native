@@ -6,8 +6,8 @@ import {
   CardValidationEventListener,
   CVC,
   Sessions,
-  useCardConfig,
   useAccessCheckout,
+  useCardConfig,
 } from '../../../access-checkout-react-native-sdk';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
@@ -114,7 +114,8 @@ export default function CardFlow() {
       });
   };
 
-  function createSession() {
+  const createSession = () => {
+    console.info('called');
     const sessionTypes = generateCardAndCvcSessions ? [CARD, CVC] : [CARD];
 
     setShowSpinner(true);
@@ -140,7 +141,7 @@ export default function CardFlow() {
         setSubmitBtnEnabled(true);
         setIsEditable(true);
       });
-  }
+  };
 
   let cardSessionComponent;
   let cvcSessionComponent;
