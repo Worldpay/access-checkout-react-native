@@ -115,7 +115,6 @@ export default function CardFlow() {
   };
 
   const createSession = () => {
-    console.info('called');
     const sessionTypes = generateCardAndCvcSessions ? [CARD, CVC] : [CARD];
 
     setShowSpinner(true);
