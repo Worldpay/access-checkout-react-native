@@ -27,11 +27,6 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
-        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-
-        missingDimensionStrategy "defaultFlavorDimension", "core"
     }
     buildTypes {
         debug {
@@ -54,8 +49,6 @@ dependencies {
     }
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    implementation project(':access-checkout-react-native-sdk')
-
     androidTestImplementation('com.wix:detox:20.+')
 }
 

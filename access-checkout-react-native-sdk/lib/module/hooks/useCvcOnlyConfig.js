@@ -1,7 +1,7 @@
 "use strict";
 
-import MerchantCvcOnlyConfig from '../config/MerchantCvcOnlyConfig';
-import { MerchantCvcOnlyValidationConfig } from '../validation/MerchantCvcOnlyValidationConfig';
+import MerchantCvcOnlyConfig from "../config/MerchantCvcOnlyConfig.js";
+import { MerchantCvcOnlyValidationConfig } from "../validation/MerchantCvcOnlyValidationConfig.js";
 export function useCvcOnlyConfig({
   cvcId,
   validationConfig

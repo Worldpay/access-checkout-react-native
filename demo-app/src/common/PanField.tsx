@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { AccessCheckoutTextInput } from '../../../access-checkout-react-native-sdk/src';
+import { AccessCheckoutTextInput }  from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import type UIComponentProps from './UIComponentProps';
 
 const styles = StyleSheet.create({

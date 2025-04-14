@@ -1,6 +1,6 @@
 "use strict";
 
-import { AccessCheckoutReactNative } from './AccessCheckoutReactNative';
+import { AccessCheckoutReactNative } from "./AccessCheckoutReactNative.js";
 export default class AccessCheckout {
   ReactNativeSdkVersion = '3.0.0';
   static CardValidationEventType = 'AccessCheckoutCardValidationEvent';

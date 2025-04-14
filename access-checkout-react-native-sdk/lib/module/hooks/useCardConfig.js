@@ -1,7 +1,7 @@
 "use strict";
 
-import { MerchantCardValidationConfig } from '../validation/MerchantCardValidationConfig';
-import MerchantCardConfig from '../config/MerchantCardConfig';
+import { MerchantCardValidationConfig } from "../validation/MerchantCardValidationConfig.js";
+import MerchantCardConfig from "../config/MerchantCardConfig.js";
 export const useCardConfig = props => {
   const cardConfig = new MerchantCardConfig({
     panId: props.panId,

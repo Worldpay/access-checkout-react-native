@@ -6,7 +6,7 @@ import {
   Sessions,
   useAccessCheckout,
   useCvcOnlyConfig,
-} from '../../../access-checkout-react-native-sdk';
+} from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import styles from '../card-flow/style.js';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';
@@ -67,6 +67,7 @@ export default function CvcFlow() {
   function createSession() {
     setShowSpinner(true);
     setIsEditable(false);
+    setSubmitBtnEnabled(false);
 
     generateSessions([CVC])
       .then((sessions: Sessions) => {
@@ -81,8 +82,8 @@ export default function CvcFlow() {
       })
       .finally(() => {
         setShowSpinner(false);
-        setIsEditable(true);
         setSubmitBtnEnabled(true);
+        setIsEditable(true);
       });
   }
 
@@ -103,8 +104,6 @@ export default function CvcFlow() {
     errorComponent = <ErrorView error={error} />;
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   return (
     <VView style={styles.cardFlow} onLayout={onLayout}>
       <Spinner testID="spinner" show={showSpinner} />

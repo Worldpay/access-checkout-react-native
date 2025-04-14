@@ -1,8 +1,8 @@
 "use strict";
 
-import { AccessCheckout, CardConfig } from '../index';
-import { useCardValidation } from './useCardValidation';
-import { useCvcOnlyValidation } from './useCvcOnlyValidation';
+import { AccessCheckout, CardConfig } from "../index.js";
+import { useCardValidation } from "./useCardValidation.js";
+import { useCvcOnlyValidation } from "./useCvcOnlyValidation.js";
 export const useAccessCheckout = ({
   baseUrl,
   checkoutId,

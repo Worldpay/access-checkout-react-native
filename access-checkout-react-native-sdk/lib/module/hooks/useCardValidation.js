@@ -1,10 +1,10 @@
 "use strict";
 
 import { useEffect } from 'react';
-import AccessCheckout from '../AccessCheckout';
-import AccessCheckoutReactNative from '../AccessCheckoutReactNative';
-import { cardValidationNativeEventListenerOf } from '../validation/CardValidationEventListener';
-import { ValidationListenerException } from '../validation/ValidationListenerException';
+import AccessCheckout from "../AccessCheckout.js";
+import AccessCheckoutReactNative from "../AccessCheckoutReactNative.js";
+import { cardValidationNativeEventListenerOf } from "../validation/CardValidationEventListener.js";
+import { ValidationListenerException } from "../validation/ValidationListenerException.js";
 import { NativeEventEmitter } from 'react-native';
 export function useCardValidationEventListener(validationListener) {
   useEffect(() => {

@@ -1,4 +1,0 @@
-pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
-
-includeBuild('../node_modules/@react-native/gradle-plugin')
-include ':access-checkout-react-native-sdk-android-bridge'

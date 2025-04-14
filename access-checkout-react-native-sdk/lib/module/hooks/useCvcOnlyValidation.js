@@ -2,10 +2,10 @@
 
 import { useEffect } from 'react';
 import { NativeEventEmitter } from 'react-native';
-import { cvcOnlyValidationNativeEventListenerOf } from '../validation/CvcOnlyValidationEventListener';
-import { ValidationListenerException } from '../validation/ValidationListenerException';
-import { AccessCheckoutReactNative } from '../AccessCheckoutReactNative';
-import AccessCheckout from '../AccessCheckout';
+import { cvcOnlyValidationNativeEventListenerOf } from "../validation/CvcOnlyValidationEventListener.js";
+import { ValidationListenerException } from "../validation/ValidationListenerException.js";
+import { AccessCheckoutReactNative } from "../AccessCheckoutReactNative.js";
+import AccessCheckout from "../AccessCheckout.js";
 export const useCvcOnlyValidationEventListener = validationListener => {
   useEffect(() => {
     //Safe-guard in the case where no validation listener was configured we avoid registering the native listener

@@ -8,7 +8,7 @@ import {
   Sessions,
   useAccessCheckout,
   useCardConfig,
-} from '../../../access-checkout-react-native-sdk';
+} from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';
