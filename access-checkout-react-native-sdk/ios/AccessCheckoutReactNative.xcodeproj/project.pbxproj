@@ -21,7 +21,6 @@
 		515BA3CA282E903300BA262D /* CvcOnlyValidationDelegateRNUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA3C9282E903300BA262D /* CvcOnlyValidationDelegateRNUnitTests.swift */; };
 		515BA3E4282E93A900BA262D /* CvcOnlyValidationDelegateRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA3E3282E93A900BA262D /* CvcOnlyValidationDelegateRN.swift */; };
 		515FFD6A282E994300A15AEB /* AccessCheckoutReactNativeUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515FFD69282E994300A15AEB /* AccessCheckoutReactNativeUnitTests.swift */; };
-		5164FB5827F22E1B0077AA77 /* AccessCheckoutReactNativeSDKiOSBridge.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 5164FB5727F22E1B0077AA77 /* AccessCheckoutReactNativeSDKiOSBridge.podspec */; };
 		5167BB2727A459BF00F8569D /* StubServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5167BB2627A459BF00F8569D /* StubServices.swift */; };
 		5167BB3527A7FE7000F8569D /* AccessCheckoutReactNativeCardValidationAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5167BB3427A7FE7000F8569D /* AccessCheckoutReactNativeCardValidationAcceptanceTests.swift */; };
 		5167BB3927A7FFB100F8569D /* ReactNativeViewLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5167BB3827A7FFB100F8569D /* ReactNativeViewLocator.swift */; };
@@ -86,7 +85,6 @@
 		515BA3C9282E903300BA262D /* CvcOnlyValidationDelegateRNUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CvcOnlyValidationDelegateRNUnitTests.swift; sourceTree = "<group>"; };
 		515BA3E3282E93A900BA262D /* CvcOnlyValidationDelegateRN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CvcOnlyValidationDelegateRN.swift; sourceTree = "<group>"; };
 		515FFD69282E994300A15AEB /* AccessCheckoutReactNativeUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeUnitTests.swift; sourceTree = "<group>"; };
-		5164FB5727F22E1B0077AA77 /* AccessCheckoutReactNativeSDKiOSBridge.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AccessCheckoutReactNativeSDKiOSBridge.podspec; sourceTree = "<group>"; };
 		5167BB2627A459BF00F8569D /* StubServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubServices.swift; sourceTree = "<group>"; };
 		5167BB3427A7FE7000F8569D /* AccessCheckoutReactNativeCardValidationAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeCardValidationAcceptanceTests.swift; sourceTree = "<group>"; };
 		5167BB3827A7FFB100F8569D /* ReactNativeViewLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeViewLocator.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 		516A9F4D2757D3B800E9B00E = {
 			isa = PBXGroup;
 			children = (
-				5164FB5727F22E1B0077AA77 /* AccessCheckoutReactNativeSDKiOSBridge.podspec */,
 				516A9F592757D3B800E9B00E /* AccessCheckoutReactNative */,
 				516A9F642757D3B800E9B00E /* AccessCheckoutReactNativeUnitTests */,
 				51D03E6727A85FBA009781EB /* AccessCheckoutReactNativeUnitTestsApp */,
@@ -424,14 +421,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		516A9F552757D3B800E9B00E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5164FB5827F22E1B0077AA77 /* AccessCheckoutReactNativeSDKiOSBridge.podspec in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		516A9F5E2757D3B800E9B00E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
