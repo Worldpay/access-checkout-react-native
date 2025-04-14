@@ -72,7 +72,7 @@
     "jest-junit": "^13.0.0",
     "prettier": "^2.8.8",
     "react": "18.2.0",
-    "react-native": "^0.76.0",
+    "react-native": "^0.73.0",
     "react-native-builder-bob": "^0.32.1",
     "react-test-renderer": "18.2.0",
     "ts-jest": "^29.1.2",
