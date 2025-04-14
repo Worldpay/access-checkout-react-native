@@ -21,14 +21,14 @@ def codeCoverageExclusions = [
 
 def classDirs = files([
         fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: codeCoverageExclusions) +
-                fileTree(dir: "${buildDir}/tmp/kotlin-classes/instrumentedTestsDebug", excludes: codeCoverageExclusions)
+                fileTree(dir: "${buildDir}/tmp/kotlin-classes/debugAndroidTest", excludes: codeCoverageExclusions)
 ])
 
 def execData = files("$buildDir/jacoco/testInstrumentedTestsDebugUnitTest.exec")
 
 def sourceDirs = files(["${project.projectDir}/src/main/java"])
 
-task testCoverage(type: JacocoReport, dependsOn: ['testInstrumentedTestsDebugUnitTest']) {
+task testCoverage(type: JacocoReport, dependsOn: ['connectedDebugAndroidTest']) {
     executionData.setFrom(execData)
     classDirectories.setFrom(classDirs)
     sourceDirectories.setFrom(sourceDirs)

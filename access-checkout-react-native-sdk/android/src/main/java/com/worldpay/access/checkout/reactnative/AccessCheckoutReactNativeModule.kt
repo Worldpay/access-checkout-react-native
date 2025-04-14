@@ -3,7 +3,6 @@ package com.worldpay.access.checkout.reactnative
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
@@ -33,8 +32,7 @@ import com.worldpay.access.checkout.ui.AccessCheckoutEditText
  *
  * The responsibility of this class is to provide react methods that are then exposed for the JS to use.
  */
-
-class AccessCheckoutReactNativeModule(
+class AccessCheckoutReactNativeModule constructor(
     private val reactContext: ReactApplicationContext,
     private val accessCheckoutClientDisposer: AccessCheckoutClientDisposer = AccessCheckoutClientDisposer()
 ) : ReactContextBaseJavaModule(reactContext) {
@@ -215,9 +213,9 @@ class AccessCheckoutReactNativeModule(
         return sessionType.count() == 1 && sessionType.first() == SessionType.CVC
     }
 
-    @Suppress("UNCHECKED_CAST")
-    private fun <T: View> findView(viewId: String): T {
+    private fun <T> findView(viewId: String): T {
         val rootView = reactContext.currentActivity?.window?.decorView?.rootView
+        @Suppress("UNCHECKED_CAST")
         return ReactFindViewUtil.findView(rootView, viewId) as T
     }
 }

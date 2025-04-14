@@ -1,9 +1,11 @@
 package com.worldpay.access.checkout.reactnative.ui.session
 
+import android.view.ViewGroup
 import com.facebook.react.bridge.JavaOnlyMap
 import com.facebook.react.bridge.PromiseImpl
 import com.facebook.react.bridge.ReadableMap
 import com.worldpay.access.checkout.reactnative.AccessCheckoutReactNativeModule
+import com.worldpay.access.checkout.reactnative.R
 import com.worldpay.access.checkout.reactnative.ui.AbstractInstrumentedTestsActivity
 import com.worldpay.access.checkout.reactnative.ui.react.FailureCallback
 import com.worldpay.access.checkout.reactnative.ui.react.SuccessCallback
