@@ -16,6 +16,7 @@ if linkage != nil
 end
 
 target 'AccessCheckoutReactNative' do
+  use_frameworks! :linkage => :static
   config = use_native_modules!
 
   use_react_native!(
@@ -37,6 +38,7 @@ end
 
 
 target 'AccessCheckoutReactNativeUnitTests' do
+  use_frameworks! :linkage => :static
   config = use_native_modules!
 
   # Flags change depending on the env values.
