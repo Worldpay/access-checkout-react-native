@@ -17,7 +17,7 @@ buildscript {
 
 
 apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
+apply plugin: "org.jetbrains.kotlin.android"
 
 apply plugin: 'maven-publish'
 
@@ -121,10 +121,10 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:5.16.1'
 
 
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core"
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android'
 
-    androidTestImplementation 'androidx.test:core:1.6.1'
     androidTestImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
     androidTestImplementation 'org.awaitility:awaitility-kotlin:3.1.6'
     androidTestImplementation 'com.github.tomakehurst:wiremock-standalone:2.27.2'
 
