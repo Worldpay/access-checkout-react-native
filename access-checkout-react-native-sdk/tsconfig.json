@@ -4,10 +4,11 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
-    "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["esnext"],
+    "lib": [
+      "esnext"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -21,5 +22,10 @@
     "strict": true,
     "target": "esnext",
     "isolatedModules": false
-  }
+  },
+  "exclude": [
+    "*.spec.ts",
+    "test",
+    "jest.setup.ts"
+  ]
 }

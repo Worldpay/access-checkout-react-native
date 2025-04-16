@@ -62,7 +62,7 @@ Allows you to listen to events indicating which card brand corresponds to the ca
 - Mastercard
 - Visa
 
-#### Card number formatting (optional) 
+#### Card number formatting (optional)
 
 Formats a card number as the customer types to make it easier to enter and read a card number.
 
@@ -74,7 +74,7 @@ Changes the behavior of the validation feature to consider only the card brands 
 ### For CVC only payments
 
 Paying only with CVC is possible with the Access Worldpay APIs using a Verified Token.
-Verified tokens are long-lived tokens representing a customer's card details which are valid for 4 years. 
+Verified tokens are long-lived tokens representing a customer's card details which are valid for 4 years.
 You would typically save these in your database as part of a first card payment in a repeat agreement.
 
 #### CVC validation

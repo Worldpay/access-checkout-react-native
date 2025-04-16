@@ -6,9 +6,9 @@ import {
   CardValidationEventListener,
   CVC,
   Sessions,
-  useCardConfig,
   useAccessCheckout,
-} from '../../../access-checkout-react-native-sdk';
+  useCardConfig,
+} from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import CardBrandImage from '../common/CardBrandImage';
 import CvcField from '../common/CvcField';
 import ErrorView from '../common/ErrorView';
@@ -27,7 +27,7 @@ import styles from './style.js';
 
 export default function CardFlow() {
   const unknownBrandLogo =
-    'https://npe.access.worldpay.com/access-checkout/assets/unknown.png';
+    'https://try.access.worldpay.com/access-checkout/assets/unknown.png';
 
   const [brand, setBrand] = useState<string>('');
   const [brandLogo, setBrandLogo] = useState<string>(unknownBrandLogo);
@@ -91,8 +91,8 @@ export default function CardFlow() {
   };
 
   const { initialiseValidation, generateSessions } = useAccessCheckout({
-    baseUrl: 'https://npe.access.worldpay.com',
-    checkoutId: 'identity',
+    baseUrl: 'https://try.access.worldpay.com',
+    checkoutId: 'dd0ea6d1-6a59-4fc2-89b3-f50296d7aec5',
     config: useCardConfig({
       panId: 'panInput',
       expiryDateId: 'expiryDateInput',
@@ -114,7 +114,7 @@ export default function CardFlow() {
       });
   };
 
-  function createSession() {
+  const createSession = () => {
     const sessionTypes = generateCardAndCvcSessions ? [CARD, CVC] : [CARD];
 
     setShowSpinner(true);
@@ -140,7 +140,7 @@ export default function CardFlow() {
         setSubmitBtnEnabled(true);
         setIsEditable(true);
       });
-  }
+  };
 
   let cardSessionComponent;
   let cvcSessionComponent;

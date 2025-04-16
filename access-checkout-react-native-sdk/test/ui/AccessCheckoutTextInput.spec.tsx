@@ -1,7 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react-native';
-import { AccessCheckoutTextInput } from '../../src';
-import type {
+
+import {
+  AccessCheckoutTextInput,
   AccessCheckoutTextInputFontStyle,
   AccessCheckoutTextInputFontWeight,
 } from '../../src/ui/AccessCheckoutTextInput';

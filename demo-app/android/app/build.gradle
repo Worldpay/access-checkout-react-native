@@ -1,23 +1,60 @@
 apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+apply plugin: "com.facebook.react"
 
-project.ext.react = [
-    entryFile: "index.tsx",
-]
+/**
+ * The preferred build flavor of JavaScriptCore (JSC)
+ *
+ * For example, to use the international variant, you can use:
+ * `def jscFlavor = 'org.webkit:android-jsc-intl:+'`
+ *
+ * The international variant includes ICU i18n library and necessary data
+ * allowing to use e.g. `Date.toLocaleString` and `String.localeCompare` that
+ * give correct results when using with locales other than en-US. Note that
+ * this variant is about 6MiB larger per architecture than default.
+ */
+def jscFlavor = 'org.webkit:android-jsc:+'
 
-apply from: "../../node_modules/react-native/react.gradle"
-apply from: "./gradle/android.gradle"
+android {
+    ndkVersion rootProject.ext.ndkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
+    namespace "com.worldpay.access.checkout.reactnative.demo"
 
-dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    defaultConfig {
+        applicationId "com.worldpay.access.checkout.reactnative.demo"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
 
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation 'org.webkit:android-jsc:+'
-
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    implementation project(':access-checkout-react-native-sdk')
-
-    androidTestImplementation('com.wix:detox:20.+')
+        testBuildType System.getProperty('testBuildType', 'debug')
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    buildTypes {
+        debug {
+            proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+        }
+    }
 }
 
-apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
-applyNativeModulesAppBuildGradle(project)
+dependencies {
+    // The version of react-native is set by the React Native Gradle Plugin
+    implementation("com.facebook.react:react-android")
+
+    if (hermesEnabled.toBoolean()) {
+        implementation("com.facebook.react:hermes-android")
+    } else {
+        implementation jscFlavor
+    }
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    androidTestImplementation('com.wix:detox:+')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+}
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
