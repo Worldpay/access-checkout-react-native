@@ -116,3 +116,6 @@ android/generated
 
 # React Native Nitro Modules
 nitrogen/
+
+# Build
+access-checkout-react-native-sdk/lib

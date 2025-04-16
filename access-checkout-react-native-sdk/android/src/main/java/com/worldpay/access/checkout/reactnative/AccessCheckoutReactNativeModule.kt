@@ -214,7 +214,7 @@ class AccessCheckoutReactNativeModule constructor(
     }
 
     private fun <T> findView(viewId: String): T {
-        val rootView = reactContext.currentActivity?.window?.decorView?.rootView
+        val rootView = reactContext.currentActivity?.window?.decorView?.rootView!!
         @Suppress("UNCHECKED_CAST")
         return ReactFindViewUtil.findView(rootView, viewId) as T
     }

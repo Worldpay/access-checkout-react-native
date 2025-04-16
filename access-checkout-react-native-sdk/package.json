@@ -1,6 +1,6 @@
 {
   "name": "@worldpay/access-worldpay-checkout-react-native-sdk",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Worldpay Access Checkout SDK for ReactNative",
   "repository": {
     "type": "git",
@@ -90,6 +90,7 @@
     "output": "lib",
     "targets": [
       [
+        "commonjs",
         "module",
         {
           "esm": true
