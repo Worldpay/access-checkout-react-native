@@ -35,7 +35,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     .merchantId(cfg.merchantId)
                     .build()
             }
-            
+
             let cardDetails: CardDetails
 
             if isCvcSessionOnly(sessionTypes: cfg.sessionTypes) {
@@ -55,10 +55,10 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     .cvc(cvcInput!)
                     .build()
             }
-            
+
             let wpSdkHeaderValue = String(format: wpSdkHeaderFormat, cfg.reactNativeSdkVersion!)
             try! WpSdkHeader.overrideValue(with: wpSdkHeaderValue)
-            
+
             try accessCheckoutClient!.generateSessions(
                 cardDetails: cardDetails, sessionTypes: cfg.sessionTypes)
             {
