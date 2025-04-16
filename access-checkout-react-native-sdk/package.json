@@ -17,7 +17,7 @@
     "test": "npm run typescript && jest --clearCache && jest --coverage --verbose"
   },
   "source": "./src/index.tsx",
-  "main": "./lib/module/index.js",
+  "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "./lib/typescript/index.d.ts",
   "exports": {
@@ -90,7 +90,9 @@
     "output": "lib",
     "targets": [
       [
-        "commonjs",
+        "commonjs"
+      ],
+      [
         "module",
         {
           "esm": true
