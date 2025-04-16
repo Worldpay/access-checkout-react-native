@@ -79,8 +79,8 @@
     "typescript": "5.0.4"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react": ">=18.1.0",
+    "react-native": ">=0.70.0"
   },
   "engines": {
     "node": ">=18"
