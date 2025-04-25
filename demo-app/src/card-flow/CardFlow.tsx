@@ -26,11 +26,8 @@ import CardFlowE2eStates from './CardFlow.e2e.states';
 import styles from './style.js';
 
 export default function CardFlow() {
-  const unknownBrandLogo =
-    'https://try.access.worldpay.com/access-checkout/assets/unknown.png';
-
   const [brand, setBrand] = useState<string>('');
-  const [brandLogo, setBrandLogo] = useState<string>(unknownBrandLogo);
+  const [brandLogo, setBrandLogo] = useState<string>('');
   const [panIsValid, setPanIsValid] = useState<boolean>(false);
   const [expiryIsValid, setExpiryIsValid] = useState<boolean>(false);
   const [cvcIsValid, setCvcIsValid] = useState<boolean>(false);
@@ -52,7 +49,7 @@ export default function CardFlow() {
     onCardBrandChanged(brand?: Brand): void {
       if (!brand) {
         setBrand('');
-        setBrandLogo(unknownBrandLogo);
+        setBrandLogo('');
         return;
       }
 
