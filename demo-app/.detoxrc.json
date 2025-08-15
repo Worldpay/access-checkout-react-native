@@ -1,0 +1,71 @@
+{
+  "testRunner": {
+    "$0": "jest",
+    "args": {
+      "config": "e2e/config.json"
+    },
+    "jest": {
+      "setupTimeout": 120000,
+      "reportSpecs": false,
+      "reportWorkerAssign": false
+    }
+  },
+  "apps": {
+    "ios": {
+      "type": "ios.app",
+      "binaryPath": "ios/Build/Build/Products/Debug-iphonesimulator/AccessCheckoutReactNativeDemo.app",
+      "build": "xcodebuild -workspace ios/AccessCheckoutReactNativeDemo.xcworkspace -configuration Debug -scheme AccessCheckoutReactNativeDemo -sdk iphonesimulator -derivedDataPath ios/build"
+    },
+    "android": {
+      "type": "android.apk",
+      "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
+      "testBinaryPath": "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "build": "cd android && ./gradlew clean assembleDebug assembleAndroidTest -DtestBuildType=debug && cd .."
+    }
+  },
+  "devices": {
+    "ios": {
+      "type": "ios.simulator",
+      "device": {
+        "name": "iPhone 16 Pro Max"
+      }
+    },
+    "ios-ci": {
+      "type": "ios.simulator",
+      "device": {
+        "os": "iOS 15.5",
+        "type": "iPad (9th generation)"
+      }
+    },
+    "android": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Pixel_9"
+      }
+    },
+    "android-ci": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "emulator"
+      }
+    }
+  },
+  "configurations": {
+    "ios": {
+      "device": "ios",
+      "app": "ios"
+    },
+    "ios-ci": {
+      "device": "ios-ci",
+      "app": "ios"
+    },
+    "android": {
+      "device": "android",
+      "app": "android"
+    },
+    "android-ci": {
+      "device": "android-ci",
+      "app": "android"
+    }
+  }
+}
