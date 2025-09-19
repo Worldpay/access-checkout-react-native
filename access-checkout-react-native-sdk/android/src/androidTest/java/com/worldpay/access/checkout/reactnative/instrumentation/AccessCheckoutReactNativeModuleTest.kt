@@ -15,6 +15,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import kotlin.jvm.java
 
 
 class AccessCheckoutReactNativeModuleTest {
@@ -33,7 +34,7 @@ class AccessCheckoutReactNativeModuleTest {
         scenario.onActivity { activity ->
             val accessCheckoutClient = AccessCheckoutClientBuilder()
                 .baseUrl("http://some-base-url")
-                .merchantId("merchant-id")
+                .checkoutId("merchant-id")
                 .context(context)
                 .lifecycleOwner(activity)
                 .sessionResponseListener(mock(SessionResponseListener::class.java))

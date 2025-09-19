@@ -40,7 +40,7 @@
     "android": {
       "type": "android.emulator",
       "device": {
-        "avdName": "Pixel_9"
+        "avdName": "Medium_Phone_API_21"
       }
     },
     "android-ci": {

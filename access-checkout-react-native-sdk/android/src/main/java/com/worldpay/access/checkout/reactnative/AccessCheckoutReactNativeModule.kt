@@ -72,7 +72,7 @@ class AccessCheckoutReactNativeModule constructor(
                 if (accessCheckoutClient == null) {
                     accessCheckoutClient = AccessCheckoutClientBuilder()
                         .baseUrl(config.baseUrl)
-                        .merchantId(config.merchantId)
+                        .checkoutId(config.merchantId)
                         .sessionResponseListener(sessionResponseListener)
                         .context(reactApplicationContext)
                         .lifecycleOwner(getLifecycleOwner())
