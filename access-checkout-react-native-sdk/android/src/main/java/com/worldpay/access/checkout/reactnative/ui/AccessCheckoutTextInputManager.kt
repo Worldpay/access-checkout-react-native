@@ -28,7 +28,6 @@ class AccessCheckoutTextInputManager :
         accessCheckoutEditText.background = null
         accessCheckoutEditText.textSize = 14f
         accessCheckoutEditText.setPadding(0, 0, 0, 0)
-//        accessCheckoutEditText.gravity = Gravity.CENTER
 
         return accessCheckoutEditText
     }
