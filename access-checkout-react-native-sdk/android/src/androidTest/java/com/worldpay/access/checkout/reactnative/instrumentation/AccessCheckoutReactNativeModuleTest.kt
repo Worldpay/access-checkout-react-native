@@ -15,7 +15,6 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
-import kotlin.jvm.java
 
 
 class AccessCheckoutReactNativeModuleTest {

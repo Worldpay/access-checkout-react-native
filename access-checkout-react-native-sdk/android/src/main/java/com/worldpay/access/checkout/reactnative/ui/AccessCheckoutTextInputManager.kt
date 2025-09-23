@@ -2,7 +2,6 @@ package com.worldpay.access.checkout.reactnative.ui
 
 import android.graphics.Typeface
 import android.os.Build
-import android.view.Gravity
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
