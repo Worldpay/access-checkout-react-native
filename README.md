@@ -15,11 +15,12 @@
 
 2. Create a custom device in Simulator for `iPhone 8` and `iOS 14` and name it `iphone8-14` 
 
-## React & React Native Compatibility
+## Compatibility
 
-Our SDK is compatible with:
-- `React Native 0.70.0` and above 
-- `React 18.1.0` and above 
+- `React Native 0.70.0` and above
+- `React 18.1.0` and above
+- `Android API level 21` and above
+- `Cocoapods` only for iOS dependencies
 
 ## Getting Started
 
