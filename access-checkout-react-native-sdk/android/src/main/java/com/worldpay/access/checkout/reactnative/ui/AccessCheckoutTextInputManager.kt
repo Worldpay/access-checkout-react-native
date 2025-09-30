@@ -10,7 +10,6 @@ import com.facebook.react.uimanager.ViewProps
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.worldpay.access.checkout.ui.AccessCheckoutEditText
 
-
 class AccessCheckoutTextInputManager :
     SimpleViewManager<AccessCheckoutEditText>() {
 
@@ -74,11 +73,11 @@ class AccessCheckoutTextInputManager :
 
         // Font Weight only supported in API >28
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && fontWeightProvidedAsUnit) {
-            val fontAsString = font.getString(ViewProps.FONT_WEIGHT)
+            val fontAsString:String? = font.getString(ViewProps.FONT_WEIGHT)
             // Note: This default should never happen as we use fontWeightProvidedAsUnit as a check
             // but to avoid a compilation false positive we default to 400 which should be the regular for fonts.
             // Also: Using font.getInt() seems to cause a casting issue where it casts tries to cast a String to a Double, which makes the app crash.
-            val fontWeightNumber = fontAsString?.toInt() ?: 400
+            val fontWeightNumber = if (fontAsString != null) Integer.parseInt(fontAsString) else 400
             customTypeface = Typeface.create(customTypeface, fontWeightNumber, italic)
         }
 
@@ -98,10 +97,14 @@ class AccessCheckoutTextInputManager :
         accessCheckoutEditText.setHint(placeholder)
     }
 
+    @ReactProp(name = "placeholderTextColor", customType = "Color")
+    fun setRTCPlaceholderTextColor(accessCheckoutEditText: AccessCheckoutEditText, placeholderTextColor: Int) {
+        accessCheckoutEditText.setHintTextColor(placeholderTextColor);
+    }
+
     @ReactProp(name = "editable")
     fun setRTCEditable(accessCheckoutEditText: AccessCheckoutEditText, editable: Boolean) {
         accessCheckoutEditText.isEnabled = editable
     }
 
 }
-

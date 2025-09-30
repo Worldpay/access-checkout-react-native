@@ -32,7 +32,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
             if accessCheckoutClient == nil {
                 accessCheckoutClient = try! AccessCheckoutClientBuilder()
                     .accessBaseUrl(cfg.baseUrl)
-                    .merchantId(cfg.merchantId)
+                    .checkoutId(cfg.merchantId)
                     .build()
             }
             

@@ -19,6 +19,8 @@ end
 target 'AccessCheckoutReactNativeDemo' do
   use_frameworks! :linkage => :static
 
+  pod 'AccessCheckoutSDK', '~> 4.1'
+
   config = use_native_modules!
 
   use_react_native!(
