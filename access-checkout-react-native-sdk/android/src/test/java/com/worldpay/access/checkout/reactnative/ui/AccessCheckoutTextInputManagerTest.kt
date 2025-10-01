@@ -3,6 +3,7 @@ package com.worldpay.access.checkout.reactnative.ui
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import androidx.core.graphics.toColorInt
 import androidx.test.core.app.ApplicationProvider
 import com.facebook.react.bridge.*
 import com.worldpay.access.checkout.ui.AccessCheckoutEditText
@@ -149,5 +150,12 @@ internal class AccessCheckoutTextInputManagerTest {
 
         val expectedTypeface =  Typeface.create("Rubik", Typeface.NORMAL);
         verify(accessCheckoutEditTextMock).typeface = Typeface.create(expectedTypeface, 100, true)
+    }
+
+    @Test
+    fun `setRTCPlaceholderTextColor() should change the hint text color on AccessEditText`() {
+        manager.setRTCPlaceholderTextColor(accessCheckoutEditTextMock, 123)
+
+        verify(accessCheckoutEditTextMock).setHintTextColor(123)
     }
 }

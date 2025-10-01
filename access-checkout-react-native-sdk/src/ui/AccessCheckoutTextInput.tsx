@@ -1,6 +1,7 @@
 import React from 'react';
 import { type ColorValue, type StyleProp, StyleSheet, View, type ViewStyle } from 'react-native';
 import { RTCAccessCheckoutTextInput } from './RCTAccessCheckoutTextInput';
+import { processColor } from 'react-native';
 
 /**
  * Composes `AccessCheckoutTextInput`.
@@ -9,6 +10,7 @@ import { RTCAccessCheckoutTextInput } from './RCTAccessCheckoutTextInput';
  * - testID: string
  * - style: StyleProp<AccessCheckoutTextInputStyle>;
  * - placeholder: string
+ * - placeholderTextColor: ColorValue
  * - editable: boolean
  */
 export interface AccessCheckoutTextInputProps {
@@ -16,6 +18,7 @@ export interface AccessCheckoutTextInputProps {
   testID?: string;
   style?: StyleProp<AccessCheckoutTextInputStyle>;
   placeholder?: string;
+  placeholderTextColor?: ColorValue;
   editable?: boolean;
 }
 
@@ -51,7 +54,7 @@ export interface AccessCheckoutTextInputStyle extends ViewStyle {
 }
 
 export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (props) => {
-  const { nativeID, testID, style, placeholder, editable } = props;
+  const { nativeID, testID, style, placeholder, placeholderTextColor, editable } = props;
 
   const {
     color,
@@ -74,6 +77,7 @@ export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (
         testID={testID}
         style={[{ flex: 1 }]}
         placeholder={placeholder}
+        placeholderTextColor={processColor(placeholderTextColor)}
         font={{
           fontFamily,
           fontSize,

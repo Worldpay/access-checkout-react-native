@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/Worldpay/access-checkout-react-native.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/AccessCheckoutReactNative/**/*.{h,m,mm,swift}"
-  s.dependency "AccessCheckoutSDK", "~> 3.0.0"
+  s.dependency "AccessCheckoutSDK", "~> 4.1"
   s.resource_bundles = { 'access-checkout-react-native-sdk' => [ 'ios/PrivacyInfo.xcprivacy' ] }
 
 if ENV['USE_FRAMEWORKS']
