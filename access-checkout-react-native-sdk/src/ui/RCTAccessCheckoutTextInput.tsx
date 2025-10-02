@@ -1,10 +1,4 @@
-import {
-  requireNativeComponent,
-  type ColorValue,
-  type StyleProp,
-  type TextStyle,
-  ProcessedColorValue,
-} from 'react-native';
+import { requireNativeComponent, type ColorValue, type StyleProp, type TextStyle } from 'react-native';
 
 /**
  * Font Changes apply to placeholder text and input text
@@ -26,7 +20,7 @@ interface RTCAccessCheckoutTextInputProps {
   testID?: string;
   style?: StyleProp<TextStyle>;
   placeholder?: string;
-  placeholderTextColor?: ProcessedColorValue | null;
+  placeholderTextColor?: ColorValue | null;
   font?: RTCAccessCheckoutTextInputFontProps;
   editable?: boolean;
   color?: ColorValue;

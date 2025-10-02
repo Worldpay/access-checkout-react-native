@@ -1,7 +1,6 @@
 import React from 'react';
 import { type ColorValue, type StyleProp, StyleSheet, View, type ViewStyle } from 'react-native';
 import { RTCAccessCheckoutTextInput } from './RCTAccessCheckoutTextInput';
-import { processColor } from 'react-native';
 
 /**
  * Composes `AccessCheckoutTextInput`.
@@ -77,7 +76,7 @@ export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (
         testID={testID}
         style={[{ flex: 1 }]}
         placeholder={placeholder}
-        placeholderTextColor={processColor(placeholderTextColor)}
+        placeholderTextColor={placeholderTextColor}
         font={{
           fontFamily,
           fontSize,
