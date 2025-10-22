@@ -33,7 +33,7 @@ class AccessCheckoutReactNativeModuleTest {
         scenario.onActivity { activity ->
             val accessCheckoutClient = AccessCheckoutClientBuilder()
                 .baseUrl("http://some-base-url")
-                .merchantId("merchant-id")
+                .checkoutId("merchant-id")
                 .context(context)
                 .lifecycleOwner(activity)
                 .sessionResponseListener(mock(SessionResponseListener::class.java))
