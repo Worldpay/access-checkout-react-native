@@ -1,5 +1,5 @@
 PODS:
-  - access-checkout-react-native-sdk (3.1.0):
+  - access-checkout-react-native-sdk (4.0.0):
     - AccessCheckoutSDK (~> 4.1)
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1225,7 +1225,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  access-checkout-react-native-sdk: 6e603afbedfdcec0bf26f793a129290c76783784
+  access-checkout-react-native-sdk: eec4ec0091e9ce0748927b1b7d2a230e9d5ec79f
   AccessCheckoutSDK: 5110651cbd062aeef82216f33065b5fbb6cccdb6
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
