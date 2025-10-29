@@ -4,7 +4,7 @@ package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 Pod::Spec.new do |s|
   s.name         = "access-checkout-react-native-sdk"
-  s.version      = "3.1.0"
+  s.version      = "4.0.0"
   s.summary      = package["description"]
   s.homepage     = package["repository"]["url"]
   s.license      = package["license"]
