@@ -30,7 +30,7 @@
   "files": [
     "src",
     "lib",
-    "android",
+    "android/com",
     "ios/AccessCheckoutReactNative",
     "access-checkout-react-native-sdk.podspec",
     "CHANGELOG.md",
