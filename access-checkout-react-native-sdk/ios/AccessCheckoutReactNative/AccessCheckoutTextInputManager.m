@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTViewManager.h>
 #import <AccessCheckoutSDK/AccessCheckoutSDK-Swift.h>
-
 @interface RCT_EXTERN_MODULE(AccessCheckoutTextInputManager, RCTViewManager)
 
 //Externalises properties using a remap in case of name changes

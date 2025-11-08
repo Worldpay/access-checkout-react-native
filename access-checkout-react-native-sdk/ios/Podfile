@@ -57,3 +57,5 @@ target 'AccessCheckoutReactNativeUnitTests' do
 
     pod 'Mockingjay', :git => 'https://github.com/kylef/Mockingjay.git', :commit => 'b88c9dc'
 end
+
+

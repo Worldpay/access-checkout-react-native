@@ -2,19 +2,16 @@ const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 const path = require('path');
 const blacklist = require('metro-config/src/defaults/exclusionList');
 const escape = require('escape-string-regexp');
-const sdkPackageJson = require('../access-checkout-react-native-sdk/package.json');
 
 const rootPath = path.resolve(__dirname, '..');
 const sdkNodeModulesPath = path.join(__dirname, '../access-checkout-react-native-sdk/node_modules');
 const demoAppNodeModulesPath = path.join(__dirname, 'node_modules');
 
-const modules = Object.keys({
-  ...sdkPackageJson.peerDependencies,
-});
+const modules = Object.keys({});
 
 /**
  * Metro configuration
- * https://facebook.github.io/metro/docs/configuration
+ * https://reactnative.dev/docs/metro
  *
  * @type {import('metro-config').MetroConfig}
  */
