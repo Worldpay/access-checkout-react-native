@@ -25,4 +25,6 @@ Pod::Spec.new do |s|
     'SWIFT_COMPILATION_MODE'      => 'wholemodule'
   }
   s.pod_target_xcconfig = xcconfig
+
+  install_modules_dependencies(s)
 end
