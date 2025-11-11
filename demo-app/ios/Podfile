@@ -14,8 +14,6 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-pod 'AccessCheckoutSDK', path: '../../../access-checkout-ios'
-
 target 'AccessCheckoutReactNativeDemo' do
   config = use_native_modules!
 
