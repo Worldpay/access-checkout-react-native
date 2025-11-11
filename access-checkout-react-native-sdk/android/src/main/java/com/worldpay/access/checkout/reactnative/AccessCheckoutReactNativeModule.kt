@@ -3,6 +3,7 @@ package com.worldpay.access.checkout.reactnative
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
@@ -115,36 +116,32 @@ class AccessCheckoutReactNativeModule constructor(
      */
     @ReactMethod
     fun initialiseCardValidation(readableMap: ReadableMap, promise: Promise) {
-        try {
-            val config = CardValidationConfigConverter().fromReadableMap(readableMap)
+        Handler(Looper.getMainLooper()).post {
+            try {
+                val config = CardValidationConfigConverter().fromReadableMap(readableMap)
 
-            val panView = findView<AccessCheckoutEditText>(config.panId)
-            val expiryDateView = findView<AccessCheckoutEditText>(config.expiryDateId)
-            val cvcView = findView<AccessCheckoutEditText>(config.cvcId)
+                val panView = findView<AccessCheckoutEditText>(config.panId)
+                val expiryDateView = findView<AccessCheckoutEditText>(config.expiryDateId)
+                val cvcView = findView<AccessCheckoutEditText>(config.cvcId)
 
-            val cardValidationConfigBuilder = CardValidationConfig.Builder()
-                .baseUrl(config.baseUrl)
-                .pan(panView)
-                .expiryDate(expiryDateView)
-                .cvc(cvcView)
-                .validationListener(CardValidationListener(reactContext))
-                .lifecycleOwner(getLifecycleOwner())
-                .acceptedCardBrands(config.acceptedCardBrands)
+                val cardValidationConfigBuilder = CardValidationConfig.Builder()
+                    .baseUrl(config.baseUrl)
+                    .pan(panView)
+                    .expiryDate(expiryDateView)
+                    .cvc(cvcView)
+                    .validationListener(CardValidationListener(reactContext))
+                    .lifecycleOwner(getLifecycleOwner())
+                    .acceptedCardBrands(config.acceptedCardBrands)
 
-            if (config.enablePanFormatting) {
-                cardValidationConfigBuilder.enablePanFormatting()
-            }
-
-            Handler(Looper.getMainLooper()).post {
-                try {
-                    AccessCheckoutValidationInitialiser.initialise(cardValidationConfigBuilder.build())
-                    promise.resolve(true)
-                } catch (ex: Exception) {
-                    promise.reject(ex)
+                if (config.enablePanFormatting) {
+                    cardValidationConfigBuilder.enablePanFormatting()
                 }
+
+                AccessCheckoutValidationInitialiser.initialise(cardValidationConfigBuilder.build())
+                promise.resolve(true)
+            } catch (ex: Exception) {
+                promise.reject(ex)
             }
-        } catch (ex: Exception) {
-            promise.reject(ex)
         }
     }
 
@@ -213,9 +210,13 @@ class AccessCheckoutReactNativeModule constructor(
         return sessionType.count() == 1 && sessionType.first() == SessionType.CVC
     }
 
-    private fun <T> findView(viewId: String): T {
-        val rootView = reactContext.currentActivity?.window?.decorView?.rootView!!
+
+    private fun <T> findView(nativeId: String): T {
+        val root = reactContext.currentActivity?.findViewById<ViewGroup>(android.R.id.content)
+            ?: throw IllegalStateException("Root view not available")
+        val view = ReactFindViewUtil.findView(root, nativeId)
+            ?: throw IllegalArgumentException("No view found for nativeID $nativeId")
         @Suppress("UNCHECKED_CAST")
-        return ReactFindViewUtil.findView(rootView, viewId) as T
+        return view as T
     }
 }

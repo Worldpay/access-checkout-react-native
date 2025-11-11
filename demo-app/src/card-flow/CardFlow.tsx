@@ -28,9 +28,9 @@ import styles from './style.js';
 export default function CardFlow() {
   const [brand, setBrand] = useState<string>('');
   const [brandLogo, setBrandLogo] = useState<string>('');
-  const [panIsValid, setPanIsValid] = useState<boolean>(false);
-  const [expiryIsValid, setExpiryIsValid] = useState<boolean>(false);
-  const [cvcIsValid, setCvcIsValid] = useState<boolean>(false);
+  const [panIsValid, setPanIsValid] = useState<boolean | undefined>(undefined);
+  const [expiryIsValid, setExpiryIsValid] = useState<boolean | undefined>(undefined);
+  const [cvcIsValid, setCvcIsValid] = useState<boolean | undefined>(undefined);
 
   const [submitBtnEnabled, setSubmitBtnEnabled] = useState<boolean>(false);
   const [showSpinner, setShowSpinner] = useState<boolean>(false);

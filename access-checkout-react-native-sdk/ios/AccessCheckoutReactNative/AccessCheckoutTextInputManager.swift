@@ -1,23 +1,20 @@
+import UIKit
 import AccessCheckoutSDK
-import Foundation
-
-import React
 
 @objc(AccessCheckoutTextInputManager)
 class AccessCheckoutTextInputManager: RCTViewManager {
-    override func view() -> UIView! {
-        var field = AccessCheckoutUITextField()
 
-        // In order to replicate React Native behaviours in both ios and android we need reset
-        // the default padding, borders and radius added by AccessCheckoutUITextField
+    override func view() -> UIView! {
+        let field = AccessCheckoutUITextField()
+        // replicate React Native defaults
         field.borderWidth = 0
         field.cornerRadius = 0
         field.horizontalPadding = 0
 
-        return field
+        return created
     }
 
     override static func requiresMainQueueSetup() -> Bool {
-        return false
+        return true
     }
 }

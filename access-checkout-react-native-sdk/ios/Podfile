@@ -24,7 +24,8 @@ target 'AccessCheckoutReactNative' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pod 'AccessCheckoutSDK', '~> 4.1'
+#   pod 'AccessCheckoutSDK', '~> 4.1'
+  pod 'AccessCheckoutSDK', path: '../../../access-checkout-ios'
 
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202

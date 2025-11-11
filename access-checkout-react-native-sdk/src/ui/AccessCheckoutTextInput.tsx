@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { type ColorValue, type StyleProp, StyleSheet, View, type ViewStyle } from 'react-native';
 import { RTCAccessCheckoutTextInput } from './RCTAccessCheckoutTextInput';
 
@@ -68,10 +68,11 @@ export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (
   // Check if other styles are remaining before assigning it to the view container this helps to prevent passing in
   // an empty object wo the view container
   const viewStyles = Object.keys(otherStyles).length ? [{ height }, otherStyles] : [{ height }];
-
+  const ref = useRef(null);
   return (
     <View testID={`${testID}-view`} style={viewStyles}>
       <RTCAccessCheckoutTextInput
+        ref={ref}
         nativeID={nativeID}
         testID={testID}
         style={[{ flex: 1 }]}

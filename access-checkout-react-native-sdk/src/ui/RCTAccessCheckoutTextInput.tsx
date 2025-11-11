@@ -20,7 +20,7 @@ interface RTCAccessCheckoutTextInputProps {
   testID?: string;
   style?: StyleProp<TextStyle>;
   placeholder?: string;
-  placeholderTextColor?: ColorValue | null;
+  placeholderTextColor?: ColorValue;
   font?: RTCAccessCheckoutTextInputFontProps;
   editable?: boolean;
   color?: ColorValue;

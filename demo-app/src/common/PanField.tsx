@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { AccessCheckoutTextInput }  from '@worldpay/access-worldpay-checkout-react-native-sdk';
+import { AccessCheckoutTextInput } from '@worldpay/access-worldpay-checkout-react-native-sdk';
 import type UIComponentProps from './UIComponentProps';
 
 const styles = StyleSheet.create({
@@ -17,13 +17,21 @@ const styles = StyleSheet.create({
 
 interface PanFieldProps extends UIComponentProps {
   isEditable: boolean;
-  isValid: boolean;
+  isValid?: boolean;
 }
 
-const PanField = (props: PanFieldProps) => {
-  const validationColours = props.isValid ? 'green' : 'red';
-  const validationColourStyle = props.isEditable ? validationColours : 'silver';
+const getValidationColors = (isEditable: boolean, isValid?: boolean) => {
+  const validationColor = isValid === undefined ? 'black' : isValid ? 'green' : 'red';
+  return {
+    //Border color uses silver by default
+    borderColor: isEditable && isValid !== undefined ? validationColor : 'silver',
+    //Text color uses black
+    textColor: isEditable && isValid !== undefined ? validationColor : 'black',
+  };
+};
 
+const PanField = (props: PanFieldProps) => {
+  const { borderColor, textColor } = getValidationColors(props.isEditable, props.isValid);
   return (
     <AccessCheckoutTextInput
       nativeID="panInput"
@@ -31,8 +39,8 @@ const PanField = (props: PanFieldProps) => {
       style={[
         styles.pan,
         {
-          color: validationColourStyle,
-          borderColor: validationColourStyle,
+          color: textColor,
+          borderColor: borderColor,
         },
       ]}
       editable={props.isEditable}

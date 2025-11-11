@@ -4,7 +4,7 @@ package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 Pod::Spec.new do |s|
   s.name         = "access-checkout-react-native-sdk"
-  s.version      = "4.0.1"
+  s.version      = "4.0.0"
   s.summary      = package["description"]
   s.homepage     = package["repository"]["url"]
   s.license      = package["license"]
@@ -18,17 +18,11 @@ Pod::Spec.new do |s|
   s.dependency 'React-Core'
   s.dependency "AccessCheckoutSDK", "~> 4.1"
 
-  s.pod_target_xcconfig = {
+  xcconfig = {
     "CLANG_CXX_LANGUAGE_STANDARD" => "c++20",
+    "DEFINES_MODULE"              => "YES",
+    'USE_HEADERMAP'               => 'YES',
+    'SWIFT_COMPILATION_MODE'      => 'wholemodule'
   }
-
-  if ENV["USE_FRAMEWORKS"]
-    existing_flags = s.attributes_hash["compiler_flags"]
-    s.compiler_flags = [existing_flags, "-DCK_USE_FRAMEWORKS=1"].compact.join(" ")
-  end
-
-  if defined?(install_modules_dependencies)
-    install_modules_dependencies(s)
-  end
-
+  s.pod_target_xcconfig = xcconfig
 end
