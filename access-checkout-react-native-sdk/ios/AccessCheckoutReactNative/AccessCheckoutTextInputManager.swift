@@ -1,4 +1,6 @@
 import AccessCheckoutSDK
+import Foundation
+import React
 
 @objc(AccessCheckoutTextInputManager)
 class AccessCheckoutTextInputManager: RCTViewManager {

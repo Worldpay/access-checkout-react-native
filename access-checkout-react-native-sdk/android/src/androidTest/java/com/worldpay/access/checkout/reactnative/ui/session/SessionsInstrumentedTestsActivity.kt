@@ -1,11 +1,9 @@
 package com.worldpay.access.checkout.reactnative.ui.session
 
-import android.view.ViewGroup
 import com.facebook.react.bridge.JavaOnlyMap
 import com.facebook.react.bridge.PromiseImpl
 import com.facebook.react.bridge.ReadableMap
 import com.worldpay.access.checkout.reactnative.AccessCheckoutReactNativeModule
-import com.worldpay.access.checkout.reactnative.R
 import com.worldpay.access.checkout.reactnative.ui.AbstractInstrumentedTestsActivity
 import com.worldpay.access.checkout.reactnative.ui.react.FailureCallback
 import com.worldpay.access.checkout.reactnative.ui.react.SuccessCallback
@@ -37,36 +35,40 @@ class SessionsInstrumentedTestsActivity : AbstractInstrumentedTestsActivity() {
                     .expiryDateId(expiryDateId)
                     .cvcId(cvcId)
                     .sessionTypes(TestFixture.sessionsTypes())
-
-                TestFixture.reactNativeSdkVersion()?.let {
-                    bridgeArguments.reactNativeSdkVersion(it)
-                }
+                    .apply {
+                        TestFixture.reactNativeSdkVersion()?.let { reactNativeSdkVersion(it) }
+                    }
 
                 val result = generateSessions(module, bridgeArguments.toJavaOnlyMap())
 
-                if (result.getString("card") != null) {
-                    sessions["card"] = result.getString("card") as String
+                // Generic extraction to avoid missing unexpected key names
+                result.keySetIterator().let { iterator ->
+                    while (iterator.hasNextKey()) {
+                        val key = iterator.nextKey()
+                        val value = result.getString(key)
+                        if (value != null) {
+                            sessions[key] = value
+                        }
+                    }
                 }
-                if (result.getString("cvc") != null) {
-                    sessions["cvc"] = result.getString("cvc") as String
-                }
-            } catch (runtimeException: RuntimeException) {
-                exception = runtimeException
-            }
 
+                if (sessions.isEmpty()) {
+                    exception = RuntimeException("No sessions returned. Requested types: ${TestFixture.sessionsTypes()}")
+                }
+            } catch (e: RuntimeException) {
+                exception = e
+            }
         }
     }
 
     private suspend fun generateSessions(
         module: AccessCheckoutReactNativeModule,
         arguments: JavaOnlyMap
-    ): ReadableMap =
-        suspendCoroutine { continuation ->
-            val promise = PromiseImpl(
-                SuccessCallback(continuation),
-                FailureCallback(continuation)
-            )
-
-            module.generateSessions(arguments, promise)
-        }
+    ): ReadableMap = suspendCoroutine { continuation ->
+        val promise = PromiseImpl(
+            SuccessCallback(continuation),
+            FailureCallback(continuation)
+        )
+        module.generateSessions(arguments, promise)
+    }
 }
