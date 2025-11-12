@@ -17,36 +17,55 @@ class PromiseMock : Promise {
         this.resolvedValue = value
     }
 
-    override fun reject(code: String?, message: String?) {
+    override fun reject(code: String, message: String?) {
         this.rejectedCode = code
         this.rejectedMessage = message
     }
 
-    override fun reject(code: String?, throwable: Throwable?) {
+    override fun reject(code: String, throwable: Throwable?) {
         throw RuntimeException("Not yet implemented")
     }
 
-    override fun reject(code: String?, message: String?, throwable: Throwable?) {
+    override fun reject(
+        code: String,
+        message: String?,
+        throwable: Throwable?
+    ) {
         throw RuntimeException("Not yet implemented")
     }
 
-    override fun reject(throwable: Throwable?) {
+    override fun reject(throwable: Throwable) {
         throw RuntimeException("Not yet implemented")
     }
 
-    override fun reject(throwable: Throwable?, userInfo: WritableMap?) {
+    override fun reject(
+        throwable: Throwable,
+        userInfo: WritableMap
+    ) {
         throw RuntimeException("Not yet implemented")
     }
 
-    override fun reject(code: String?, userInfo: WritableMap) {
+    override fun reject(code: String, userInfo: WritableMap) {
         throw RuntimeException("Not yet implemented")
     }
 
-    override fun reject(code: String?, throwable: Throwable?, userInfo: WritableMap?) {
+    override fun reject(
+        code: String,
+        throwable: Throwable?,
+        userInfo: WritableMap
+    ) {
         throw RuntimeException("Not yet implemented")
     }
 
-    override fun reject(code: String?, message: String?, userInfo: WritableMap) {
+    override fun reject(
+        code: String,
+        message: String?,
+        userInfo: WritableMap
+    ) {
+        throw RuntimeException("Not yet implemented")
+    }
+
+    override fun reject(message: String) {
         throw RuntimeException("Not yet implemented")
     }
 
@@ -59,8 +78,5 @@ class PromiseMock : Promise {
         throw RuntimeException("Not yet implemented")
     }
 
-    @Deprecated("", ReplaceWith(""))
-    override fun reject(message: String?) {
-        throw RuntimeException("Not yet implemented")
-    }
+
 }
