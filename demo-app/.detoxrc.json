@@ -14,7 +14,7 @@
     "ios": {
       "type": "ios.app",
       "binaryPath": "ios/Build/Build/Products/Debug-iphonesimulator/AccessCheckoutReactNativeDemo.app",
-      "build": "xcodebuild -workspace ios/AccessCheckoutReactNativeDemo.xcworkspace -configuration Debug -scheme AccessCheckoutReactNativeDemo -sdk iphonesimulator -derivedDataPath ios/build"
+      "build": "./scripts/ios-detox-build.sh -v=15"
     },
     "android": {
       "type": "android.apk",
@@ -27,7 +27,7 @@
     "ios": {
       "type": "ios.simulator",
       "device": {
-        "name": "iPhone 16 Pro Max"
+        "name": "iphone8-14"
       }
     },
     "ios-ci": {
@@ -40,7 +40,7 @@
     "android": {
       "type": "android.emulator",
       "device": {
-        "avdName": "Pixel_9"
+        "avdName": "Pixel_2_API_30"
       }
     },
     "android-ci": {
