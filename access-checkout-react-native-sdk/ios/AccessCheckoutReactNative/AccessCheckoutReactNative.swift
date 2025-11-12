@@ -12,8 +12,14 @@ class AccessCheckoutReactNative: RCTEventEmitter {
 
     override init() {
         super.init()
+        self.reactNativeViewLocator = ReactNativeViewLocator(bridge: self.bridge)
     }
-
+    
+    init(reactNativeViewLocator: ReactNativeViewLocator) {
+        super.init()
+        self.reactNativeViewLocator = reactNativeViewLocator
+    }
+    
     override func invalidate() {
         super.invalidate()
         reactNativeViewLocator.clear()

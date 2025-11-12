@@ -4,7 +4,8 @@ import XCTest
 
 class AccessCheckoutReactNativeUnitTests: XCTestCase {
     func testEventsSupportedByNativeModule() {
-        let accessCheckoutReactNative = AccessCheckoutReactNative(ReactNativeViewLocatorMock())
+        let viewlocatorMock = ReactNativeViewLocatorMock()
+        let accessCheckoutReactNative = AccessCheckoutReactNative()
 
         let supportedEvents = accessCheckoutReactNative.supportedEvents()
 

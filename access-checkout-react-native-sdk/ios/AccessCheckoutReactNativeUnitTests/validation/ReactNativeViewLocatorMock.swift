@@ -18,10 +18,12 @@ class ReactNativeViewLocatorMock: ReactNativeViewLocator {
         self.panView = panView
         self.expiryDateView = expiryDateView
         self.cvcView = cvcView
+        super.init(bridge: nil)
     }
 
     init(cvcView: AccessCheckoutUITextField) {
         self.cvcView = cvcView
+        super.init(bridge: nil)
     }
 
     override internal func locateUITextField(nativeID: String) -> AccessCheckoutUITextField? {
