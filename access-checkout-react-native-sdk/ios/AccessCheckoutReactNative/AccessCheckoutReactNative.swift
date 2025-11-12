@@ -8,16 +8,21 @@ class AccessCheckoutReactNative: RCTEventEmitter {
     private let cvcOnlyValidationEventName = "AccessCheckoutCvcOnlyValidationEvent"
 
     private var accessCheckoutClient: AccessCheckoutClient?
-    private let reactNativeViewLocator: ReactNativeViewLocator
+    private lazy var reactNativeViewLocator = ReactNativeViewLocator(bridge: self.bridge)
 
     override init() {
-        self.reactNativeViewLocator = ReactNativeViewLocator()
         super.init()
     }
 
-    init(_ reactNativeViewLocator: ReactNativeViewLocator) {
-        self.reactNativeViewLocator = reactNativeViewLocator
-        super.init()
+    override func invalidate() {
+        super.invalidate()
+        reactNativeViewLocator.clear()
+    }
+
+    //
+    @objc(registerView:testId:)
+    func registerView(_ viewTag: NSNumber, testId: String) {
+        reactNativeViewLocator.register(viewTag: viewTag, id: testId)
     }
 
     @objc(generateSessions:withResolver:withRejecter:)
@@ -35,19 +40,19 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     .checkoutId(cfg.merchantId)
                     .build()
             }
-            
+
             let cardDetails: CardDetails
 
             if isCvcSessionOnly(sessionTypes: cfg.sessionTypes) {
-                let cvcInput = reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
+                let cvcInput = reactNativeViewLocator.locateUITextField(nativeID: cfg.cvcId)
 
                 cardDetails = try CardDetailsBuilder()
                     .cvc(cvcInput!)
                     .build()
             } else {
-                let panInput = reactNativeViewLocator.locateUITextField(id: cfg.panId!)
-                let expiryInput = reactNativeViewLocator.locateUITextField(id: cfg.expiryDateId!)
-                let cvcInput = reactNativeViewLocator.locateUITextField(id: cfg.cvcId)
+                let panInput = reactNativeViewLocator.locateUITextField(nativeID: cfg.panId!)
+                let expiryInput = reactNativeViewLocator.locateUITextField(nativeID: cfg.expiryDateId!)
+                let cvcInput = reactNativeViewLocator.locateUITextField(nativeID: cfg.cvcId)
 
                 cardDetails = try CardDetailsBuilder()
                     .pan(panInput!)
@@ -55,10 +60,10 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     .cvc(cvcInput!)
                     .build()
             }
-            
+
             let wpSdkHeaderValue = String(format: wpSdkHeaderFormat, cfg.reactNativeSdkVersion!)
             try! WpSdkHeader.overrideValue(with: wpSdkHeaderValue)
-            
+
             try accessCheckoutClient!.generateSessions(
                 cardDetails: cardDetails, sessionTypes: cfg.sessionTypes)
             {
@@ -89,10 +94,9 @@ class AccessCheckoutReactNative: RCTEventEmitter {
         DispatchQueue.main.async {
             do {
                 let config = try CardValidationConfigRN(dictionary: config)
-                let panInput = self.reactNativeViewLocator.locateUITextField(id: config.panId)
-                let expiryInput = self.reactNativeViewLocator.locateUITextField(
-                    id: config.expiryDateId)
-                let cvcInput = self.reactNativeViewLocator.locateUITextField(id: config.cvcId)
+                let panInput = self.reactNativeViewLocator.locateUITextField(nativeID: config.panId)
+                let expiryInput = self.reactNativeViewLocator.locateUITextField(nativeID:config.expiryDateId)
+                let cvcInput = self.reactNativeViewLocator.locateUITextField(nativeID: config.cvcId)
 
                 if panInput == nil {
                     let error = AccessCheckoutRnIllegalArgumentError.panTextFieldNotFound(
@@ -145,7 +149,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
         DispatchQueue.main.async {
             do {
                 let config = try CvcOnlyValidationConfigRN(dictionary: config)
-                let cvcInput = self.reactNativeViewLocator.locateUITextField(id: config.cvcId)
+                let cvcInput = self.reactNativeViewLocator.locateUITextField(nativeID: config.cvcId)
 
                 if cvcInput == nil {
                     let error = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
@@ -183,3 +187,4 @@ class AccessCheckoutReactNative: RCTEventEmitter {
         return false
     }
 }
+

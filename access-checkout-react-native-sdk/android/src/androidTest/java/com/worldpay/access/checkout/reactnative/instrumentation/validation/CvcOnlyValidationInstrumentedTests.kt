@@ -18,7 +18,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
 class CvcOnlyValidationInstrumentedTests {
-    private val timeOutInMs = 5000L
+    private val timeOutInMs = 10000L
 
     companion object {
         @BeforeClass

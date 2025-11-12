@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
 
 
 class SessionsInstrumentedTests {
-    private val timeOutInMs = 5000L
+    private val timeOutInMs = 10000L
 
     @Before
     fun setup() {

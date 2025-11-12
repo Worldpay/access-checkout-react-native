@@ -3,14 +3,12 @@ package com.worldpay.access.checkout.reactnative
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableMap
-import com.facebook.react.uimanager.util.ReactFindViewUtil
 import com.worldpay.access.checkout.client.session.AccessCheckoutClient
 import com.worldpay.access.checkout.client.session.AccessCheckoutClientBuilder
 import com.worldpay.access.checkout.client.session.model.CardDetails
@@ -26,18 +24,18 @@ import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationConf
 import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationListener
 import com.worldpay.access.checkout.session.AccessCheckoutClientDisposer
 import com.worldpay.access.checkout.session.api.client.WpSdkHeader
-import com.worldpay.access.checkout.ui.AccessCheckoutEditText
 
 /**
  * Module class that implements all the functionality that is required by Javascript for the end user
  *
  * The responsibility of this class is to provide react methods that are then exposed for the JS to use.
  */
-class AccessCheckoutReactNativeModule constructor(
+class AccessCheckoutReactNativeModule(
     private val reactContext: ReactApplicationContext,
     private val accessCheckoutClientDisposer: AccessCheckoutClientDisposer = AccessCheckoutClientDisposer()
 ) : ReactContextBaseJavaModule(reactContext) {
 
+    private val viewLocator = ReactNativeViewLocator(reactContext)
     private var accessCheckoutClient: AccessCheckoutClient? = null
     private val sessionResponseListener = SessionResponseListenerImpl()
 
@@ -51,6 +49,18 @@ class AccessCheckoutReactNativeModule constructor(
      * const { AccessCheckoutReactNative } = ReactNative.NativeModules;
      */
     override fun getName() = "AccessCheckoutReactNative"
+
+
+    /**
+     * Registers a mapping between a React Native 'nativeId' and its Android viewTag.
+     *
+     * @param viewTag The Android view id generated for the native view (acts as React viewTag).
+     * @param nativeId The React Native nativeId attribute used as the lookup key.
+     */
+    @ReactMethod
+    fun registerView(viewTag: Int, nativeId: String) {
+        viewLocator.register(viewTag, nativeId)
+    }
 
     /**
      * Exposes the generateSession method to JS
@@ -82,24 +92,16 @@ class AccessCheckoutReactNativeModule constructor(
 
                 sessionResponseListener.promise = promise
 
-                val panView = findView<AccessCheckoutEditText>(config.panId!!)
-                val expiryDateView = findView<AccessCheckoutEditText>(config.expiryDateId!!)
-                val cvcView = findView<AccessCheckoutEditText>(config.cvcId!!)
+                val cvcView = viewLocator.locateAccessCheckoutEditText(config.cvcId!!)
+                val cardDetails = CardDetails.Builder().cvc(cvcView)
 
-                val cardDetails: CardDetails = if (isCvcSessionOnly(config.sessionTypes)) {
-                    CardDetails.Builder()
-                        .cvc(cvcView)
-                        .build()
-                } else {
-                    CardDetails.Builder()
-                        .pan(panView)
-                        .expiryDate(expiryDateView)
-                        .cvc(cvcView)
-                        .build()
+                if (!isCvcSessionOnly(config.sessionTypes)) {
+                    val panView = viewLocator.locateAccessCheckoutEditText(config.panId!!)
+                    val expiryDateView =
+                        viewLocator.locateAccessCheckoutEditText(config.expiryDateId!!)
+                    cardDetails.pan(panView).expiryDate(expiryDateView)
                 }
-
-                accessCheckoutClient!!.generateSessions(cardDetails, config.sessionTypes)
-
+                accessCheckoutClient!!.generateSessions(cardDetails.build(), config.sessionTypes)
             } catch (exception: RuntimeException) {
                 promise.reject(exception)
             }
@@ -120,9 +122,9 @@ class AccessCheckoutReactNativeModule constructor(
             try {
                 val config = CardValidationConfigConverter().fromReadableMap(readableMap)
 
-                val panView = findView<AccessCheckoutEditText>(config.panId)
-                val expiryDateView = findView<AccessCheckoutEditText>(config.expiryDateId)
-                val cvcView = findView<AccessCheckoutEditText>(config.cvcId)
+                val panView = viewLocator.locateAccessCheckoutEditText(config.panId)
+                val expiryDateView = viewLocator.locateAccessCheckoutEditText(config.expiryDateId)
+                val cvcView = viewLocator.locateAccessCheckoutEditText(config.cvcId)
 
                 val cardValidationConfigBuilder = CardValidationConfig.Builder()
                     .baseUrl(config.baseUrl)
@@ -155,26 +157,22 @@ class AccessCheckoutReactNativeModule constructor(
      */
     @ReactMethod
     fun initialiseCvcOnlyValidation(readableMap: ReadableMap, promise: Promise) {
-        try {
-            val config = CvcOnlyValidationConfigConverter().fromReadableMap(readableMap)
+        Handler(Looper.getMainLooper()).post {
+            try {
+                val config = CvcOnlyValidationConfigConverter().fromReadableMap(readableMap)
 
-            val cvcView = findView<AccessCheckoutEditText>(config.cvcId)
+                val cvcView = viewLocator.locateAccessCheckoutEditText(config.cvcId)
 
-            val cvcOnlyValidationConfigBuilder = CvcValidationConfig.Builder()
-                .cvc(cvcView)
-                .validationListener(CvcOnlyValidationListener(reactContext))
-                .lifecycleOwner(getLifecycleOwner())
+                val cvcOnlyValidationConfigBuilder = CvcValidationConfig.Builder()
+                    .cvc(cvcView)
+                    .validationListener(CvcOnlyValidationListener(reactContext))
+                    .lifecycleOwner(getLifecycleOwner())
 
-            Handler(Looper.getMainLooper()).post {
-                try {
-                    AccessCheckoutValidationInitialiser.initialise(cvcOnlyValidationConfigBuilder.build())
-                    promise.resolve(true)
-                } catch (ex: Exception) {
-                    promise.reject(ex)
-                }
+                AccessCheckoutValidationInitialiser.initialise(cvcOnlyValidationConfigBuilder.build())
+                promise.resolve(true)
+            } catch (ex: Exception) {
+                promise.reject(ex)
             }
-        } catch (ex: Exception) {
-            promise.reject(ex)
         }
     }
 
@@ -201,6 +199,7 @@ class AccessCheckoutReactNativeModule constructor(
             accessCheckoutClientDisposer.dispose(accessCheckoutClient!!)
             Log.d(javaClass.simpleName, "AccessCheckoutClient dispose successfully called")
         }
+        viewLocator.clear()
     }
 
     private fun getLifecycleOwner() = (reactContext.currentActivity as LifecycleOwner)
@@ -208,15 +207,5 @@ class AccessCheckoutReactNativeModule constructor(
 
     private fun isCvcSessionOnly(sessionType: List<SessionType>): Boolean {
         return sessionType.count() == 1 && sessionType.first() == SessionType.CVC
-    }
-
-
-    private fun <T> findView(nativeId: String): T {
-        val root = reactContext.currentActivity?.findViewById<ViewGroup>(android.R.id.content)
-            ?: throw IllegalStateException("Root view not available")
-        val view = ReactFindViewUtil.findView(root, nativeId)
-            ?: throw IllegalArgumentException("No view found for nativeID $nativeId")
-        @Suppress("UNCHECKED_CAST")
-        return view as T
     }
 }

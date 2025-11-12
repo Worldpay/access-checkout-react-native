@@ -1,8 +1,27 @@
 PODS:
-  - access-checkout-react-native-sdk (4.0.1):
+  - access-checkout-react-native-sdk (4.0.0):
     - AccessCheckoutSDK (~> 4.1)
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.10.14.00)
+    - RCTRequired
+    - RCTTypeSafety
     - React-Core
-  - AccessCheckoutSDK (4.1.2)
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - AccessCheckoutSDK (4.1.1)
   - boost (1.84.0)
   - DoubleConversion (1.1.6)
   - fast_float (6.1.4)
@@ -1567,7 +1586,6 @@ PODS:
 
 DEPENDENCIES:
   - "access-checkout-react-native-sdk (from `../node_modules/@worldpay/access-worldpay-checkout-react-native-sdk`)"
-  - AccessCheckoutSDK (from `../../../access-checkout-ios`)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - fast_float (from `../node_modules/react-native/third-party-podspecs/fast_float.podspec`)
@@ -1637,13 +1655,12 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AccessCheckoutSDK
     - SocketRocket
 
 EXTERNAL SOURCES:
   access-checkout-react-native-sdk:
     :path: "../node_modules/@worldpay/access-worldpay-checkout-react-native-sdk"
-  AccessCheckoutSDK:
-    :path: "../../../access-checkout-ios"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
@@ -1775,8 +1792,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  access-checkout-react-native-sdk: ff712a17bca6e1a27ccf7900b87ef335efb1b4d7
-  AccessCheckoutSDK: 1631378734e4af74a4b8ce394910f6e61c5e28a3
+  access-checkout-react-native-sdk: 2c0d71038b40dec4407c2b3137ab4488cfee7e6a
+  AccessCheckoutSDK: 5110651cbd062aeef82216f33065b5fbb6cccdb6
   boost: 1dca942403ed9342f98334bf4c3621f011aa7946
   DoubleConversion: f16ae600a246532c4020132d54af21d0ddb2a385
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
@@ -1843,6 +1860,6 @@ SPEC CHECKSUMS:
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: feb4910aba9742cfedc059e2b2902e22ffe9954a
 
-PODFILE CHECKSUM: 23ddab1e96c08f790ff641f8832b4828758a7d9b
+PODFILE CHECKSUM: 287792d66305602048e30aa6192f678f0eac02aa
 
 COCOAPODS: 1.15.2

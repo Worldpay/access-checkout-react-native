@@ -3,106 +3,70 @@ package com.worldpay.access.checkout.reactnative.session
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.worldpay.access.checkout.client.session.model.SessionType
-import com.worldpay.access.checkout.client.session.model.SessionType.CARD
 
 
 class GenerateSessionsConfigConverter {
 
     fun fromReadableMap(map: ReadableMap): GenerateSessionsConfig {
-        val baseUrl = extractString(fromMap = map, forKey = "baseUrl")
-        val merchantId = extractString(fromMap = map, forKey = "merchantId")
-        val panId = extractString(fromMap = map, forKey = "panId")
-        val expiryDateId = extractString(fromMap = map, forKey = "expiryDateId")
-        val cvcId = extractString(fromMap = map, forKey = "cvcId")
-        val sessionTypes = map.getArray("sessionTypes")
-        val reactNativeSdkVersion = extractString(fromMap = map, forKey = "reactNativeSdkVersion")
+        val baseUrl = extractString(map, "baseUrl")
+        val merchantId = extractString(map, "merchantId")
+        val panId = extractString(map, "panId")
+        val expiryDateId = extractString(map, "expiryDateId")
+        val cvcId = extractString(map, "cvcId")
+        val sessionTypesArray = map.getArray("sessionTypes")
+        val reactNativeSdkVersion = extractString(map, "reactNativeSdkVersion")
 
         validateNonEmptyString(baseUrl, "baseUrl")
         validateNonEmptyString(merchantId, "merchantId")
         validateNonEmptyString(reactNativeSdkVersion, "reactNativeSdkVersion")
 
-        val sessionTypesList = toSessionTypesList(sessionTypes)
+        val sessionTypes = toSessionTypesList(sessionTypesArray)
 
-        if (sessionTypesList.contains(CARD)) {
+        val requiresCard = sessionTypes.contains(SessionType.CARD)
+        if (requiresCard) {
             validateNonEmptyString(panId, "panId")
             validateNonEmptyString(expiryDateId, "expiryDateId")
-            validateNonEmptyString(cvcId, "cvcId")
-
-            return GenerateSessionsConfig(
-                baseUrl = baseUrl!!,
-                merchantId = merchantId!!,
-                panId = panId!!,
-                expiryDateId = expiryDateId!!,
-                cvcId = cvcId!!,
-                sessionTypes = sessionTypesList,
-                reactNativeSdkVersion = reactNativeSdkVersion!!
-            )
-        } else {
-            validateNonEmptyString(cvcId, "cvcId")
-
-            return GenerateSessionsConfig(
-                baseUrl = baseUrl!!,
-                merchantId = merchantId!!,
-                panId = "",
-                expiryDateId = "",
-                cvcId = cvcId!!,
-                sessionTypes = sessionTypesList,
-                reactNativeSdkVersion = reactNativeSdkVersion!!
-            )
         }
+        validateNonEmptyString(cvcId, "cvcId") // always required because CVC can be standalone or part of CARD set
+
+        return GenerateSessionsConfig(
+            baseUrl = baseUrl!!,
+            merchantId = merchantId!!,
+            panId = if (requiresCard) panId else null,
+            expiryDateId = if (requiresCard) expiryDateId else null,
+            cvcId = cvcId!!,
+            sessionTypes = sessionTypes,
+            reactNativeSdkVersion = reactNativeSdkVersion!!
+        )
     }
 
     private fun toSessionTypesList(sessionTypes: ReadableArray?): List<SessionType> {
         if (sessionTypes == null || sessionTypes.size() == 0) {
             throw IllegalArgumentException("Expected sessionTypes to be provided but was not")
         }
-
         if (sessionTypes.size() > 2) {
-            throw IllegalArgumentException("Expected maximum of 2 session types to be provided but found ${sessionTypes.size()}")
+            throw IllegalArgumentException("Expected maximum of 2 session types but found ${sessionTypes.size()}")
         }
 
-        val sessionTypeList = mutableListOf<SessionType>()
-        sessionTypes.toArrayList().forEach { element ->
+        return sessionTypes.toArrayList().map { element ->
             if (element !is String) {
-                throw IllegalArgumentException("Expected session type value to be a string but was not")
+                throw IllegalArgumentException("Expected session type value to be a String but was not")
             }
-
-            when {
-                element.toString().lowercase() == "card" -> {
-                    sessionTypeList.add(SessionType.CARD)
-                }
-                element.toString().lowercase() == "cvc" -> {
-                    sessionTypeList.add(SessionType.CVC)
-                }
-                else -> {
-                    throw IllegalArgumentException("Unrecognised session type found $element, only CARD or CVC is accepted")
-                }
+            when (element.lowercase()) {
+                "card" -> SessionType.CARD
+                "cvc" -> SessionType.CVC
+                else -> throw IllegalArgumentException("Unrecognised session type $element, only CARD or CVC accepted")
             }
         }
-
-        return sessionTypeList
     }
 
-    private fun validateNotNull(property: Any?, propertyKey: String) {
-        if (property == null) {
-            throw IllegalArgumentException("Expected $propertyKey to be provided but was not")
+    private fun validateNonEmptyString(value: String?, key: String) {
+        if (value == null) throw IllegalArgumentException("Expected $key to be provided but was not")
+        if (value.isEmpty()) throw IllegalArgumentException("Expected $key to be a non-empty String but was empty")
+    }
+
+    private fun extractString(map: ReadableMap, key: String): String? =
+        try { map.getString(key) } catch (e: ClassCastException) {
+            throw IllegalArgumentException("Expected $key to be a String but was not")
         }
-    }
-
-    private fun validateNonEmptyString(property: String?, propertyKey: String) {
-        if (property == null) {
-            throw IllegalArgumentException("Expected $propertyKey to be provided but was not")
-        } else if (property.isEmpty()) {
-            throw IllegalArgumentException("Expected $propertyKey to be a non-empty String but was not")
-        }
-    }
-
-    private fun extractString(fromMap: ReadableMap, forKey: String): String? {
-        try {
-            return fromMap.getString(forKey)
-        } catch (e: ClassCastException) {
-            throw IllegalArgumentException("Expected $forKey to be a String but was not")
-        }
-    }
 }
-
