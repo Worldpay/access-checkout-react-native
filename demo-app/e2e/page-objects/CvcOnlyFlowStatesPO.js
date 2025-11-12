@@ -30,8 +30,6 @@ class CvcOnlyFlowStatesPO extends UIComponentPO {
       return false;
     } else if (text === 'undefined') {
       return undefined;
-    } else if (text === undefined) {
-      return undefined;
     } else {
       throw new Error(
         `Invalid state, expected boolean text but found value ${text}`

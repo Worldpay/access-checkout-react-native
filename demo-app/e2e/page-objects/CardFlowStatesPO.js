@@ -20,22 +20,22 @@ class CardFlowStatesPO extends UIComponentPO {
 
   async submitButtonEnabled() {
     const text = await this.submitButtonEnabledLabel.text();
-    return this.textAsBoolean(text);
+    return this.textAsBooleanOrUndefined(text);
   }
 
   async panIsValid() {
     const text = await this.panIsValidLabel.text();
-    return this.textAsBoolean(text);
+    return this.textAsBooleanOrUndefined(text);
   }
 
   async expiryDateIsValid() {
     const text = await this.expiryDateIsValidLabel.text();
-    return this.textAsBoolean(text);
+    return this.textAsBooleanOrUndefined(text);
   }
 
   async cvcIsValid() {
     const text = await this.cvcIsValidLabel.text();
-    return this.textAsBoolean(text);
+    return this.textAsBooleanOrUndefined(text);
   }
 
   async cardBrand() {
@@ -43,11 +43,13 @@ class CardFlowStatesPO extends UIComponentPO {
     return text;
   }
 
-  textAsBoolean(text) {
+  textAsBooleanOrUndefined(text) {
     if (text === 'true') {
       return true;
     } else if (text === 'false') {
       return false;
+    } else if (text === 'undefined') {
+      return undefined;
     } else {
       throw new Error(
         `Invalid state, expected boolean text but found value ${text}`
