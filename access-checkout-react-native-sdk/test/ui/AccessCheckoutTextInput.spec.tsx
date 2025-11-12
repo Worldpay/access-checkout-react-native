@@ -313,7 +313,7 @@ describe('AccessCheckoutTextInput', () => {
       jest.spyOn(require('react-native'), 'findNodeHandle').mockReturnValue(555);
 
       const { rerender } = render(<AccessCheckoutTextInput testID="field" nativeID="first-id" />);
-      await screen.findByTestId('field');
+      await screen.findByTestId('fiepld');
       await waitFor(() => expect(mockRegisterViewFn).toHaveBeenCalledWith(555, 'first-id'));
 
       // Change nativeID prop (triggers useEffect dependency)
