@@ -10,6 +10,10 @@ class ReactNativeViewLocatorMock: ReactNativeViewLocator {
     var expiryDateView: AccessCheckoutUITextField?
     var cvcView: AccessCheckoutUITextField?
 
+    init() {
+        super.init(bridge: nil)
+    }
+    
     init(
         panView: AccessCheckoutUITextField,
         expiryDateView: AccessCheckoutUITextField,
