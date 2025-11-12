@@ -15,6 +15,6 @@
   "testMatch": [
     "<rootDir>/e2e/**/*.e2e.js"
   ],
-  "testTimeout": 600000,
+  "testTimeout": 120000,
   "verbose": true
 }
