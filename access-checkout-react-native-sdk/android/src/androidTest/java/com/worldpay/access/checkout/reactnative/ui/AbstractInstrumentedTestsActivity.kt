@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
+import com.facebook.react.BuildConfig
 import com.facebook.react.R
+import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
 import com.worldpay.access.checkout.reactnative.AccessCheckoutReactNativeModule
 import com.worldpay.access.checkout.reactnative.ui.react.EventMock
@@ -47,7 +49,7 @@ abstract class AbstractInstrumentedTestsActivity : ComponentActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        SoLoader.init(this, false)
+        SoLoader.init(this, OpenSourceMergedSoMapping)
 
         panAccessCheckoutEditText = createAccessCheckoutEditText(panId)
         expiryDateAccessCheckoutEditText = createAccessCheckoutEditText(expiryDateId)

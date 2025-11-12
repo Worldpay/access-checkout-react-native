@@ -11,10 +11,10 @@ import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.UIManager
 import com.facebook.react.turbomodule.core.interfaces.CallInvokerHolder
-import java.lang.Exception
 
 class MockReactApplicationContext(context: Context, private val activity: Activity?) :
     ReactApplicationContext(context) {
+
     constructor(context: Context) : this(context, null)
 
     companion object {
@@ -24,86 +24,87 @@ class MockReactApplicationContext(context: Context, private val activity: Activi
         }
     }
 
+    // Mock JS module (DeviceEventEmitter etc.)
     val rtcDeviceEventEmitter = RCTDeviceEventEmitterMock()
 
-    override fun getCurrentActivity(): Activity? {
-        return activity
+    // Simple stubs / state
+    private val javaScriptContextHolder = JavaScriptContextHolder(0L)
+    private var catalystInstance: CatalystInstance? = null
+    private val nativeModules = mutableMapOf<String, NativeModule>()
+    private var destroyed = false
+    private var lastException: Exception? = null
+
+    // Allow tests to inject modules / catalyst instance
+    fun addNativeModule(module: NativeModule) {
+        nativeModules[module.name] = module
     }
 
-    override fun isBridgeless(): Boolean {
-        TODO("Not yet implemented")
+    fun setCatalystInstance(instance: CatalystInstance?) {
+        catalystInstance = instance
     }
 
-    override fun getJavaScriptContextHolder(): JavaScriptContextHolder? {
-        TODO("Not yet implemented")
+    fun getLastException(): Exception? = lastException
+
+    override fun getCurrentActivity(): Activity? = activity
+
+    override fun isBridgeless(): Boolean = false
+
+    override fun getJavaScriptContextHolder(): JavaScriptContextHolder = javaScriptContextHolder
+
+    override fun getJSCallInvokerHolder(): CallInvokerHolder? = null
+
+    override fun getFabricUIManager(): UIManager? = null
+
+    override fun getSourceURL(): String = "mock://source"
+
+    override fun registerSegment(p0: Int, p1: String?, p2: Callback?) {
+        // Immediately invoke callback to simulate successful segment registration
+        p2?.invoke(true)
     }
 
-    override fun getJSCallInvokerHolder(): CallInvokerHolder? {
-        TODO("Not yet implemented")
-    }
-
-    override fun getFabricUIManager(): UIManager? {
-        TODO("Not yet implemented")
-    }
-
-    override fun getSourceURL(): String? {
-        TODO("Not yet implemented")
-    }
-
-    override fun registerSegment(
-        p0: Int,
-        p1: String?,
-        p2: Callback?
-    ) {
-        TODO("Not yet implemented")
-    }
-
+    @Suppress("UNCHECKED_CAST")
     override fun <T : JavaScriptModule?> getJSModule(jsInterface: Class<T>?): T {
-        @Suppress("UNCHECKED_CAST")
         return rtcDeviceEventEmitter as T
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : NativeModule?> hasNativeModule(p0: Class<T?>?): Boolean {
-        TODO("Not yet implemented")
+        if (p0 == null) return false
+        return nativeModules.values.any { p0.isInstance(it) }
     }
 
-    override fun getNativeModules(): Collection<NativeModule?>? {
-        TODO("Not yet implemented")
-    }
+    override fun getNativeModules(): Collection<NativeModule> = nativeModules.values
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : NativeModule?> getNativeModule(p0: Class<T?>?): T? {
-        TODO("Not yet implemented")
+        if (p0 == null) return null
+        return nativeModules.values.firstOrNull { p0.isInstance(it) } as T?
     }
 
     override fun getNativeModule(p0: String?): NativeModule? {
-        TODO("Not yet implemented")
+        if (p0 == null) return null
+        return nativeModules[p0]
     }
 
-    override fun getCatalystInstance(): CatalystInstance? {
-        TODO("Not yet implemented")
-    }
+    override fun getCatalystInstance(): CatalystInstance? = catalystInstance
 
-    override fun hasActiveCatalystInstance(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun hasActiveCatalystInstance(): Boolean = catalystInstance != null && !destroyed
 
-    override fun hasActiveReactInstance(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun hasActiveReactInstance(): Boolean = hasActiveCatalystInstance()
 
-    override fun hasCatalystInstance(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun hasCatalystInstance(): Boolean = catalystInstance != null
 
-    override fun hasReactInstance(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun hasReactInstance(): Boolean = hasCatalystInstance()
 
     override fun destroy() {
-        TODO("Not yet implemented")
+        destroyed = true
+        nativeModules.clear()
+        catalystInstance = null
     }
 
     override fun handleException(p0: Exception?) {
-        TODO("Not yet implemented")
+        lastException = p0
+        // For tests, rethrow to fail fast if needed
+        if (p0 != null) throw p0
     }
 }
