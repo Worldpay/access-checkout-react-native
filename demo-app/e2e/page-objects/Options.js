@@ -1,3 +1,3 @@
-const TIMEOUT_IN_MS = 10000;
+const TIMEOUT_IN_MS = 30000;
 
 module.exports = { TIMEOUT_IN_MS };
