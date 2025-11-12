@@ -24,14 +24,12 @@ class ReactNativeViewLocatorMock: ReactNativeViewLocator {
         self.cvcView = cvcView
     }
 
-    override init() {}
-
-    override internal func locateUITextField(id: String) -> AccessCheckoutUITextField? {
-        if id.contains("pan") {
+    override internal func locateUITextField(nativeID: String) -> AccessCheckoutUITextField? {
+        if nativeID.contains("pan") {
             return self.panView
-        } else if id.contains("expiryDate") {
+        } else if nativeID.contains("expiryDate") {
             return self.expiryDateView
-        } else if id.contains("cvc") {
+        } else if nativeID.contains("cvc") {
             return self.cvcView
         }
 
