@@ -81,7 +81,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
     func testShouldRaiseEventWhenCvcBecomesValid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { success in
             XCTAssertEqual(true, (success as! Bool))
@@ -110,7 +110,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
     func testShouldRaiseEventWhenCvcBecomesInvalid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
@@ -141,7 +141,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
     func testShouldRaiseEventWhenAllFieldsBecomeValid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
