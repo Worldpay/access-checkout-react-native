@@ -15,15 +15,15 @@ class CvcOnlyFlowStatesPO extends UIComponentPO {
 
   async submitButtonEnabled() {
     const text = await this.submitButtonEnabledLabel.text();
-    return this.textAsBoolean(text);
+    return this.textAsBooleanOrUndefined(text);
   }
 
   async cvcIsValid() {
     const text = await this.cvcIsValidLabel.text();
-    return this.textAsBoolean(text);
+    return this.textAsBooleanOrUndefined(text);
   }
 
-  textAsBoolean(text) {
+  textAsBooleanOrUndefined(text) {
     if (text === 'true') {
       return true;
     } else if (text === 'false') {
