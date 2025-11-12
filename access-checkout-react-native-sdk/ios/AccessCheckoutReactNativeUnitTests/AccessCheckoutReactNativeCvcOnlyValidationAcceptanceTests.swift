@@ -28,7 +28,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
     func testShouldReturnAnErrorWhenConfigurationProvidedIsInvalid() {
         let expectationToFulfill = expectation(description: "Error should be returned")
         let invalidConfig: NSDictionary = [:]
-        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocator: reactNativeViewLocatorMock!)
         let expectedError = AccessCheckoutRnIllegalArgumentError.missingCvcId()
 
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: invalidConfig) { _ in
@@ -44,7 +44,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
 
     func testShouldReturnAnErrorWhenCvcTextFieldNotFound() {
         let expectationToFulfill = expectation(description: "Error should be returned")
-        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         reactNativeViewLocatorMock!.cvcView = nil
         let expectedError = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
@@ -63,7 +63,7 @@ class AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests: XCTestCase {
 
     func testShouldResolvePromiseWithTrueWhenSuccessfullyInitialised() {
         let expectationToFulfill = expectation(description: "run test successfully")
-        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCvcOnlyValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)

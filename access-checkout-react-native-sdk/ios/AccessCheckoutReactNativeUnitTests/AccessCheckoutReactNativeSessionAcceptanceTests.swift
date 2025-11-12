@@ -32,7 +32,7 @@ class AccessCheckoutReactNativeSessionAcceptanceTests: XCTestCase {
             expiryDateView: expiryDateACUITextField!,
             cvcView: cvcACUITextField!)
 
-        accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+        accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocator: reactNativeViewLocatorMock!)
     }
 
     func testShouldSupportGeneratingACardSession() {
