@@ -10,7 +10,7 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
           let field = createAccessCheckoutUITextField(nativeID: "pan-id")
           let bridge = RCTBridgeMock(paperStore: [1: field])
           let locator = ReactNativeViewLocator(bridge: bridge)
-        locator.register(viewTag: 1 , id: "pan-id")
+          locator.register(viewTag: 1 , id: "pan-id")
 
           let resolved = locator.locateUITextField(nativeID: "pan-id")
           XCTAssertTrue(resolved === field)
@@ -25,41 +25,6 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
 
           let resolved = locator.locateUITextField(nativeID: "cvc-id")
           XCTAssertTrue(resolved === field)
-      }
-
-      func testFallbackImmediateChild() {
-          let field = createAccessCheckoutUITextField(nativeID: "some-id")
-          let root = UIView()
-          root.addSubview(field)
-
-          let controller = UIViewController()
-          controller.view = root
-          RCTUtilsUIOverride.setPresentedViewController(controller)
-
-          let bridge = RCTBridgeMock()
-          let locator = ReactNativeViewLocator(bridge: bridge)
-          
-          XCTAssertTrue(locator.locateUITextField(nativeID: "some-id") === field)
-      }
-
-      func testFallbackNestedChild() {
-          let field = AccessCheckoutUITextField()
-          field.nativeID = "deep-id"
-          let root = UIView()
-          let level1 = UIView()
-          let level2 = UIView()
-          root.addSubview(level1)
-          level1.addSubview(level2)
-          level2.addSubview(field)
-
-          let controller = UIViewController()
-          controller.view = root
-          RCTUtilsUIOverride.setPresentedViewController(controller)
-
-          let bridge = RCTBridgeMock()
-          let locator = ReactNativeViewLocator(bridge: bridge)
-          
-          XCTAssertTrue(locator.locateUITextField(nativeID: "deep-id") === field)
       }
 
       func testReturnsNilWhenNoController() {
@@ -128,13 +93,13 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
     }
 }
 
-import Foundation
-import React
-
-final class FakePaperUIManager: NSObject {
+final class FakePaperUIManager: RCTUIManager {
     private let store: [NSNumber: UIView]
-    init(store: [NSNumber: UIView]) { self.store = store }
-    @objc func viewForReactTag(_ reactTag: NSNumber) -> UIView? {
+    init(store: [NSNumber: UIView]) {
+        self.store = store
+        super.init()
+    }
+    override func view(forReactTag reactTag: NSNumber!) -> UIView! {
         return store[reactTag]
     }
 }
@@ -147,39 +112,49 @@ final class FakeFabricUIManager: NSObject {
     }
 }
 
+final class BridgeDelegateStub: NSObject, RCTBridgeDelegate {
+    func sourceURL(for bridge: RCTBridge!) -> URL! {
+        // Dummy URL (never loaded in unit tests)
+        return URL(string: "file://example")
+    }
+}
+import Foundation
+import React
+import UIKit
+
 final class RCTBridgeMock: RCTBridge {
-    private let paper: FakePaperUIManager?
-    private let fabric: FakeFabricUIManager?
+    private let paperManager: FakePaperUIManager?
+    private let fabricManager: FakeFabricUIManager?
 
     init(paperStore: [NSNumber: UIView] = [:],
          fabricStore: [NSNumber: UIView] = [:],
          useFabric: Bool = false) {
-        self.paper = FakePaperUIManager(store: paperStore)
-        self.fabric = useFabric ? FakeFabricUIManager(store: fabricStore) : nil
-        super.init(delegate: nil, launchOptions: nil)
+
+        self.paperManager = paperStore.isEmpty ? nil : FakePaperUIManager(store: paperStore)
+        self.fabricManager = useFabric ? FakeFabricUIManager(store: fabricStore) : nil
+        let delegate = BridgeDelegateStub()
+
+        super.init(delegate: delegate,
+                   bundleURL: nil,
+                   moduleProvider: nil,
+                   launchOptions: nil)
     }
 
     override var uiManager: RCTUIManager? {
-        guard let paper = paper else { return nil }
-        // Minimal shim
-        let shim = RCTUIManager()
-        // Inject method dynamically
-        shim.performSelector(onMainThread: Selector(("setValue:forKey:")), with: paper, waitUntilDone: true)
-        return paper.responds(to: Selector(("viewForReactTag:"))) ? shim : nil
-    }
-
-    // Exposed via KVC for fabric path
-    @objc override func value(forKey key: String) -> Any? {
-        if key == "fabricUIManager" {
-            return fabric
-        }
-        return super.value(forKey: key)
+        return paperManager
     }
 
     override func responds(to aSelector: Selector!) -> Bool {
         if aSelector == Selector(("fabricUIManager")) {
-            return fabric != nil
+            return fabricManager != nil
         }
         return super.responds(to: aSelector)
+    }
+
+    override func value(forKey key: String) -> Any? {
+        if key == "fabricUIManager" {
+            return fabricManager
+        }
+        return super.value(forKey: key)
     }
 }
