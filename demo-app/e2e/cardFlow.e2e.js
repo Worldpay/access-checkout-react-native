@@ -43,10 +43,11 @@ describe('Card flow', () => {
       jestExpect(await states.submitButtonEnabled()).toBe(false);
     });
 
-    it('the pan, expiry date and CVC should be invalid', async () => {
-      jestExpect(await states.panIsValid()).toBe(false);
-      jestExpect(await states.expiryDateIsValid()).toBe(false);
-      jestExpect(await states.cvcIsValid()).toBe(false);
+    it('the pan, expiry date and CVC should be undefined', async () => {
+      //Undefined is to support the silver untouched state
+      jestExpect(await states.panIsValid()).toBe(undefined);
+      jestExpect(await states.expiryDateIsValid()).toBe(undefined);
+      jestExpect(await states.cvcIsValid()).toBe(undefined);
     });
   });
 
