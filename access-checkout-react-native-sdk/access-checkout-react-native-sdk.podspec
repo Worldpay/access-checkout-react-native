@@ -26,10 +26,5 @@ Pod::Spec.new do |s|
   }
   s.pod_target_xcconfig = xcconfig
 
-  s.test_spec 'AccessCheckoutReactNativeUnitTests' do |test_spec|
-    test_spec.platforms    = { ios: '15.1' }
-    test_spec.source_files = 'ios/AccessCheckoutReactNativeUnitTests/**/*.{m,swift}'
-  end
-
   install_modules_dependencies(s)
 end
