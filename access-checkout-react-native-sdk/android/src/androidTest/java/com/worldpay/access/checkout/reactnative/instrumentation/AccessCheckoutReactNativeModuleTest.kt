@@ -26,7 +26,7 @@ class AccessCheckoutReactNativeModuleTest {
     }
 
     @Test
-    fun onCatalystInstanceDestroyShouldRunTheAccessCheckoutClientDisposer() {
+    fun invalidateShouldRunTheAccessCheckoutClientDisposer() {
         val scenario = ActivityScenario.launch(EmptyInstrumentedTestsActivity::class.java)
         val accessCheckoutClientDisposer = mock(AccessCheckoutClientDisposer::class.java)
 
@@ -42,7 +42,7 @@ class AccessCheckoutReactNativeModuleTest {
             val nativeModule =
                 createNativeModule(accessCheckoutClientDisposer, accessCheckoutClient)
 
-            nativeModule.onCatalystInstanceDestroy()
+            nativeModule.invalidate()
 
             verify(accessCheckoutClientDisposer).dispose(accessCheckoutClient)
         }

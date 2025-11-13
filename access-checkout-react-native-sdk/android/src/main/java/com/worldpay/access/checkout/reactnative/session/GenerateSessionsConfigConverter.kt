@@ -55,7 +55,7 @@ class GenerateSessionsConfigConverter {
             when (element.lowercase()) {
                 "card" -> SessionType.CARD
                 "cvc" -> SessionType.CVC
-                else -> throw IllegalArgumentException("Unrecognised session type $element, only CARD or CVC accepted")
+                else -> throw IllegalArgumentException("Unrecognised session type '$element', only CARD or CVC accepted")
             }
         }
     }

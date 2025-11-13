@@ -53,7 +53,6 @@ class ReactNativeViewLocator(private val reactContext: ReactApplicationContext) 
         UIManagerHelper.getUIManager(reactContext, viewTag)
             ?.resolveView(viewTag)
             ?.let {
-                println("found uimanage")
                 @Suppress("UNCHECKED_CAST")
                 return it as T
             }
@@ -62,7 +61,6 @@ class ReactNativeViewLocator(private val reactContext: ReactApplicationContext) 
         reactContext.currentActivity
             ?.findViewById<AccessCheckoutEditText?>(viewTag)
             ?.let {
-                println("found usin fallback")
                 @Suppress("UNCHECKED_CAST")
                 return it as T
             }

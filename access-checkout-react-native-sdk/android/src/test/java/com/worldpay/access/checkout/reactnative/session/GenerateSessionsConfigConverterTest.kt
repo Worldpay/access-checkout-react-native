@@ -52,7 +52,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected baseUrl to be a non-empty String but was not")
+            .withMessage("Expected baseUrl to be a non-empty String but was empty")
     }
 
     @Test
@@ -82,7 +82,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected merchantId to be a non-empty String but was not")
+            .withMessage("Expected merchantId to be a non-empty String but was empty")
     }
 
     @Test
@@ -112,7 +112,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected panId to be a non-empty String but was not")
+            .withMessage("Expected panId to be a non-empty String but was empty")
     }
 
     @Test
@@ -142,7 +142,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected expiryDateId to be a non-empty String but was not")
+            .withMessage("Expected expiryDateId to be a non-empty String but was empty")
     }
 
     @Test
@@ -172,7 +172,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected cvcId to be a non-empty String but was not")
+            .withMessage("Expected cvcId to be a non-empty String but was empty")
     }
 
     @Test
@@ -217,7 +217,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected cvcId to be a non-empty String but was not")
+            .withMessage("Expected cvcId to be a non-empty String but was empty")
     }
 
     @Test
@@ -260,7 +260,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected maximum of 2 session types to be provided but found 3")
+            .withMessage("Expected maximum of 2 session types but found 3")
     }
 
     @Test
@@ -270,7 +270,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected session type value to be a string but was not")
+            .withMessage("Expected session type value to be a String but was not")
     }
 
     @Test
@@ -280,7 +280,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Unrecognised session type found other, only CARD or CVC is accepted")
+            .withMessage("Unrecognised session type 'other', only CARD or CVC accepted")
     }
 
     @Test
@@ -300,7 +300,7 @@ class GenerateSessionsConfigConverterTest {
 
         assertThatIllegalArgumentException()
             .isThrownBy { converter.fromReadableMap(map) }
-            .withMessage("Expected reactNativeSdkVersion to be a non-empty String but was not")
+            .withMessage("Expected reactNativeSdkVersion to be a non-empty String but was empty")
     }
 
     @Test

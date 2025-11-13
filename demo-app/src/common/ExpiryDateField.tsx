@@ -21,17 +21,22 @@ const styles = StyleSheet.create({
 });
 
 const getValidationColors = (isEditable: boolean, isValid?: boolean) => {
-  const validationColor = isValid === undefined ? 'black' : isValid ? 'green' : 'red';
+  const validationColor =
+    isValid === undefined ? 'black' : isValid ? 'green' : 'red';
   return {
     //Border color uses silver by default
-    borderColor: isEditable && isValid !== undefined ? validationColor : 'silver',
+    borderColor:
+      isEditable && isValid !== undefined ? validationColor : 'silver',
     //Text color uses black
     textColor: isEditable && isValid !== undefined ? validationColor : 'black',
   };
 };
 
 const ExpiryDateField = (props: ExpiryDateFieldProps) => {
-  const { borderColor, textColor } = getValidationColors(props.isEditable, props.isValid);
+  const { borderColor, textColor } = getValidationColors(
+    props.isEditable,
+    props.isValid
+  );
 
   return (
     <AccessCheckoutTextInput

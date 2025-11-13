@@ -69,6 +69,7 @@ describe('Card flow', () => {
     });
 
     it('should support to generate a card and a cvc session', async () => {
+      jestExpect(await states.submitButtonEnabled()).toBe(true);
       await view.toggleOnCardAndCvcSessions();
 
       await view.submit();

@@ -29,7 +29,9 @@ export default function CardFlow() {
   const [brand, setBrand] = useState<string>('');
   const [brandLogo, setBrandLogo] = useState<string>('');
   const [panIsValid, setPanIsValid] = useState<boolean | undefined>(undefined);
-  const [expiryIsValid, setExpiryIsValid] = useState<boolean | undefined>(undefined);
+  const [expiryIsValid, setExpiryIsValid] = useState<boolean | undefined>(
+    undefined
+  );
   const [cvcIsValid, setCvcIsValid] = useState<boolean | undefined>(undefined);
 
   const [submitBtnEnabled, setSubmitBtnEnabled] = useState<boolean>(false);
@@ -111,12 +113,24 @@ export default function CardFlow() {
       });
   };
 
+  function resetSessionState() {
+    setCardSession('');
+    setCvcSession('');
+    setError(undefined);
+  }
+
+  function setLoadingState(isLoading: boolean) {
+    setShowSpinner(isLoading);
+    setIsEditable(!isLoading);
+    setSubmitBtnEnabled(!isLoading);
+  }
+
   const createSession = () => {
+    resetSessionState();
+
     const sessionTypes = generateCardAndCvcSessions ? [CARD, CVC] : [CARD];
 
-    setShowSpinner(true);
-    setIsEditable(false);
-    setSubmitBtnEnabled(false);
+    setLoadingState(true);
 
     generateSessions(sessionTypes)
       .then((sessions: Sessions) => {
@@ -132,11 +146,7 @@ export default function CardFlow() {
       .catch((e) => {
         setError(e);
       })
-      .finally(() => {
-        setShowSpinner(false);
-        setSubmitBtnEnabled(true);
-        setIsEditable(true);
-      });
+      .finally(() => setLoadingState(false));
   };
 
   let cardSessionComponent;
@@ -197,6 +207,7 @@ export default function CardFlow() {
         </HView>
         <Toggle
           testID="cardAndCvcSessionsToggle"
+          value={generateCardAndCvcSessions}
           onChange={setGenerateCardAndCvcSessions}
         />
       </HView>
