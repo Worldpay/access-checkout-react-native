@@ -24,7 +24,6 @@ import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationConf
 import com.worldpay.access.checkout.reactnative.validation.CvcOnlyValidationListener
 import com.worldpay.access.checkout.session.AccessCheckoutClientDisposer
 import com.worldpay.access.checkout.session.api.client.WpSdkHeader
-import java.lang.Deprecated
 
 /**
  * Module class that implements all the functionality that is required by Javascript for the end user
