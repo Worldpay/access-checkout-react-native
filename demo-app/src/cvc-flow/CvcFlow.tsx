@@ -18,7 +18,7 @@ import VView from '../common/VView';
 import CvcOnlyFlowE2eStates from '../cvc-flow/CvcOnlyFlow.e2e.states';
 
 export default function CvcFlow() {
-  const [cvcIsValid, setCvcIsValid] = useState<boolean>(false);
+  const [cvcIsValid, setCvcIsValid] = useState<boolean | undefined>(undefined);
 
   const [submitBtnEnabled, setSubmitBtnEnabled] = useState<boolean>(false);
   const [showSpinner, setShowSpinner] = useState<boolean>(false);

@@ -1,9 +1,12 @@
 package com.worldpay.access.checkout.reactnative.ui
 
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
+import com.facebook.react.BuildConfig
 import com.facebook.react.R
+import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
 import com.worldpay.access.checkout.reactnative.AccessCheckoutReactNativeModule
 import com.worldpay.access.checkout.reactnative.ui.react.EventMock
@@ -46,7 +49,7 @@ abstract class AbstractInstrumentedTestsActivity : ComponentActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        SoLoader.init(this, false)
+        SoLoader.init(this, OpenSourceMergedSoMapping)
 
         panAccessCheckoutEditText = createAccessCheckoutEditText(panId)
         expiryDateAccessCheckoutEditText = createAccessCheckoutEditText(expiryDateId)
@@ -60,6 +63,11 @@ abstract class AbstractInstrumentedTestsActivity : ComponentActivity(),
 
         val module = AccessCheckoutReactNativeModule(reactApplicationContext)
 
+        // Register views (nativeId -> viewTag) so that they are registered within the View Registry
+        registerForModule(module, panAccessCheckoutEditText, panId)
+        registerForModule(module, expiryDateAccessCheckoutEditText, expiryDateId)
+        registerForModule(module, cvcAccessCheckoutEditText, cvcId)
+
         doOnCreate(module)
     }
 
@@ -68,6 +76,15 @@ abstract class AbstractInstrumentedTestsActivity : ComponentActivity(),
     private fun createAccessCheckoutEditText(id: String): AccessCheckoutEditText {
         val component = AccessCheckoutEditText(this)
         component.setTag(R.id.view_tag_native_id, id)
+        component.id = View.generateViewId() // assign a unique Android view id (used as viewTag)
         return component
+    }
+
+    private fun registerForModule(
+        module: AccessCheckoutReactNativeModule,
+        editText: AccessCheckoutEditText,
+        nativeId: String
+    ) {
+        module.registerView(editText.id, nativeId)
     }
 }

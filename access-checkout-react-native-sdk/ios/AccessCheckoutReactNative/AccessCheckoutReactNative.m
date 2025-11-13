@@ -18,4 +18,6 @@ RCT_EXTERN_METHOD(initialiseCvcOnlyValidation:(NSDictionary *) config
                   withResolver:(RCTPromiseResolveBlock *) resolve
                   withRejecter:(RCTPromiseRejectBlock *) reject)
 
+// externalises the registerView method signature that is defined in AccessCheckoutReactNative.swift
+RCT_EXTERN_METHOD(registerView:(nonnull NSNumber *)reactTag testId:(NSString *)nativeId)
 @end

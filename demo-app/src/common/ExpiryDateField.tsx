@@ -6,7 +6,7 @@ import { StyleSheet } from 'react-native';
 
 interface ExpiryDateFieldProps extends UIComponentProps {
   isEditable: boolean;
-  isValid: boolean;
+  isValid?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -20,9 +20,23 @@ const styles = StyleSheet.create({
   },
 });
 
+const getValidationColors = (isEditable: boolean, isValid?: boolean) => {
+  const validationColor =
+    isValid === undefined ? 'black' : isValid ? 'green' : 'red';
+  return {
+    //Border color uses silver by default
+    borderColor:
+      isEditable && isValid !== undefined ? validationColor : 'silver',
+    //Text color uses black
+    textColor: isEditable && isValid !== undefined ? validationColor : 'black',
+  };
+};
+
 const ExpiryDateField = (props: ExpiryDateFieldProps) => {
-  const validationColours = props.isValid ? 'green' : 'red';
-  const validationColourStyle = props.isEditable ? validationColours : 'silver';
+  const { borderColor, textColor } = getValidationColors(
+    props.isEditable,
+    props.isValid
+  );
 
   return (
     <AccessCheckoutTextInput
@@ -33,8 +47,8 @@ const ExpiryDateField = (props: ExpiryDateFieldProps) => {
       style={[
         styles.expiry,
         {
-          color: validationColourStyle,
-          borderColor: validationColourStyle,
+          color: textColor,
+          borderColor: borderColor,
         },
       ]}
     />

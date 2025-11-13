@@ -1,6 +1,7 @@
 package com.worldpay.access.checkout.reactnative.instrumentation.validation
 
 import androidx.test.platform.app.InstrumentationRegistry
+import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
 import com.worldpay.access.checkout.client.validation.model.CardBrand
 import com.worldpay.access.checkout.client.validation.model.CardBrandImage
@@ -19,7 +20,7 @@ class CardValidationListenerTest {
 
     @Before
     fun setUp() {
-        SoLoader.init(reactApplicationContext, false)
+        SoLoader.init(reactApplicationContext, OpenSourceMergedSoMapping)
     }
 
     @Test

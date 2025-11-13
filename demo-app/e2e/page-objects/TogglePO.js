@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { UIComponentPO } = require('./UIComponentPO');
 const { expect } = require('detox');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 class TogglePO extends UIComponentPO {
   constructor(id) {

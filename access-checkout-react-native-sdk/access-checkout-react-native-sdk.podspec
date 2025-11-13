@@ -9,27 +9,22 @@ Pod::Spec.new do |s|
   s.homepage     = package["repository"]["url"]
   s.license      = package["license"]
   s.authors      = package["author"]
-
-  s.platforms    = { :ios => "12.4" }
+  s.platforms    = { :ios => "13.0" }
   s.source       = { :git => "https://github.com/Worldpay/access-checkout-react-native.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/AccessCheckoutReactNative/**/*.{h,m,mm,swift}"
-  s.dependency "AccessCheckoutSDK", "~> 4.1"
   s.resource_bundles = { 'access-checkout-react-native-sdk' => [ 'ios/PrivacyInfo.xcprivacy' ] }
 
-if ENV['USE_FRAMEWORKS']
-    exisiting_flags = s.attributes_hash["compiler_flags"]
-      if exisiting_flags.present?
-        s.compiler_flags = exisiting_flags + "-DCK_USE_FRAMEWORKS=1"
-      else
-        s.compiler_flags = "-DCK_USE_FRAMEWORKS=1"
-      end
-  end
+  s.dependency 'React-Core'
+  s.dependency "AccessCheckoutSDK", "~> 4.1"
 
-  if defined?(install_modules_dependencies()) != nil
-    install_modules_dependencies(s)
-  else
-    s.dependency 'React-Core'
-  end
+  xcconfig = {
+    "CLANG_CXX_LANGUAGE_STANDARD" => "c++20",
+    "DEFINES_MODULE"              => "YES",
+    'USE_HEADERMAP'               => 'YES',
+    'SWIFT_COMPILATION_MODE'      => 'wholemodule'
+  }
+  s.pod_target_xcconfig = xcconfig
 
+  install_modules_dependencies(s)
 end

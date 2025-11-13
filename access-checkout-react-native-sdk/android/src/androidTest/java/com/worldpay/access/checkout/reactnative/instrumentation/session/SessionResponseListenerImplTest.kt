@@ -3,6 +3,7 @@ package com.worldpay.access.checkout.reactnative.instrumentation.session
 import android.content.Context
 import androidx.test.platform.app.InstrumentationRegistry
 import com.facebook.react.bridge.WritableNativeMap
+import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
 import com.worldpay.access.checkout.client.api.exception.AccessCheckoutException
 import com.worldpay.access.checkout.client.session.model.SessionType.CARD
@@ -20,7 +21,7 @@ class SessionResponseListenerImplTest {
     @Before
     fun setUp() {
         val context: Context = InstrumentationRegistry.getInstrumentation().context
-        SoLoader.init(context, false)
+        SoLoader.init(context, OpenSourceMergedSoMapping)
 
         listener.promise = promise
     }

@@ -16,12 +16,21 @@ const styles = StyleSheet.create({
 
 interface CvcFieldProps extends UIComponentProps {
   isEditable: boolean;
-  isValid: boolean;
+  isValid?: boolean;
 }
 
+const getValidationColors = (isEditable: boolean, isValid?: boolean) => {
+  const validationColor = isValid === undefined ? 'black' : isValid ? 'green' : 'red';
+  return {
+    //Border color uses silver by default
+    borderColor: isEditable && isValid !== undefined ? validationColor : 'silver',
+    //Text color uses black
+    textColor: isEditable && isValid !== undefined ? validationColor : 'black',
+  };
+};
+
 const CvcField = (props: CvcFieldProps) => {
-  const validationColours = props.isValid ? 'green' : 'red';
-  const validationColourStyle = props.isEditable ? validationColours : 'silver';
+  const { borderColor, textColor } = getValidationColors(props.isEditable, props.isValid);
 
   return (
     <AccessCheckoutTextInput
@@ -30,8 +39,8 @@ const CvcField = (props: CvcFieldProps) => {
       style={[
         styles.cvc,
         {
-          color: validationColourStyle,
-          borderColor: validationColourStyle,
+          color: textColor,
+          borderColor: borderColor,
         },
       ]}
       editable={props.isEditable}

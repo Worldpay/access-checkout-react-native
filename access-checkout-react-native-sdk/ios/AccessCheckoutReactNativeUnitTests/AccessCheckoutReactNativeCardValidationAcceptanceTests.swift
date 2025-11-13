@@ -39,7 +39,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
     func testShouldReturnAnErrorWhenConfigurationProvidedIsInvalid() {
         let expectationToFulfill = expectation(description: "Error should be returned")
         let invalidConfig: NSDictionary = [:]
-        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: invalidConfig) { _ in
             XCTFail("validation initialisation should have faild but it didn't")
@@ -55,7 +55,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
 
     func testShouldReturnAnErrorWhenPanTextFieldNotFound() {
         let expectationToFulfill = expectation(description: "Error should be returned")
-        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         reactNativeViewLocatorMock!.panView = nil
         let expectedError = AccessCheckoutRnIllegalArgumentError.panTextFieldNotFound(
@@ -74,7 +74,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
 
     func testShouldReturnAnErrorWhenExpiryDateTextFieldNotFound() {
         let expectationToFulfill = expectation(description: "Error should be returned")
-        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         reactNativeViewLocatorMock!.expiryDateView = nil
         let expectedError = AccessCheckoutRnIllegalArgumentError.expiryDateTextFieldNotFound(
@@ -93,7 +93,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
 
     func testShouldReturnAnErrorWhenCvcTextFieldNotFound() {
         let expectationToFulfill = expectation(description: "Error should be returned")
-        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         reactNativeViewLocatorMock!.cvcView = nil
         let expectedError = AccessCheckoutRnIllegalArgumentError.cvcTextFieldNotFound(
@@ -112,7 +112,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
 
     func testShouldResolvePromiseWithTrueWhenSuccessfullyInitialised() {
         let expectationToFulfill = expectation(description: "run test successfully")
-        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocatorMock!)
+        let accessCheckoutReactNative = AccessCheckoutReactNative(reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
@@ -130,7 +130,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
     func testShouldRaiseEventWhenPanBecomesValid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertEqual(true, (success as! Bool))
@@ -159,7 +159,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
     func testShouldRaiseEventWhenPanBecomesInvalid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
@@ -191,7 +191,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
     func testShouldRaiseEventWhenCvcBecomesValid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertEqual(true, (success as! Bool))
@@ -219,7 +219,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
     func testShouldRaiseEventWhenCvcBecomesInvalid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
@@ -250,7 +250,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
     func testShouldRaiseEventWhenExpiryBecomesValid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertEqual(true, (success as! Bool))
@@ -278,7 +278,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
     func testShouldRaiseEventWhenExpiryBecomesInvalid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
@@ -310,7 +310,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         let expectationToFulfill = expectation(description: "run test successfully")
         _ = stubServices.stubCardConfiguration()
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
@@ -348,7 +348,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         let expectationToFulfill = expectation(description: "run test successfully")
         _ = stubServices.stubCardConfiguration()
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
@@ -381,7 +381,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
     func testShouldRaiseEventWhenAllFieldsBecomeValid() {
         let expectationToFulfill = expectation(description: "run test successfully")
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)
@@ -415,7 +415,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
         let expectationToFulfill = expectation(description: "run test successfully")
         _ = stubServices.stubCardConfiguration()
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         let config: NSDictionary = [
             "baseUrl": "http://localhost",
@@ -461,7 +461,7 @@ class AccessCheckoutReactNativeCardValidationAcceptanceTests: XCTestCase {
             "enablePanFormatting": true,
         ]
         let accessCheckoutReactNative = AccessCheckoutReactNativeTestImplementation(
-            reactNativeViewLocatorMock!)
+            reactNativeViewLocator: reactNativeViewLocatorMock!)
 
         accessCheckoutReactNative.initialiseCardValidation(config: config) { success in
             XCTAssertTrue(success as! Bool)

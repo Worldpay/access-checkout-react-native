@@ -7,11 +7,14 @@ buildscript {
         google()
         mavenCentral()
     }
+    def kotlinVersion = rootProject.ext.has('kotlinVersion')
+        ? rootProject.ext.get('kotlinVersion')
+        : project.properties['Worldpay_kotlinVersion']
 
     dependencies {
         classpath "com.android.tools.build:gradle:8.7.2"
         // noinspection DifferentKotlinGradleVersion
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
     }
 }
 
@@ -109,7 +112,7 @@ def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
-    implementation 'com.facebook.react:react-android:0.73.0'
+    implementation 'com.facebook.react:react-android:0.76.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.worldpay.access:access-checkout-android:4.2.1'
 

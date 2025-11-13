@@ -14,6 +14,7 @@ interface AccessCheckoutReactNativeType {
   initialiseCvcOnlyValidation(config: any): Promise<boolean>;
   addListener: (eventType: string) => void;
   removeListeners: (count: number) => void;
+  registerView(tag: number | null, nativeId: string): void;
 }
 
 export const { AccessCheckoutReactNative } = NativeModules;

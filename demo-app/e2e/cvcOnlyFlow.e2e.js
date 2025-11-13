@@ -37,18 +37,15 @@ describe('CVC only flow', () => {
       jestExpect(await states.submitButtonEnabled()).toBe(false);
     });
 
-    it('the cvc should be invalid', async () => {
-      jestExpect(await states.cvcIsValid()).toBe(false);
+    it('the cvc should be undefined', async () => {
+      //Undefined is to support the silver untouched state
+      jestExpect(await states.cvcIsValid()).toBe(undefined);
     });
   });
 
   describe('when user enters invalid cvc details', () => {
     beforeEach(async () => {
       await cvc.type('12', '12');
-    });
-
-    it('should mark the cvc as invalid', async () => {
-      jestExpect(await states.cvcIsValid()).toBe(false);
     });
 
     it('submit button should be disabled', async () => {

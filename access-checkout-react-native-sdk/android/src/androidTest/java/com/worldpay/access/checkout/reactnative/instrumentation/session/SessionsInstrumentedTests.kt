@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
 
 
 class SessionsInstrumentedTests {
-    private val timeOutInMs = 500000L
+    private val timeOutInMs = 10000L
 
     @Before
     fun setup() {
@@ -79,7 +79,8 @@ class SessionsInstrumentedTests {
     fun testShouldBeAbleToGenerateACvcOnlySession() {
         SessionsStub.stubSessionsPaymentsCvcSuccess("my-other-session")
 
-        testFixture().cvc("123")
+        testFixture()
+            .cvc("123")
             .sessionsTypes(listOf(CVC))
 
         val scenario = ActivityScenario.launch(SessionsInstrumentedTestsActivity::class.java)
@@ -144,8 +145,10 @@ class SessionsInstrumentedTests {
                 sessions = activity.sessions
 
             }
-
-            sessions == expectedMap
+            if (sessions != expectedMap) {
+                throw AssertionError("Expected sessions: $expectedMap but was: $sessions")
+            }
+            true
         }
     }
 

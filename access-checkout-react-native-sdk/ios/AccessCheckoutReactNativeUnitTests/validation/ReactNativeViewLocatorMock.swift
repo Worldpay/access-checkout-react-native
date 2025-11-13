@@ -10,6 +10,10 @@ class ReactNativeViewLocatorMock: ReactNativeViewLocator {
     var expiryDateView: AccessCheckoutUITextField?
     var cvcView: AccessCheckoutUITextField?
 
+    init() {
+        super.init(bridge: nil)
+    }
+    
     init(
         panView: AccessCheckoutUITextField,
         expiryDateView: AccessCheckoutUITextField,
@@ -18,20 +22,20 @@ class ReactNativeViewLocatorMock: ReactNativeViewLocator {
         self.panView = panView
         self.expiryDateView = expiryDateView
         self.cvcView = cvcView
+        super.init(bridge: nil)
     }
 
     init(cvcView: AccessCheckoutUITextField) {
         self.cvcView = cvcView
+        super.init(bridge: nil)
     }
 
-    override init() {}
-
-    override internal func locateUITextField(id: String) -> AccessCheckoutUITextField? {
-        if id.contains("pan") {
+    override internal func locateUITextField(nativeID: String) -> AccessCheckoutUITextField? {
+        if nativeID.contains("pan") {
             return self.panView
-        } else if id.contains("expiryDate") {
+        } else if nativeID.contains("expiryDate") {
             return self.expiryDateView
-        } else if id.contains("cvc") {
+        } else if nativeID.contains("cvc") {
             return self.cvcView
         }
 

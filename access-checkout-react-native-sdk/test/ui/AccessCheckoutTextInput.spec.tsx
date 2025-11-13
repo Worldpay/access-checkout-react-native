@@ -1,14 +1,16 @@
-import { render, screen } from '@testing-library/react-native';
+import { render, screen, waitFor } from '@testing-library/react-native';
 
 import {
   AccessCheckoutTextInput,
   AccessCheckoutTextInputFontStyle,
   AccessCheckoutTextInputFontWeight,
 } from '../../src/ui/AccessCheckoutTextInput';
+import { NativeModules } from 'react-native';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
 describe('AccessCheckoutTextInput', () => {
+  const mockRegisterViewFn = jest.fn();
   beforeEach(() => {
     jest.clearAllMocks();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -18,6 +20,7 @@ describe('AccessCheckoutTextInput', () => {
       const React = require('react');
       return React.createElement('RCTAccessCheckoutTextInput', props);
     });
+    NativeModules.AccessCheckoutReactNative.registerView = mockRegisterViewFn;
   });
 
   const viewContainerHasDefaultStates = async (testID: string) => {
@@ -290,6 +293,34 @@ describe('AccessCheckoutTextInput', () => {
           expect(accessCheckoutTextInput).toHaveProp('editable', editableValue);
         });
       });
+    });
+  });
+
+  describe('AccessCheckoutTextInput registerView', () => {
+    it('calls registerView when ref.current is set', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      jest.spyOn(require('react-native'), 'findNodeHandle').mockReturnValue(777);
+
+      render(<AccessCheckoutTextInput testID="field" nativeID="field-native-id" />);
+
+      // Ensure the native element rendered (ref assigned)
+      await screen.findByTestId('field');
+      await waitFor(() => expect(mockRegisterViewFn).toHaveBeenCalledWith(777, 'field-native-id'));
+    });
+
+    it('calls registerView again when nativeID changes', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      jest.spyOn(require('react-native'), 'findNodeHandle').mockReturnValue(555);
+
+      const { rerender } = render(<AccessCheckoutTextInput testID="field" nativeID="first-id" />);
+      await screen.findByTestId('field');
+      await waitFor(() => expect(mockRegisterViewFn).toHaveBeenCalledWith(555, 'first-id'));
+
+      // Change nativeID prop (triggers useEffect dependency)
+      rerender(<AccessCheckoutTextInput testID="field" nativeID="second-id" />);
+      await waitFor(() => expect(mockRegisterViewFn).toHaveBeenCalledWith(555, 'second-id'));
+
+      expect(mockRegisterViewFn).toHaveBeenCalledTimes(2);
     });
   });
 });
