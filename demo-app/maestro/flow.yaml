@@ -1,0 +1,12 @@
+# flow.yaml
+
+appId: com.worldpay.access.checkout.reactnative.demo
+---
+- launchApp
+- tapOn: "Card Number"
+- inputText: "4111 1111 1111 1111"
+- tapOn: "MM/YY"
+- inputText: "1234"
+- tapOn: "CVC"
+- inputText: "123"
+- tapOn: "SUBMIT"
