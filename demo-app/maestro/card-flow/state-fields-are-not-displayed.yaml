@@ -1,0 +1,10 @@
+name: should not display the e2e states information
+appId: com.worldpay.access.checkout.reactnative.demo
+
+---
+- runFlow:
+    label: "Given I have started the application"
+    file: "./before-each/launch-app.yaml"
+- assertNotVisible:
+    id: "cardFlowE2eStates"
+    label: "Then the e2e state fields should not be visible"

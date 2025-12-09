@@ -1,6 +1,6 @@
 # flow.yaml
 
-appId: com.worldpay.access.checkout.reactnative.demo
+appId: com.worldpay.AccessCheckoutReactNativeDemo
 ---
 - launchApp
 - tapOn: "Card Number"

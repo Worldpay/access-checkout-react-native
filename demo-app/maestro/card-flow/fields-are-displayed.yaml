@@ -1,0 +1,25 @@
+name: should display a card form with a toggle & a submit button
+appId: com.worldpay.access.checkout.reactnative.demo
+
+---
+- runFlow:
+    label: "Given I have started the application"
+    file: "./before-each/launch-app.yaml"
+- runScript:
+    label: "When the application finishes loading"
+    file: "../utils/print-label.js"
+- assertVisible:
+    id: "panInput"
+    label: "Then the pan field should be visible"
+- assertVisible:
+    id: "expiryDateInput"
+    label: "And the expiry date field is visible"
+- assertVisible:
+    id: "cvcInput"
+    label: "And the cvc field is visible"
+- assertVisible:
+    id: "submitButton"
+    label: "And the submit field is visible"
+- assertVisible:
+    id: "cardAndCvcSessionsToggle"
+    label: "And the card & cvc sessions toggle is visible"

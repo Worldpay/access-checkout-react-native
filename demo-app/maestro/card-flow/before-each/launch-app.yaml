@@ -1,0 +1,6 @@
+name: "launching application"
+appId: com.worldpay.access.checkout.reactnative.demo
+
+---
+- clearState
+- launchApp
