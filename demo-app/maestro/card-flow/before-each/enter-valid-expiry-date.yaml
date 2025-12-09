@@ -1,8 +1,7 @@
-name: "launching application"
 appId: com.worldpay.access.checkout.reactnative.demo
 tags:
   - "util"
-
 ---
-- clearState
-- launchApp
+- tapOn:
+    id: "expiryDateInput"
+- inputText: 1234

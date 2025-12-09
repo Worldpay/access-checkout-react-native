@@ -4,10 +4,10 @@ appId: com.worldpay.access.checkout.reactnative.demo
 ---
 - runFlow:
     label: "Given I have started the application"
-    file: "./before-each/launch-app.yaml"
+    file: "../before-each/launch-app.yaml"
 - runScript:
     label: "When the application finishes loading"
-    file: "../utils/print-label.js"
+    file: "../../utils/print-label.js"
 - assertVisible:
     id: "submitButton"
     enabled: false

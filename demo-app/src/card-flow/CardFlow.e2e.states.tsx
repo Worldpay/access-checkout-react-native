@@ -12,13 +12,14 @@ interface CardFlowE2eStatesProps {
 
 const CardFlowE2eStates = (props: CardFlowE2eStatesProps) => {
   return (
-    <View
-      testID={props.testID}
-      style={{ flexDirection: 'column', width: 0, height: 0 }}
-    >
+    <View testID={props.testID} style={{ flexDirection: 'column' }}>
       <View style={{ flexDirection: 'row' }}>
         <Text>Pan is valid?</Text>
-        <Text testID="cardFlowE2eStates.panIsValid">
+        <Text
+          testID="cardFlowE2eStates.panIsValid"
+          accessible={true}
+          accessibilityLabel={String(props.panIsValid)}
+        >
           {String(props.panIsValid)}
         </Text>
       </View>

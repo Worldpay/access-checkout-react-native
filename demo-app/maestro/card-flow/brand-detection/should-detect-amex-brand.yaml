@@ -1,0 +1,15 @@
+name: when user enters a Visa Pan, should detect the card brand as amex
+appId: com.worldpay.access.checkout.reactnative.demo
+
+---
+- runFlow:
+    label: "Given I have started the application"
+    file: "../before-each/launch-app.yaml"
+- runFlow:
+    label: "When I enter the start of a amex pan"
+    file: "../before-each/enter-pan.yaml"
+    env:
+      PAN: 34
+- copyTextFrom:
+    id: "cardFlowE2eStates.cardBrand"
+- assertTrue: ${'amex' === maestro.copiedText}

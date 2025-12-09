@@ -1,0 +1,16 @@
+name: when user enters a valid cvc, should mark the cvc as valid
+appId: com.worldpay.access.checkout.reactnative.demo
+
+---
+- runFlow:
+    label: "Given I have started the application"
+    file: "../before-each/launch-app.yaml"
+- tapOn:
+    label: "When I enter a valid cvc"
+    id: "cvcInput"
+- inputText: "123"
+- copyTextFrom:
+    id: "cardFlowE2eStates.cvcIsValid"
+- assertTrue:
+    label: Then the Cvc should be marked as valid
+    condition: ${'true' === maestro.copiedText}

@@ -1,0 +1,9 @@
+flows:
+  - "*"
+  - "card-flow/**"
+  - "!card-flow/before-each"
+  -
+testOutputDir: maestro-output/reports
+
+excludeTags:
+  - "util"

@@ -1,0 +1,14 @@
+name: when user enters valid card details, submit button should be enabled
+appId: com.worldpay.access.checkout.reactnative.demo
+
+---
+- runFlow:
+    label: "Given I have started the application"
+    file: "../before-each/launch-app.yaml"
+- runFlow:
+    label: "When I enter valid card details"
+    file: "../before-each/enter-valid-card-details.yaml"
+- assertVisible:
+    label: "Then the submit button should be enabled"
+    id: "submitButton"
+    enabled: true

@@ -1,0 +1,15 @@
+name: when user enters a valid pan, should format correctly a amex pan
+appId: com.worldpay.access.checkout.reactnative.demo
+
+---
+- runFlow:
+    label: "Given I have started the application"
+    file: "../before-each/launch-app.yaml"
+- runFlow:
+    label: "When I enter valid visa pan"
+    file: "../before-each/enter-pan.yaml"
+    env:
+      PAN: 343434343434343
+- assertVisible:
+    text: 3434 343434 34343
+    label: "Then the amex pan should be formatted correctly"

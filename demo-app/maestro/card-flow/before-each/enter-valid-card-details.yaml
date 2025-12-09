@@ -1,0 +1,13 @@
+appId: com.worldpay.access.checkout.reactnative.demo
+tags:
+  - "util"
+---
+- tapOn:
+    id: "panInput"
+- inputText: "4444333322221111"
+- tapOn:
+    id: "expiryDateInput"
+- inputText: "1234"
+- tapOn:
+    id: "cvcInput"
+- inputText: "123"
