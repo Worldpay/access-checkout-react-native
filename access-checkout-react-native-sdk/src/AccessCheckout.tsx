@@ -13,7 +13,7 @@ interface InitialiseCvcOnlyValidationConfig {
   cvcId: string;
 }
 export default class AccessCheckout {
-  private readonly ReactNativeSdkVersion = '4.0.1';
+  private readonly ReactNativeSdkVersion = '4.0.2';
   static readonly CardValidationEventType = 'AccessCheckoutCardValidationEvent';
   static readonly CvcOnlyValidationEventType = 'AccessCheckoutCvcOnlyValidationEvent';
 
