@@ -1,5 +1,5 @@
 PODS:
-  - AccessCheckoutSDK (4.1.1)
+  - AccessCheckoutSDK (4.1.2)
   - boost (1.84.0)
   - DoubleConversion (1.1.6)
   - fast_float (6.1.4)
@@ -1786,7 +1786,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/kylef/Mockingjay.git
 
 SPEC CHECKSUMS:
-  AccessCheckoutSDK: 5110651cbd062aeef82216f33065b5fbb6cccdb6
+  AccessCheckoutSDK: d2a5cd9cc570bd35e1d908edd8c9b14995709bf7
   boost: 1dca942403ed9342f98334bf4c3621f011aa7946
   DoubleConversion: f16ae600a246532c4020132d54af21d0ddb2a385
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
@@ -1857,4 +1857,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 96508667fd69dfac622aa6365b85abe309a1d20d
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
