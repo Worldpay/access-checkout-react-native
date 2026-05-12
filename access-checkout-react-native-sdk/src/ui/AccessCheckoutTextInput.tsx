@@ -1,7 +1,21 @@
-import React, { useEffect, useRef } from 'react';
-import { type ColorValue, findNodeHandle, type StyleProp, StyleSheet, View, type ViewStyle } from 'react-native';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import {
+  type ColorValue,
+  findNodeHandle,
+  Keyboard,
+  NativeSyntheticEvent,
+  type StyleProp,
+  StyleSheet,
+  TextInput,
+  View,
+  type ViewStyle,
+} from 'react-native';
 import { RTCAccessCheckoutTextInput } from './RCTAccessCheckoutTextInput';
 import { AccessCheckoutReactNative } from '../AccessCheckoutReactNative';
+// TextInputState is an internal RN module not exported from the public API.
+// Access it directly from its internal path.
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const TextInputState = require('react-native/Libraries/Components/TextInput/TextInputState');
 
 /**
  * Composes `AccessCheckoutTextInput`.
@@ -49,7 +63,6 @@ export interface AccessCheckoutTextInputStyle extends ViewStyle {
   fontFamily?: string;
   fontSize?: number;
   fontStyle?: AccessCheckoutTextInputFontStyle;
-  // Specifies font weight. The values 'normal' and 'bold' are supported for most fonts. Not all fonts have a variant for each of the numeric values, in that case the closest one is chosen.
   fontWeight?: AccessCheckoutTextInputFontWeight;
 }
 
@@ -66,18 +79,50 @@ export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (
     ...otherStyles
   } = StyleSheet.flatten([style]);
 
+  const ref = useRef(null);
+
   useEffect(() => {
     if (ref.current) {
       const tag = findNodeHandle(ref.current);
       AccessCheckoutReactNative.registerView(tag, nativeID);
     }
   }, [nativeID]);
-  // Check if other styles are remaining before assigning it to the view container this helps to prevent passing in
-  // an empty object wo the view container
+
+  useLayoutEffect(() => {
+    const inputRefValue = ref.current;
+    if (inputRefValue == null) return;
+
+    TextInputState.registerInput(inputRefValue);
+    return () => {
+      TextInputState.unregisterInput(inputRefValue);
+      if (TextInputState.currentlyFocusedInput() === inputRefValue) {
+        TextInput.State.blurTextInput(inputRefValue);
+      }
+    };
+  }, []);
+
   const viewStyles = Object.keys(otherStyles).length ? [{ height }, otherStyles] : [{ height }];
-  const ref = useRef(null);
+
+  const onFocusChange = (event: NativeSyntheticEvent<{ isFocused: boolean }>) => {
+    if (ref.current == null) return;
+    // ref.current is the host component instance from requireNativeComponent.
+    // Passing it to TextInput.State registers this custom input in RN's keyboard lifecycle.
+    if (event.nativeEvent.isFocused) {
+//       TextInput.State.focusTextInput(ref.current);
+      TextInputState.focusInput(ref.current);
+    } else {
+      TextInputState.blurInput(ref.current);
+//       TextInput.State.blurTextInput(ref.current);
+    }
+  };
+
   return (
-    <View testID={`${testID}-view`} style={viewStyles}>
+    <View
+      testID={`${testID}-view`}
+      style={viewStyles}
+      onResponderRelease={() => Keyboard.dismiss()}
+      onStartShouldSetResponder={() => true}
+    >
       <RTCAccessCheckoutTextInput
         ref={ref}
         nativeID={nativeID}
@@ -93,7 +138,10 @@ export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (
         }}
         color={color}
         editable={editable}
+        onFocusChange={onFocusChange}
       />
     </View>
   );
 };
+
+AccessCheckoutTextInput.displayName = 'AccessCheckoutTextInput';
