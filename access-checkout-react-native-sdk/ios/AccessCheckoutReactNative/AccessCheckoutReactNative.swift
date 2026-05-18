@@ -59,7 +59,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                 let panInput = reactNativeViewLocator.locateUITextField(nativeID: cfg.panId!)
                 let expiryInput = reactNativeViewLocator.locateUITextField(nativeID: cfg.expiryDateId!)
                 let cvcInput = reactNativeViewLocator.locateUITextField(nativeID: cfg.cvcId)
-
+                
                 cardDetails = try CardDetailsBuilder()
                     .pan(panInput!)
                     .expiryDate(expiryInput!)
@@ -86,7 +86,7 @@ class AccessCheckoutReactNative: RCTEventEmitter {
                     }
                 }
             }
-        } catch let error as NSError {
+        } catch let error {
             reject("", (error as! AccessCheckoutRnIllegalArgumentError).localizedDescription, error)
         }
     }

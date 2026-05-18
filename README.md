@@ -37,7 +37,7 @@ npm install
 
 ```
 cd access-checkout-react-native-sdk/ios
-pod install
+bundle exec pod install
 ```
 
 3. Re-run the script used to export the SDK's types
@@ -60,7 +60,7 @@ npm install
 
 ```
 cd demo-app/ios
-pod install
+bundle exec pod install
 ```
 
 3. Compile the application

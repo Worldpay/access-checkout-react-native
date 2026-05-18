@@ -31,5 +31,15 @@ target 'AccessCheckoutReactNativeDemo' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # Fix fmt consteval incompatibility with Xcode 26 / new Clang
+    # fmt uses FMT_STRING (consteval) which stricter Clang rejects under C++20
+    installer.pods_project.targets.each do |target|
+      if target.name == 'fmt'
+        target.build_configurations.each do |config|
+          config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+        end
+      end
+    end
   end
 end
