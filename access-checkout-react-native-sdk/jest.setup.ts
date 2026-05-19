@@ -1,4 +1,3 @@
-import '@testing-library/react-native/extend-expect';
 import * as ActualReactNative from 'react-native';
 
 //Set timeout to 10s
