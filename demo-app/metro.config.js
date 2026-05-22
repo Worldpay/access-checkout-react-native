@@ -1,7 +1,6 @@
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 const path = require('path');
-const blacklist = require('metro-config/src/defaults/exclusionList');
-const escape = require('escape-string-regexp');
+const escape = require('escape-string-regexp').default;
 const sdkPackageJson = require('../access-checkout-react-native-sdk/package.json');
 
 const rootPath = path.resolve(__dirname, '..');
@@ -25,13 +24,11 @@ const config = {
   // We need to make sure that only one version is loaded for peerDependencies
   // So we blacklist them at the root, and alias them to the versions in example's node_modules
   resolver: {
-    blacklistRE: blacklist(
-      modules.map(
-        (moduleName) => {
-          const modulePath = path.join(sdkNodeModulesPath, moduleName);
-          return new RegExp(`^${escape(modulePath)}\\/.*$`)
-        }
-      )
+    blockList: modules.map(
+      (moduleName) => {
+        const modulePath = path.join(sdkNodeModulesPath, moduleName);
+        return new RegExp(`^${escape(modulePath)}\\/.*$`);
+      }
     ),
 
     extraNodeModules: modules.reduce((acc, name) => {

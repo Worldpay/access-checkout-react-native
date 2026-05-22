@@ -16,9 +16,10 @@
   "author": "Worldpay",
   "license": "ISC",
   "dependencies": {
+    "@worldpay/access-worldpay-checkout-react-native-sdk": "file:../access-checkout-react-native-sdk",
+    "escape-string-regexp": "^5.0.0",
     "react": "19.2.3",
-    "react-native": "0.85.3",
-    "@worldpay/access-worldpay-checkout-react-native-sdk": "file:../access-checkout-react-native-sdk"
+    "react-native": "0.85.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -43,8 +44,8 @@
     "jest": "^29.2.2",
     "jest-html-reporter": "^3.10.2",
     "prettier": "2.8.8",
-    "react-test-renderer": "19.2.3",
     "react-native-builder-bob": "^0.32.1",
+    "react-test-renderer": "19.2.3",
     "typescript": "5.0.4"
   },
   "engines": {
