@@ -5,9 +5,9 @@ import React
 class ReactNativeViewLocator {
 
     private var registry: [String: NSNumber] = [:]
-    private weak var bridge: RCTBridge?
+    private weak var bridge: NSObject?
 
-    init(bridge: RCTBridge?) {
+    init(bridge: NSObject?) {
         self.bridge = bridge
     }
 
@@ -64,10 +64,17 @@ class ReactNativeViewLocator {
             }
         }
 
-        // PAPER (Old Architecture)
-        if let uiManager = bridge.uiManager,
+        // PAPER (Old Architecture) via real RCTUIManager
+        if let rctBridge = bridge as? RCTBridge, let uiManager = rctBridge.uiManager,
            uiManager.responds(to: Selector(("viewForReactTag:"))) {
             return uiManager.view(forReactTag: reactTag)
+        }
+
+        // PAPER (Old Architecture) via duck-typed NSObject (tests only)
+        if let paperManager = bridge.value(forKey: "paperUIManager") as? NSObject,
+           paperManager.responds(to: Selector(("viewForReactTag:"))) {
+            let result = paperManager.perform(Selector(("viewForReactTag:")), with: reactTag)
+            return result?.takeUnretainedValue() as? UIView
         }
 
         return nil

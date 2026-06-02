@@ -15,6 +15,8 @@
 		46D3A9682B3461030056016D /* AccessCheckoutReactNativeTestImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3A9672B3461030056016D /* AccessCheckoutReactNativeTestImplementation.swift */; };
 		46D51A0B2B2B6D3D001A223C /* AccessCheckoutTextInputManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D51A0A2B2B6D3D001A223C /* AccessCheckoutTextInputManager.m */; };
 		46D51A0D2B2B6D72001A223C /* AccessCheckoutTextInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D51A0C2B2B6D72001A223C /* AccessCheckoutTextInputManager.swift */; };
+		510CE9402FCF30F400A6779B /* UIViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510CE93F2FCF30F400A6779B /* UIViewMock.swift */; };
+		510CE9422FCF4D0500A6779B /* AsyncAssert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510CE9412FCF4D0500A6779B /* AsyncAssert.swift */; };
 		515BA38C282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA38B282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift */; };
 		515BA394282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BA393282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift */; };
 		515BA39C282E6F9600BA262D /* CvcValidationTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 515BA39B282E6F9600BA262D /* CvcValidationTest.storyboard */; };
@@ -34,6 +36,8 @@
 		516A9FAF2757D6EB00E9B00E /* AccessCheckoutReactNativeModule-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 516A9FA62757D6EB00E9B00E /* AccessCheckoutReactNativeModule-Bridging-Header.h */; };
 		516A9FB02757D6EB00E9B00E /* CardValidationDelegateRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A9FA72757D6EB00E9B00E /* CardValidationDelegateRN.swift */; };
 		516A9FB12757D6EB00E9B00E /* AccessCheckoutReactNative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A9FA82757D6EB00E9B00E /* AccessCheckoutReactNative.swift */; };
+		5184B20A2FBB7BAB003C19BB /* AccessCheckoutUITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5184B2092FBB7BAB003C19BB /* AccessCheckoutUITextFieldExtension.swift */; };
+		5184B20C2FBCC951003C19BB /* AccessCheckoutTextInputManagerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5184B20B2FBCC951003C19BB /* AccessCheckoutTextInputManagerUnitTests.swift */; };
 		51C8CFBA27B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFB927B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift */; };
 		51C8CFC827B6D55700F30FD5 /* CardValidationConfigRNUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFC727B6D55700F30FD5 /* CardValidationConfigRNUnitTests.swift */; };
 		51C8CFCD27B6E71300F30FD5 /* RCTEventEmitterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8CFCC27B6E71300F30FD5 /* RCTEventEmitterMock.swift */; };
@@ -79,6 +83,8 @@
 		46D3A9672B3461030056016D /* AccessCheckoutReactNativeTestImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeTestImplementation.swift; sourceTree = "<group>"; };
 		46D51A0A2B2B6D3D001A223C /* AccessCheckoutTextInputManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccessCheckoutTextInputManager.m; sourceTree = "<group>"; };
 		46D51A0C2B2B6D72001A223C /* AccessCheckoutTextInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutTextInputManager.swift; sourceTree = "<group>"; };
+		510CE93F2FCF30F400A6779B /* UIViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewMock.swift; sourceTree = "<group>"; };
+		510CE9412FCF4D0500A6779B /* AsyncAssert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAssert.swift; sourceTree = "<group>"; };
 		515BA38B282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift; sourceTree = "<group>"; };
 		515BA393282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CvcOnlyValidationTestUIViewController.swift; sourceTree = "<group>"; };
 		515BA39B282E6F9600BA262D /* CvcValidationTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CvcValidationTest.storyboard; sourceTree = "<group>"; };
@@ -101,6 +107,8 @@
 		516A9FA62757D6EB00E9B00E /* AccessCheckoutReactNativeModule-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AccessCheckoutReactNativeModule-Bridging-Header.h"; sourceTree = "<group>"; };
 		516A9FA72757D6EB00E9B00E /* CardValidationDelegateRN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardValidationDelegateRN.swift; sourceTree = "<group>"; };
 		516A9FA82757D6EB00E9B00E /* AccessCheckoutReactNative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNative.swift; sourceTree = "<group>"; };
+		5184B2092FBB7BAB003C19BB /* AccessCheckoutUITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutUITextFieldExtension.swift; sourceTree = "<group>"; };
+		5184B20B2FBCC951003C19BB /* AccessCheckoutTextInputManagerUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutTextInputManagerUnitTests.swift; sourceTree = "<group>"; };
 		51C8CFB927B6B7EE00F30FD5 /* GenerateSessionConfigUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSessionConfigUnitTests.swift; sourceTree = "<group>"; };
 		51C8CFC727B6D55700F30FD5 /* CardValidationConfigRNUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardValidationConfigRNUnitTests.swift; sourceTree = "<group>"; };
 		51C8CFCC27B6E71300F30FD5 /* RCTEventEmitterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTEventEmitterMock.swift; sourceTree = "<group>"; };
@@ -175,9 +183,21 @@
 		46D3A9662B3460EC0056016D /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				510CE9412FCF4D0500A6779B /* AsyncAssert.swift */,
 				46D3A9672B3461030056016D /* AccessCheckoutReactNativeTestImplementation.swift */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		510CE93E2FCF30CE00A6779B /* mocks */ = {
+			isa = PBXGroup;
+			children = (
+				51C8CFD627B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift */,
+				51C8CFD127B6E72900F30FD5 /* RCTEventMock.swift */,
+				51C8CFCC27B6E71300F30FD5 /* RCTEventEmitterMock.swift */,
+				510CE93F2FCF30F400A6779B /* UIViewMock.swift */,
+			);
+			path = mocks;
 			sourceTree = "<group>";
 		};
 		516A9F4D2757D3B800E9B00E = {
@@ -205,6 +225,7 @@
 		516A9F592757D3B800E9B00E /* AccessCheckoutReactNative */ = {
 			isa = PBXGroup;
 			children = (
+				5184B2092FBB7BAB003C19BB /* AccessCheckoutUITextFieldExtension.swift */,
 				46D51A0A2B2B6D3D001A223C /* AccessCheckoutTextInputManager.m */,
 				46D51A0C2B2B6D72001A223C /* AccessCheckoutTextInputManager.swift */,
 				51D03D3927A829D8009781EB /* session */,
@@ -221,6 +242,7 @@
 		516A9F642757D3B800E9B00E /* AccessCheckoutReactNativeUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				510CE93E2FCF30CE00A6779B /* mocks */,
 				46D3A9662B3460EC0056016D /* utils */,
 				517D9E9927A45398002B1611 /* stubServices */,
 				517D9E4D27A41409002B1611 /* session */,
@@ -231,6 +253,7 @@
 				64ADC9382816E1510045BA58 /* AccessCheckoutReactNativeSessionAcceptanceTests.swift */,
 				515FFD69282E994300A15AEB /* AccessCheckoutReactNativeUnitTests.swift */,
 				51C8D02B27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift */,
+				5184B20B2FBCC951003C19BB /* AccessCheckoutTextInputManagerUnitTests.swift */,
 				51D03EBB27A8658B009781EB /* CardValidationTestUIViewController.swift */,
 				46D3A9622B3447AE0056016D /* SessionGenerationTestUIViewController.swift */,
 				515BA393282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift */,
@@ -253,10 +276,7 @@
 				51C8CFDE27B6E86000F30FD5 /* CardValidationDelegateRNUnitTests.swift */,
 				515BA3A3282E829100BA262D /* CvcOnlyValidationConfigUnitTest.swift */,
 				515BA3C9282E903300BA262D /* CvcOnlyValidationDelegateRNUnitTests.swift */,
-				51C8CFD627B6E75500F30FD5 /* ReactNativeViewLocatorMock.swift */,
 				51C8D03627BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift */,
-				51C8CFD127B6E72900F30FD5 /* RCTEventMock.swift */,
-				51C8CFCC27B6E71300F30FD5 /* RCTEventEmitterMock.swift */,
 			);
 			path = validation;
 			sourceTree = "<group>";
@@ -465,9 +485,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNative/Pods-AccessCheckoutReactNative-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNative/Pods-AccessCheckoutReactNative-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -548,9 +572,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeUnitTestsApp/Pods-AccessCheckoutReactNativeUnitTestsApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeUnitTestsApp/Pods-AccessCheckoutReactNativeUnitTestsApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -565,9 +593,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeUnitTestsApp/Pods-AccessCheckoutReactNativeUnitTestsApp-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AccessCheckoutReactNativeUnitTestsApp/Pods-AccessCheckoutReactNativeUnitTestsApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -584,6 +616,7 @@
 				516A9FAC2757D6EB00E9B00E /* AccessCheckoutRnIllegalArgumentError.swift in Sources */,
 				516A9FAA2757D6EB00E9B00E /* AccessCheckoutReactNative.m in Sources */,
 				516A9FAB2757D6EB00E9B00E /* GenerateSessionConfig.swift in Sources */,
+				5184B20A2FBB7BAB003C19BB /* AccessCheckoutUITextFieldExtension.swift in Sources */,
 				5167BB3927A7FFB100F8569D /* ReactNativeViewLocator.swift in Sources */,
 				46D51A0D2B2B6D72001A223C /* AccessCheckoutTextInputManager.swift in Sources */,
 				516A9FA92757D6EB00E9B00E /* CardValidationConfigRN.swift in Sources */,
@@ -608,13 +641,16 @@
 				51C8D02C27BA5B5800F30FD5 /* AccessCheckoutRnIllegalArgumentErrorUnitTests.swift in Sources */,
 				515FFD6A282E994300A15AEB /* AccessCheckoutReactNativeUnitTests.swift in Sources */,
 				51D03EBC27A8658B009781EB /* CardValidationTestUIViewController.swift in Sources */,
+				510CE9422FCF4D0500A6779B /* AsyncAssert.swift in Sources */,
 				515BA394282E6EA500BA262D /* CvcOnlyValidationTestUIViewController.swift in Sources */,
 				64ADC9392816E1510045BA58 /* AccessCheckoutReactNativeSessionAcceptanceTests.swift in Sources */,
+				5184B20C2FBCC951003C19BB /* AccessCheckoutTextInputManagerUnitTests.swift in Sources */,
 				51C8CFDF27B6E86000F30FD5 /* CardValidationDelegateRNUnitTests.swift in Sources */,
 				46D3A9632B3447AE0056016D /* SessionGenerationTestUIViewController.swift in Sources */,
 				51C8CFCD27B6E71300F30FD5 /* RCTEventEmitterMock.swift in Sources */,
 				515BA38C282E6D6600BA262D /* AccessCheckoutReactNativeCvcOnlyValidationAcceptanceTests.swift in Sources */,
 				51C8D03727BA807C00F30FD5 /* ReactNativeViewLocatorUnitTests.swift in Sources */,
+				510CE9402FCF30F400A6779B /* UIViewMock.swift in Sources */,
 				5167BB3527A7FE7000F8569D /* AccessCheckoutReactNativeCardValidationAcceptanceTests.swift in Sources */,
 				515BA3A4282E829100BA262D /* CvcOnlyValidationConfigUnitTest.swift in Sources */,
 				51C8CFD227B6E72900F30FD5 /* RCTEventMock.swift in Sources */,

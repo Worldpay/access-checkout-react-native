@@ -31,7 +31,7 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
           RCTUtilsUIOverride.setPresentedViewController(nil)
           let bridge = RCTBridgeMock()
           let locator = ReactNativeViewLocator(bridge: bridge)
-          
+
           XCTAssertNil(locator.locateUITextField(nativeID: "missing"))
       }
 
@@ -42,7 +42,7 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
 
           let bridge = RCTBridgeMock()
           let locator = ReactNativeViewLocator(bridge: bridge)
-          
+
           XCTAssertNil(locator.locateUITextField(nativeID: "missing"))
       }
 
@@ -61,30 +61,25 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
 
           let bridge = RCTBridgeMock()
           let locator = ReactNativeViewLocator(bridge: bridge)
-          
+
           XCTAssertNil(locator.locateUITextField(nativeID: "absent"))
       }
 
-      func testRegistryPreferredOverFallback() {
-          
-          let fieldRegistry = createAccessCheckoutUITextField(nativeID: "conflict-id")
-          let fieldFallback = createAccessCheckoutUITextField(nativeID: "conflict-id")
-
-          let tag: NSNumber = 303
-          let bridge = RCTBridgeMock(paperStore: [tag: fieldRegistry])
-          let locator = ReactNativeViewLocator(bridge: bridge)
-          locator.register(viewTag: tag, id: "conflict-id")
-
-          let root = UIView()
-          root.addSubview(fieldFallback)
-          let controller = UIViewController()
-          controller.view = root
-          RCTUtilsUIOverride.setPresentedViewController(controller)
-
-          let resolved = locator.locateUITextField(nativeID: "conflict-id")
-          XCTAssertTrue(resolved === fieldRegistry)
-      }
-    
+    func testRegistryPreferredOverFallback() {
+        let fieldRegistry = createAccessCheckoutUITextField(nativeID: "conflict-id")
+        let fieldFallback = createAccessCheckoutUITextField(nativeID: "conflict-id")
+        let tag: NSNumber = 303
+        let bridge = RCTBridgeMock(paperStore: [tag: fieldRegistry])
+        let locator = ReactNativeViewLocator(bridge: bridge)
+        locator.register(viewTag: tag, id: "conflict-id")
+        let root = UIView()
+        root.addSubview(fieldFallback)
+        let controller = UIViewController()
+        controller.view = root
+        RCTUtilsUIOverride.setPresentedViewController(controller)
+        let resolved = locator.locateUITextField(nativeID: "conflict-id")
+        XCTAssertTrue(resolved === fieldRegistry)
+    }
 
     private func createAccessCheckoutUITextField(nativeID: String) -> UIView {
         let textField = AccessCheckoutUITextField()
@@ -93,13 +88,12 @@ class ReactNativeViewLocatorUnitTests: XCTestCase {
     }
 }
 
-final class FakePaperUIManager: RCTUIManager {
+// MARK: - Fakes
+
+final class FakePaperUIManager: NSObject {
     private let store: [NSNumber: UIView]
-    init(store: [NSNumber: UIView]) {
-        self.store = store
-        super.init()
-    }
-    override func view(forReactTag reactTag: NSNumber!) -> UIView! {
+    init(store: [NSNumber: UIView]) { self.store = store }
+    @objc func viewForReactTag(_ reactTag: NSNumber) -> UIView? {
         return store[reactTag]
     }
 }
@@ -112,49 +106,28 @@ final class FakeFabricUIManager: NSObject {
     }
 }
 
-final class BridgeDelegateStub: NSObject, RCTBridgeDelegate {
-    func sourceURL(for bridge: RCTBridge!) -> URL! {
-        // Dummy URL (never loaded in unit tests)
-        return URL(string: "file://example")
-    }
-}
-import Foundation
-import React
-import UIKit
-
-final class RCTBridgeMock: RCTBridge {
+// MARK: - Mock Bridge
+// Plain NSObject - no RCTBridge subclassing, no Hermes boot, no std::function crash.
+final class RCTBridgeMock: NSObject {
     private let paperManager: FakePaperUIManager?
     private let fabricManager: FakeFabricUIManager?
 
     init(paperStore: [NSNumber: UIView] = [:],
          fabricStore: [NSNumber: UIView] = [:],
          useFabric: Bool = false) {
-
         self.paperManager = paperStore.isEmpty ? nil : FakePaperUIManager(store: paperStore)
         self.fabricManager = useFabric ? FakeFabricUIManager(store: fabricStore) : nil
-        let delegate = BridgeDelegateStub()
-
-        super.init(delegate: delegate,
-                   bundleURL: nil,
-                   moduleProvider: nil,
-                   launchOptions: nil)
-    }
-
-    override var uiManager: RCTUIManager? {
-        return paperManager
     }
 
     override func responds(to aSelector: Selector!) -> Bool {
-        if aSelector == Selector(("fabricUIManager")) {
-            return fabricManager != nil
-        }
+        if aSelector == Selector(("fabricUIManager")) { return fabricManager != nil }
+        if aSelector == Selector(("viewForReactTag:")) { return paperManager != nil }
         return super.responds(to: aSelector)
     }
 
     override func value(forKey key: String) -> Any? {
-        if key == "fabricUIManager" {
-            return fabricManager
-        }
+        if key == "fabricUIManager" { return fabricManager }
+        if key == "paperUIManager" { return paperManager }
         return super.value(forKey: key)
     }
 }

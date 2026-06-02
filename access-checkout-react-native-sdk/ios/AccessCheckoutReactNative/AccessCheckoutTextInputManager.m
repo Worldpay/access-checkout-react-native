@@ -12,4 +12,12 @@ RCT_REMAP_VIEW_PROPERTY(editable, isEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(color, textColor, UIColor)
 RCT_REMAP_VIEW_PROPERTY(font, font, UIFont)
 RCT_REMAP_VIEW_PROPERTY(placeholderTextColor, placeholderTextColor, UIColor)
+
+// Event emitted when the field acquires or loses focus
+RCT_EXPORT_VIEW_PROPERTY(onFocusChange, RCTDirectEventBlock)
+
+// Commands sent from React Native to show/dismiss the keyboard
+RCT_EXTERN_METHOD(focus:(nonnull NSNumber *)node)
+RCT_EXTERN_METHOD(blur:(nonnull NSNumber *)node)
+
 @end
