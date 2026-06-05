@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { Button, Keyboard, ScrollView, Text, TextInput } from 'react-native';
 import {
   Brand,
   CARD,
@@ -178,59 +178,66 @@ export default function CardFlow() {
   }
 
   return (
-    <VView style={styles.cardFlow} onLayout={onLayout}>
-      <Spinner testID="spinner" show={showSpinner} />
-      {errorComponent}
-      <HView>
-        <PanField
-          testID="panInput"
-          isValid={panIsValid}
-          isEditable={isEditable}
-        />
-        <CardBrandImage testID="cardBrandImage" logo={brandLogo} />
-      </HView>
-      <HView>
-        <ExpiryDateField
-          testID="expiryDateInput"
-          isValid={expiryIsValid}
-          isEditable={isEditable}
-        />
-        <CvcField
-          testID="cvcInput"
-          isValid={cvcIsValid}
-          isEditable={isEditable}
-        />
-      </HView>
-      <HView>
-        <HView style={{ marginTop: '2%', marginRight: '2%', marginLeft: '3%' }}>
-          <Text>Generate VT session + CVC session</Text>
+    <ScrollView
+      keyboardDismissMode={'on-drag'}
+      keyboardShouldPersistTaps="never"
+    >
+      <VView style={styles.cardFlow} onLayout={onLayout}>
+        <Spinner testID="spinner" show={showSpinner} />
+        {errorComponent}
+        <HView>
+          <PanField
+            testID="panInput"
+            isValid={panIsValid}
+            isEditable={isEditable}
+          />
+          <CardBrandImage testID="cardBrandImage" logo={brandLogo} />
         </HView>
-        <Toggle
-          testID="cardAndCvcSessionsToggle"
-          value={generateCardAndCvcSessions}
-          onChange={setGenerateCardAndCvcSessions}
-        />
-      </HView>
-      <VView style={{ marginTop: '8%' }}>
-        <SubmitButton
-          testID="submitButton"
-          onPress={createSession}
-          enabled={submitBtnEnabled}
+        <HView>
+          <ExpiryDateField
+            testID="expiryDateInput"
+            isValid={expiryIsValid}
+            isEditable={isEditable}
+          />
+          <CvcField
+            testID="cvcInput"
+            isValid={cvcIsValid}
+            isEditable={isEditable}
+          />
+        </HView>
+        <HView>
+          <HView
+            style={{ marginTop: '2%', marginRight: '2%', marginLeft: '3%' }}
+          >
+            <Text>Generate VT session + CVC session</Text>
+          </HView>
+          <Toggle
+            testID="cardAndCvcSessionsToggle"
+            value={generateCardAndCvcSessions}
+            onChange={setGenerateCardAndCvcSessions}
+          />
+        </HView>
+        <VView style={{ marginTop: '8%' }}>
+          <SubmitButton
+            testID="submitButton"
+            onPress={createSession}
+            enabled={submitBtnEnabled}
+          />
+        </VView>
+        <VView style={{ marginTop: '8%', marginLeft: '4%' }}>
+          <Text style={{ fontWeight: 'bold' }}>Sessions</Text>
+          {cardSessionComponent}
+          {cvcSessionComponent}
+        </VView>
+        <CardFlowE2eStates
+          testID="cardFlowE2eStates"
+          panIsValid={panIsValid}
+          expiryDateIsValid={expiryIsValid}
+          cvcIsValid={cvcIsValid}
+          submitButtonEnabled={submitBtnEnabled}
+          cardBrand={brand}
         />
       </VView>
-      <VView style={{ marginTop: '8%', marginLeft: '4%' }}>
-        <Text style={{ fontWeight: 'bold' }}>Sessions</Text>
-        {cardSessionComponent}
-        {cvcSessionComponent}
-      </VView>
-      <CardFlowE2eStates
-        testID="cardFlowE2eStates"
-        panIsValid={panIsValid}
-        expiryDateIsValid={expiryIsValid}
-        cvcIsValid={cvcIsValid}
-        submitButtonEnabled={submitBtnEnabled}
-        cardBrand={brand}
-      />
-    </VView>
+    </ScrollView>
   );
 }
