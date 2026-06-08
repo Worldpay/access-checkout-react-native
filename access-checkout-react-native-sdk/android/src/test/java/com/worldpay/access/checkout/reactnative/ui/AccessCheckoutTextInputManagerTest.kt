@@ -1,10 +1,7 @@
 package com.worldpay.access.checkout.reactnative.ui
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import androidx.core.graphics.toColorInt
-import androidx.test.core.app.ApplicationProvider
 import com.facebook.react.bridge.*
 import com.worldpay.access.checkout.ui.AccessCheckoutEditText
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
@@ -157,5 +154,24 @@ internal class AccessCheckoutTextInputManagerTest {
         manager.setRTCPlaceholderTextColor(accessCheckoutEditTextMock, 123)
 
         verify(accessCheckoutEditTextMock).setHintTextColor(123)
+    }
+
+    @Test
+    fun `getCommandsMap() should return a map containing focus and blur commands`() {
+        val commandsMap = manager.commandsMap
+
+        assertThat(commandsMap.size).isEqualTo(2)
+        assertThat(commandsMap["focus"]).isEqualTo(AccessCheckoutTextInputManager.COMMAND_FOCUS)
+        assertThat(commandsMap["blur"]).isEqualTo(AccessCheckoutTextInputManager.COMMAND_BLUR)
+    }
+
+    @Test
+    fun `getExportedCustomDirectEventTypeConstants() should return a map mapping the internal topFocusChange event to an onFocusChange event`() {
+        val eventsMap:Map<String, Any?> = manager.exportedCustomDirectEventTypeConstants
+        assertThat(eventsMap.size).isEqualTo(1)
+
+        val topFocusChangeEventMap = eventsMap["topFocusChange"] as Map<String, String>
+        assertThat(topFocusChangeEventMap.size).isEqualTo(1)
+        assertThat(topFocusChangeEventMap["registrationName"]).isEqualTo("onFocusChange")
     }
 }

@@ -1,7 +1,10 @@
 package com.worldpay.access.checkout.reactnative.ui
 
+import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
+import android.view.inputmethod.InputMethodManager
+import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
@@ -16,6 +19,50 @@ class AccessCheckoutTextInputManager :
 
     companion object {
         const val REACT_CLASS = "AccessCheckoutTextInput"
+        const val COMMAND_FOCUS = 1
+        const val COMMAND_BLUR = 2
+    }
+
+    override fun getCommandsMap(): Map<String, Int> {
+        return mapOf(
+            "focus" to COMMAND_FOCUS,
+            "blur" to COMMAND_BLUR
+        )
+    }
+
+    // Classic architecture uses integer command IDs from UIManager.getViewManagerConfig(...).Commands
+    @Deprecated("Deprecated")
+    override fun receiveCommand(view: AccessCheckoutEditText, commandId: Int, args: ReadableArray?) {
+        when (commandId) {
+            COMMAND_FOCUS -> focusView(view)
+            COMMAND_BLUR -> blurView(view)
+        }
+    }
+
+    // Keep string commands for compatibility with call sites that dispatch by name
+    override fun receiveCommand(view: AccessCheckoutEditText, commandId: String, args: ReadableArray?) {
+        when (commandId) {
+            "focus" -> focusView(view)
+            "blur" -> blurView(view)
+        }
+    }
+
+    private fun focusView(view: AccessCheckoutEditText) {
+        view.requestFocus()
+        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    private fun blurView(view: AccessCheckoutEditText) {
+        view.clearFocus()
+        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any> {
+        return mapOf(
+            "topFocusChange" to mapOf("registrationName" to "onFocusChange")
+        )
     }
 
     override fun createViewInstance(context: ThemedReactContext): AccessCheckoutEditText {
@@ -26,6 +73,7 @@ class AccessCheckoutTextInputManager :
         accessCheckoutEditText.background = null
         accessCheckoutEditText.textSize = 14f
         accessCheckoutEditText.setPadding(0, 0, 0, 0)
+        accessCheckoutEditText.onFocusChangeListener = CheckoutFocusChangeListener()
 
         return accessCheckoutEditText
     }
