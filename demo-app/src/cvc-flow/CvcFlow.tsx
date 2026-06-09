@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import {
   CVC,
   CvcOnlyValidationEventListener,
@@ -105,32 +105,37 @@ export default function CvcFlow() {
   }
 
   return (
-    <VView style={styles.cardFlow} onLayout={onLayout}>
-      <Spinner testID="spinner" show={showSpinner} />
-      {errorComponent}
-      <HView>
-        <CvcField
-          testID="cvcInput"
-          isEditable={isEditable}
-          isValid={cvcIsValid}
-        />
-      </HView>
-      <VView style={{ marginTop: '8%' }}>
-        <SubmitButton
-          testID="submitButton"
-          onPress={createSession}
-          enabled={submitBtnEnabled}
+    <ScrollView
+      keyboardDismissMode={'on-drag'}
+      keyboardShouldPersistTaps="never"
+    >
+      <VView style={styles.cardFlow} onLayout={onLayout}>
+        <Spinner testID="spinner" show={showSpinner} />
+        {errorComponent}
+        <HView>
+          <CvcField
+            testID="cvcInput"
+            isEditable={isEditable}
+            isValid={cvcIsValid}
+          />
+        </HView>
+        <VView style={{ marginTop: '8%' }}>
+          <SubmitButton
+            testID="submitButton"
+            onPress={createSession}
+            enabled={submitBtnEnabled}
+          />
+        </VView>
+        <VView style={{ marginTop: '8%', marginLeft: '4%' }}>
+          <Text style={{ fontWeight: 'bold' }}>Sessions</Text>
+          {cvcSessionComponent}
+        </VView>
+        <CvcOnlyFlowE2eStates
+          testID="cvcOnlyFlowE2eStates"
+          cvcIsValid={cvcIsValid}
+          submitButtonEnabled={submitBtnEnabled}
         />
       </VView>
-      <VView style={{ marginTop: '8%', marginLeft: '4%' }}>
-        <Text style={{ fontWeight: 'bold' }}>Sessions</Text>
-        {cvcSessionComponent}
-      </VView>
-      <CvcOnlyFlowE2eStates
-        testID="cvcOnlyFlowE2eStates"
-        cvcIsValid={cvcIsValid}
-        submitButtonEnabled={submitBtnEnabled}
-      />
-    </VView>
+    </ScrollView>
   );
 }
