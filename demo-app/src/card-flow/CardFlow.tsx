@@ -180,7 +180,7 @@ export default function CardFlow() {
   return (
     <ScrollView
       keyboardDismissMode={'on-drag'}
-      keyboardShouldPersistTaps="never"
+      keyboardShouldPersistTaps="handled"
     >
       <VView style={styles.cardFlow} onLayout={onLayout}>
         <Spinner testID="spinner" show={showSpinner} />
