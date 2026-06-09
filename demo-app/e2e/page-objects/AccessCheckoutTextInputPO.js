@@ -26,8 +26,8 @@ class AccessCheckoutTextInputPO extends UIComponentPO {
     return attributes.text;
   }
 
-  async clickOutside(x = 0, y = 200) {
-    await this.component().tap({ x: x, y: y });
+  async clickOutside(x = 10, y = 200) {
+    await element(by.id('root')).tap({ x: x, y: y });
   }
 }
 
