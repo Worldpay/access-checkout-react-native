@@ -7,7 +7,7 @@ export default class VView extends Component<ViewProps> {
   }
 
   render() {
-    const { children, style, ...rest } = this.props;
+    const { children, style, testID, ...rest } = this.props;
 
     const styles: ViewStyle = {};
     styles.flexDirection = 'column';
@@ -16,7 +16,7 @@ export default class VView extends Component<ViewProps> {
     Object.assign(styles, style);
 
     return (
-      <View style={styles} {...rest}>
+      <View style={styles} testID={testID} {...rest}>
         {children}
       </View>
     );

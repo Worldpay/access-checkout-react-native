@@ -25,6 +25,10 @@ class AccessCheckoutTextInputPO extends UIComponentPO {
     const attributes = await this.getAttributes();
     return attributes.text;
   }
+
+  async clickOutside(x = 10, y = 200) {
+    await element(by.id('root')).tap({ x: x, y: y });
+  }
 }
 
 module.exports = { AccessCheckoutTextInputPO };

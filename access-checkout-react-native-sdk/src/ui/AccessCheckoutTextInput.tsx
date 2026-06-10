@@ -114,11 +114,11 @@ export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (
     }
 
     if (event.nativeEvent.isFocused) {
-      TextInput.State.focusTextInput(ref.current);
+      TextInputState.focusInput(ref.current);
     } else {
       // Instructs React Native to forcibly remove the focus from our component
       // This in return sends a command to the underlying Android/iOS component
-      TextInput.State.blurTextInput(ref.current);
+      TextInputState.blurInput(ref.current);
     }
   };
 

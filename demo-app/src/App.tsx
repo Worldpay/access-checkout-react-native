@@ -16,7 +16,7 @@ export default function App() {
   const currentScreen = screen === screens.card ? <CardFlow /> : <CvcOnly />;
 
   return (
-    <VView style={styles.app}>
+    <VView style={styles.app} testID="root">
       <VView style={styles.main}>{currentScreen}</VView>
       <HView style={styles.nav}>
         <NavItem
