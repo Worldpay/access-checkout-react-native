@@ -49,14 +49,10 @@ class AccessCheckoutTextInputManager :
 
     private fun focusView(view: AccessCheckoutEditText) {
         view.requestFocus()
-        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun blurView(view: AccessCheckoutEditText) {
         view.clearFocus()
-        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any> {

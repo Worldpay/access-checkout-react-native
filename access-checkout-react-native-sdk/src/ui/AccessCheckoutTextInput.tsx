@@ -14,7 +14,12 @@ import { AccessCheckoutReactNative } from '../AccessCheckoutReactNative';
 // TextInputState is an internal RN module not exported from the public API.
 // Access it directly from its internal path.
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const TextInputState = require('react-native/Libraries/Components/TextInput/TextInputState');
+
+
+// TextInputState is an internal RN module not exported from the public API.
+// so we import it directly from its internal path.
+// In RN 0.83+ the file uses ES module `export default`, so we need `.default`.
+const textInputState = require('react-native/Libraries/Components/TextInput/TextInputState').default;
 
 /**
  * Composes `AccessCheckoutTextInput`.
@@ -94,13 +99,17 @@ export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (
     }
 
     // Makes React native aware of that our component is a text input. This enables React Native
-    // to validate successfully that TextInput.State.focusTextInput()/blurTextInput() can be
-    // called on our component
-    TextInputState.registerInput(inputRefValue);
+    // ScrollView to call blur() when the keyboard should be dismissed
+    if ('registerInput' in textInputState) {
+      textInputState.registerInput(inputRefValue);
+    }
 
     return () => {
-      TextInputState.unregisterInput(inputRefValue);
-      if (TextInputState.currentlyFocusedInput() === inputRefValue) {
+      if ('unregisterInput' in textInputState) {
+        textInputState.unregisterInput(inputRefValue);
+      }
+
+      if (TextInput.State.currentlyFocusedInput() === inputRefValue) {
         TextInput.State.blurTextInput(inputRefValue);
       }
     };
@@ -114,11 +123,12 @@ export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (
     }
 
     if (event.nativeEvent.isFocused) {
-      TextInputState.focusInput(ref.current);
-    } else {
-      // Instructs React Native to forcibly remove the focus from our component
-      // This in return sends a command to the underlying Android/iOS component
-      TextInputState.blurInput(ref.current);
+      // Updates the TextInputState state to mark this component as the text input which is currently focused
+      // This in return allows ScrollViews to call blur() on this component when needed
+      // Without this ScrollView would not see that our component is currently focused
+      if ( 'focusInput' in textInputState ) {
+        textInputState.focusInput(ref.current);
+      }
     }
   };
 
