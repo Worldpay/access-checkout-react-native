@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import {
   type ColorValue,
   findNodeHandle,
+  LogBox,
   NativeSyntheticEvent,
   type StyleProp,
   StyleSheet,
@@ -19,6 +20,13 @@ import { AccessCheckoutReactNative } from '../AccessCheckoutReactNative';
 // TextInputState is an internal RN module not exported from the public API.
 // so we import it directly from its internal path.
 // In RN 0.83+ the file uses ES module `export default`, so we need `.default`.
+// Deep imports are deprecated in RN since version 0.80, but the one below is required
+// We disable this warning to avoid e2e tests issues where tests can't access the CVC flow due
+// to the warning
+LogBox.ignoreLogs([
+  /Deep imports.*/,
+]);
+
 const textInputState = require('react-native/Libraries/Components/TextInput/TextInputState').default;
 
 /**
