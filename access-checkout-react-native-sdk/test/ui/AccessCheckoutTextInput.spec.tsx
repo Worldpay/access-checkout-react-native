@@ -7,12 +7,39 @@ import {
 } from '../../src/ui/AccessCheckoutTextInput';
 import { NativeModules } from 'react-native';
 
+// Mock textInputState so tests can control its methods.
+// This must be at module scope so Jest hoists it before the `require` in AccessCheckoutTextInput.tsx.
+const mockRegisterInput = jest.fn();
+const mockUnregisterInput = jest.fn();
+const mockFocusInput = jest.fn();
+
+jest.mock('react-native/Libraries/Components/TextInput/TextInputState', () => ({
+  default: {
+    get registerInput() { return mockRegisterInput; },
+    get unregisterInput() { return mockUnregisterInput; },
+    get focusInput() { return mockFocusInput; },
+  },
+}));
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
 describe('AccessCheckoutTextInput', () => {
   const mockRegisterViewFn = jest.fn();
+
+  // Install stable jest.fn() mocks on TextInput.State once, before any test runs.
+  // We do this in beforeAll rather than jest.mock('react-native') to avoid triggering
+  // the full native module registry (which causes TurboModuleRegistry DevMenu errors).
+  beforeAll(() => {
+    const { TextInput } = require('react-native');
+    TextInput.State.currentlyFocusedInput = jest.fn().mockReturnValue(null);
+    TextInput.State.blurTextInput = jest.fn();
+    TextInput.State.focusTextInput = jest.fn();
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
+    // Re-apply default return value for currentlyFocusedInput after clearAllMocks resets it
+    require('react-native').TextInput.State.currentlyFocusedInput.mockReturnValue(null);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mock('./../../src/ui/RCTAccessCheckoutTextInput', (props: never) => {
@@ -293,6 +320,93 @@ describe('AccessCheckoutTextInput', () => {
           expect(accessCheckoutTextInput).toHaveProp('editable', editableValue);
         });
       });
+    });
+  });
+
+  describe('AccessCheckoutTextInput textInputState lifecycle', () => {
+    it('useLayoutEffect does nothing when ref is null (no registerInput call)', async () => {
+      render(
+        <AccessCheckoutTextInput testID="ti-lifecycle" nativeID="ti-lifecycle" />
+      );
+
+      await screen.findByTestId('ti-lifecycle');
+      // Verifies there is no crash
+    });
+
+    it('blurTextInput is called on unmount when component is the currently focused input', async () => {
+      // We need currentlyFocusedInput to return the same object that ref.current holds.
+      // ref.current is the host component instance set by React on the RTCAccessCheckoutTextInput.
+      // The only way to get that value is to intercept it at registerInput time, since
+      // textInputState.registerInput(inputRefValue) is called with ref.current in useLayoutEffect.
+      let capturedRef: unknown = null;
+      mockRegisterInput.mockImplementation((ref: unknown) => {
+        capturedRef = ref;
+      });
+
+      const { unmount } = render(
+        <AccessCheckoutTextInput testID="ti-blur" nativeID="ti-blur" />
+      );
+      await screen.findByTestId('ti-blur');
+
+      // capturedRef is now the same object as ref.current inside the component
+      require('react-native').TextInput.State.currentlyFocusedInput.mockReturnValue(capturedRef);
+
+      unmount();
+
+      expect(require('react-native').TextInput.State.blurTextInput).toHaveBeenCalledWith(capturedRef);
+    });
+
+    it('blurTextInput is NOT called on unmount when component is not the currently focused input', async () => {
+      // currentlyFocusedInput returns null by default (set in beforeEach)
+      const { unmount } = render(
+        <AccessCheckoutTextInput testID="ti-blur-skip" nativeID="ti-blur-skip" />
+      );
+      await screen.findByTestId('ti-blur-skip');
+
+      unmount();
+
+      expect(require('react-native').TextInput.State.blurTextInput).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('AccessCheckoutTextInput onFocusChange handler', () => {
+    it('does nothing when ref.current is null', async () => {
+      render(
+        <AccessCheckoutTextInput testID="oc-null-ref" nativeID="oc-null-ref" />
+      );
+      const nativeInput = await screen.findByTestId('oc-null-ref');
+
+      const onFocusChange = nativeInput.props.onFocusChange;
+      expect(onFocusChange).toBeDefined();
+
+      // Should not throw
+      expect(() =>
+        onFocusChange({ nativeEvent: { isFocused: true } })
+      ).not.toThrow();
+    });
+
+    it('focusInput is called on textInputState when isFocused=true', async () => {
+      render(
+        <AccessCheckoutTextInput testID="oc-focus" nativeID="oc-focus" />
+      );
+      const nativeInput = await screen.findByTestId('oc-focus');
+
+      const onFocusChange = nativeInput.props.onFocusChange;
+      onFocusChange({ nativeEvent: { isFocused: true } });
+
+      expect(mockFocusInput).toHaveBeenCalled();
+    });
+
+    it('focusInput is NOT called when isFocused=false', async () => {
+      render(
+        <AccessCheckoutTextInput testID="oc-blur" nativeID="oc-blur" />
+      );
+      const nativeInput = await screen.findByTestId('oc-blur');
+
+      const onFocusChange = nativeInput.props.onFocusChange;
+      onFocusChange({ nativeEvent: { isFocused: false } });
+
+      expect(mockFocusInput).not.toHaveBeenCalled();
     });
   });
 
