@@ -1,7 +1,10 @@
 package com.worldpay.access.checkout.reactnative.ui
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.view.inputmethod.InputMethodManager
 import com.facebook.react.bridge.*
 import com.worldpay.access.checkout.ui.AccessCheckoutEditText
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
@@ -9,7 +12,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows.shadowOf
 
 @RunWith(RobolectricTestRunner::class)
 internal class AccessCheckoutTextInputManagerTest {
@@ -173,5 +178,45 @@ internal class AccessCheckoutTextInputManagerTest {
         val topFocusChangeEventMap = eventsMap["topFocusChange"] as Map<String, String>
         assertThat(topFocusChangeEventMap.size).isEqualTo(1)
         assertThat(topFocusChangeEventMap["registrationName"]).isEqualTo("onFocusChange")
+    }
+
+    @Test
+    fun `receiveCommand() with integer COMMAND_FOCUS for classic architecture should request focus and show soft keyboard`() {
+        val (view, mockImm) = createViewWithMockInputMethodManager()
+        manager.receiveCommand(view, AccessCheckoutTextInputManager.COMMAND_FOCUS, null)
+        verify(mockImm).showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    @Test
+    fun `receiveCommand() with string focus for new architecture should request focus and show soft keyboard`() {
+        val (view, mockImm) = createViewWithMockInputMethodManager()
+        manager.receiveCommand(view, "focus", null)
+        verify(mockImm).showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    @Test
+    fun `receiveCommand() with integer COMMAND_BLUR for classic architecture should clear focus and hide soft keyboard`() {
+        val (view, mockImm) = createViewWithMockInputMethodManager()
+        manager.receiveCommand(view, AccessCheckoutTextInputManager.COMMAND_BLUR, null)
+        verify(mockImm).hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    @Test
+    fun `receiveCommand() with string blur for new architecture should clear focus and hide soft keyboard`() {
+        val (view, mockImm) = createViewWithMockInputMethodManager()
+        manager.receiveCommand(view, "blur", null)
+        verify(mockImm).hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun createViewWithMockInputMethodManager(): Pair<AccessCheckoutEditText, InputMethodManager> {
+        val mockImm = mock(InputMethodManager::class.java)
+        val activity = Robolectric.buildActivity(Activity::class.java).create().get()
+
+        // Replace the system IMM with our mock via the shadow
+        shadowOf(activity.application).setSystemService(Context.INPUT_METHOD_SERVICE, mockImm)
+
+        val view = AccessCheckoutEditText(activity)
+        activity.setContentView(view)
+        return Pair(view, mockImm)
     }
 }
