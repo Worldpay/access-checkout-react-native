@@ -50,7 +50,7 @@ post_install do |installer|
   react_native_post_install(
     installer,
     # Use the config from the first target - both point to the same RN path
-    Pod::Config.instance.installation_root + '/../node_modules/react-native',
+    File.expand_path('../node_modules/react-native', __dir__),
     :mac_catalyst_enabled => false
   )
 
