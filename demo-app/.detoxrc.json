@@ -14,13 +14,19 @@
     "ios": {
       "type": "ios.app",
       "binaryPath": "ios/Build/Build/Products/Debug-iphonesimulator/AccessCheckoutReactNativeDemo.app",
-      "build": "xcodebuild -workspace ios/AccessCheckoutReactNativeDemo.xcworkspace -configuration Debug -scheme AccessCheckoutReactNativeDemo -sdk iphonesimulator -derivedDataPath ios/build"
+      "build": "xcodebuild -workspace ios/AccessCheckoutReactNativeDemo.xcworkspace -configuration Debug -scheme AccessCheckoutReactNativeDemo -sdk iphonesimulator -derivedDataPath ios/build",
+      "launchArgs": {
+        "detoxPrintBusyIdleResources": "NO"
+      }
     },
     "android": {
       "type": "android.apk",
       "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
       "testBinaryPath": "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
-      "build": "cd android && ./gradlew clean assembleDebug assembleAndroidTest -DtestBuildType=debug && cd .."
+      "build": "cd android && ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest -DtestBuildType=debug && cd ..",
+      "launchArgs": {
+        "detoxPrintBusyIdleResources": "NO"
+      }
     }
   },
   "devices": {
@@ -40,7 +46,7 @@
     "android": {
       "type": "android.emulator",
       "device": {
-        "avdName": "Pixel_9"
+        "avdName": "Medium_Phone_3"
       }
     },
     "android-ci": {

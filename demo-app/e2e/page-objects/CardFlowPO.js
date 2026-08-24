@@ -14,6 +14,8 @@ class CardFlowPO {
     this.cardAndCvcSessionsToggle = new TogglePO('cardAndCvcSessionsToggle');
     this.cardSession = new SessionLabelPO('cardSession');
     this.cvcSession = new SessionLabelPO('cvcSession');
+    this.cardBrandImage = new UIComponentPO('cardBrandImage');
+    this.sessionsLabel = new UIComponentPO('sessionsLabel');
   }
 
   async toggleOnCardAndCvcSessions() {

@@ -1,0 +1,4 @@
+packages:
+  - '.'
+  - '../access-checkout-react-native-sdk'
+

@@ -4,6 +4,7 @@ const { expect: jestExpect } = require('expect');
 const { sessionRegEx } = require('./helpers/RegularExpressions');
 const { CvcOnlyFlowPO } = require('./page-objects/CvcOnlyFlowPO');
 const { CvcOnlyFlowStatesPO } = require('./page-objects/CvcOnlyFlowStatesPO');
+const { launchAppOptimized, resetAppState } = require('./helpers/AppLifecycle');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 describe('CVC only flow', () => {
@@ -14,12 +15,17 @@ describe('CVC only flow', () => {
   const states = new CvcOnlyFlowStatesPO();
 
   beforeAll(async () => {
-    await device.launchApp();
+    // Use optimized launch with app reuse
+    await launchAppOptimized();
   });
 
   beforeEach(async () => {
-    await device.reloadReactNative();
+    // Fast reset instead of full reload
+    await resetAppState();
+    // Wait for navigation to ensure app is fully initialized
     await view.selectCvcOnlyFlow();
+    // Wait for the CVC input to be visible to ensure view registration is complete
+    await expect(cvc.component()).toBeVisible();
   });
 
   describe('by default', () => {
@@ -59,14 +65,20 @@ describe('CVC only flow', () => {
     });
 
     it('should mark the cvc as valid', async () => {
+      // Wait for validation state to update
+      await states.waitForCvcState(true);
       jestExpect(await states.cvcIsValid()).toBe(true);
     });
 
     it('submit button should be enabled', async () => {
+      // Wait for submit button state to update
+      await states.waitForSubmitButtonState(true);
       jestExpect(await states.submitButtonEnabled()).toBe(true);
     });
 
     it('should support to generate a cvc session', async () => {
+      // Wait for validation to complete before submitting
+      await states.waitForSubmitButtonState(true);
       await view.submit();
 
       jestExpect(await cvcSession.text()).toMatch(sessionRegEx);

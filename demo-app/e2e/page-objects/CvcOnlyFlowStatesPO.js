@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { UIComponentPO } = require('./UIComponentPO');
 const { LabelPO } = require('./LabelPO');
+const { waitForState } = require('../helpers/TestHelpers');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 class CvcOnlyFlowStatesPO extends UIComponentPO {
@@ -18,9 +19,31 @@ class CvcOnlyFlowStatesPO extends UIComponentPO {
     return this.textAsBooleanOrUndefined(text);
   }
 
+  /**
+   * Waits for submit button to reach expected state with retry logic
+   */
+  async waitForSubmitButtonState(expectedState, timeout = 5000) {
+    return waitForState(
+      () => this.submitButtonEnabled(),
+      expectedState,
+      timeout
+    );
+  }
+
   async cvcIsValid() {
     const text = await this.cvcIsValidLabel.text();
     return this.textAsBooleanOrUndefined(text);
+  }
+
+  /**
+   * Waits for CVC validation state to reach expected value
+   */
+  async waitForCvcState(expectedState, timeout = 5000) {
+    return waitForState(
+      () => this.cvcIsValid(),
+      expectedState,
+      timeout
+    );
   }
 
   textAsBooleanOrUndefined(text) {

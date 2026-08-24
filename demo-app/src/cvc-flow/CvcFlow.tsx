@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, Text } from 'react-native';
 import {
   CVC,
@@ -54,7 +54,8 @@ export default function CvcFlow() {
     }),
   });
 
-  const onLayout = () => {
+  // Initialise validation after component mounts and all child views are registered
+  useEffect(() => {
     initialiseValidation()
       .then(() => {
         console.info('Cvc Only Validation successfully initialised');
@@ -62,7 +63,7 @@ export default function CvcFlow() {
       .catch((e) => {
         setError(e);
       });
-  };
+  }, [initialiseValidation]);
 
   function createSession() {
     setShowSpinner(true);
@@ -109,7 +110,7 @@ export default function CvcFlow() {
       keyboardDismissMode={'on-drag'}
       keyboardShouldPersistTaps="handled"
     >
-      <VView style={styles.cardFlow} onLayout={onLayout}>
+      <VView style={styles.cardFlow}>
         <Spinner testID="spinner" show={showSpinner} />
         {errorComponent}
         <HView>

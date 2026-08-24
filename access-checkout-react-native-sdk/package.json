@@ -16,7 +16,6 @@
     "format": "prettier '{src,test}/**/*.{ts,tsx}' --write",
     "test": "npm run typescript && jest --clearCache && jest --coverage --verbose"
   },
-  "source": "./src/index.tsx",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "./lib/typescript/index.d.ts",
@@ -28,7 +27,6 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "src",
     "lib",
     "android",
     "ios/AccessCheckoutReactNative",

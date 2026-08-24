@@ -16,5 +16,6 @@
     "<rootDir>/e2e/**/*.e2e.js"
   ],
   "testTimeout": 120000,
-  "verbose": true
+  "verbose": true,
+  "bail": false
 }
