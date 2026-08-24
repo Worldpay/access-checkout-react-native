@@ -36,8 +36,9 @@ async function resetAppState() {
   // This is necessary to clear form inputs between tests
   await device.reloadReactNative();
 
-  // Small delay to allow app initialization and network requests to start
-  await sleep(200);
+  // Increased delay to allow app initialization, especially for navigation
+  // This is particularly important on Android after React Native 0.87 migration
+  await sleep(500);
 }
 
 /**
@@ -60,6 +61,7 @@ module.exports = {
   resetAppState,
   ensureAppIsReady,
 };
+
 
 
 
