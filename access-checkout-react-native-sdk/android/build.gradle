@@ -111,7 +111,7 @@ def kotlin_version = getExtOrDefault("kotlinVersion")
 
 
 dependencies {
-    // Provided implementation - consuming app's version takes precedence via gradle resolution
+    // The version of react-native is set by the React Native Gradle Plugin
     implementation 'com.facebook.react:react-android:0.76.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.worldpay.access:access-checkout-android:4.2.1'
