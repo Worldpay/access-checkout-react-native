@@ -16,7 +16,6 @@ import com.worldpay.access.checkout.reactnative.ui.session.SessionsInstrumentedT
 import com.worldpay.access.checkout.reactnative.ui.utils.TestFixture.Companion.CARD
 import com.worldpay.access.checkout.reactnative.ui.utils.TestFixture.Companion.CVC
 import com.worldpay.access.checkout.reactnative.ui.utils.TestFixture.Companion.testFixture
-import com.worldpay.access.checkout.session.api.client.WpSdkHeader
 import org.awaitility.Awaitility.await
 import org.junit.After
 import org.junit.Before
@@ -41,8 +40,6 @@ class SessionsInstrumentedTests {
     @After
     fun tearDown() {
         stopStubServices()
-        // Reset WpSdkHeader to ensure test isolation
-        WpSdkHeader.overrideValue(null)
     }
 
     @Test
