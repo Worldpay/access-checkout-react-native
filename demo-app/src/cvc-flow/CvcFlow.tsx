@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ScrollView, Text } from 'react-native';
 import {
   CVC,
@@ -25,11 +25,10 @@ export default function CvcFlow() {
   const [isEditable, setIsEditable] = useState<boolean>(true);
 
   const [cvcSession, setCvcSession] = useState('');
+  const validationInitialisationStarted = useRef(false);
 
   const [error, setError] = useState<Error>();
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const cvcOnlyValidationEventListener: CvcOnlyValidationEventListener = {
     onCvcValidChanged(isValid: boolean): void {
       setCvcIsValid(isValid);
@@ -54,8 +53,12 @@ export default function CvcFlow() {
     }),
   });
 
-  // Initialise validation after component mounts and all child views are registered
-  useEffect(() => {
+  const initialiseValidationAfterLayout = () => {
+    if (validationInitialisationStarted.current) {
+      return;
+    }
+    validationInitialisationStarted.current = true;
+
     initialiseValidation()
       .then(() => {
         console.info('Cvc Only Validation successfully initialised');
@@ -63,7 +66,7 @@ export default function CvcFlow() {
       .catch((e) => {
         setError(e);
       });
-  }, [initialiseValidation]);
+  };
 
   function createSession() {
     setShowSpinner(true);
@@ -110,7 +113,7 @@ export default function CvcFlow() {
       keyboardDismissMode={'on-drag'}
       keyboardShouldPersistTaps="handled"
     >
-      <VView style={styles.cardFlow}>
+      <VView style={styles.cardFlow} onLayout={initialiseValidationAfterLayout}>
         <Spinner testID="spinner" show={showSpinner} />
         {errorComponent}
         <HView>

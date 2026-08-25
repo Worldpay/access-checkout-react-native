@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { SessionLabelPO } = require('./SessionLabelPO');
 const { AccessCheckoutTextInputPO } = require('./AccessCheckoutTextInputPO');
 const { UIComponentPO } = require('./UIComponentPO');
-const { expect, waitFor } = require('detox');
-/* eslint-enable @typescript-eslint/no-var-requires */
+const { waitFor } = require('detox');
 
 class CvcOnlyFlowPO {
   constructor() {
@@ -20,8 +18,11 @@ class CvcOnlyFlowPO {
       .toBeVisible()
       .withTimeout(5000);
 
-    // Tap now includes retry logic to handle timing issues
     await this.cvcOnlyNavItem.tap();
+
+    await waitFor(this.cvc.component())
+      .toBeVisible()
+      .withTimeout(10000);
   }
 
   async submit() {

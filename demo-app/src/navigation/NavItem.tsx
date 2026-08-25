@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
-  GestureResponderEvent,
   Image,
+  Pressable,
+  PressableProps,
+  StyleProp,
   Text,
   TextStyle,
-  ViewProps,
   ViewStyle,
 } from 'react-native';
-import VView from '../common/VView';
 
 const images = {
   card: {
@@ -20,10 +20,10 @@ const images = {
   },
 };
 
-interface NavItemProps extends ViewProps {
-  image: string;
-  onPress?: ((event: GestureResponderEvent) => void) | undefined;
+interface NavItemProps extends Omit<PressableProps, 'style'> {
+  image: keyof typeof images;
   selected: boolean;
+  style?: StyleProp<ViewStyle>;
   title: string;
 }
 
@@ -34,15 +34,13 @@ export default class NavItem extends Component<NavItemProps> {
 
   render() {
     const { image, onPress, selected, style, title } = this.props;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const imageFiles = (images as any)[image];
+    const imageFiles = images[image];
     const imageSource = selected ? imageFiles.on : imageFiles.off;
 
-    const viewStyles: ViewStyle = {};
-    viewStyles.alignItems = 'center';
-    viewStyles.width = 100;
-
-    Object.assign(viewStyles, style);
+    const viewStyles: ViewStyle = {
+      alignItems: 'center',
+      width: 100,
+    };
 
     const textStyles: TextStyle = {
       color: selected ? '#3C96F2' : '#A0A1A1',
@@ -51,10 +49,15 @@ export default class NavItem extends Component<NavItemProps> {
     };
 
     return (
-      <VView testID={`nav-${image}`} style={viewStyles} onTouchStart={onPress}>
+      <Pressable
+        accessibilityRole="button"
+        testID={`nav-${image}`}
+        style={[viewStyles, style]}
+        onPress={onPress}
+      >
         <Image source={imageSource} />
         <Text style={textStyles}>{title}</Text>
-      </VView>
+      </Pressable>
     );
   }
 }

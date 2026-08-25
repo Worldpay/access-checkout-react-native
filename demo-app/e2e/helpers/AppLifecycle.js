@@ -2,8 +2,7 @@
  * App lifecycle helpers for optimizing test startup and execution speed
  */
 
-const { device } = require('detox');
-const { sleep } = require('./TestHelpers');
+const { by, device, element, waitFor } = require('detox');
 
 /**
  * Launches app with optimized settings for test speed
@@ -32,13 +31,14 @@ async function launchAppOptimized(options = {}) {
  * @returns {Promise<void>}
  */
 async function resetAppState() {
-  // Reload React Native to reset all state
-  // This is necessary to clear form inputs between tests
-  await device.reloadReactNative();
+  // Restart the app so JS state, native views, event listeners and focus are
+  // recreated for every test. A React Native reload does not isolate all
+  // native state and became unreliable with the RN 0.87 migration.
+  await launchAppOptimized({ newInstance: true });
 
-  // Increased delay to allow app initialization, especially for navigation
-  // This is particularly important on Android after React Native 0.87 migration
-  await sleep(500);
+  await waitFor(element(by.id('root')))
+    .toBeVisible()
+    .withTimeout(10000);
 }
 
 /**
@@ -61,6 +61,7 @@ module.exports = {
   resetAppState,
   ensureAppIsReady,
 };
+
 
 
 

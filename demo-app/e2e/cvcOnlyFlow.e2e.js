@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { device, expect } = require('detox');
+/* eslint-env jest */
+const { expect } = require('detox');
 const { expect: jestExpect } = require('expect');
 const { sessionRegEx } = require('./helpers/RegularExpressions');
 const { CvcOnlyFlowPO } = require('./page-objects/CvcOnlyFlowPO');
 const { CvcOnlyFlowStatesPO } = require('./page-objects/CvcOnlyFlowStatesPO');
 const { launchAppOptimized, resetAppState } = require('./helpers/AppLifecycle');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 describe('CVC only flow', () => {
   const view = new CvcOnlyFlowPO();

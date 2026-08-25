@@ -1,11 +1,9 @@
 import React from 'react';
-import { Button, GestureResponderEvent } from 'react-native';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+import { Button, ButtonProps } from 'react-native';
 import UIComponentProps from './UIComponentProps';
 
 interface SubmitButtonProps extends UIComponentProps {
-  onPress: (e: GestureResponderEvent) => void;
+  onPress: NonNullable<ButtonProps['onPress']>;
   enabled: boolean;
 }
 
@@ -16,7 +14,7 @@ const SubmitButton = (props: SubmitButtonProps) => {
       title="Submit"
       color="red"
       accessibilityLabel="Submit Card Details"
-      onPress={(e: GestureResponderEvent) => props.onPress(e)}
+      onPress={props.onPress}
       disabled={!props.enabled}
     />
   );
