@@ -225,7 +225,7 @@ export default function CardFlow() {
           />
         </VView>
         <VView style={{ marginTop: '8%', marginLeft: '4%' }}>
-          <Text style={{ fontWeight: 'bold' }}>Sessions</Text>
+          <Text testID="sessionsLabel" style={{ fontWeight: 'bold' }}>Sessions</Text>
           {cardSessionComponent}
           {cvcSessionComponent}
         </VView>

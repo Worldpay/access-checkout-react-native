@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import {
   type ColorValue,
   findNodeHandle,
@@ -93,7 +93,10 @@ export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (
 
   const ref = useRef(null);
 
-  useEffect(() => {
+  // Use useLayoutEffect for view registration to ensure it happens synchronously
+  // before parent onLayout fires. This prevents race conditions where parent
+  // components call initialiseValidation() before views are registered.
+  useLayoutEffect(() => {
     if (ref.current) {
       const tag = findNodeHandle(ref.current);
       AccessCheckoutReactNative.registerView(tag, nativeID);

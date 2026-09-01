@@ -124,7 +124,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:5.2.0'
     testImplementation 'org.mockito.kotlin:mockito-kotlin:5.4.0'
 
-
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core"
     androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android'
 

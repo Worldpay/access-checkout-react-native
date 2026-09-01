@@ -43,6 +43,9 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+# pnpm
+pnpm-debug.log
+
 # iOS
 **/Pods/
 **/xcuserdata/
