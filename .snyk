@@ -1,0 +1,9 @@
+# Snyk (https://snyk.io) policy file
+---
+exclude:
+  global:
+    - demo-app
+    - test
+    - androidTest
+    - AccessCheckoutReactNativeUnitTests
+    - AccessCheckoutReactNativeUnitTestsApp
