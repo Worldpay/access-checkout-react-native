@@ -3,7 +3,7 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: './reports/coverage/',
   collectCoverageFrom: ['./src/**/*.{ts,tsx}'],
-  preset: 'react-native',
+  preset: '@react-native/jest-preset',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testRegex: '/test/.*.spec\\.ts(x)?',
   reporters: [
