@@ -13,7 +13,7 @@ importers:
         version: 0.87.0(@types/react@19.2.18)(react-native@0.87.0)(react@19.2.3)
       '@worldpay/access-worldpay-checkout-react-native-sdk':
         specifier: workspace:*
-        version: link:../access-checkout-react-native-sdk
+        version: file:../access-checkout-react-native-sdk(react-native@0.87.0)(react@19.2.3)
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -84,6 +84,9 @@ importers:
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
+    dependenciesMeta:
+      '@worldpay/access-worldpay-checkout-react-native-sdk':
+        injected: true
 
   ../access-checkout-react-native-sdk:
     devDependencies:
@@ -8924,3 +8927,16 @@ packages:
   /zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
     dev: true
+
+  file:../access-checkout-react-native-sdk(react-native@0.87.0)(react@19.2.3):
+    resolution: {directory: ../access-checkout-react-native-sdk, type: directory}
+    id: file:../access-checkout-react-native-sdk
+    name: '@worldpay/access-worldpay-checkout-react-native-sdk'
+    engines: {node: '>=22.11.0'}
+    peerDependencies:
+      react: '>=19.2.0'
+      react-native: '>=0.87.0'
+    dependencies:
+      react: 19.2.3
+      react-native: 0.87.0(@babel/core@7.29.7)(@react-native-community/cli@20.2.0)(@react-native/metro-config@0.87.0)(@types/react@19.2.18)(react@19.2.3)
+    dev: false

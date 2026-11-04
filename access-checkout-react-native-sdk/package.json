@@ -33,6 +33,7 @@
     "android",
     "ios/AccessCheckoutReactNative",
     "access-checkout-react-native-sdk.podspec",
+    "Package.swift",
     "CHANGELOG.md",
     "README.md",
     "worldpay_logo.png",

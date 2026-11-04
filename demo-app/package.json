@@ -4,6 +4,10 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "preios": "node scripts/ensure-spm.js",
+    "postinstall": "node scripts/apply-spm-patches.js",
+    "pree2e:build:ios": "node scripts/ensure-spm.js",
+    "pree2e:build:ios-ci": "node scripts/ensure-spm.js",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
@@ -31,6 +35,11 @@
     "@react-native/new-app-screen": "0.87.0",
     "react-native-safe-area-context": "^5.5.2",
     "@worldpay/access-worldpay-checkout-react-native-sdk": "workspace:*"
+  },
+  "dependenciesMeta": {
+    "@worldpay/access-worldpay-checkout-react-native-sdk": {
+      "injected": true
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

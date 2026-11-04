@@ -13,7 +13,10 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/Worldpay/access-checkout-react-native.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/AccessCheckoutReactNative/**/*.{h,m,mm,swift}"
-  s.resource_bundles = { 'access-checkout-react-native-sdk' => [ 'ios/PrivacyInfo.xcprivacy' ] }
+  # NB: PrivacyInfo.xcprivacy lives inside ios/AccessCheckoutReactNative so that it
+  # both ships in the npm package (covered by the "ios/AccessCheckoutReactNative"
+  # entry in package.json "files") and sits within the SPM target path.
+  s.resource_bundles = { 'access-checkout-react-native-sdk' => [ 'ios/AccessCheckoutReactNative/PrivacyInfo.xcprivacy' ] }
 
   s.dependency 'React-Core'
   s.dependency "AccessCheckoutSDK", "~> 4.1"
