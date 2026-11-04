@@ -234,6 +234,18 @@ fi
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "516A9F5F2757D3B800E9B00E"
+               BuildableName = "AccessCheckoutReactNativeUnitTests.xctest"
+               BlueprintName = "AccessCheckoutReactNativeUnitTests"
+               ReferencedContainer = "container:AccessCheckoutReactNative.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

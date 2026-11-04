@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0808AEE5DF72B568F7EFA17C /* ReactCodegen in Frameworks */ = {isa = PBXBuildFile; productRef = 2D858D17F0D1F7C97B8EEE2F /* ReactCodegen */; };
 		2F6449250D799C54A4D53240 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 23B266BD246231AD9C47DBA9 /* PrivacyInfo.xcprivacy */; };
 		3CDB79A77AC50F1500E7DE9A /* ReactAppDependencyProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 47F5FB23485548481355E03D /* ReactAppDependencyProvider */; };
+		44606048FC544652B18FE9BD /* ReactHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = CA7AD6EE034DE51CC0E95880 /* ReactHeaders */; };
 		46D3A9632B3447AE0056016D /* SessionGenerationTestUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3A9622B3447AE0056016D /* SessionGenerationTestUIViewController.swift */; };
 		46D3A9652B34494B0056016D /* SessionGenerationTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46D3A9642B34494B0056016D /* SessionGenerationTest.storyboard */; };
 		46D3A9682B3461030056016D /* AccessCheckoutReactNativeTestImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3A9672B3461030056016D /* AccessCheckoutReactNativeTestImplementation.swift */; };
@@ -53,9 +54,19 @@
 		51D03E9C27A8611D009781EB /* CardValidationTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D03E9B27A8611D009781EB /* CardValidationTest.storyboard */; };
 		51D03EBC27A8658B009781EB /* CardValidationTestUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D03EBB27A8658B009781EB /* CardValidationTestUIViewController.swift */; };
 		534DEF619BA89A517B3CF5AA /* Autolinked in Frameworks */ = {isa = PBXBuildFile; productRef = 7AAF28E3179D6611F523D45E /* Autolinked */; };
+		59F1CB1F695B374AA6D94366 /* ReactNativeDependenciesHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = EFD05AEA93A537CF722771EF /* ReactNativeDependenciesHeaders */; };
 		64ADC9392816E1510045BA58 /* AccessCheckoutReactNativeSessionAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ADC9382816E1510045BA58 /* AccessCheckoutReactNativeSessionAcceptanceTests.swift */; };
+		6B1E7B3827EE5B9D7DF980A4 /* ReactAppHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = AD14FA68E0358C86647DBEB6 /* ReactAppHeaders */; };
+		7D3021FCAFC24B4FB4DBDBC0 /* AccessCheckoutSDK in Frameworks */ = {isa = PBXBuildFile; productRef = B309443CAAF6C73524A15135 /* AccessCheckoutSDK */; };
+		8B2C7AF492FCE89D2B3A1630 /* ReactNativeDependenciesHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = 5A076F846FA48A1FBABE37F0 /* ReactNativeDependenciesHeaders */; };
 		9DAEFB4138A83250E4AFEE44 /* ReactNativeDependenciesHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = 3808901B207EFDDBE0081297 /* ReactNativeDependenciesHeaders */; };
+		B9148C89E0D3F0109743B28A /* ReactNativeHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = 2989E38FC1B41FA10DF8F70F /* ReactNativeHeaders */; };
+		BBBBE393169E75EBD75B7496 /* ReactAppHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = 4AB85CCCCFAC052855D182A9 /* ReactAppHeaders */; };
+		C4879677599BB7C7DAD95942 /* ReactNativeHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = E42B6D401CA64246C0CA23B8 /* ReactNativeHeaders */; };
 		CB9296AEA80A49D9BAC99032 /* ReactHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = 628730E8BB357F8131AACC0D /* ReactHeaders */; };
+		CC29A28BC685C2B00ED218B4 /* Mockingjay in Frameworks */ = {isa = PBXBuildFile; productRef = 7DAE7857BFDC8566090F03CC /* Mockingjay */; };
+		DDE257AE61110CD5AD37A5F3 /* AccessCheckoutSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 1C52EB43EE3D9E70E37F2A14 /* AccessCheckoutSDK */; };
+		EDB904A3FAAC27B61E0E95DA /* ReactHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = 44606D07D958B3E5FFC1D851 /* ReactHeaders */; };
 		F006C4C01118C6CCC791CFDF /* ReactNativeHeaders in Frameworks */ = {isa = PBXBuildFile; productRef = CBE85E060796549DCE162045 /* ReactNativeHeaders */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +88,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		23B266BD246231AD9C47DBA9 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		23B266BD246231AD9C47DBA9 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ../AccessCheckoutReactNative/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		46D3A9622B3447AE0056016D /* SessionGenerationTestUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionGenerationTestUIViewController.swift; sourceTree = "<group>"; };
 		46D3A9642B34494B0056016D /* SessionGenerationTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SessionGenerationTest.storyboard; sourceTree = "<group>"; };
 		46D3A9672B3461030056016D /* AccessCheckoutReactNativeTestImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCheckoutReactNativeTestImplementation.swift; sourceTree = "<group>"; };
@@ -133,6 +144,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44606048FC544652B18FE9BD /* ReactHeaders in Frameworks */,
+				C4879677599BB7C7DAD95942 /* ReactNativeHeaders in Frameworks */,
+				8B2C7AF492FCE89D2B3A1630 /* ReactNativeDependenciesHeaders in Frameworks */,
+				6B1E7B3827EE5B9D7DF980A4 /* ReactAppHeaders in Frameworks */,
+				DDE257AE61110CD5AD37A5F3 /* AccessCheckoutSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +157,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				516A9F612757D3B800E9B00E /* AccessCheckoutReactNative.framework in Frameworks */,
+				EDB904A3FAAC27B61E0E95DA /* ReactHeaders in Frameworks */,
+				B9148C89E0D3F0109743B28A /* ReactNativeHeaders in Frameworks */,
+				59F1CB1F695B374AA6D94366 /* ReactNativeDependenciesHeaders in Frameworks */,
+				BBBBE393169E75EBD75B7496 /* ReactAppHeaders in Frameworks */,
+				7D3021FCAFC24B4FB4DBDBC0 /* AccessCheckoutSDK in Frameworks */,
+				CC29A28BC685C2B00ED218B4 /* Mockingjay in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +352,13 @@
 			dependencies = (
 			);
 			name = AccessCheckoutReactNative;
+			packageProductDependencies = (
+				CA7AD6EE034DE51CC0E95880 /* ReactHeaders */,
+				E42B6D401CA64246C0CA23B8 /* ReactNativeHeaders */,
+				5A076F846FA48A1FBABE37F0 /* ReactNativeDependenciesHeaders */,
+				AD14FA68E0358C86647DBEB6 /* ReactAppHeaders */,
+				1C52EB43EE3D9E70E37F2A14 /* AccessCheckoutSDK */,
+			);
 			productName = AccessCheckoutReactNative;
 			productReference = 516A9F572757D3B800E9B00E /* AccessCheckoutReactNative.framework */;
 			productType = "com.apple.product-type.framework";
@@ -349,6 +378,14 @@
 				51D03E8927A86054009781EB /* PBXTargetDependency */,
 			);
 			name = AccessCheckoutReactNativeUnitTests;
+			packageProductDependencies = (
+				44606D07D958B3E5FFC1D851 /* ReactHeaders */,
+				2989E38FC1B41FA10DF8F70F /* ReactNativeHeaders */,
+				EFD05AEA93A537CF722771EF /* ReactNativeDependenciesHeaders */,
+				4AB85CCCCFAC052855D182A9 /* ReactAppHeaders */,
+				B309443CAAF6C73524A15135 /* AccessCheckoutSDK */,
+				7DAE7857BFDC8566090F03CC /* Mockingjay */,
+			);
 			productName = AccessCheckoutReactNativeUnitTests;
 			productReference = 516A9F602757D3B800E9B00E /* AccessCheckoutReactNativeUnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -417,6 +454,8 @@
 				2F870CEB2BF993FBF37D0090 /* XCLocalSwiftPackageReference "xcframeworks" */,
 				2FD4DC01B44B3C3EC40B46A1 /* XCLocalSwiftPackageReference "autolinking" */,
 				7742C7EEE65BC1AA6E685B2B /* XCLocalSwiftPackageReference "ios" */,
+				32AA9EB99F7EB5B739E57BA8 /* XCRemoteSwiftPackageReference "access-checkout-ios" */,
+				FAECAD8B3C4663EC66ABF5FE /* XCLocalSwiftPackageReference "Mockingjay" */,
 			);
 			productRefGroup = 516A9F582757D3B800E9B00E /* Products */;
 			projectDirPath = "";
@@ -819,6 +858,11 @@
 				);
 				MARKETING_VERSION = 0.1;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 c++20";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-undefined",
+					dynamic_lookup,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.worldpay.AccessCheckoutReactNative;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -849,6 +893,11 @@
 				);
 				MARKETING_VERSION = 0.1;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 c++20";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-undefined",
+					dynamic_lookup,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.worldpay.AccessCheckoutReactNative;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -868,6 +917,11 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-undefined",
+					dynamic_lookup,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.worldpay.AccessCheckoutReactNativeUnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -886,6 +940,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-undefined",
+					dynamic_lookup,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.worldpay.AccessCheckoutReactNativeUnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1138,9 +1197,34 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = build/generated/ios;
 		};
+		FAECAD8B3C4663EC66ABF5FE /* XCLocalSwiftPackageReference "Mockingjay" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = vendor/Mockingjay;
+		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		32AA9EB99F7EB5B739E57BA8 /* XCRemoteSwiftPackageReference "access-checkout-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Worldpay/access-checkout-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		1C52EB43EE3D9E70E37F2A14 /* AccessCheckoutSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 32AA9EB99F7EB5B739E57BA8 /* XCRemoteSwiftPackageReference "access-checkout-ios" */;
+			productName = AccessCheckoutSDK;
+		};
+		2989E38FC1B41FA10DF8F70F /* ReactNativeHeaders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F870CEB2BF993FBF37D0090 /* XCLocalSwiftPackageReference "xcframeworks" */;
+			productName = ReactNativeHeaders;
+		};
 		2D858D17F0D1F7C97B8EEE2F /* ReactCodegen */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7742C7EEE65BC1AA6E685B2B /* XCLocalSwiftPackageReference "ios" */;
@@ -1151,10 +1235,25 @@
 			package = 2F870CEB2BF993FBF37D0090 /* XCLocalSwiftPackageReference "xcframeworks" */;
 			productName = ReactNativeDependenciesHeaders;
 		};
+		44606D07D958B3E5FFC1D851 /* ReactHeaders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F870CEB2BF993FBF37D0090 /* XCLocalSwiftPackageReference "xcframeworks" */;
+			productName = ReactHeaders;
+		};
 		47F5FB23485548481355E03D /* ReactAppDependencyProvider */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7742C7EEE65BC1AA6E685B2B /* XCLocalSwiftPackageReference "ios" */;
 			productName = ReactAppDependencyProvider;
+		};
+		4AB85CCCCFAC052855D182A9 /* ReactAppHeaders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7742C7EEE65BC1AA6E685B2B /* XCLocalSwiftPackageReference "ios" */;
+			productName = ReactAppHeaders;
+		};
+		5A076F846FA48A1FBABE37F0 /* ReactNativeDependenciesHeaders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F870CEB2BF993FBF37D0090 /* XCLocalSwiftPackageReference "xcframeworks" */;
+			productName = ReactNativeDependenciesHeaders;
 		};
 		628730E8BB357F8131AACC0D /* ReactHeaders */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1166,10 +1265,40 @@
 			package = 2FD4DC01B44B3C3EC40B46A1 /* XCLocalSwiftPackageReference "autolinking" */;
 			productName = Autolinked;
 		};
+		7DAE7857BFDC8566090F03CC /* Mockingjay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAECAD8B3C4663EC66ABF5FE /* XCLocalSwiftPackageReference "Mockingjay" */;
+			productName = Mockingjay;
+		};
+		AD14FA68E0358C86647DBEB6 /* ReactAppHeaders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7742C7EEE65BC1AA6E685B2B /* XCLocalSwiftPackageReference "ios" */;
+			productName = ReactAppHeaders;
+		};
+		B309443CAAF6C73524A15135 /* AccessCheckoutSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 32AA9EB99F7EB5B739E57BA8 /* XCRemoteSwiftPackageReference "access-checkout-ios" */;
+			productName = AccessCheckoutSDK;
+		};
+		CA7AD6EE034DE51CC0E95880 /* ReactHeaders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F870CEB2BF993FBF37D0090 /* XCLocalSwiftPackageReference "xcframeworks" */;
+			productName = ReactHeaders;
+		};
 		CBE85E060796549DCE162045 /* ReactNativeHeaders */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2F870CEB2BF993FBF37D0090 /* XCLocalSwiftPackageReference "xcframeworks" */;
 			productName = ReactNativeHeaders;
+		};
+		E42B6D401CA64246C0CA23B8 /* ReactNativeHeaders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F870CEB2BF993FBF37D0090 /* XCLocalSwiftPackageReference "xcframeworks" */;
+			productName = ReactNativeHeaders;
+		};
+		EFD05AEA93A537CF722771EF /* ReactNativeDependenciesHeaders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F870CEB2BF993FBF37D0090 /* XCLocalSwiftPackageReference "xcframeworks" */;
+			productName = ReactNativeDependenciesHeaders;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
