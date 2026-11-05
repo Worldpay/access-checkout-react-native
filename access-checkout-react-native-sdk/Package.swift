@@ -61,7 +61,7 @@ let objcSources = [
 
 let package = Package(
     name: "AccessWorldpayCheckoutReactNativeSdk",
-    platforms: [.iOS(.v13)],
+    platforms: [.iOS(.v15)],
     products: [
         // Both targets are shipped together as one library.
         .library(

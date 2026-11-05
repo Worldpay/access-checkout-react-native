@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.homepage     = package["repository"]["url"]
   s.license      = package["license"]
   s.authors      = package["author"]
-  s.platforms    = { :ios => "13.0" }
+  s.platforms    = { :ios => "15.0" }
   s.source       = { :git => "https://github.com/Worldpay/access-checkout-react-native.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/AccessCheckoutReactNative/**/*.{h,m,mm,swift}"
