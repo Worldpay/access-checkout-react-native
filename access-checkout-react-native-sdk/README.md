@@ -16,7 +16,7 @@ You can find the detailed documentation explaining how to integrate the SDK and 
 
 ## Compatibility
 
-- `React Native 0.83.0` and above
+- `React Native 0.87.0` and above
 - `React 19.2.0` and above
 - `Android API level 24 (Android 7)` and above
 - `Cocoapods` only for iOS dependencies

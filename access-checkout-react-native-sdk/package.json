@@ -33,6 +33,7 @@
     "android",
     "ios/AccessCheckoutReactNative",
     "access-checkout-react-native-sdk.podspec",
+    "Package.swift",
     "CHANGELOG.md",
     "README.md",
     "worldpay_logo.png",
@@ -52,11 +53,12 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@babel/runtime": "^7.25.0",
-    "@react-native-community/cli": "^18.0.0",
-    "@react-native/babel-preset": "0.83.9",
-    "@react-native/eslint-config": "0.83.9",
-    "@react-native/metro-config": "0.83.9",
-    "@react-native/typescript-config": "0.83.9",
+    "@react-native-community/cli": "20.2.0",
+    "@react-native/babel-preset": "0.87.0",
+    "@react-native/eslint-config": "0.87.0",
+    "@react-native/jest-preset": "0.87.0",
+    "@react-native/metro-config": "0.87.0",
+    "@react-native/typescript-config": "0.87.0",
     "@testing-library/react-native": "^12.4.3",
     "@types/jest": "^27.0.3",
     "@types/node": "^18.19.84",
@@ -73,19 +75,19 @@
     "jest-html-reporter": "^3.10.2",
     "jest-junit": "^16.0.0",
     "prettier": "3.6.2",
-    "react": "19.2.0",
-    "react-native": "^0.83.9",
+    "react": "19.2.3",
+    "react-native": "^0.87.0",
     "react-native-builder-bob": "^0.32.1",
-    "react-test-renderer": "19.2.0",
+    "react-test-renderer": "19.2.3",
     "ts-jest": "^29.1.2",
     "typescript": "5.8.3"
   },
   "peerDependencies": {
     "react": ">=19.2.0",
-    "react-native": ">=0.83.0"
+    "react-native": ">=0.87.0"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22.11.0"
   },
   "react-native-builder-bob": {
     "source": "src",
