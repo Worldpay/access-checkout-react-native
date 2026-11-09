@@ -1,8 +1,7 @@
 // swift-tools-version: 6.0
 // Package.swift for @worldpay/access-worldpay-checkout-react-native-sdk
 //
-// This ships Swift Package Manager (SPM) support ALONGSIDE the existing
-// CocoaPods podspec (access-checkout-react-native-sdk.podspec). React Native's
+// This ships Swift Package Manager (SPM) support . React Native's
 // SPM autolinking treats a library that ships its own Package.swift as
 // "self-managed" and uses this file as-is (instead of auto-generating one from
 // the podspec — which it cannot do for a mixed Swift + Objective-C module).
@@ -60,12 +59,12 @@ let objcSources = [
 ]
 
 let package = Package(
-    name: "AccessWorldpayCheckoutReactNativeSdk",
+    name: "access-checkout-react-native-sdk",
     platforms: [.iOS(.v15)],
     products: [
         // Both targets are shipped together as one library.
         .library(
-            name: "AccessWorldpayCheckoutReactNativeSdk",
+            name: "access-checkout-react-native-sdk",
             targets: [
                 "AccessWorldpayCheckoutReactNativeSdk",
                 "AccessWorldpayCheckoutReactNativeSdkObjC",
