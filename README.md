@@ -10,7 +10,6 @@
 - node
 - npm
 - detox-cli (global install)
-- pod (Cocoapods)
 - watchman (used as part of building Android app)
 
 2. Create a custom device in Simulator for `iPhone 8` and `iOS 14` and name it `iphone8-14` 
@@ -18,8 +17,8 @@
 ## React & React Native Compatibility
 
 Our SDK is compatible with:
-- `React Native 0.83.0` and above
-- `React 19.2.0` and above
+- `React Native 0.89.0` and above
+- `React 19.3.0` and above
 - `Android API level 24 (Android 7)` and above
 
 ## Getting Started
@@ -33,64 +32,11 @@ cd access-checkout-react-native-sdk
 npm install
 ```
 
-2. Install the CocoaPods dependencies in the `access-checkout-react-native-sdk` project's iOS bridge
-
-```
-cd access-checkout-react-native-sdk/ios
-bundle exec pod install
-```
-
-3. Re-run the script used to export the SDK's types
+2Re-run the script used to export the SDK's types
 
 ```
 cd access-checkout-react-native-sdk
 npm run prepare
-```
-
-### Compiling the demo application
-
-1. Install the npm dependencies in the demo-app  folder
-
-```
-cd demo-app/
-npm install
-```
-
-2. Install the CocoaPods dependencies in the demo-app's ios folder
-
-```
-cd demo-app/ios
-bundle exec pod install
-```
-
-3. Compile the application
-
-```
-cd demo-app/
-npm run typescript
-```
-
-## Running the Demo Application
-
-First, start the metro server
-
-```
-cd demo-app/
-npm run start
-```
-
-### Running the application for iOS
-
-```
-cd demo-app/
-npm run ios
-```
-
-### Running the application for Android
-
-```
-cd demo-app/
-npm run android
 ```
 
 ## Developing in this repo
@@ -100,12 +46,11 @@ npm run android
 well as the demo-app module
 
 ### IOS
-* To work on the react native module, open `ios/AccessCheckoutReactNative.xcworkspace` in XCode.
-* To run the demo application, open `demo-app/ios/AccessCheckoutReactNativeDemo.xcworkspace` in XCode.
-   * Use this application to debug the code, you can find the module code in `Pods/Development Pods/AccessCheckoutSDK-React`
+* To work on the react native module, open `ios/AccessCheckoutReactNative.xcodeproj` in XCode.
+* To run the demo application, open `demo-app/ios/AccessCheckoutReactNativeDemo.xcodeproj` in XCode.
 
 ### ReactNative
-* To work on the ReactNative part of the demo application, open the root directory in Intellij and you can work in `demo-app/src`
+* To work on the ReactNative part of the demo application, open the root directory in IntelliJ and you can work in `demo-app/src`
 
 ### Running the SDK tests
 
