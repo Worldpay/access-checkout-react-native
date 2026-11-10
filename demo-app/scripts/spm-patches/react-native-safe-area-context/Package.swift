@@ -14,10 +14,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "ReactNativeSafeAreaContext",
+    name: "react-native-safe-area-context",
     platforms: [.iOS(.v15)],
     products: [
-        .library(name: "ReactNativeSafeAreaContext", targets: ["ReactNativeSafeAreaContext"]),
+        .library(name: "react-native-safe-area-context", targets: ["ReactNativeSafeAreaContext"]),
     ],
     dependencies: [
         .package(name: "ReactNative", path: "../../../../xcframeworks"),
