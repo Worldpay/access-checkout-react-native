@@ -130,3 +130,6 @@ access-checkout-react-native-sdk/lib
 # or `swift package` commands). Never commit it.
 .build/
 .swiftpm/
+
+# AI
+.github/prompts

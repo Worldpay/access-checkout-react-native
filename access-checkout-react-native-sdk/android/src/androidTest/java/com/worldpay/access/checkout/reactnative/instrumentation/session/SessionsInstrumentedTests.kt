@@ -139,16 +139,16 @@ class SessionsInstrumentedTests {
         scenario: ActivityScenario<SessionsInstrumentedTestsActivity>,
         expectedMap: Map<String, String>
     ) {
-        await().atMost(timeOutInMs, MILLISECONDS).until {
+        // untilAsserted retries while the assertion fails (and reports the last failure on timeout). Throwing from a
+        // plain until { } block makes Awaitility fail on the very first poll, before the SDK's HTTP call completes.
+        await().atMost(timeOutInMs, MILLISECONDS).untilAsserted {
             var sessions: Map<String, String> = HashMap()
             scenario.onActivity { activity ->
-                sessions = activity.sessions
-
+                sessions = HashMap(activity.sessions)
             }
             if (sessions != expectedMap) {
                 throw AssertionError("Expected sessions: $expectedMap but was: $sessions")
             }
-            true
         }
     }
 

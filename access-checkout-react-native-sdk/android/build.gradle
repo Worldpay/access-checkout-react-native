@@ -109,6 +109,11 @@ repositories {
 
 def kotlin_version = getExtOrDefault("kotlinVersion")
 
+// Single Mockito version for unit AND instrumented tests. Do not go above 5.17.0 while android.enableJetifier=true:
+// 5.20+ pulls in byte-buddy 1.17.x, whose Java 24 class files (major version 68) make Jetifier fail with
+// "Unsupported class file major version 68" (on both the unit test and androidTest classpaths).
+def mockito_version = '5.17.0'
+
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
@@ -120,7 +125,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:3.26.3'
     testImplementation 'org.robolectric:robolectric:4.10.3'
-    testImplementation 'org.mockito:mockito-core:5.16.1'
+    // Do NOT add mockito-android here: it is for androidTest only. On the JVM its AndroidByteBuddyMockMaker gets picked
+    // as the MockMaker and fails with "Could not initialize plugin: interface org.mockito.plugins.MockMaker".
+    testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation 'org.mockito:mockito-inline:5.2.0'
     testImplementation 'org.mockito.kotlin:mockito-kotlin:5.4.0'
 
@@ -141,5 +148,7 @@ dependencies {
     // noinspection GradleDependency
     androidTestImplementation 'org.assertj:assertj-core:3.26.3'
     androidTestImplementation "com.github.tomakehurst:wiremock-standalone:2.27.2"
-    androidTestImplementation 'org.mockito:mockito-android:4.3.1'
+    // Mockito 5.x uses the inline mock maker, which works on the API 34 emulator (the old 4.3.1 relied on ByteBuddy's
+    // dex-injecting class loader, which fails on modern Android). Version: see mockito_version above.
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
 }
