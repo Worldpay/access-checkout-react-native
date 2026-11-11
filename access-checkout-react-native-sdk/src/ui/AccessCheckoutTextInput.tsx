@@ -89,7 +89,7 @@ export const AccessCheckoutTextInput: React.FC<AccessCheckoutTextInputProps> = (
     fontWeight,
     height = 40,
     ...otherStyles
-  } = StyleSheet.flatten([style]);
+  } = (StyleSheet.flatten([style]) ?? {}) as AccessCheckoutTextInputStyle;
 
   const ref = useRef(null);
 

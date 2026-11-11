@@ -1,0 +1,71 @@
+{
+  "rootUuid": "516A9F4E2757D3B800E9B00E",
+  "target": "AccessCheckoutReactNativeUnitTestsApp",
+  "targetUuid": "51D03E6527A85FBA009781EB",
+  "injectedUuids": [
+    "0808AEE5DF72B568F7EFA17C",
+    "23F46C8DDED4EB2D01603DD8",
+    "23F46C8DDED4EB2D01603DD8",
+    "2D858D17F0D1F7C97B8EEE2F",
+    "2F870CEB2BF993FBF37D0090",
+    "2FD4DC01B44B3C3EC40B46A1",
+    "3808901B207EFDDBE0081297",
+    "3CDB79A77AC50F1500E7DE9A",
+    "47F5FB23485548481355E03D",
+    "534DEF619BA89A517B3CF5AA",
+    "628730E8BB357F8131AACC0D",
+    "7742C7EEE65BC1AA6E685B2B",
+    "7AAF28E3179D6611F523D45E",
+    "9DAEFB4138A83250E4AFEE44",
+    "B87DE60061899AECCEFB459F",
+    "CB9296AEA80A49D9BAC99032",
+    "CBE85E060796549DCE162045",
+    "E921E5DE29AC88B6E95AB317",
+    "F006C4C01118C6CCC791CFDF"
+  ],
+  "createdArrayFields": [
+    {
+      "container": "project",
+      "key": "packageReferences"
+    },
+    {
+      "container": "target",
+      "key": "packageProductDependencies"
+    }
+  ],
+  "xcconfig": {
+    "fileRefUuid": "23F46C8DDED4EB2D01603DD8",
+    "configUuids": [
+      "51D03E7827A85FC4009781EB",
+      "51D03E7927A85FC4009781EB"
+    ],
+    "includedByConfigUuids": [],
+    "removedPodsRootReactNativePath": false
+  },
+  "generatedSources": {},
+  "scriptPhases": {},
+  "linkedFrameworks": [
+    {
+      "id": "react",
+      "frameworkName": "React"
+    },
+    {
+      "id": "react-native-dependencies",
+      "frameworkName": "ReactNativeDependencies"
+    },
+    {
+      "id": "hermes",
+      "frameworkName": "hermesvm"
+    }
+  ],
+  "artifactsVersionOverride": null,
+  "configCommand": [
+    "node",
+    "ios/spm-config-command.js"
+  ],
+  "cxxApiDefines": [],
+  "scheme": {
+    "file": "AccessCheckoutReactNativeUnitTestsApp.xcscheme",
+    "created": true
+  }
+}

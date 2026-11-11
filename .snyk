@@ -7,3 +7,4 @@ exclude:
     - androidTest
     - AccessCheckoutReactNativeUnitTests
     - AccessCheckoutReactNativeUnitTestsApp
+    - Mockingjay # iOS package

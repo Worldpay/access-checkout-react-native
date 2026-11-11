@@ -1,3 +1,6 @@
+# Build dir
+**/build
+
 # OSX
 .DS_Store
 
@@ -23,7 +26,6 @@ project.xcworkspace
 **/.xcode.env.local
 
 # Android/IntelliJ
-build/
 .idea
 .gradle
 local.properties
@@ -122,3 +124,12 @@ nitrogen/
 
 # Build
 access-checkout-react-native-sdk/lib
+
+# Swift Package Manager
+# SwiftPM working/cache dir (regenerable; created by `swift build`, Xcode resolve,
+# or `swift package` commands). Never commit it.
+.build/
+.swiftpm/
+
+# AI
+.github/prompts
